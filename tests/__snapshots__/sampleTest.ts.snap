@@ -2,7 +2,7 @@
 
 exports[`Get Visitors with limit and before 1`] = `
 Object {
-  "lastTimestamp": 1626538498145,
+  "lastTimestamp": 1626538499206,
   "visitorId": "TaDnMBz9XCpZNuSzFUqP",
   "visits": Array [
     Object {
@@ -159,45 +159,6 @@ Object {
       "tag": Object {},
       "time": "2021-07-17T16:14:59Z",
       "timestamp": 1626538499207,
-      "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
-    },
-    Object {
-      "browserDetails": Object {
-        "botProbability": 0,
-        "browserFullVersion": "91.0.4472",
-        "browserMajorVersion": "91",
-        "browserName": "Chrome",
-        "device": "Other",
-        "os": "Windows",
-        "osVersion": "10",
-        "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-      },
-      "incognito": false,
-      "ip": "185.5.70.59",
-      "ipLocation": Object {
-        "accuracyRadius": 100,
-        "city": Object {
-          "name": "",
-        },
-        "continent": Object {
-          "code": "EU",
-          "name": "Europe",
-        },
-        "country": Object {
-          "code": "CZ",
-          "name": "Czechia",
-        },
-        "latitude": 50.0848,
-        "longitude": 14.4112,
-        "postalCode": "",
-        "subdivisions": null,
-        "timezone": "Europe/Prague",
-      },
-      "linkedId": "makma",
-      "requestId": "1626538498145.YfHilP",
-      "tag": Object {},
-      "time": "2021-07-17T16:14:58Z",
-      "timestamp": 1626538498145,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
     },
   ],

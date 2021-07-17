@@ -15,6 +15,6 @@
   },
   "plugins": ["@typescript-eslint"],
   "rules": {
-    "indent": ["error", 2]
+    "no-tabs": ["error", {"allowIndentationTabs": true}]
   }
 }
