@@ -84,3 +84,6 @@ const visitorHistory = await client.getVisitorHistory(existingVisitorId);
   "lastTimestamp": 1582299576512
 }
 ```
+
+## Release new version
+Change version in package.json to 1.2.3 and push a commit with the message Release 1.2.3, the npm-publish action will create a new tag v1.2.3 and publish the package to the npm registry.
