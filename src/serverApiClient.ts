@@ -1,12 +1,10 @@
 import fetch from 'node-fetch';
 import querystring from 'querystring'
+import { getVisitorsPath } from './pathUtils';
 import { FingerprintJsServerApiConfig } from './serverApiConfig';
 import { VisitorHistoryFilter, VisitorsResponse, Region } from './types';
 
 export class FingerprintJsServerApiClient {
-  private readonly euRegionUrl = "https://eu.api.fpjs.io/";
-  private readonly globaRegionUrl = "https://api.fpjs.io/";
-
   private readonly clientConfig: FingerprintJsServerApiConfig;
 
   /**
@@ -31,9 +29,7 @@ export class FingerprintJsServerApiClient {
     if (!visitorId) {
       throw Error(`VisitorId is not set`);
     }
-
-    const serverApiUrl = this.getServerApiUrl(this.clientConfig.region);
-    const serverApiPath = `${serverApiUrl}visitors/${visitorId}`;
+    const serverApiPath = getVisitorsPath(this.clientConfig.region, visitorId);
     const queryString = filter ? querystring.stringify(filter) : '';
     const url = `${serverApiPath}?${queryString}`;
 
@@ -54,16 +50,5 @@ export class FingerprintJsServerApiClient {
       .catch((err) => {
         throw new Error(err.toString());
       })
-  }
-
-  private getServerApiUrl(region: Region) {
-    switch (region) {
-      case Region.EU:
-        return this.euRegionUrl;
-      case Region.Global:
-        return this.globaRegionUrl;
-      default:
-        throw new Error(`Unsupported region`);
-    }
   }
 }

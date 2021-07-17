@@ -1,6 +1,6 @@
-import { VisitorHistoryFilter, Region } from './../src/types';
-import { FingerprintJsServerApiClient } from './../src/serverApiClient';
-import { FingerprintJsServerApiConfig } from './../src/serverApiConfig';
+import { VisitorHistoryFilter, Region } from '../src/types';
+import { FingerprintJsServerApiClient } from '../src/serverApiClient';
+import { FingerprintJsServerApiConfig } from '../src/serverApiConfig';
 
 describe('Get Visitors', () => {
 
@@ -13,51 +13,31 @@ describe('Get Visitors', () => {
   const client = new FingerprintJsServerApiClient(config);
 
   test('without filter', async () => {
-    try {
       const response = await client.getVisitorHistory(existingVisitorId);
       expect(response).toMatchSnapshot();
-    } catch (e) {
-      fail();
-    }
   });
 
   test('with request_id filter', async () => {
-    try {
       const filter: VisitorHistoryFilter = { request_id: existingRequestId };
       const response = await client.getVisitorHistory(existingVisitorId, filter);
       expect(response).toMatchSnapshot();
-    } catch (e) {
-      fail();
-    }
   });
 
   test('with request_id and linked_id filter', async () => {
-    try {
       const filter: VisitorHistoryFilter = { request_id: existingRequestId, linked_id: existingLinkedId };
       const response = await client.getVisitorHistory(existingVisitorId, filter);
       expect(response).toMatchSnapshot();
-    } catch (e) {
-      fail();
-    }
   });
 
   test('with linked_id and limit filter', async () => {
-    try {
       const filter: VisitorHistoryFilter = { linked_id: existingLinkedId, limit: 5 };
       const response = await client.getVisitorHistory(existingVisitorId, filter);
       expect(response).toMatchSnapshot();
-    } catch (e) {
-      fail();
-    }
   });
 
   test('with limit and before', async () => {
-    try {
       const filter: VisitorHistoryFilter = { limit: 4, before: 1626538505244 };
       const response = await client.getVisitorHistory(existingVisitorId, filter);
       expect(response).toMatchSnapshot();
-    } catch (e) {
-      fail();
-    }
   });
 });
