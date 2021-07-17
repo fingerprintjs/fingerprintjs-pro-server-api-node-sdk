@@ -13,7 +13,7 @@ export enum Region {
   export interface VisitorsResponse {
     lastTimestamp?: string;
     visitorId: string;
-    visits: [Visit]
+    visits: Visit[];
   }
   
   export interface Visit {

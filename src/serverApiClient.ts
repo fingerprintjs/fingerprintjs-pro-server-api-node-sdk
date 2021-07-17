@@ -23,7 +23,7 @@ export class FingerprintJsServerApiClient {
     }
 
     const serverApiUrl = this.getServerApiUrl(this.clientConfig.region);
-    const serverApiPath = `${serverApiUrl}/visitors/${visitorId}`;
+    const serverApiPath = `${serverApiUrl}visitors/${visitorId}`;
     const queryString = filter ? querystring.stringify(filter) : '';
     const url = `${serverApiPath}?${queryString}`;
 
@@ -34,7 +34,8 @@ export class FingerprintJsServerApiClient {
       .then((response) => {
         return response.json()
           .then(jsonData => {
-            return jsonData as VisitorsResponse;
+            const visitorsResponse = jsonData as VisitorsResponse;
+            return visitorsResponse;
           })
           .catch(err => {
             throw new Error(err.toString());
@@ -53,7 +54,6 @@ export class FingerprintJsServerApiClient {
         return this.globaRegionUrl;
       default:
         throw new Error(`Unsupported region`);
-
     }
   }
 }
