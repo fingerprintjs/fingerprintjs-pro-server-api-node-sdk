@@ -15,7 +15,8 @@ jobs:
         node-version: 12
         registry-url: https://registry.npmjs.org/
     - run: npm install
-    - run: npm run build
+    - run: tsc
+    - run: npx jest
     - name: Publish if version has been updated
       uses: makma/npm-publish-action@master
       with:
