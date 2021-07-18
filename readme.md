@@ -1,6 +1,21 @@
+<p align="center">
+  <a href="https://fingerprintjs.com">
+    <img src="https://user-images.githubusercontent.com/10922372/126062498-31921b6c-c7fd-47cb-bf85-9e172e08b664.png" alt="FingerprintJS" width="312px" />
+  </a>
+<p align="center">
+<a href="https://www.npmjs.com/package/fingerprintjs-server-api">
+  <img src="https://img.shields.io/npm/v/fingerprintjs-server-apit.svg" alt="Current NPM version">
+</a>
+<a href="https://www.npmjs.com/package/fingerprintjs-server-api">
+  <img src="https://img.shields.io/npm/dm/fingerprintjs-server-api.svg" alt="Monthly downloads from NPM">
+</a>
+  <a href="https://discord.gg/39EpE2neBg">
+    <img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server">
+  </a>
+    
 # FingerprintJS Server API Node.js SDK
-
 Node.js wrapper for [FingerprintJS Sever API](https://dev.fingerprintjs.com/docs/server-api)
+
 ## Usage
 
 Install package
@@ -34,7 +49,7 @@ Creates an instance of the config for the client.
 const config = new FingerprintJsServerApiConfig(Region.EU, "<api_token>");
 ```
 #### Params
-- `region: Region` - region of the server, possible value `Region.EU` or `Region.Global`
+- `region: Region` - a region of the server, possible value `Region.EU` or `Region.Global`
 - `apiToken: string` - API token from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
 ---
 ### `FingerprintJsServerApiClient(config: FingerprintJsServerApiConfig)` constructor
@@ -48,7 +63,7 @@ const client = new FingerprintJsServerApiClient(config);
 ---
 
 ### `client.getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
-Gets history for the given visitor and given filter, returns promise with visitor history response.
+Gets history for the given visitor and given filter, returns a promise with visitor history response.
 #### Usage
 ```js
 client.getVisitorHistory("<visitorId>", filter).then(visitorHistory => {
