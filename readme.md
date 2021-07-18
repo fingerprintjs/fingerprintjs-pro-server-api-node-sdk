@@ -4,7 +4,7 @@
   </a>
 <p align="center">
 <a href="https://www.npmjs.com/package/fingerprintjs-server-api">
-  <img src="https://img.shields.io/npm/v/fingerprintjs-server-apit.svg" alt="Current NPM version">
+  <img src="https://img.shields.io/npm/v/fingerprintjs-server-api.svg" alt="Current NPM version">
 </a>
 <a href="https://www.npmjs.com/package/fingerprintjs-server-api">
   <img src="https://img.shields.io/npm/dm/fingerprintjs-server-api.svg" alt="Monthly downloads from NPM">
