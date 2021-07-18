@@ -2,13 +2,13 @@ import fetch from 'node-fetch';
 import querystring from 'querystring'
 import { getVisitorsPath } from './pathUtils';
 import { FingerprintJsServerApiConfig } from './serverApiConfig';
-import { VisitorHistoryFilter, VisitorsResponse, Region } from './types';
+import { VisitorHistoryFilter, VisitorsResponse } from './types';
 
 export class FingerprintJsServerApiClient {
   private readonly clientConfig: FingerprintJsServerApiConfig;
 
   /**
-  * FingerprintJS server api client used to fetch data from FingerprintJS
+  * FingerprintJS server API client used to fetch data from FingerprintJS
   * @constructor
   * @param {FingerprintJsServerApiConfig} config - The client configuration
   */
@@ -21,7 +21,7 @@ export class FingerprintJsServerApiClient {
   }
 
   /**
-  * Gets hisory for the givem visitor
+  * Gets history for the given visitor
   * @param {string} visitorId - Identifier of the visitor
   * @param {VisitorHistoryFilter} filter - Visitor history filter
   */
