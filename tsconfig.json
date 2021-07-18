@@ -7,11 +7,16 @@
     "skipLibCheck": false,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "sourceMap": true
   },
   "include": [
     "src/**/*",
   ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
   "main": "dist/index.js",
+  "types": "dist/index.d.ts"
 }

@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# Recursively allow files under subtree
+!build/**
+
+!index.js
+!package.json
+!.npmignore
+!README.md

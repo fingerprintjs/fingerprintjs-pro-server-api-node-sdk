@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@types/node-fetch": "^2.5.11",
@@ -28,5 +28,8 @@
   },
   "dependencies": {
     "node-fetch": "^2.6.1"
-  }
+  },
+  "files": [
+    "dist/*"
+  ]
 }
