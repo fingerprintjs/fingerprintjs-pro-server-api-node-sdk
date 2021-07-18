@@ -1,37 +1,84 @@
 # FingerprintJS Server API Node.js SDK
+
+Node.js wrapper for [FingerprintJS Sever API](https://dev.fingerprintjs.com/docs/server-api)
 ## Usage
 
 Install package
 ```sh
-npm i --save TODO
+npm i fingerprintjs-server-api
 ```
 
+### Usage with import statements
 ```ts
-import TODO from "TODO";
+import { FingerprintJsServerApiClient, FingerprintJsServerApiConfig, Region } from 'fingerprintjs-server-api';
 
 // Create config object first
-const config = new FingerprintJsServerApiConfig(Region.EU, "<authToken>");
+const config = new FingerprintJsServerApiConfig(Region.EU, "<api_token>");
 
 // Init client with the give config
 const client = new FingerprintJsServerApiClient(config);
 
 // Get visitor history
-const visitorHistory = await client.getVisitorHistory(existingVisitorId);
+client.getVisitorHistory("<visitorId>").then(visitorHistory => {
+    console.log(visitorHistory);
+});
+
 ```
 
 ## API
-
-### getVisitors
+---
+### `FingerprintJsServerApiConfig(region: Region, apiToken: string)` constructor
+Creates an instance of the config for the client.
+#### Usage
+```js
+const config = new FingerprintJsServerApiConfig(Region.EU, "<api_token>");
+```
 #### Params
-- visitorId
-- filter
-
-### Client config
+- `region: Region` - region of the server, possible value `Region.EU` or `Region.Global`
+- `apiToken: string` - API token from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
+---
+### `FingerprintJsServerApiClient(config: FingerprintJsServerApiConfig)` constructor
+Creates an instance of the client.
+#### Usage
+```js
+const client = new FingerprintJsServerApiClient(config);
+```
 #### Params
-- region
-- authToken
+- `config: FingerprintJsServerApiConfig` - FingerprintJS server api config
+---
 
-## Response
+### `client.getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
+Gets history for the given visitor and given filter, returns promise with visitor history response.
+#### Usage
+```js
+client.getVisitorHistory("<visitorId>", filter).then(visitorHistory => {
+    console.log(visitorHistory);
+});
+```
+#### Params
+- `visitorId: string` - identifier of the visitor
+- `filter?: VisitorHistoryFilter` - visitor history filter, more info in [the API documentation](https://dev.fingerprintjs.com/docs/server-api#query-parameters)
+#### Returns
+- `Promise<VisitorsResponse>` - promise with visitor history response
+---
+### `VisitorHistoryFilter`
+Filter for querying API - see [query parameters](VisitorHistoryFilter).
+### Usage
+```js
+const filter = {
+    request_id: "<request_id>",
+    linked_id: "<linked_id>",
+    limit: 5,
+    before: "<timeStamp>"
+};
+```
+#### Properties
+- `request_id: string` - filter events by requestId
+- `linked_id: string` - filter events by custom identifier
+- `limit: number` - limit scanned results
+- `before: number` - used to paginate results
+---
+### Server `VisitorsResponse` response
 ```json
 {
   "visitorId": "Ibk1527CUFmcnjLwIs4A9",
@@ -84,6 +131,6 @@ const visitorHistory = await client.getVisitorHistory(existingVisitorId);
   "lastTimestamp": 1582299576512
 }
 ```
-
+---
 ## Release new version
 Change version in package.json to 1.2.3 and push a commit with the message Release 1.2.3, the npm-publish action will create a new tag v1.2.3 and publish the package to the npm registry.
