@@ -23,6 +23,11 @@ Install package
 npm i fingerprintjs-server-api
 ```
 
+After moving under FingerprintJS organization
+``` sh
+npm i @fingerprintjs/fingerprintjs-pro-server-api
+```
+
 ### Usage with import statements
 ```ts
 import { FingerprintJsServerApiClient, FingerprintJsServerApiConfig, Region } from 'fingerprintjs-server-api';
