@@ -1,5 +1,5 @@
-import { Region } from '../src/types';
-import { getVisitorsPath } from '../src/pathUtils';
+import { Region } from '../../src/types';
+import { getVisitorsPath } from '../../src/pathUtils';
 
 describe('Get Visitors path', () => {
 
