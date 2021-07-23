@@ -1,6 +1,5 @@
 import fetch from 'node-fetch';
-import querystring from 'querystring'
-import { getVisitorsPath } from './pathUtils';
+import { getVisitorsUrl } from './urlUtils';
 import { FingerprintJsServerApiConfig } from './serverApiConfig';
 import { VisitorHistoryFilter, VisitorsResponse } from './types';
 
@@ -29,9 +28,8 @@ export class FingerprintJsServerApiClient {
     if (!visitorId) {
       throw Error(`VisitorId is not set`);
     }
-    const serverApiPath = getVisitorsPath(this.clientConfig.region, visitorId);
-    const queryString = filter ? querystring.stringify(filter) : '';
-    const url = `${serverApiPath}?${queryString}`;
+
+    const url = getVisitorsUrl(this.clientConfig.region, visitorId, filter);
 
     return fetch(url, {
       method: 'GET',
