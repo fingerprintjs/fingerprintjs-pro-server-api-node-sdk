@@ -1,22 +1,28 @@
 import fetch from 'node-fetch';
 import { getVisitorsUrl } from './urlUtils';
-import { FingerprintJsServerApiConfig } from './serverApiConfig';
-import { VisitorHistoryFilter, VisitorsResponse } from './types';
+import { VisitorHistoryFilter, VisitorsResponse, Region } from './types';
 
 export class FingerprintJsServerApiClient {
-  private readonly clientConfig: FingerprintJsServerApiConfig;
+  public readonly region: Region;
+  public readonly apiToken: string;
 
   /**
   * FingerprintJS server API client used to fetch data from FingerprintJS
   * @constructor
-  * @param {FingerprintJsServerApiConfig} config - The client configuration
+  * @param {Region} region - Server API region
+  * @param {string} apiToken - API token
   */
-  constructor(config: FingerprintJsServerApiConfig) {
-    if (!config) {
-      throw new Error(`Config is not set`);
+  constructor(region: Region, apiToken: string) {
+    if (!region) {
+      throw Error(`Region is not set`);
     }
 
-    this.clientConfig = config;
+    if (!apiToken) {
+      throw Error(`Api token is not set`);
+    }
+
+    this.region = region;
+    this.apiToken = apiToken;
   }
 
   /**
@@ -29,11 +35,11 @@ export class FingerprintJsServerApiClient {
       throw Error(`VisitorId is not set`);
     }
 
-    const url = getVisitorsUrl(this.clientConfig.region, visitorId, filter);
+    const url = getVisitorsUrl(this.region, visitorId, filter);
 
     return fetch(url, {
       method: 'GET',
-      headers: { 'Auth-Token': this.clientConfig.apiToken },
+      headers: { 'Auth-Token': this.apiToken },
     })
       .then((response) => {
         return response.json()
