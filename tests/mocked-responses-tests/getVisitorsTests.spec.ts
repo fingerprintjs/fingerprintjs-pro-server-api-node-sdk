@@ -1,6 +1,5 @@
 import { VisitorHistoryFilter, Region } from '../../src/types';
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient';
-import { FingerprintJsServerApiConfig } from '../../src/serverApiConfig';
 import fetch from 'node-fetch';
 import visitorsWithoutFilterResponse from './mocked-responses-data/visitors-without-filter-response.json';
 import visitorsResponseWithRequestId from './mocked-responses-data/visitors-with-request-id.json'
@@ -18,8 +17,7 @@ describe('[Mocked response] Get Visitors', () => {
   const existingRequestId = "1626550679751.cVc5Pm";
   const existingLinkedId = "makma";
 
-  const config = new FingerprintJsServerApiConfig(Region.EU, authToken);
-  const client = new FingerprintJsServerApiClient(config);
+  const client = new FingerprintJsServerApiClient(Region.EU, authToken);
 
   test('without filter', async () => {
     (fetch as unknown as jest.Mock).mockReturnValue(Promise.resolve(new Response(JSON.stringify(visitorsWithoutFilterResponse))));

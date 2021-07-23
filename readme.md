@@ -30,13 +30,10 @@ npm i @fingerprintjs/fingerprintjs-pro-server-api
 
 ### Usage with import statements
 ```ts
-import { FingerprintJsServerApiClient, FingerprintJsServerApiConfig, Region } from 'fingerprintjs-server-api';
+import { FingerprintJsServerApiClient, Region } from 'fingerprintjs-server-api';
 
-// Create config object first
-const config = new FingerprintJsServerApiConfig(Region.EU, "<api_token>");
-
-// Init client with the give config
-const client = new FingerprintJsServerApiClient(config);
+// Init client with the give region and api_token
+const client = new FingerprintJsServerApiClient(Region.EU, "<api_token>");
 
 // Get visitor history
 client.getVisitorHistory("<visitorId>").then(visitorHistory => {
@@ -47,24 +44,15 @@ client.getVisitorHistory("<visitorId>").then(visitorHistory => {
 
 ## API
 ---
-### `FingerprintJsServerApiConfig(region: Region, apiToken: string)` constructor
-Creates an instance of the config for the client.
+### `FingerprintJsServerApiClient(region: Region, apiToken: string)` constructor
+Creates an instance of the client.
 #### Usage
 ```js
-const config = new FingerprintJsServerApiConfig(Region.EU, "<api_token>");
+const client = new FingerprintJsServerApiClient(Region.EU, "<api_token>");
 ```
 #### Params
 - `region: Region` - a region of the server, possible value `Region.EU` or `Region.Global`
 - `apiToken: string` - API token from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
----
-### `FingerprintJsServerApiClient(config: FingerprintJsServerApiConfig)` constructor
-Creates an instance of the client.
-#### Usage
-```js
-const client = new FingerprintJsServerApiClient(config);
-```
-#### Params
-- `config: FingerprintJsServerApiConfig` - FingerprintJS server api config
 ---
 
 ### `client.getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
