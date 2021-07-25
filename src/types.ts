@@ -69,7 +69,7 @@ export interface BrowserDetails {
   userAgents: string;
 }
 
-export interface WebookVisitor {
+export interface VisitWebhook {
     // Unique request identifier
     // nullable: false, maxLength: 20
     requestId: string;

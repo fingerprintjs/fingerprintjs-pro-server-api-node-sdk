@@ -1,12 +1,12 @@
-import { WebookVisitor } from './../../src/types';
-import visitorWebhookBody from './mocked-responses-data/visitor-webhook-body.json'
+import { VisitWebhook } from './../../src/types';
+import visitWebhookBody from './mocked-responses-data/visit-webhook-body.json'
 
 describe('[Mocked body] Cast visitor webhook', () => {
 
   test('with sample request body', async () => {
-    const requestBody = visitorWebhookBody as unknown as WebookVisitor;
+    const visit = visitWebhookBody as unknown as VisitWebhook;
 
-    expect(requestBody).toMatchSnapshot();
+    expect(visit).toMatchSnapshot();
 
     // TODO: check all properties manually
     // expect(requestBody.requestId).toEqual("1627054081281.wo4lLc");

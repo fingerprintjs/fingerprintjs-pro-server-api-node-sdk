@@ -28,7 +28,7 @@ After moving under FingerprintJS organization
 npm i @fingerprintjs/fingerprintjs-pro-server-api
 ```
 
-### Usage with import statements
+### Usage of the Server API
 ```ts
 import { FingerprintJsServerApiClient, Region } from 'fingerprintjs-server-api';
 
@@ -40,6 +40,11 @@ client.getVisitorHistory("<visitorId>").then(visitorHistory => {
     console.log(visitorHistory);
 });
 
+```
+
+### Usage of the built-in webhook visit type
+```ts
+const visit = visitWebhookBody as unknown as VisitWebhook;
 ```
 
 ## API
