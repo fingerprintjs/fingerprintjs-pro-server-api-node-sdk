@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
+Object {
+  "browserDetails": Object {
+    "botProbability": 0,
+    "browserFullVersion": "92.0.4515",
+    "browserMajorVersion": "92",
+    "browserName": "Chrome",
+    "device": "Other",
+    "os": "Windows",
+    "osVersion": "10",
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+  },
+  "clientReferrer": "https: //www.martinmakarsky.com/",
+  "incognito": false,
+  "ip": "185.5.70.59",
+  "ipLocation": Object {
+    "accuracyRadius": 100,
+    "city": Object {},
+    "continent": Object {
+      "code": "EU",
+      "name": "Europe",
+    },
+    "country": Object {
+      "code": "CZ",
+      "name": "Czechia",
+    },
+    "latitude": 50.0848,
+    "longitude": 14.4112,
+    "organization": Object {},
+    "timezone": "Europe/Prague",
+  },
+  "linkedId": "makma",
+  "requestId": "1627054081281.wo4lLc",
+  "tag": Object {
+    "tag": "my_tag",
+  },
+  "time": "",
+  "timestamp": 1627054081282,
+  "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+  "visitorId": "TaDnMBz9XCpZNuSzFUqP",
+}
+`;
