@@ -33,7 +33,7 @@ npm i @fingerprintjs/fingerprintjs-pro-server-api
 import { FingerprintJsServerApiClient, Region } from 'fingerprintjs-server-api';
 
 // Init client with the give region and api_token
-const client = new FingerprintJsServerApiClient(Region.EU, "<api_token>");
+const client = new FingerprintJsServerApiClient({region: Region.Global, apiToken: "<api_token>"});
 
 // Get visitor history
 client.getVisitorHistory("<visitorId>").then(visitorHistory => {
@@ -49,11 +49,11 @@ const visit = visitWebhookBody as unknown as VisitWebhook;
 
 ## API
 ---
-### `FingerprintJsServerApiClient(region: Region, apiToken: string)` constructor
+### `FingerprintJsServerApiClient({region: Region, apiToken: string})` constructor
 Creates an instance of the client.
 #### Usage
 ```js
-const client = new FingerprintJsServerApiClient(Region.EU, "<api_token>");
+const client = new FingerprintJsServerApiClient({Region.EU, "<api_token>"});
 ```
 #### Params
 - `region: Region` - a region of the server, possible value `Region.EU` or `Region.Global`

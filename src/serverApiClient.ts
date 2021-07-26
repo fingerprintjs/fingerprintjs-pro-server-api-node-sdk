@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 import { getVisitorsUrl } from './urlUtils';
-import { VisitorHistoryFilter, VisitorsResponse, Region } from './types';
+import { VisitorHistoryFilter, VisitorsResponse, Region, Options } from './types';
 
 export class FingerprintJsServerApiClient {
   public readonly region: Region;
@@ -9,20 +9,19 @@ export class FingerprintJsServerApiClient {
   /**
   * FingerprintJS server API client used to fetch data from FingerprintJS
   * @constructor
-  * @param {Region} region - Server API region
-  * @param {string} apiToken - API token
+  * @param {Options} options - Options for FingerprintJS server API client
   */
-  constructor(region: Region, apiToken: string) {
-    if (!region) {
+  constructor(options: Readonly<Options>) {
+    if (!options.region) {
       throw Error(`Region is not set`);
     }
 
-    if (!apiToken) {
+    if (!options.apiToken) {
       throw Error(`Api token is not set`);
     }
 
-    this.region = region;
-    this.apiToken = apiToken;
+    this.region = options.region;
+    this.apiToken = options.apiToken;
   }
 
   /**

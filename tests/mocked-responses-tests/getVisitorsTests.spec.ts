@@ -17,7 +17,7 @@ describe('[Mocked response] Get Visitors', () => {
   const existingRequestId = "1626550679751.cVc5Pm";
   const existingLinkedId = "makma";
 
-  const client = new FingerprintJsServerApiClient(Region.EU, authToken);
+  const client = new FingerprintJsServerApiClient({region: Region.EU, apiToken: authToken});
 
   test('without filter', async () => {
     (fetch as unknown as jest.Mock).mockReturnValue(Promise.resolve(new Response(JSON.stringify(visitorsWithoutFilterResponse))));
