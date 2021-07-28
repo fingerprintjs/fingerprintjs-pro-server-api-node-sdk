@@ -13,17 +13,12 @@
     <img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server">
   </a>
     
-# [Beta WIP] FingerprintJS Server API Node.js SDK
+# [Beta] FingerprintJS Server API Node.js SDK
 Node.js wrapper for [FingerprintJS Sever API](https://dev.fingerprintjs.com/docs/server-api)
 
 ## Usage
 
 Install package
-```sh
-npm i fingerprintjs-server-api
-```
-
-After moving under FingerprintJS organization
 ``` sh
 npm i @fingerprintjs/fingerprintjs-pro-server-api
 ```
