@@ -25,7 +25,7 @@ npm i @fingerprintjs/fingerprintjs-pro-server-api
 
 ### Usage of the Server API
 ```ts
-import { FingerprintJsServerApiClient, Region } from 'fingerprintjs-server-api';
+import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 // Init client with the give region and api_token
 const client = new FingerprintJsServerApiClient({region: Region.Global, apiToken: "<api_token>"});
