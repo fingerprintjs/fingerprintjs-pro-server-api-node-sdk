@@ -3,6 +3,11 @@ export enum Region {
   Global = "Global",
 }
 
+export enum AuthenticationMode {
+  AuthHeader = "AuthHeader",
+  QueryParameter = "QueryParameter"
+}
+
 /**
  * Options for FingerprintJS server API client
  */
@@ -15,6 +20,11 @@ export interface Options {
   * Region of the FingerprintJS service server
   */
   region: Region;
+  /**
+  * Authentication mode
+  * Optional, default value is AuthHeader
+  */
+  authenticationMode?: AuthenticationMode;
 }
 
 export type VisitorHistoryFilter = {
