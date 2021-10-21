@@ -1,10 +1,11 @@
 import fetch from 'node-fetch';
 import { getVisitorsUrl } from './urlUtils';
-import { VisitorHistoryFilter, VisitorsResponse, Region, Options } from './types';
+import { VisitorHistoryFilter, VisitorsResponse, Region, Options, AuthenticationMode } from './types';
 
 export class FingerprintJsServerApiClient {
   public readonly region: Region;
   public readonly apiToken: string;
+  public readonly authenticationMode: AuthenticationMode;
 
   /**
   * FingerprintJS server API client used to fetch data from FingerprintJS
@@ -22,6 +23,7 @@ export class FingerprintJsServerApiClient {
 
     this.region = options.region;
     this.apiToken = options.apiToken;
+    this.authenticationMode = options.authenticationMode ?? AuthenticationMode.AuthHeader; // Default auth mode is AuthHeader
   }
 
   /**
@@ -34,11 +36,12 @@ export class FingerprintJsServerApiClient {
       throw Error(`VisitorId is not set`);
     }
 
-    const url = getVisitorsUrl(this.region, visitorId, filter);
+    const url = this.authenticationMode === AuthenticationMode.QueryParameter ? getVisitorsUrl(this.region, visitorId, filter).concat(`&token=${this.apiToken}`) : getVisitorsUrl(this.region, visitorId, filter);
+    const headers = this.authenticationMode === AuthenticationMode.AuthHeader ? { 'Auth-Token': this.apiToken } : undefined;
 
     return fetch(url, {
       method: 'GET',
-      headers: { 'Auth-Token': this.apiToken },
+      headers,
     })
       .then((response) => {
         return response.json()
