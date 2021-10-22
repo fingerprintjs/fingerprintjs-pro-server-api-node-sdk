@@ -36,7 +36,7 @@ export class FingerprintJsServerApiClient {
       throw Error(`VisitorId is not set`);
     }
 
-    const url = this.authenticationMode === AuthenticationMode.QueryParameter ? getVisitorsUrl(this.region, visitorId, filter).concat(`&token=${this.apiToken}`) : getVisitorsUrl(this.region, visitorId, filter);
+    const url = this.authenticationMode === AuthenticationMode.QueryParameter ? getVisitorsUrl(this.region, visitorId, filter, this.apiToken) : getVisitorsUrl(this.region, visitorId, filter);
     const headers = this.authenticationMode === AuthenticationMode.AuthHeader ? { 'Auth-Token': this.apiToken } : undefined;
 
     return fetch(url, {
