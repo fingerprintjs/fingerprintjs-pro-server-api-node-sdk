@@ -4,9 +4,18 @@ import querystring from 'querystring'
 const euRegionUrl = "https://eu.api.fpjs.io/";
 const globaRegionUrl = "https://api.fpjs.io/";
 
-export function getVisitorsUrl(region: Region, visitorId: string, filter?: VisitorHistoryFilter): string {
+type QueryStringParameters = VisitorHistoryFilter & {
+  token?: string;
+}
+
+export function getVisitorsUrl(region: Region, visitorId: string, filter?: VisitorHistoryFilter, token?: string): string {
+  const queryStringParameters: QueryStringParameters = filter ?? {};
+  if (token) {
+    queryStringParameters.token = token;
+  }
+
   const serverApiPath = getVisitorsPath(region, visitorId);
-  const queryString = filter ? querystring.stringify(filter) : '';
+  const queryString = queryStringParameters ? querystring.stringify(queryStringParameters) : '';
 
   if (queryString === '') {
     return serverApiPath;
