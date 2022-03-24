@@ -61,7 +61,7 @@ export interface IpLocation {
   city: City;
   continent: Continent;
   country: Country;
-  subdivisions: [Subdivision];
+  subdivisions: Subdivision[];
 }
 
 export interface City {
@@ -155,14 +155,12 @@ export interface VisitWebhook {
     postalCode: string | null;
     // nullable: true
     subdivisions:
-      | [
-          {
-            // nullable: true, maxLength: 250
-            isoCode: string | null;
-            // nullable: true, maxLength: 250
-            name: string | null;
-          }
-        ]
+      | {
+          // nullable: true, maxLength: 250
+          isoCode: string | null;
+          // nullable: true, maxLength: 250
+          name: string | null;
+        }[]
       | null;
     // nullable: true, maxLength: 250
     timezone: string | null;
