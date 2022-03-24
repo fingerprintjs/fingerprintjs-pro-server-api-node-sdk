@@ -1,11 +1,11 @@
 export enum Region {
-  EU = "EU",
-  Global = "Global",
+  EU = 'EU',
+  Global = 'Global',
 }
 
 export enum AuthenticationMode {
-  AuthHeader = "AuthHeader",
-  QueryParameter = "QueryParameter"
+  AuthHeader = 'AuthHeader',
+  QueryParameter = 'QueryParameter',
 }
 
 /**
@@ -17,13 +17,13 @@ export interface Options {
    */
   apiToken: string;
   /**
-  * Region of the FingerprintJS service server
-  */
+   * Region of the FingerprintJS service server
+   */
   region: Region;
   /**
-  * Authentication mode
-  * Optional, default value is AuthHeader
-  */
+   * Authentication mode
+   * Optional, default value is AuthHeader
+   */
   authenticationMode?: AuthenticationMode;
 }
 
@@ -32,7 +32,7 @@ export type VisitorHistoryFilter = {
   linked_id?: string;
   limit?: number;
   before?: number;
-}
+};
 
 export interface VisitorsResponse {
   lastTimestamp?: string;
@@ -43,7 +43,7 @@ export interface VisitorsResponse {
 export interface Visit {
   requestId: string;
   incognito: string;
-  linkedId: "string";
+  linkedId: 'string';
   time: Date;
   timestamp: number;
   url: string;
@@ -61,7 +61,7 @@ export interface IpLocation {
   city: City;
   continent: Continent;
   country: Country;
-  subdivisions: [Subdivision]
+  subdivisions: [Subdivision];
 }
 
 export interface City {
@@ -101,7 +101,7 @@ export interface VisitWebhook {
   // both the tag and the information it contains are optional
   // and only for the customer's need.
   // nullable: true, maxLength: 4096
-  tag: any | null,
+  tag: any | null;
   // user-provided scalar identifier
   // nullable: true, maxLength: 4096
   linkedId: string | null;
@@ -132,21 +132,21 @@ export interface VisitWebhook {
     city: {
       // nullable: true, maxLength: 4096
       name: string | null;
-    } | null,
+    } | null;
     // nullable: true
     continent: {
       // nullable: true, maxLength: 2
       code: string | null;
       // nullable: true, maxLength: 40
       name: string | null;
-    } | null,
+    } | null;
     // nullable: true
     country: {
       // nullable: true, maxLength: 2
       code: string | null;
       // nullable: true, maxLength: 250
       name: string | null;
-    } | null,
+    } | null;
     // nullable: true
     latitude: number | null;
     // nullable: true
@@ -154,17 +154,19 @@ export interface VisitWebhook {
     // nullable: true, maxLength: 40
     postalCode: string | null;
     // nullable: true
-    subdivisions: [
-      {
-        // nullable: true, maxLength: 250
-        isoCode: string | null;
-        // nullable: true, maxLength: 250
-        name: string | null;
-      }
-    ] | null;
+    subdivisions:
+      | [
+          {
+            // nullable: true, maxLength: 250
+            isoCode: string | null;
+            // nullable: true, maxLength: 250
+            name: string | null;
+          }
+        ]
+      | null;
     // nullable: true, maxLength: 250
     timezone: string | null;
-  },
+  };
   // nullable: false
   browserDetails: {
     // nullable: true, maxLength: 250
@@ -172,14 +174,14 @@ export interface VisitWebhook {
     // nullable: true, maxLength: 250
     browserFullVersion: string | null;
     // nullable: true, maxLength: 250
-    browserMajorVersion: string | null,
+    browserMajorVersion: string | null;
     // nullable: true, maxLength: 250
-    os: string | null,
+    os: string | null;
     // nullable: true, maxLength: 250
-    osVersion: string | null,
+    osVersion: string | null;
     // nullable: true, maxLength: 250
-    device: string | null,
+    device: string | null;
     // nullable: true, maxLength: 4096
-    userAgent: string | null,
-  }
+    userAgent: string | null;
+  };
 }
