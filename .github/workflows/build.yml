@@ -25,7 +25,9 @@ jobs:
         CI: true
     - name: Build
       run: tsc
+    - name: Lint
+      run: yarn lint
     - name: Test
-      run: npx jest
+      run: yarn test
 
 
