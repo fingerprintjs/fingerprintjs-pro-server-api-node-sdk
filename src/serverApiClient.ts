@@ -60,17 +60,7 @@ export class FingerprintJsServerApiClient {
       method: 'GET',
       headers,
     })
-      .then((response) =>
-        response
-          .json()
-          .then((jsonData) => {
-            const visitorsResponse = jsonData as VisitorsResponse;
-            return visitorsResponse;
-          })
-          .catch((err) => {
-            throw new Error(err.toString());
-          })
-      )
+      .then((response) => response.json() as Promise<VisitorsResponse>)
       .catch((err) => {
         throw new Error(err.toString());
       });
