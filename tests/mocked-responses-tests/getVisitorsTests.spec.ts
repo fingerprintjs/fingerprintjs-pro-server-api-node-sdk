@@ -11,12 +11,12 @@ const { Response } = jest.requireActual('node-fetch');
 jest.mock('node-fetch');
 
 describe('[Mocked response] Get Visitors', () => {
-  const authToken = 'dummy_auth_token';
+  const apiKey = 'dummy_api_key';
   const existingVisitorId = 'TaDnMBz9XCpZNuSzFUqP';
   const existingRequestId = '1626550679751.cVc5Pm';
   const existingLinkedId = 'makma';
 
-  const client = new FingerprintJsServerApiClient({ region: Region.EU, apiToken: authToken });
+  const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: apiKey });
 
   test('without filter', async () => {
     (fetch as unknown as jest.Mock).mockReturnValue(

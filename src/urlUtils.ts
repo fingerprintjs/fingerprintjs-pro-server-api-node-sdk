@@ -6,18 +6,18 @@ const apRegionUrl = 'https://ap.api.fpjs.io';
 const globaRegionUrl = 'https://api.fpjs.io/';
 
 type QueryStringParameters = VisitorHistoryFilter & {
-  token?: string;
+  api_key?: string;
 };
 
 export function getVisitorsUrl(
   region: Region,
   visitorId: string,
   filter?: VisitorHistoryFilter,
-  token?: string
+  apiKey?: string
 ): string {
   const queryStringParameters: QueryStringParameters = filter ?? {};
-  if (token) {
-    queryStringParameters.token = token;
+  if (apiKey) {
+    queryStringParameters.api_key = apiKey;
   }
 
   const serverApiPath = getVisitorsPath(region, visitorId);
