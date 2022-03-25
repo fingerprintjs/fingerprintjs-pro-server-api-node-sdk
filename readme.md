@@ -18,14 +18,19 @@ Node.js wrapper for [FingerprintJS Sever API](https://dev.fingerprintjs.com/docs
 
 ## Usage
 
-Install package
+Install package using npm
 ``` sh
 npm i @fingerprintjs/fingerprintjs-pro-server-api
 ```
 
+Or install package using yarn
+``` sh
+yarn add @fingerprintjs/fingerprintjs-pro-server-api
+```
+
 ### Usage of the Server API
 ```ts
-import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api'
+import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api';
 
 // Init client with the give region and api_token
 const client = new FingerprintJsServerApiClient({region: Region.Global, apiToken: "<api_token>"});

@@ -73,4 +73,12 @@ describe('[Mocked response] Get Visitors', () => {
     const response = await client.getVisitorHistory(existingVisitorId, filter);
     expect(response).toMatchSnapshot();
   });
+
+  test('not json from broken server', async () => {
+    (fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(new Response('500 Internal Server Error'))
+    );
+
+    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toThrowError();
+  });
 });
