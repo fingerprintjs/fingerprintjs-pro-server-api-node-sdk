@@ -3,7 +3,7 @@ import { Region, VisitorHistoryFilter } from './types';
 
 const euRegionUrl = 'https://eu.api.fpjs.io/';
 const apRegionUrl = 'https://ap.api.fpjs.io';
-const globaRegionUrl = 'https://api.fpjs.io/';
+const globalRegionUrl = 'https://api.fpjs.io/';
 
 type QueryStringParameters = VisitorHistoryFilter & {
   api_key?: string;
@@ -42,7 +42,7 @@ function getServerApiUrl(region: Region): string {
     case Region.AP:
       return apRegionUrl;
     case Region.Global:
-      return globaRegionUrl;
+      return globalRegionUrl;
     default:
       throw new Error('Unsupported region');
   }
