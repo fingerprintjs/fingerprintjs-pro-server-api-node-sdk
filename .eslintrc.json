@@ -3,7 +3,7 @@
     "es6": true,
     "node": true
   },
-  "extends": ["airbnb-base", "prettier/@typescript-eslint", "plugin:prettier/recommended"],
+  "extends": ["plugin:@typescript-eslint/eslint-recommended"],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
@@ -13,8 +13,14 @@
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "no-tabs": ["error", {"allowIndentationTabs": true}]
+    "linebreak-style": ["error", "unix"],
+    "prefer-const": "error",
+    "prettier/prettier": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error"
+    ],
+    "curly": [2, "all"]
   }
 }

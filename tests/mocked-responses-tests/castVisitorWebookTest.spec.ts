@@ -1,8 +1,7 @@
-import { VisitWebhook } from './../../src/types';
-import visitWebhookBody from './mocked-responses-data/visit-webhook-body.json'
+import { VisitWebhook } from '../../src/types';
+import visitWebhookBody from './mocked-responses-data/visit-webhook-body.json';
 
 describe('[Mocked body] Cast visitor webhook', () => {
-
   test('with sample request body', async () => {
     const visit = visitWebhookBody as unknown as VisitWebhook;
 
@@ -18,7 +17,7 @@ describe('[Mocked body] Cast visitor webhook', () => {
     // expect(requestBody.browserDetails.os).toEqual("Windows");
     // expect(requestBody.browserDetails.osVersion).toEqual("10");
     // expect(requestBody.browserDetails.device).toEqual("Other");
-    // expect(requestBody.browserDetails.userAgent).toEqual("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36");  
+    // expect(requestBody.browserDetails.userAgent).toEqual("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36");
     // // not documented
     // // expect(requestBody.browserDetails.botProbability).toEqual(0);
 

@@ -1,24 +1,32 @@
 import fetch from 'node-fetch';
 import { getVisitorsUrl } from './urlUtils';
-import { VisitorHistoryFilter, VisitorsResponse, Region, Options, AuthenticationMode } from './types';
+import {
+  VisitorHistoryFilter,
+  VisitorsResponse,
+  Region,
+  Options,
+  AuthenticationMode,
+} from './types';
 
 export class FingerprintJsServerApiClient {
   public readonly region: Region;
+
   public readonly apiToken: string;
+
   public readonly authenticationMode: AuthenticationMode;
 
   /**
-  * FingerprintJS server API client used to fetch data from FingerprintJS
-  * @constructor
-  * @param {Options} options - Options for FingerprintJS server API client
-  */
+   * FingerprintJS server API client used to fetch data from FingerprintJS
+   * @constructor
+   * @param {Options} options - Options for FingerprintJS server API client
+   */
   constructor(options: Readonly<Options>) {
     if (!options.region) {
-      throw Error(`Region is not set`);
+      throw Error('Region is not set');
     }
 
     if (!options.apiToken) {
-      throw Error(`Api token is not set`);
+      throw Error('Api token is not set');
     }
 
     this.region = options.region;
@@ -27,34 +35,44 @@ export class FingerprintJsServerApiClient {
   }
 
   /**
-  * Gets history for the given visitor
-  * @param {string} visitorId - Identifier of the visitor
-  * @param {VisitorHistoryFilter} filter - Visitor history filter
-  */
-  public async getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
+   * Gets history for the given visitor
+   * @param {string} visitorId - Identifier of the visitor
+   * @param {VisitorHistoryFilter} filter - Visitor history filter
+   */
+  public async getVisitorHistory(
+    visitorId: string,
+    filter?: VisitorHistoryFilter
+  ): Promise<VisitorsResponse> {
     if (!visitorId) {
-      throw Error(`VisitorId is not set`);
+      throw Error('VisitorId is not set');
     }
 
-    const url = this.authenticationMode === AuthenticationMode.QueryParameter ? getVisitorsUrl(this.region, visitorId, filter, this.apiToken) : getVisitorsUrl(this.region, visitorId, filter);
-    const headers = this.authenticationMode === AuthenticationMode.AuthHeader ? { 'Auth-Token': this.apiToken } : undefined;
+    const url =
+      this.authenticationMode === AuthenticationMode.QueryParameter
+        ? getVisitorsUrl(this.region, visitorId, filter, this.apiToken)
+        : getVisitorsUrl(this.region, visitorId, filter);
+    const headers =
+      this.authenticationMode === AuthenticationMode.AuthHeader
+        ? { 'Auth-Token': this.apiToken }
+        : undefined;
 
     return fetch(url, {
       method: 'GET',
       headers,
     })
-      .then((response) => {
-        return response.json()
-          .then(jsonData => {
+      .then((response) =>
+        response
+          .json()
+          .then((jsonData) => {
             const visitorsResponse = jsonData as VisitorsResponse;
             return visitorsResponse;
           })
-          .catch(err => {
+          .catch((err) => {
             throw new Error(err.toString());
           })
-      })
+      )
       .catch((err) => {
         throw new Error(err.toString());
-      })
+      });
   }
 }

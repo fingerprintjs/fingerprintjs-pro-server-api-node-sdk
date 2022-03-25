@@ -1,14 +1,19 @@
-import { Region, VisitorHistoryFilter } from "./types";
-import querystring from 'querystring'
+import querystring from 'querystring';
+import { Region, VisitorHistoryFilter } from './types';
 
-const euRegionUrl = "https://eu.api.fpjs.io/";
-const globaRegionUrl = "https://api.fpjs.io/";
+const euRegionUrl = 'https://eu.api.fpjs.io/';
+const globaRegionUrl = 'https://api.fpjs.io/';
 
 type QueryStringParameters = VisitorHistoryFilter & {
   token?: string;
-}
+};
 
-export function getVisitorsUrl(region: Region, visitorId: string, filter?: VisitorHistoryFilter, token?: string): string {
+export function getVisitorsUrl(
+  region: Region,
+  visitorId: string,
+  filter?: VisitorHistoryFilter,
+  token?: string
+): string {
   const queryStringParameters: QueryStringParameters = filter ?? {};
   if (token) {
     queryStringParameters.token = token;
@@ -19,9 +24,8 @@ export function getVisitorsUrl(region: Region, visitorId: string, filter?: Visit
 
   if (queryString === '') {
     return serverApiPath;
-  } else {
-    return `${serverApiPath}?${queryString}`;
   }
+  return `${serverApiPath}?${queryString}`;
 }
 
 function getVisitorsPath(region: Region, visitorId: string): string {
@@ -37,6 +41,6 @@ function getServerApiUrl(region: Region): string {
     case Region.Global:
       return globaRegionUrl;
     default:
-      throw new Error(`Unsupported region`);
+      throw new Error('Unsupported region');
   }
 }
