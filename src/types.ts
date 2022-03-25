@@ -1,5 +1,6 @@
 export enum Region {
   EU = 'EU',
+  AP = 'AP',
   Global = 'Global',
 }
 

@@ -2,6 +2,7 @@ import querystring from 'querystring';
 import { Region, VisitorHistoryFilter } from './types';
 
 const euRegionUrl = 'https://eu.api.fpjs.io/';
+const apRegionUrl = 'https://ap.api.fpjs.io';
 const globaRegionUrl = 'https://api.fpjs.io/';
 
 type QueryStringParameters = VisitorHistoryFilter & {
@@ -38,6 +39,8 @@ function getServerApiUrl(region: Region): string {
   switch (region) {
     case Region.EU:
       return euRegionUrl;
+    case Region.AP:
+      return apRegionUrl;
     case Region.Global:
       return globaRegionUrl;
     default:
