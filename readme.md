@@ -32,7 +32,7 @@ yarn add @fingerprintjs/fingerprintjs-pro-server-api
 ```ts
 import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api';
 
-// Init client with the give region and api_key
+// Init client with the given region and the secret api_key
 const client = new FingerprintJsServerApiClient({region: Region.Global, apiKey: "<api_key>"});
 
 // Get visitor history
