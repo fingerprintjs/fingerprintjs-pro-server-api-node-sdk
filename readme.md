@@ -57,7 +57,7 @@ const client = new FingerprintJsServerApiClient({region: Region.EU, apiKey: "<ap
 ```
 #### Params
 - `region: Region` - a region of the server, possible value `Region.EU` or `Region.Global`
-- `apiKey: string` - API key from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
+- `apiKey: string` - secret API key from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
 ---
 
 ### `client.getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
