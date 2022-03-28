@@ -14,9 +14,9 @@ export enum AuthenticationMode {
  */
 export interface Options {
   /**
-   * Server API token
+   * Secret API key
    */
-  apiToken: string;
+  apiKey: string;
   /**
    * Region of the FingerprintJS service server
    */

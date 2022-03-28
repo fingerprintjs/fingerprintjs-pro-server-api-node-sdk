@@ -37,8 +37,8 @@ yarn add @fingerprintjs/fingerprintjs-pro-server-api
 ```ts
 import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api';
 
-// Init client with the give region and api_token
-const client = new FingerprintJsServerApiClient({region: Region.Global, apiToken: "<api_token>"});
+// Init client with the given region and the secret api_key
+const client = new FingerprintJsServerApiClient({region: Region.Global, apiKey: "<api_key>"});
 
 // Get visitor history
 client.getVisitorHistory("<visitorId>").then(visitorHistory => {
@@ -54,15 +54,15 @@ const visit = visitWebhookBody as unknown as VisitWebhook;
 
 ## API
 ---
-### `FingerprintJsServerApiClient({region: Region, apiToken: string})` constructor
+### `FingerprintJsServerApiClient({region: Region, apiKey: string})` constructor
 Creates an instance of the client.
 #### Usage
 ```js
-const client = new FingerprintJsServerApiClient({Region.EU, "<api_token>"});
+const client = new FingerprintJsServerApiClient({region: Region.EU, apiKey: "<api_key>"});
 ```
 #### Params
 - `region: Region` - a region of the server, possible value `Region.EU` or `Region.Global`
-- `apiToken: string` - API token from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
+- `apiKey: string` - secret API key from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
 ---
 
 ### `client.getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`

@@ -11,7 +11,7 @@ import {
 export class FingerprintJsServerApiClient {
   public readonly region: Region;
 
-  public readonly apiToken: string;
+  public readonly apiKey: string;
 
   public readonly authenticationMode: AuthenticationMode;
 
@@ -25,12 +25,12 @@ export class FingerprintJsServerApiClient {
       throw Error('Region is not set');
     }
 
-    if (!options.apiToken) {
-      throw Error('Api token is not set');
+    if (!options.apiKey) {
+      throw Error('Api key is not set');
     }
 
     this.region = options.region;
-    this.apiToken = options.apiToken;
+    this.apiKey = options.apiKey;
     this.authenticationMode = options.authenticationMode ?? AuthenticationMode.AuthHeader; // Default auth mode is AuthHeader
   }
 
@@ -49,11 +49,11 @@ export class FingerprintJsServerApiClient {
 
     const url =
       this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getVisitorsUrl(this.region, visitorId, filter, this.apiToken)
+        ? getVisitorsUrl(this.region, visitorId, filter, this.apiKey)
         : getVisitorsUrl(this.region, visitorId, filter);
     const headers =
       this.authenticationMode === AuthenticationMode.AuthHeader
-        ? { 'Auth-Token': this.apiToken }
+        ? { 'Auth-API-Key': this.apiKey }
         : undefined;
 
     return fetch(url, {
