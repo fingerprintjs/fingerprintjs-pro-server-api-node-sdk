@@ -14,7 +14,7 @@ export enum AuthenticationMode {
  */
 export interface Options {
   /**
-   * Server API key
+   * Secret API key
    */
   apiKey: string;
   /**
