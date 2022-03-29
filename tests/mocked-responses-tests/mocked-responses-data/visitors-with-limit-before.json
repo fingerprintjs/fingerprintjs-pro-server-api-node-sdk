@@ -38,7 +38,19 @@
             "timestamp": 1626538503200,
             "time": "2021-07-17T16:15:03Z",
             "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
-            "tag": {}
+            "tag": {},
+            "confidence": {
+                "score": 0.97
+             },
+             "visitorFound": true,
+             "firstSeenAt": {
+                "global": "2022-03-16T11:26:45.362Z",
+                "subscription": "2022-03-16T11:31:01.101Z"
+             },
+             "lastSeenAt": {
+               "global": "2022-03-16T11:28:34.023Z",
+               "subscription": null
+             }
         },
         {
             "requestId": "1626538501305.r4MUiM",
@@ -77,7 +89,19 @@
             "timestamp": 1626538501305,
             "time": "2021-07-17T16:15:01Z",
             "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
-            "tag": {}
+            "tag": {},
+            "confidence": {
+                "score": 0.97
+             },
+             "visitorFound": true,
+             "firstSeenAt": {
+                "global": "2022-03-16T11:26:45.362Z",
+                "subscription": "2022-03-16T11:31:01.101Z"
+             },
+             "lastSeenAt": {
+               "global": "2022-03-16T11:28:34.023Z",
+               "subscription": null
+             }
         },
         {
             "requestId": "1626538500189.ihwRZy",
@@ -116,7 +140,19 @@
             "timestamp": 1626538500189,
             "time": "2021-07-17T16:15:00Z",
             "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
-            "tag": {}
+            "tag": {},
+            "confidence": {
+                "score": 0.97
+             },
+             "visitorFound": true,
+             "firstSeenAt": {
+                "global": "2022-03-16T11:26:45.362Z",
+                "subscription": "2022-03-16T11:31:01.101Z"
+             },
+             "lastSeenAt": {
+               "global": "2022-03-16T11:28:34.023Z",
+               "subscription": null
+             }
         },
         {
             "requestId": "1626538499206.KqxS2g",
@@ -155,7 +191,19 @@
             "timestamp": 1626538499207,
             "time": "2021-07-17T16:14:59Z",
             "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
-            "tag": {}
+            "tag": {},
+            "confidence": {
+                "score": 0.97
+             },
+             "visitorFound": true,
+             "firstSeenAt": {
+                "global": "2022-03-16T11:26:45.362Z",
+                "subscription": "2022-03-16T11:31:01.101Z"
+             },
+             "lastSeenAt": {
+               "global": "2022-03-16T11:28:34.023Z",
+               "subscription": null
+             }
         }
     ],
     "lastTimestamp": 1626538499206

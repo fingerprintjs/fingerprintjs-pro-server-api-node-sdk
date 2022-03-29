@@ -38,7 +38,19 @@
             "timestamp": 1626550679753,
             "time": "2021-07-17T19:37:59Z",
             "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
-            "tag": {}
+            "tag": {},
+            "confidence": {
+                "score": 0.97
+             },
+             "visitorFound": true,
+             "firstSeenAt": {
+                "global": "2022-03-16T11:26:45.362Z",
+                "subscription": "2022-03-16T11:31:01.101Z"
+             },
+             "lastSeenAt": {
+               "global": "2022-03-16T11:28:34.023Z",
+               "subscription": null
+             }
         }
     ]
 }

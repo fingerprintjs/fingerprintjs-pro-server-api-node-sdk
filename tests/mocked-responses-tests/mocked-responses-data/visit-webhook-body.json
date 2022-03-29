@@ -36,5 +36,17 @@
   "timestamp": 1627054081282,
   "clientReferrer": "https: //www.martinmakarsky.com/",
   "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
-  "linkedId": "makma"
+  "linkedId": "makma",
+  "confidence": {
+    "score": 0.97
+ },
+ "visitorFound": true,
+ "firstSeenAt": {
+    "global": "2022-03-16T11:26:45.362Z",
+    "subscription": "2022-03-16T11:31:01.101Z"
+ },
+ "lastSeenAt": {
+   "global": "2022-03-16T11:28:34.023Z",
+   "subscription": null
+ }
 }
