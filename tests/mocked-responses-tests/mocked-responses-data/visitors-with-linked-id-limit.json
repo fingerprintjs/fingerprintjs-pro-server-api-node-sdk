@@ -1,1 +1,201 @@
-{"visitorId":"TaDnMBz9XCpZNuSzFUqP","visits":[{"requestId":"1626956164420.8RpTrP","browserDetails":{"browserName":"Chrome","browserMajorVersion":"92","browserFullVersion":"92.0.4515","os":"Windows","osVersion":"10","device":"Other","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36","botProbability":0},"incognito":false,"ip":"185.5.70.59","ipLocation":{"accuracyRadius":100,"latitude":50.0848,"longitude":14.4112,"postalCode":"","timezone":"Europe/Prague","city":{"name":""},"country":{"code":"CZ","name":"Czechia"},"continent":{"code":"EU","name":"Europe"},"subdivisions":null},"linkedId":"makma","timestamp":1626956164420,"time":"2021-07-22T12:16:04Z","url":"https://www.martinmakarsky.com/not-very-secret-experiment-page","tag":{}},{"requestId":"1626956157430.mSYTHP","browserDetails":{"browserName":"Chrome","browserMajorVersion":"92","browserFullVersion":"92.0.4515","os":"Windows","osVersion":"10","device":"Other","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36","botProbability":0},"incognito":false,"ip":"185.5.70.59","ipLocation":{"accuracyRadius":100,"latitude":50.0848,"longitude":14.4112,"postalCode":"","timezone":"Europe/Prague","city":{"name":""},"country":{"code":"CZ","name":"Czechia"},"continent":{"code":"EU","name":"Europe"},"subdivisions":null},"linkedId":"makma","timestamp":1626956157430,"time":"2021-07-22T12:15:57Z","url":"http://localhost:8000/not-very-secret-experiment-page/","tag":{}},{"requestId":"1626943454219.O3wEaj","browserDetails":{"browserName":"Chrome","browserMajorVersion":"92","browserFullVersion":"92.0.4515","os":"Windows","osVersion":"10","device":"Other","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36","botProbability":0},"incognito":false,"ip":"185.5.70.59","ipLocation":{"accuracyRadius":100,"latitude":50.0848,"longitude":14.4112,"postalCode":"","timezone":"Europe/Prague","city":{"name":""},"country":{"code":"CZ","name":"Czechia"},"continent":{"code":"EU","name":"Europe"},"subdivisions":null},"linkedId":"makma","timestamp":1626943454219,"time":"2021-07-22T08:44:14Z","url":"https://www.martinmakarsky.com/not-very-secret-experiment-page","tag":{}},{"requestId":"1626852883108.aCjPA3","browserDetails":{"browserName":"Chrome","browserMajorVersion":"91","browserFullVersion":"91.0.4472","os":"Windows","osVersion":"10","device":"Other","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36","botProbability":0},"incognito":false,"ip":"185.5.70.59","ipLocation":{"accuracyRadius":100,"latitude":50.0848,"longitude":14.4112,"postalCode":"","timezone":"Europe/Prague","city":{"name":""},"country":{"code":"CZ","name":"Czechia"},"continent":{"code":"EU","name":"Europe"},"subdivisions":null},"linkedId":"makma","timestamp":1626852883109,"time":"2021-07-21T07:34:43Z","url":"https://www.martinmakarsky.com/not-very-secret-experiment-page","tag":{}},{"requestId":"1626852863845.5dF8R7","browserDetails":{"browserName":"Chrome","browserMajorVersion":"91","browserFullVersion":"91.0.4472","os":"Windows","osVersion":"10","device":"Other","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36","botProbability":0},"incognito":false,"ip":"185.5.70.59","ipLocation":{"accuracyRadius":100,"latitude":50.0848,"longitude":14.4112,"postalCode":"","timezone":"Europe/Prague","city":{"name":""},"country":{"code":"CZ","name":"Czechia"},"continent":{"code":"EU","name":"Europe"},"subdivisions":null},"linkedId":"makma","timestamp":1626852863846,"time":"2021-07-21T07:34:23Z","url":"https://www.martinmakarsky.com/not-very-secret-experiment-page","tag":{}}],"lastTimestamp":1626852863845}
+{
+    "visitorId": "TaDnMBz9XCpZNuSzFUqP",
+    "visits": [
+        {
+            "requestId": "1626956164420.8RpTrP",
+            "browserDetails": {
+                "browserName": "Chrome",
+                "browserMajorVersion": "92",
+                "browserFullVersion": "92.0.4515",
+                "os": "Windows",
+                "osVersion": "10",
+                "device": "Other",
+                "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+                "botProbability": 0
+            },
+            "incognito": false,
+            "ip": "185.5.70.59",
+            "ipLocation": {
+                "accuracyRadius": 100,
+                "latitude": 50.0848,
+                "longitude": 14.4112,
+                "postalCode": "",
+                "timezone": "Europe/Prague",
+                "city": {
+                    "name": ""
+                },
+                "country": {
+                    "code": "CZ",
+                    "name": "Czechia"
+                },
+                "continent": {
+                    "code": "EU",
+                    "name": "Europe"
+                },
+                "subdivisions": null
+            },
+            "linkedId": "makma",
+            "timestamp": 1626956164420,
+            "time": "2021-07-22T12:16:04Z",
+            "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+            "tag": {}
+        },
+        {
+            "requestId": "1626956157430.mSYTHP",
+            "browserDetails": {
+                "browserName": "Chrome",
+                "browserMajorVersion": "92",
+                "browserFullVersion": "92.0.4515",
+                "os": "Windows",
+                "osVersion": "10",
+                "device": "Other",
+                "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+                "botProbability": 0
+            },
+            "incognito": false,
+            "ip": "185.5.70.59",
+            "ipLocation": {
+                "accuracyRadius": 100,
+                "latitude": 50.0848,
+                "longitude": 14.4112,
+                "postalCode": "",
+                "timezone": "Europe/Prague",
+                "city": {
+                    "name": ""
+                },
+                "country": {
+                    "code": "CZ",
+                    "name": "Czechia"
+                },
+                "continent": {
+                    "code": "EU",
+                    "name": "Europe"
+                },
+                "subdivisions": null
+            },
+            "linkedId": "makma",
+            "timestamp": 1626956157430,
+            "time": "2021-07-22T12:15:57Z",
+            "url": "http://localhost:8000/not-very-secret-experiment-page/",
+            "tag": {}
+        },
+        {
+            "requestId": "1626943454219.O3wEaj",
+            "browserDetails": {
+                "browserName": "Chrome",
+                "browserMajorVersion": "92",
+                "browserFullVersion": "92.0.4515",
+                "os": "Windows",
+                "osVersion": "10",
+                "device": "Other",
+                "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+                "botProbability": 0
+            },
+            "incognito": false,
+            "ip": "185.5.70.59",
+            "ipLocation": {
+                "accuracyRadius": 100,
+                "latitude": 50.0848,
+                "longitude": 14.4112,
+                "postalCode": "",
+                "timezone": "Europe/Prague",
+                "city": {
+                    "name": ""
+                },
+                "country": {
+                    "code": "CZ",
+                    "name": "Czechia"
+                },
+                "continent": {
+                    "code": "EU",
+                    "name": "Europe"
+                },
+                "subdivisions": null
+            },
+            "linkedId": "makma",
+            "timestamp": 1626943454219,
+            "time": "2021-07-22T08:44:14Z",
+            "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+            "tag": {}
+        },
+        {
+            "requestId": "1626852883108.aCjPA3",
+            "browserDetails": {
+                "browserName": "Chrome",
+                "browserMajorVersion": "91",
+                "browserFullVersion": "91.0.4472",
+                "os": "Windows",
+                "osVersion": "10",
+                "device": "Other",
+                "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                "botProbability": 0
+            },
+            "incognito": false,
+            "ip": "185.5.70.59",
+            "ipLocation": {
+                "accuracyRadius": 100,
+                "latitude": 50.0848,
+                "longitude": 14.4112,
+                "postalCode": "",
+                "timezone": "Europe/Prague",
+                "city": {
+                    "name": ""
+                },
+                "country": {
+                    "code": "CZ",
+                    "name": "Czechia"
+                },
+                "continent": {
+                    "code": "EU",
+                    "name": "Europe"
+                },
+                "subdivisions": null
+            },
+            "linkedId": "makma",
+            "timestamp": 1626852883109,
+            "time": "2021-07-21T07:34:43Z",
+            "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+            "tag": {}
+        },
+        {
+            "requestId": "1626852863845.5dF8R7",
+            "browserDetails": {
+                "browserName": "Chrome",
+                "browserMajorVersion": "91",
+                "browserFullVersion": "91.0.4472",
+                "os": "Windows",
+                "osVersion": "10",
+                "device": "Other",
+                "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+                "botProbability": 0
+            },
+            "incognito": false,
+            "ip": "185.5.70.59",
+            "ipLocation": {
+                "accuracyRadius": 100,
+                "latitude": 50.0848,
+                "longitude": 14.4112,
+                "postalCode": "",
+                "timezone": "Europe/Prague",
+                "city": {
+                    "name": ""
+                },
+                "country": {
+                    "code": "CZ",
+                    "name": "Czechia"
+                },
+                "continent": {
+                    "code": "EU",
+                    "name": "Europe"
+                },
+                "subdivisions": null
+            },
+            "linkedId": "makma",
+            "timestamp": 1626852863846,
+            "time": "2021-07-21T07:34:23Z",
+            "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+            "tag": {}
+        }
+    ],
+    "lastTimestamp": 1626852863845
+}
