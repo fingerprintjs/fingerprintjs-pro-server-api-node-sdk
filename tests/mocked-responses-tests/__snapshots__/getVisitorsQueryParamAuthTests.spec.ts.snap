@@ -16,6 +16,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.70.59",
       "ipLocation": Object {
@@ -36,6 +43,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538503200.4ztVy4",
@@ -43,6 +54,7 @@ Object {
       "time": "2021-07-17T16:15:03Z",
       "timestamp": 1626538503200,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -54,6 +66,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -75,6 +94,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538501305.r4MUiM",
@@ -82,6 +105,7 @@ Object {
       "time": "2021-07-17T16:15:01Z",
       "timestamp": 1626538501305,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -93,6 +117,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -114,6 +145,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538500189.ihwRZy",
@@ -121,6 +156,7 @@ Object {
       "time": "2021-07-17T16:15:00Z",
       "timestamp": 1626538500189,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -132,6 +168,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -154,12 +197,17 @@ Object {
         "subdivisions": null,
         "timezone": "Europe/Prague",
       },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
+      },
       "linkedId": "makma",
       "requestId": "1626538499206.KqxS2g",
       "tag": Object {},
       "time": "2021-07-17T16:14:59Z",
       "timestamp": 1626538499207,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
   ],
 }
@@ -181,6 +229,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.70.59",
       "ipLocation": Object {
@@ -201,6 +256,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626956164420.8RpTrP",
@@ -208,6 +267,7 @@ Object {
       "time": "2021-07-22T12:16:04Z",
       "timestamp": 1626956164420,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -219,6 +279,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -240,6 +307,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626956157430.mSYTHP",
@@ -247,6 +318,7 @@ Object {
       "time": "2021-07-22T12:15:57Z",
       "timestamp": 1626956157430,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -259,6 +331,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.70.59",
       "ipLocation": Object {
@@ -279,6 +358,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626943454219.O3wEaj",
@@ -286,6 +369,7 @@ Object {
       "time": "2021-07-22T08:44:14Z",
       "timestamp": 1626943454219,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -297,6 +381,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -318,6 +409,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626852883108.aCjPA3",
@@ -325,6 +420,7 @@ Object {
       "time": "2021-07-21T07:34:43Z",
       "timestamp": 1626852883109,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -336,6 +432,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -358,12 +461,17 @@ Object {
         "subdivisions": null,
         "timezone": "Europe/Prague",
       },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
+      },
       "linkedId": "makma",
       "requestId": "1626852863845.5dF8R7",
       "tag": Object {},
       "time": "2021-07-21T07:34:23Z",
       "timestamp": 1626852863846,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
   ],
 }
@@ -384,6 +492,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.70.59",
       "ipLocation": Object {
@@ -405,12 +520,17 @@ Object {
         "subdivisions": null,
         "timezone": "Europe/Prague",
       },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
+      },
       "linkedId": "makma",
       "requestId": "1626550679751.cVc5Pm",
       "tag": Object {},
       "time": "2021-07-17T19:37:59Z",
       "timestamp": 1626550679753,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
   ],
 }
@@ -431,6 +551,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.70.59",
       "ipLocation": Object {
@@ -452,12 +579,17 @@ Object {
         "subdivisions": null,
         "timezone": "Europe/Prague",
       },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
+      },
       "linkedId": "makma",
       "requestId": "1626550679751.cVc5Pm",
       "tag": Object {},
       "time": "2021-07-17T19:37:59Z",
       "timestamp": 1626550679753,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
   ],
 }
@@ -478,6 +610,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.70.59",
       "ipLocation": Object {
@@ -498,6 +637,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626956164420.8RpTrP",
@@ -505,6 +648,7 @@ Object {
       "time": "2021-07-22T12:16:04Z",
       "timestamp": 1626956164420,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -516,6 +660,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -537,6 +688,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626956157430.mSYTHP",
@@ -544,6 +699,7 @@ Object {
       "time": "2021-07-22T12:15:57Z",
       "timestamp": 1626956157430,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -556,6 +712,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.70.59",
       "ipLocation": Object {
@@ -576,6 +739,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626943454219.O3wEaj",
@@ -583,6 +750,7 @@ Object {
       "time": "2021-07-22T08:44:14Z",
       "timestamp": 1626943454219,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -594,6 +762,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -615,6 +790,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626852883108.aCjPA3",
@@ -622,6 +801,7 @@ Object {
       "time": "2021-07-21T07:34:43Z",
       "timestamp": 1626852883109,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -633,6 +813,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -654,6 +841,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626852863845.5dF8R7",
@@ -661,6 +852,7 @@ Object {
       "time": "2021-07-21T07:34:23Z",
       "timestamp": 1626852863846,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -672,6 +864,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -693,6 +892,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626680787146.yULVXC",
@@ -700,6 +903,7 @@ Object {
       "time": "2021-07-19T07:46:27Z",
       "timestamp": 1626680787147,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -711,6 +915,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -732,6 +943,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626679401814.Ac6PRL",
@@ -739,6 +954,7 @@ Object {
       "time": "2021-07-19T07:23:21Z",
       "timestamp": 1626679401815,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -750,6 +966,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -771,6 +994,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626679372128.db18UP",
@@ -778,6 +1005,7 @@ Object {
       "time": "2021-07-19T07:22:52Z",
       "timestamp": 1626679372129,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -789,6 +1017,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -810,6 +1045,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626617900618.VHPim4",
@@ -817,6 +1056,7 @@ Object {
       "time": "2021-07-18T14:18:20Z",
       "timestamp": 1626617900619,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -828,6 +1068,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -849,6 +1096,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626617823092.k9xV9L",
@@ -856,6 +1107,7 @@ Object {
       "time": "2021-07-18T14:17:03Z",
       "timestamp": 1626617823092,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -867,6 +1119,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -888,6 +1147,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626617778995.ObSMsA",
@@ -895,6 +1158,7 @@ Object {
       "time": "2021-07-18T14:16:18Z",
       "timestamp": 1626617778996,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -906,6 +1170,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -927,6 +1198,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626617777018.TqrfM5",
@@ -934,6 +1209,7 @@ Object {
       "time": "2021-07-18T14:16:17Z",
       "timestamp": 1626617777018,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -945,6 +1221,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -966,6 +1249,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626617762668.j9hwYR",
@@ -973,6 +1260,7 @@ Object {
       "time": "2021-07-18T14:16:02Z",
       "timestamp": 1626617762669,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -984,6 +1272,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1005,6 +1300,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626617760153.Co9QUm",
@@ -1012,6 +1311,7 @@ Object {
       "time": "2021-07-18T14:16:00Z",
       "timestamp": 1626617760154,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1023,6 +1323,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1044,6 +1351,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626617704553.plKMqv",
@@ -1051,6 +1362,7 @@ Object {
       "time": "2021-07-18T14:15:04Z",
       "timestamp": 1626617704553,
       "url": "http://localhost:8000/not-very-secret-experiment-page/",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1062,6 +1374,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1083,6 +1402,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626550679751.cVc5Pm",
@@ -1090,6 +1413,7 @@ Object {
       "time": "2021-07-17T19:37:59Z",
       "timestamp": 1626550679753,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1101,6 +1425,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1122,6 +1453,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626549944676.r0JZt2",
@@ -1129,6 +1464,7 @@ Object {
       "time": "2021-07-17T19:25:44Z",
       "timestamp": 1626549944677,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1140,6 +1476,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1161,6 +1504,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538508182.W45W03",
@@ -1168,6 +1515,7 @@ Object {
       "time": "2021-07-17T16:15:08Z",
       "timestamp": 1626538508183,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1179,6 +1527,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1200,6 +1555,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538507191.UtU16v",
@@ -1207,6 +1566,7 @@ Object {
       "time": "2021-07-17T16:15:07Z",
       "timestamp": 1626538507192,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1218,6 +1578,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1239,6 +1606,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538505244.glmjZ4",
@@ -1246,6 +1617,7 @@ Object {
       "time": "2021-07-17T16:15:05Z",
       "timestamp": 1626538505250,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1257,6 +1629,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1278,6 +1657,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538503200.4ztVy4",
@@ -1285,6 +1668,7 @@ Object {
       "time": "2021-07-17T16:15:03Z",
       "timestamp": 1626538503200,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1296,6 +1680,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1317,6 +1708,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538501305.r4MUiM",
@@ -1324,6 +1719,7 @@ Object {
       "time": "2021-07-17T16:15:01Z",
       "timestamp": 1626538501305,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1335,6 +1731,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1356,6 +1759,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538500189.ihwRZy",
@@ -1363,6 +1770,7 @@ Object {
       "time": "2021-07-17T16:15:00Z",
       "timestamp": 1626538500189,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1374,6 +1782,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1395,6 +1810,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538499206.KqxS2g",
@@ -1402,6 +1821,7 @@ Object {
       "time": "2021-07-17T16:14:59Z",
       "timestamp": 1626538499207,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1413,6 +1833,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1434,6 +1861,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538498145.YfHilP",
@@ -1441,6 +1872,7 @@ Object {
       "time": "2021-07-17T16:14:58Z",
       "timestamp": 1626538498145,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1452,6 +1884,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1473,6 +1912,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538497246.ws5hjd",
@@ -1480,6 +1923,7 @@ Object {
       "time": "2021-07-17T16:14:57Z",
       "timestamp": 1626538497246,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1491,6 +1935,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1512,6 +1963,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538496149.YzVefR",
@@ -1519,6 +1974,7 @@ Object {
       "time": "2021-07-17T16:14:56Z",
       "timestamp": 1626538496149,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1530,6 +1986,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1551,6 +2014,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538495213.WPLTlv",
@@ -1558,6 +2025,7 @@ Object {
       "time": "2021-07-17T16:14:55Z",
       "timestamp": 1626538495214,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1569,6 +2037,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1590,6 +2065,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538492257.i7Z5ZR",
@@ -1597,6 +2076,7 @@ Object {
       "time": "2021-07-17T16:14:52Z",
       "timestamp": 1626538492258,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1608,6 +2088,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1629,6 +2116,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538492192.OT94vb",
@@ -1636,6 +2127,7 @@ Object {
       "time": "2021-07-17T16:14:52Z",
       "timestamp": 1626538492193,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1647,6 +2139,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1668,6 +2167,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538490228.x048Y4",
@@ -1675,6 +2178,7 @@ Object {
       "time": "2021-07-17T16:14:50Z",
       "timestamp": 1626538490228,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1686,6 +2190,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1707,6 +2218,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538487213.wm7ggX",
@@ -1714,6 +2229,7 @@ Object {
       "time": "2021-07-17T16:14:47Z",
       "timestamp": 1626538487213,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1725,6 +2241,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1746,6 +2269,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538486204.MdBmW1",
@@ -1753,6 +2280,7 @@ Object {
       "time": "2021-07-17T16:14:46Z",
       "timestamp": 1626538486205,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1764,6 +2292,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1785,6 +2320,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538485202.EJSoNj",
@@ -1792,6 +2331,7 @@ Object {
       "time": "2021-07-17T16:14:45Z",
       "timestamp": 1626538485202,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1803,6 +2343,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1824,6 +2371,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538484299.IEElKV",
@@ -1831,6 +2382,7 @@ Object {
       "time": "2021-07-17T16:14:44Z",
       "timestamp": 1626538484299,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1842,6 +2394,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1863,6 +2422,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538373745.7JfeZI",
@@ -1870,6 +2433,7 @@ Object {
       "time": "2021-07-17T16:12:53Z",
       "timestamp": 1626538373746,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1881,6 +2445,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1902,6 +2473,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538355428.yrFOuf",
@@ -1909,6 +2484,7 @@ Object {
       "time": "2021-07-17T16:12:35Z",
       "timestamp": 1626538355428,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1920,6 +2496,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1941,6 +2524,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538354957.kYa10h",
@@ -1948,6 +2535,7 @@ Object {
       "time": "2021-07-17T16:12:34Z",
       "timestamp": 1626538354957,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1959,6 +2547,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -1980,6 +2575,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538354457.ZVXwAf",
@@ -1987,6 +2586,7 @@ Object {
       "time": "2021-07-17T16:12:34Z",
       "timestamp": 1626538354458,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -1998,6 +2598,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2019,6 +2626,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538353905.B3nmPK",
@@ -2026,6 +2637,7 @@ Object {
       "time": "2021-07-17T16:12:33Z",
       "timestamp": 1626538353905,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2037,6 +2649,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2058,6 +2677,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538353387.usHFUF",
@@ -2065,6 +2688,7 @@ Object {
       "time": "2021-07-17T16:12:33Z",
       "timestamp": 1626538353387,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2076,6 +2700,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2097,6 +2728,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538352656.YQn8T0",
@@ -2104,6 +2739,7 @@ Object {
       "time": "2021-07-17T16:12:32Z",
       "timestamp": 1626538352657,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2115,6 +2751,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2136,6 +2779,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538351786.njfFHD",
@@ -2143,6 +2790,7 @@ Object {
       "time": "2021-07-17T16:12:31Z",
       "timestamp": 1626538351787,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2154,6 +2802,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2175,6 +2830,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538350175.HZjLq6",
@@ -2182,6 +2841,7 @@ Object {
       "time": "2021-07-17T16:12:30Z",
       "timestamp": 1626538350176,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2193,6 +2853,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2214,6 +2881,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538349295.Vw4QtJ",
@@ -2221,6 +2892,7 @@ Object {
       "time": "2021-07-17T16:12:29Z",
       "timestamp": 1626538349296,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2232,6 +2904,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2253,6 +2932,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538348205.dI1Knx",
@@ -2260,6 +2943,7 @@ Object {
       "time": "2021-07-17T16:12:28Z",
       "timestamp": 1626538348206,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2271,6 +2955,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2292,6 +2983,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538346983.YpfQ9F",
@@ -2299,6 +2994,7 @@ Object {
       "time": "2021-07-17T16:12:26Z",
       "timestamp": 1626538346983,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2310,6 +3006,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2331,6 +3034,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538345255.vl7SBJ",
@@ -2338,6 +3045,7 @@ Object {
       "time": "2021-07-17T16:12:25Z",
       "timestamp": 1626538345255,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2349,6 +3057,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2370,6 +3085,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538095159.yEFOri",
@@ -2377,6 +3096,7 @@ Object {
       "time": "2021-07-17T16:08:15Z",
       "timestamp": 1626538095159,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2388,6 +3108,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2409,6 +3136,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626538093110.FGodej",
@@ -2416,6 +3147,7 @@ Object {
       "time": "2021-07-17T16:08:13Z",
       "timestamp": 1626538093110,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2427,6 +3159,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2448,6 +3187,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626537943595.2lS9Dp",
@@ -2455,6 +3198,7 @@ Object {
       "time": "2021-07-17T16:05:43Z",
       "timestamp": 1626537943596,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2466,6 +3210,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2487,6 +3238,10 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "linkedId": "makma",
       "requestId": "1626537918487.VCVljz",
@@ -2494,6 +3249,7 @@ Object {
       "time": "2021-07-17T16:05:18Z",
       "timestamp": 1626537918488,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2505,6 +3261,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2526,12 +3289,17 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "requestId": "1626537310632.TyJRLm",
       "tag": Object {},
       "time": "2021-07-17T15:55:10Z",
       "timestamp": 1626537310632,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2543,6 +3311,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2564,12 +3339,17 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "requestId": "1626537134656.7cFS6B",
       "tag": Object {},
       "time": "2021-07-17T15:52:14Z",
       "timestamp": 1626537134656,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2581,6 +3361,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2602,12 +3389,17 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "requestId": "1626537128885.IUOz3W",
       "tag": Object {},
       "time": "2021-07-17T15:52:08Z",
       "timestamp": 1626537128885,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2619,6 +3411,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2640,12 +3439,17 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "requestId": "1626536745200.TmXPEF",
       "tag": Object {},
       "time": "2021-07-17T15:45:45Z",
       "timestamp": 1626536745200,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2657,6 +3461,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.70.59",
@@ -2679,11 +3490,16 @@ Object {
         "subdivisions": null,
         "timezone": "Europe/Prague",
       },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
+      },
       "requestId": "1626536579641.cI7pvl",
       "tag": Object {},
       "time": "2021-07-17T15:42:59Z",
       "timestamp": 1626536579641,
       "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2696,6 +3512,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.69.240",
       "ipLocation": Object {
@@ -2717,11 +3540,16 @@ Object {
         "subdivisions": null,
         "timezone": "Europe/Prague",
       },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
+      },
       "requestId": "1620926157996.xWrGFD",
       "tag": Object {},
       "time": "2021-05-13T17:15:57Z",
       "timestamp": 1620926157997,
       "url": "file:///C:/Users/marti/Desktop/index.html",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2734,6 +3562,13 @@ Object {
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36",
       },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
+      },
       "incognito": false,
       "ip": "185.5.69.240",
       "ipLocation": Object {
@@ -2754,12 +3589,17 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "requestId": "1620203187241.tlmuIv",
       "tag": Object {},
       "time": "2021-05-05T08:26:27Z",
       "timestamp": 1620203187242,
       "url": "file:///C:/Users/marti/Desktop/index.html",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2771,6 +3611,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.69.240",
@@ -2792,12 +3639,17 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "requestId": "1619183286799.G6pm79",
       "tag": Object {},
       "time": "2021-04-23T13:08:06Z",
       "timestamp": 1619183286800,
       "url": "file:///C:/Users/marti/Desktop/index.html",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2809,6 +3661,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.69.240",
@@ -2830,12 +3689,17 @@ Object {
         "postalCode": "",
         "subdivisions": null,
         "timezone": "Europe/Prague",
+      },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
       },
       "requestId": "1619183012659.MgH717",
       "tag": Object {},
       "time": "2021-04-23T13:03:32Z",
       "timestamp": 1619183012660,
       "url": "file:///C:/Users/marti/Desktop/index.html",
+      "visitorFound": true,
     },
     Object {
       "browserDetails": Object {
@@ -2847,6 +3711,13 @@ Object {
         "os": "Windows",
         "osVersion": "10",
         "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36",
+      },
+      "confidence": Object {
+        "score": 0.97,
+      },
+      "firstSeenAt": Object {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z",
       },
       "incognito": false,
       "ip": "185.5.69.240",
@@ -2869,11 +3740,16 @@ Object {
         "subdivisions": null,
         "timezone": "Europe/Prague",
       },
+      "lastSeenAt": Object {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null,
+      },
       "requestId": "1619183001434.9imvcR",
       "tag": Object {},
       "time": "2021-04-23T13:03:21Z",
       "timestamp": 1619183001435,
       "url": "file:///C:/Users/marti/Desktop/index.html",
+      "visitorFound": true,
     },
   ],
 }

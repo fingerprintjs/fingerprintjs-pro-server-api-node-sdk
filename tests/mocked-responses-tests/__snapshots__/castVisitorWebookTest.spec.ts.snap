@@ -13,6 +13,13 @@ Object {
     "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.107 Safari/537.36",
   },
   "clientReferrer": "https: //www.martinmakarsky.com/",
+  "confidence": Object {
+    "score": 0.97,
+  },
+  "firstSeenAt": Object {
+    "global": "2022-03-16T11:26:45.362Z",
+    "subscription": "2022-03-16T11:31:01.101Z",
+  },
   "incognito": false,
   "ip": "185.5.70.59",
   "ipLocation": Object {
@@ -31,6 +38,10 @@ Object {
     "organization": Object {},
     "timezone": "Europe/Prague",
   },
+  "lastSeenAt": Object {
+    "global": "2022-03-16T11:28:34.023Z",
+    "subscription": null,
+  },
   "linkedId": "makma",
   "requestId": "1627054081281.wo4lLc",
   "tag": Object {
@@ -39,6 +50,7 @@ Object {
   "time": "",
   "timestamp": 1627054081282,
   "url": "https://www.martinmakarsky.com/not-very-secret-experiment-page",
+  "visitorFound": true,
   "visitorId": "TaDnMBz9XCpZNuSzFUqP",
 }
 `;
