@@ -11,7 +11,7 @@
     "build": "tsc",
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "lint:fix": "yarn lint --fix",
-    "test": "npx jest"
+    "test": "jest"
   },
   "keywords": [],
   "author": "FingerprintJS, Inc (https://fingerprintjs.com)",
