@@ -1,4 +1,3 @@
-import querystring from 'querystring';
 import { Region, VisitorHistoryFilter } from './types';
 
 const euRegionUrl = 'https://eu.api.fpjs.io/';
@@ -21,12 +20,20 @@ export function getVisitorsUrl(
   }
 
   const serverApiPath = getVisitorsPath(region, visitorId);
-  const queryString = queryStringParameters ? querystring.stringify(queryStringParameters) : '';
+  const queryString = queryStringParameters
+    ? serializeQueryStringParams(queryStringParameters)
+    : '';
 
   if (queryString === '') {
     return serverApiPath;
   }
   return `${serverApiPath}?${queryString}`;
+}
+
+function serializeQueryStringParams(params: QueryStringParameters): string {
+  const urlSearchParams = new URLSearchParams(Object.entries(params) as Array<[string, string]>);
+
+  return urlSearchParams.toString();
 }
 
 function getVisitorsPath(region: Region, visitorId: string): string {
