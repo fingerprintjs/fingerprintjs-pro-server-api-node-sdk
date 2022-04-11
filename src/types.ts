@@ -1,3 +1,5 @@
+import type fetchFn from 'node-fetch';
+
 export enum Region {
   EU = 'EU',
   AP = 'AP',
@@ -26,6 +28,11 @@ export interface Options {
    * Optional, default value is AuthHeader
    */
   authenticationMode?: AuthenticationMode;
+
+  /**
+   * Optional fetch implementation
+   * */
+  fetch?: typeof fetchFn;
 }
 
 /**
