@@ -34,4 +34,7 @@ yarn test
 
 ### How to publish
 
-Change version in package.json to x.y.z and push a commit with the message Release x.y.z, the npm-publish action will create a new tag vx.y.z and publish the package to the npm registry.
+- Create a new branch
+- Run `yarn release:(major|minor|patch)` depending on the version you need
+- Make a pull request
+- After merging the pull request into the main branch and after successful tests, GitHub Action will publish a new version to the npm
