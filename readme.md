@@ -151,4 +151,8 @@ const filter = {
 ```
 ---
 ## Release new version
-Change version in package.json to 1.2.3 and push a commit with the message Release 1.2.3, the npm-publish action will create a new tag v1.2.3 and publish the package to the npm registry.
+
+- Create a new branch
+- Run `yarn release:(major|minor|patch)` depending on the version you need
+- Make a pull request
+- After merging the pull request into the main branch and after successful tests, GitHub Action will publish a new version to the npm
