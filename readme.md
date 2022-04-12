@@ -53,36 +53,36 @@ const visit = visitWebhookBody as unknown as VisitWebhook;
 ```
 
 ## API
----
-### `FingerprintJsServerApiClient({region: Region, apiKey: string})` constructor
+
+#### `FingerprintJsServerApiClient({region: Region, apiKey: string})` constructor
 Creates an instance of the client.
-#### Usage
+##### Usage
 ```js
 const client = new FingerprintJsServerApiClient({region: Region.EU, apiKey: "<api_key>"});
 ```
-#### Params
+##### Params
 - `region: Region` - a region of the server, possible value `Region.EU` or `Region.Global`
 - `apiKey: string` - secret API key from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
 - `fetch?: typeof fetch` - optional implementation of `fetch` function (defaults to `node-fetch`)
 ---
 
-### `client.getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
+#### `client.getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
 Gets history for the given visitor and given filter, returns a promise with visitor history response.
-#### Usage
+##### Usage
 ```js
 client.getVisitorHistory("<visitorId>", filter).then(visitorHistory => {
     console.log(visitorHistory);
 });
 ```
-#### Params
+##### Params
 - `visitorId: string` - identifier of the visitor
 - `filter?: VisitorHistoryFilter` - visitor history filter, more info in [the API documentation](https://dev.fingerprintjs.com/docs/server-api#query-parameters)
-#### Returns
+##### Returns
 - `Promise<VisitorsResponse>` - promise with visitor history response
 ---
-### `VisitorHistoryFilter`
-Filter for querying API - see [query parameters](VisitorHistoryFilter).
-### Usage
+#### `VisitorHistoryFilter`
+Filter for querying API - see [query parameters](https://dev.fingerprintjs.com/docs/server-api#query-parameters).
+##### Usage
 ```js
 const filter = {
     request_id: "<request_id>",
@@ -91,13 +91,14 @@ const filter = {
     before: "<timeStamp>"
 };
 ```
-#### Properties
+##### Properties
 - `request_id: string` - filter events by requestId
 - `linked_id: string` - filter events by custom identifier
 - `limit: number` - limit scanned results
 - `before: number` - used to paginate results
 ---
-### Server `VisitorsResponse` response
+#### Server `VisitorsResponse` response
+Find more info in [the API documentation](https://dev.fingerprintjs.com/docs/server-api#response)
 ```json
 {
   "visitorId": "Ibk1527CUFmcnjLwIs4A9",
@@ -143,6 +144,18 @@ const filter = {
         "osVersion": "7",
         "device": "Other",
         "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+      },
+      "confidence": {
+        "score": 0.97
+      },
+      "visitorFound": true,
+      "firstSeenAt": {
+        "global": "2022-03-16T11:26:45.362Z",
+        "subscription": "2022-03-16T11:31:01.101Z"
+      },
+      "lastSeenAt": {
+        "global": "2022-03-16T11:28:34.023Z",
+        "subscription": null
       }
     }
   ],
