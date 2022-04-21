@@ -2,7 +2,7 @@
 
 ##### Build System / Dependencies
 
-*  Add "--no-git-tag-version" flag to release commands ([b8f2bc77](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/b8f2bc7727f0f09b8f83f24e795f6ae29d60b36b))
+*  add "--no-git-tag-version" flag to release commands ([b8f2bc77](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/b8f2bc7727f0f09b8f83f24e795f6ae29d60b36b))
 *  Use generate-changelog for releases ([a9d2b336](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/a9d2b336df2270306e1c2a01f90c3ca058f0df3e))
 
 ##### Chores
