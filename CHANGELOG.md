@@ -1,3 +1,9 @@
+#### 1.0.5 (2022-04-21)
+
+##### Bug Fixes
+
+*  ap region URL ([aba47938](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/aba47938bd180eaae492f8a44bb6340c7aa8fece))
+
 #### 1.0.4 (2022-04-21)
 
 ##### Chores
