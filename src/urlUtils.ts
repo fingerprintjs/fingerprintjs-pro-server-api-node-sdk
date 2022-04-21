@@ -1,7 +1,7 @@
 import { Region, VisitorHistoryFilter } from './types';
 
 const euRegionUrl = 'https://eu.api.fpjs.io/';
-const apRegionUrl = 'https://ap.api.fpjs.io';
+const apRegionUrl = 'https://ap.api.fpjs.io/';
 const globalRegionUrl = 'https://api.fpjs.io/';
 
 type QueryStringParameters = VisitorHistoryFilter & {
