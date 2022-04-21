@@ -1,3 +1,9 @@
+#### 1.0.3 (2022-04-21)
+
+##### Chores
+
+*  another work around to make publish work ([ef40e525](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/ef40e5253185434c1e2ca1ad1baaa1299c140bc9))
+
 #### 1.0.2 (2022-04-21)
 
 ##### Chores
