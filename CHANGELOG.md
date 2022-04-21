@@ -1,3 +1,9 @@
+#### 1.0.2 (2022-04-21)
+
+##### Chores
+
+*  update checkout action version ([b6446386](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/b6446386c3006e6ab2f758ccfa9a0decc2fb3b20))
+
 #### 1.0.1 (2022-04-21)
 
 ##### Chores
