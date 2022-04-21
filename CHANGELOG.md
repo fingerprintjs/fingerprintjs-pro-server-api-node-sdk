@@ -1,3 +1,9 @@
+#### 1.0.4 (2022-04-21)
+
+##### Chores
+
+*  another attempt to fix git issue with safe.directory ([675e1749](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/675e1749fe576856a07647fcb2b7b83e1f9088c3))
+
 #### 1.0.3 (2022-04-21)
 
 ##### Chores
