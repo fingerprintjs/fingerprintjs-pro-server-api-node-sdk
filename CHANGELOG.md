@@ -1,3 +1,9 @@
+#### 1.0.1 (2022-04-21)
+
+##### Chores
+
+* try a new git version workaround to publish the new version to npm ([99e1f05d](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/99e1f05d9f9d08e37e904e2d7c7a395549eb8ee1))
+
 ## 1.0.0 (2022-04-20)
 
 ##### Build System / Dependencies

@@ -29,6 +29,8 @@ jobs:
         run: yarn build
       - name: Run tests
         run: yarn test
+      - name: work around permission issue
+        run: git config --global --add safe.directory /github/workspace
       - name: Publish if version has been updated
         uses: pascalgn/npm-publish-action@e05dd3cd13412801d978714d8eac1cb922826da1
         with:
