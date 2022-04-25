@@ -18,7 +18,7 @@
   </a>
 </p>
 
-# [Beta] FingerprintJS Server API Node.js SDK
+# FingerprintJS Server API Node.js SDK
 Node.js wrapper for [FingerprintJS Sever API](https://dev.fingerprintjs.com/docs/server-api)
 
 ## Usage
