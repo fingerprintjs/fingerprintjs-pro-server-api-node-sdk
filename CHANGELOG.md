@@ -1,3 +1,9 @@
+#### 1.0.6 (2022-05-13)
+
+##### Documentation Changes
+
+*  remove beta tag ([b5a091c5](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/b5a091c5d5f80234706b8a334b8328ae4d8c64ea))
+
 #### 1.0.5 (2022-04-21)
 
 ##### Bug Fixes
