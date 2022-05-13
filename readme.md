@@ -19,7 +19,7 @@
 </p>
 
 # FingerprintJS Server API Node.js SDK
-Node.js wrapper for [FingerprintJS Sever API](https://dev.fingerprintjs.com/docs/server-api)
+Node.js wrapper for [FingerprintJS Server API](https://dev.fingerprintjs.com/docs/server-api)
 
 ## Usage
 
