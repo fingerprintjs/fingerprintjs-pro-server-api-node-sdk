@@ -15,6 +15,7 @@
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
+    "generateTypes": "yarn openapi-typescript https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/schemes/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc.json",
     "release:major": "changelog -M && git add CHANGELOG.md && yarn version --major --no-git-tag-version",
     "release:minor": "changelog -m && git add CHANGELOG.md && yarn version --minor --no-git-tag-version",
     "release:patch": "changelog -p && git add CHANGELOG.md && yarn version --patch --no-git-tag-version"
@@ -32,6 +33,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "generate-changelog": "^1.8.0",
     "jest": "^27.0.6",
+    "openapi-typescript": "^5.4.0",
     "prettier": "^2.6.0",
     "ts-jest": "^27.1.3",
     "typescript": "^4.5.5"
