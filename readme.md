@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://fingerprintjs.com">
+  <a href="https://fingerprint.com">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="resources/logo_light.svg" />
       <source media="(prefers-color-scheme: light)" srcset="resources/logo_dark.svg" />
@@ -23,7 +23,7 @@
 </p>
 
 # FingerprintJS Server API Node.js SDK
-Node.js wrapper for [FingerprintJS Server API](https://dev.fingerprintjs.com/docs/server-api)
+Node.js wrapper for [FingerprintJS Server API](https://dev.fingerprint.com/docs/server-api)
 
 ## Usage
 
@@ -66,7 +66,7 @@ const client = new FingerprintJsServerApiClient({region: Region.EU, apiKey: "<ap
 ```
 ##### Params
 - `region: Region` - a region of the server, possible value `Region.EU` or `Region.Global`
-- `apiKey: string` - secret API key from the [FingerprintJS dashboard](https://dashboard.fingerprintjs.com/)
+- `apiKey: string` - secret API key from the [FingerprintJS dashboard](https://dashboard.fingerprint.com/)
 - `fetch?: typeof fetch` - optional implementation of `fetch` function (defaults to `node-fetch`)
 ---
 
@@ -80,12 +80,12 @@ client.getVisitorHistory("<visitorId>", filter).then(visitorHistory => {
 ```
 ##### Params
 - `visitorId: string` - identifier of the visitor
-- `filter?: VisitorHistoryFilter` - visitor history filter, more info in [the API documentation](https://dev.fingerprintjs.com/docs/server-api#query-parameters)
+- `filter?: VisitorHistoryFilter` - visitor history filter, more info in [the API documentation](https://dev.fingerprint.com/docs/server-api#query-parameters)
 ##### Returns
 - `Promise<VisitorsResponse>` - promise with visitor history response
 ---
 #### `VisitorHistoryFilter`
-Filter for querying API - see [query parameters](https://dev.fingerprintjs.com/docs/server-api#query-parameters).
+Filter for querying API - see [query parameters](https://dev.fingerprint.com/docs/server-api#query-parameters).
 ##### Usage
 ```js
 const filter = {
@@ -102,7 +102,7 @@ const filter = {
 - `before: number` - used to paginate results
 ---
 #### Server `VisitorsResponse` response
-Find more info in [the API documentation](https://dev.fingerprintjs.com/docs/server-api#response)
+Find more info in [the API documentation](https://dev.fingerprint.com/docs/server-api#response)
 ```json
 {
   "visitorId": "Ibk1527CUFmcnjLwIs4A9",
