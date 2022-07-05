@@ -50,4 +50,7 @@ export type VisitorsResponse =
 /**
  * More info: https://dev.fingerprintjs.com/docs/webhooks#identification-webhook-object-format
  */
-export type VisitWebhook = components['schemas']['Visit'];
+export type VisitWebhook = components['schemas']['Visit'] & {
+  visitorId: components['schemas']['Response']['visitorId'];
+  clientReferrer: string | null;
+};
