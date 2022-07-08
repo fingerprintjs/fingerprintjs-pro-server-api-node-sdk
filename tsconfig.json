@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES2015", 
-    "module": "commonjs",
+    "target": "es2015",
+    "module": "esnext",
+    "moduleResolution": "node",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": false,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "outDir": "dist",
     "sourceMap": true,
     "resolveJsonModule": true
   },
@@ -17,7 +16,5 @@
   "exclude": [
     "node_modules",
     "dist"
-  ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts"
+  ]
 }
