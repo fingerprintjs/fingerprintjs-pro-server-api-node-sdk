@@ -1,3 +1,11 @@
+#### 1.1.1 (2022-07-08)
+
+##### Chores
+
+*  ignore engines when installing packages ([46ff4b63](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/46ff4b6348d5efcb88a5722831b6af4c3a581e6a))
+*  use packages cache for build command, use yarn to install modules ([60612ff4](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/60612ff4d9a495f10c7e953b651768eb607908f2))
+*  use default node version when publish package ([1ec30082](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/1ec30082ec44d0da9fc4977dc9a2fcd47e236c4a))
+
 ### 1.1.0 (2022-07-08)
 
 ##### Chores
