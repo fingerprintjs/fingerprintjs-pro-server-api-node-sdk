@@ -15,12 +15,18 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: 12.x
         registry-url: https://registry.npmjs.org/
+    - name: Cache
+      uses: actions/cache@v2
+      with:
+        path: node_modules
+        key: nodemodules-${{ hashFiles('yarn.lock') }}
+        restore-keys: nodemodules-
     - name: Install Dependencies and prepare packages
-      run: npm install
+      run: yarn install --ignore-engines
       env:
         CI: true
     - name: Build
