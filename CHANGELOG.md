@@ -1,3 +1,27 @@
+### 1.1.0 (2022-07-08)
+
+##### Chores
+
+*  return ts target to es2015 ([4b496215](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4b496215f51a87df7e8d4ae6cce80737dd03c0bd))
+*  change build command ([b642cdf8](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/b642cdf8855b3cefbf6f097bbddd5d82bfe66a29))
+*  use rollup to build project ([90baa5d4](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/90baa5d4d85887da86c7b771991f03719e4cdfaf))
+*  add production environment for publish task ([1f3dc518](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/1f3dc518e836b474afb1d351e17011316eff32be))
+
+##### Documentation Changes
+
+*  update logo ([6ab38802](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/6ab38802f39a7fdc5297a81f2f08a05c248c1233))
+*  use absolute url to logo ([22232f36](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/22232f36ddf0b09a1cfbf90cff31a78b59dfbcf4))
+*  update domain from fingerprintjs.com to fingerprint.com ([d32ffb16](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/d32ffb16aa12f768591f0e5d2d4e52cece264344))
+*  update logo ([4ec03490](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4ec0349096c68775e3b6bea3b324265a51a5c3ba))
+
+##### New Features
+
+*  generate types using OpenAPI ([3136d5ac](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/3136d5ace2ad23558ff9dfccc4297a984982cd9c))
+
+##### Bug Fixes
+
+*  add missed fields to the VisitWebhook type ([1422eb02](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/1422eb02049b5a5a71c703d8e122b800934a38c0))
+
 #### 1.0.6 (2022-05-13)
 
 ##### Documentation Changes
