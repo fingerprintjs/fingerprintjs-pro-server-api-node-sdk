@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.1.2...v1.1.3) (2022-07-13)
+
+
+### Bug Fixes
+
+* use Webhook type from OpenApi ([4bf7ebf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4bf7ebf102d21af477176cc2f38621179f6102d7))
+
 ## [1.1.2](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.1.1...v1.1.2) (2022-07-13)
 
 #### 1.1.1 (2022-07-08)
