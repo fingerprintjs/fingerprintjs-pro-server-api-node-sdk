@@ -1,3 +1,5 @@
+## [1.1.2-test.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.1.1...v1.1.2-test.1) (2022-07-13)
+
 #### 1.1.1 (2022-07-08)
 
 ##### Chores
@@ -118,4 +120,3 @@
 ##### Other Changes
 
 * lint fixes ([ff526eee](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/ff526eeef9a5c19e1fdf3922db79e08e171d73d8))
-
