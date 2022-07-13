@@ -7,7 +7,7 @@ We prefer using [yarn](https://yarnpkg.com/) for installing dependencies and run
 The main branch is locked for the push action. For proposing changes, use the standard [pull request approach](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request). It's recommended to discuss fixes or new functionality in the Issues, first.
 
 ### How to regenerate the types
-Run the command that will download latest OpenAPI definition ang regenerate types:
+Run the following command that will download the latest OpenAPI definition and regenerate types.
 ```shell
 yarn generateTypes
 ```
