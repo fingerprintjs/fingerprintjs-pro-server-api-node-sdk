@@ -37,6 +37,10 @@ export interface paths {
       };
     };
   };
+  '/webhook': {
+    /** Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
+    trace: {};
+  };
 }
 
 export interface components {
@@ -66,6 +70,10 @@ export interface components {
       /** @example request throttled */
       error: string;
     };
+    WebhookVisit: {
+      visitorId: string;
+      clientReferrer?: string;
+    } & components['schemas']['Visit'];
     /** Visit */
     Visit: {
       /** @example 1654815516083.OX6kx8 */
@@ -129,7 +137,7 @@ export interface components {
       device: string;
       /** @example Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Safari/537.36 */
       userAgent: string;
-      botProbability: number;
+      botProbability?: number;
     };
     /** Confidence */
     Confidence: {
