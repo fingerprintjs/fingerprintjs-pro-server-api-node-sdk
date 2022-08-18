@@ -1,3 +1,11 @@
+## [1.2.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.1.4...v1.2.0) (2022-08-18)
+
+
+### Features
+
+* add example ([59617c3](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/59617c3cd743d000cb7ce6029dcda06a8e72c47b))
+* send integration info with request ([0530a76](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/0530a76fced9d8b4991de6195df3f210a0c5e9a0))
+
 ## [1.1.4](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.1.3...v1.1.4) (2022-07-22)
 
 
