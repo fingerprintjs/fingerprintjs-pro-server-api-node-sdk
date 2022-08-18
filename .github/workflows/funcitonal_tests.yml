@@ -1,0 +1,65 @@
+name: Functional tests
+on:
+  workflow_dispatch:
+  push:
+    branches-ignore:
+      - main
+  schedule:
+    - cron: '0 5 * * *'
+jobs:
+  build:
+    name: 'Build sdk on node ${{ matrix.node-version }}'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: nodemodules-${{ hashFiles('yarn.lock') }}
+          restore-keys: nodemodules-
+      - name: Install Dependencies and prepare packages
+        run: yarn install --ignore-engines
+        env:
+          CI: true
+      - name: Build
+        run: yarn build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: node-sdk-artifact
+          path: ./dist
+  functional_tests:
+    name: 'Smoke test on node ${{ matrix.node-version }}'
+    needs: build
+    runs-on: ubuntu-latest
+    environment: test
+
+    strategy:
+      matrix:
+        node-version: [ 10, 12, 14, 16, 17, 18 ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.version }}
+      - uses: actions/download-artifact@v3
+        with:
+          name: node-sdk-artifact
+          path: ./dist
+      - name: Install Dependencies for SDK
+        run: yarn install --production=true
+        env:
+          CI: true
+      - name: Install Dependencies for example
+        run: yarn install
+        working-directory: ./example
+        env:
+          CI: true
+      - name: Run test
+        run: node index.js
+        working-directory: ./example
+        env:
+          API_KEY: '${{ secrets.PRIVATE_KEY }}'
+          VISITOR_ID: '${{ secrets.VISITOR_ID }}'
