@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.2.0...v1.2.1) (2022-08-19)
+
+
+### Build System
+
+* **deps:** bump undici from 5.8.0 to 5.9.1 ([33496f2](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/33496f248175b002fba7a64a397589f9c558af8f))
+
 ## [1.2.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.1.4...v1.2.0) (2022-08-18)
 
 
