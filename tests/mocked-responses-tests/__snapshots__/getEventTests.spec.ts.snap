@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Mocked response] Get Event with request_id 1`] = `
+Object {
+  "products": Object {
+    "botd": Object {
+      "data": Object {
+        "bot": Object {
+          "result": "notDetected",
+        },
+        "ip": "61.127.217.15",
+        "time": "2019-05-21T16:40:13Z",
+      },
+    },
+    "identification": Object {
+      "data": Object {
+        "browserDetails": Object {
+          "browserFullVersion": "74.0.3729",
+          "browserMajorVersion": "74",
+          "browserName": "Chrome",
+          "device": "Other",
+          "os": "Windows",
+          "osVersion": "7",
+          "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+        },
+        "confidence": Object {
+          "score": 0.97,
+        },
+        "firstSeenAt": Object {
+          "global": "2022-03-16T11:26:45.362Z",
+          "subscription": "2022-03-16T11:31:01.101Z",
+        },
+        "incognito": true,
+        "ip": "61.127.217.15",
+        "ipLocation": Object {
+          "accuracyRadius": 10,
+          "city": Object {
+            "name": "Dusseldorf",
+          },
+          "continent": Object {
+            "code": "EU",
+            "name": "Europe",
+          },
+          "country": Object {
+            "code": "DE",
+            "name": "Germany",
+          },
+          "latitude": 49.982,
+          "longitude": 36.2566,
+          "postalCode": "61202",
+          "subdivisions": Array [
+            Object {
+              "isoCode": "63",
+              "name": "North Rhine-Westphalia",
+            },
+          ],
+          "timezone": "Europe/Dusseldorf",
+        },
+        "lastSeenAt": Object {
+          "global": "2022-03-16T11:28:34.023Z",
+          "subscription": null,
+        },
+        "linkedId": "somelinkedId",
+        "requestId": "0KSh65EnVoB85JBmloQK",
+        "time": "2019-05-21T16:40:13Z",
+        "timestamp": 1582299576512,
+        "url": "https://www.example.com/login",
+        "visitorFound": true,
+        "visitorId": "Ibk1527CUFmcnjLwIs4A9",
+      },
+    },
+  },
+}
+`;

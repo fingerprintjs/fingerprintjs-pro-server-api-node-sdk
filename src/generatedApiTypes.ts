@@ -4,38 +4,13 @@
  */
 
 export interface paths {
+  '/events/{request_id}': {
+    /** This endpoint allows you to get events with all the information from each activated product - BOTD and Fingerprinting. Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId. */
+    get: operations['getEvent'];
+  };
   '/visitors/{visitor_id}': {
-    /** This endpoint allows you to get a history of visits with all available information. Use the visitorID as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId. */
-    get: {
-      parameters: {
-        path: {
-          visitor_id: string;
-        };
-        query: {
-          /** Filter events by requestId */
-          request_id?: string;
-          /** Filter events by custom identifier */
-          linked_id?: string;
-          /** Limit scanned results */
-          limit?: number;
-          /** Used to paginate results */
-          before?: number;
-        };
-      };
-      responses: {
-        /** Auto generated using Swagger Inspector */
-        200: {
-          content: {
-            'application/json': components['schemas']['Response'];
-          };
-        };
-        429: {
-          content: {
-            'application/json': components['schemas']['ManyRequestsResponse'];
-          };
-        };
-      };
-    };
+    /** This endpoint allows you to get a history of visits with all available information. Use the visitorId as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId. */
+    get: operations['getVisits'];
   };
   '/webhook': {
     /** Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
@@ -45,40 +20,107 @@ export interface paths {
 
 export interface components {
   schemas: {
-    Response: components['schemas']['BaseResponse'] | components['schemas']['PaginatedResponse'];
-    /** BaseResponse */
-    BaseResponse: {
-      visitorId: string;
-      visits: components['schemas']['Visit'][];
-    };
     /**
      * PaginatedResponse
      * @description Fields `lastTimestamp` and `paginationKey` added when `limit` or `before` parameter provided and there is more data to show
      */
-    PaginatedResponse: {
+    Response: {
       visitorId: string;
-      visits: components['schemas']['Visit'][];
+      visits: {
+        /**
+         * @description Unique identifier of the user's identification request.
+         * @example 1654815516083.OX6kx8
+         */
+        requestId: string;
+        browserDetails: components['schemas']['BrowserDetails'];
+        /** @description Flag if user used incognito session. */
+        incognito: boolean;
+        /**
+         * Format: ipv4
+         * @example 8.8.8.8
+         */
+        ip: string;
+        ipLocation: components['schemas']['IPLocation'];
+        /**
+         * Format: int64
+         * @description Timestamp of the event with millisecond precision in Unix time.
+         * @example 1654815516086
+         */
+        timestamp: number;
+        /**
+         * Format: date-time
+         * @description Time expressed according to ISO 8601 in UTC format.
+         * @example 2022-06-09T22:58:36Z
+         */
+        time: string;
+        /**
+         * Format: uri
+         * @description Page URL from which identification request was sent.
+         * @example https://some.website/path?query=params
+         */
+        url: string;
+        /** @description A customer-provided value or an object that was sent with identification request. */
+        tag: { [key: string]: unknown };
+        /**
+         * @description A customer-provided id that was sent with identification request.
+         * @example someID
+         */
+        linkedId?: string;
+        confidence: components['schemas']['Confidence'];
+        /** @description Attribute represents if a visitor had been identified before. */
+        visitorFound: boolean;
+        /**
+         * @example {
+         *   "global": "2022-05-05T18:28:54.535Z",
+         *   "subscription": "2022-06-09T22:58:05.576Z"
+         * }
+         */
+        firstSeenAt: components['schemas']['StSeenAt'];
+        /**
+         * @example {
+         *   "global": "2022-06-09T22:58:35.795Z",
+         *   "subscription": null
+         * }
+         */
+        lastSeenAt: components['schemas']['StSeenAt'];
+      }[];
       /**
        * Format: int64
+       * @description When more results are available (e.g., you scanned 200 results using `limit` parameter, but a total of 600 results are available), a special `lastTimestamp` top-level attribute is added to the response. If you want to paginate the results further in the past, you should use the value of this attribute.
        * @example 1654815517198
        */
-      lastTimestamp: number;
-      /** @example 1654815517198.azN4IZ */
-      paginationKey: string;
+      lastTimestamp?: number;
+      /**
+       * @description Visit's `requestId` of the last visit in the current page.
+       * @example 1654815517198.azN4IZ
+       */
+      paginationKey?: string;
+    };
+    ErrorResponse: {
+      error?: {
+        /** @example TokenRequired */
+        code?: string;
+        /** @example secret key is required */
+        message?: string;
+      };
     };
     ManyRequestsResponse: {
-      /** @example request throttled */
+      /**
+       * @description Error text.
+       * @example request throttled
+       */
       error: string;
     };
     WebhookVisit: {
       visitorId: string;
       clientReferrer?: string;
-    } & components['schemas']['Visit'];
-    /** Visit */
-    Visit: {
-      /** @example 1654815516083.OX6kx8 */
+      /**
+       * @description Unique identifier of the user's identification request.
+       * @example 1654815516083.OX6kx8
+       */
       requestId: string;
       browserDetails: components['schemas']['BrowserDetails'];
+      /** @description Flag if user used incognito session. */
       incognito: boolean;
       /**
        * Format: ipv4
@@ -88,23 +130,90 @@ export interface components {
       ipLocation: components['schemas']['IPLocation'];
       /**
        * Format: int64
+       * @description Timestamp of the event with millisecond precision in Unix time.
        * @example 1654815516086
        */
       timestamp: number;
       /**
        * Format: date-time
+       * @description Time expressed according to ISO 8601 in UTC format.
        * @example 2022-06-09T22:58:36Z
        */
       time: string;
       /**
        * Format: uri
+       * @description Page URL from which identification request was sent.
        * @example https://some.website/path?query=params
        */
       url: string;
-      tag: { [key: string]: unknown };
-      /** @example someID */
+      /** @description A customer-provided value or an object that was sent with identification request. */
+      tag?: { [key: string]: unknown };
+      /**
+       * @description A customer-provided id that was sent with identification request.
+       * @example someID
+       */
       linkedId?: string;
       confidence: components['schemas']['Confidence'];
+      /** @description Attribute represents if a visitor had been identified before. */
+      visitorFound: boolean;
+      /**
+       * @example {
+       *   "global": "2022-05-05T18:28:54.535Z",
+       *   "subscription": "2022-06-09T22:58:05.576Z"
+       * }
+       */
+      firstSeenAt: components['schemas']['StSeenAt'];
+      /**
+       * @example {
+       *   "global": "2022-06-09T22:58:35.795Z",
+       *   "subscription": null
+       * }
+       */
+      lastSeenAt: components['schemas']['StSeenAt'];
+    };
+    /** Visit */
+    Visit: {
+      /**
+       * @description Unique identifier of the user's identification request.
+       * @example 1654815516083.OX6kx8
+       */
+      requestId: string;
+      browserDetails: components['schemas']['BrowserDetails'];
+      /** @description Flag if user used incognito session. */
+      incognito: boolean;
+      /**
+       * Format: ipv4
+       * @example 8.8.8.8
+       */
+      ip: string;
+      ipLocation: components['schemas']['IPLocation'];
+      /**
+       * Format: int64
+       * @description Timestamp of the event with millisecond precision in Unix time.
+       * @example 1654815516086
+       */
+      timestamp: number;
+      /**
+       * Format: date-time
+       * @description Time expressed according to ISO 8601 in UTC format.
+       * @example 2022-06-09T22:58:36Z
+       */
+      time: string;
+      /**
+       * Format: uri
+       * @description Page URL from which identification request was sent.
+       * @example https://some.website/path?query=params
+       */
+      url: string;
+      /** @description A customer-provided value or an object that was sent with identification request. */
+      tag?: { [key: string]: unknown };
+      /**
+       * @description A customer-provided id that was sent with identification request.
+       * @example someID
+       */
+      linkedId?: string;
+      confidence: components['schemas']['Confidence'];
+      /** @description Attribute represents if a visitor had been identified before. */
       visitorFound: boolean;
       /**
        * @example {
@@ -141,13 +250,16 @@ export interface components {
     };
     /** Confidence */
     Confidence: {
-      /** Format: float */
+      /**
+       * Format: float
+       * @description The confidence score is a floating-point number between 0 and 1 that represents the probability of accurate identification.
+       */
       score: number;
     };
     /** StSeenAt */
     StSeenAt: {
       /** Format: date-time */
-      global: string;
+      global: string | null;
       /** Format: date-time */
       subscription: string | null;
     };
@@ -192,7 +304,7 @@ export interface components {
       continent: components['schemas']['Location'];
       subdivisions?: components['schemas']['Subdivision'][];
     };
-    /** Continent */
+    /** Location */
     Location: {
       /** @example US */
       code: string;
@@ -205,9 +317,189 @@ export interface components {
       /** @example Hlavni mesto Praha */
       name?: string;
     };
+    /** @description Contains all the information from each activated product - BOTD and Identification */
+    ProductsResponse: {
+      identification?: {
+        data?: {
+          /**
+           * @description Unique identifier of the user's identification request.
+           * @example 1654815516083.OX6kx8
+           */
+          requestId: string;
+          browserDetails: components['schemas']['BrowserDetails'];
+          /** @description Flag if user used incognito session. */
+          incognito: boolean;
+          /**
+           * Format: ipv4
+           * @example 8.8.8.8
+           */
+          ip: string;
+          ipLocation: components['schemas']['IPLocation'];
+          /**
+           * Format: int64
+           * @description Timestamp of the event with millisecond precision in Unix time.
+           * @example 1654815516086
+           */
+          timestamp: number;
+          /**
+           * Format: date-time
+           * @description Time expressed according to ISO 8601 in UTC format.
+           * @example 2022-06-09T22:58:36Z
+           */
+          time: string;
+          /**
+           * Format: uri
+           * @description Page URL from which identification request was sent.
+           * @example https://some.website/path?query=params
+           */
+          url: string;
+          /** @description A customer-provided value or an object that was sent with identification request. */
+          tag?: { [key: string]: unknown };
+          /**
+           * @description A customer-provided id that was sent with identification request.
+           * @example someID
+           */
+          linkedId?: string;
+          confidence: components['schemas']['Confidence'];
+          /** @description Attribute represents if a visitor had been identified before. */
+          visitorFound: boolean;
+          /**
+           * @example {
+           *   "global": "2022-05-05T18:28:54.535Z",
+           *   "subscription": "2022-06-09T22:58:05.576Z"
+           * }
+           */
+          firstSeenAt: components['schemas']['StSeenAt'];
+          /**
+           * @example {
+           *   "global": "2022-06-09T22:58:35.795Z",
+           *   "subscription": null
+           * }
+           */
+          lastSeenAt: components['schemas']['StSeenAt'];
+          visitorId: string;
+        };
+      };
+      botd?: {
+        data?: components['schemas']['BotdResult'];
+      };
+    };
+    /** @description Contains event from activated products - BOTD and Identification */
+    EventResponse: {
+      products?: components['schemas']['ProductsResponse'];
+    };
+    /** @description Contains all the information from BOTD product */
+    BotdResult: {
+      /**
+       * Format: ipv4
+       * @description IP address of the requesting browser or bot.
+       * @example 8.8.8.8
+       */
+      ip: string;
+      /**
+       * Format: date-time
+       * @description Time in UTC when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible
+       * @example 2022-06-09T22:58:36Z
+       */
+      time: string;
+      /**
+       * @example {
+       *   "result": "notDetected"
+       * }
+       */
+      bot: components['schemas']['BotdDetectionResult'];
+    };
+    /** @description Stores bot detection result */
+    BotdDetectionResult: {
+      /**
+       * @description Bot detection result:
+       *  * `notDetected` - the visitor is not a bot
+       *  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
+       *  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
+       *
+       * @enum {string}
+       */
+      result: 'notDetected' | 'good' | 'bad';
+    };
   };
 }
 
-export interface operations {}
+export interface operations {
+  /** This endpoint allows you to get events with all the information from each activated product - BOTD and Fingerprinting. Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId. */
+  getEvent: {
+    parameters: {
+      path: {
+        /** Request ID */
+        request_id: string;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          'application/json': components['schemas']['EventResponse'];
+        };
+      };
+      /** Bad Request */
+      400: {
+        content: {
+          'application/json': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** Forbidden */
+      403: {
+        content: {
+          'application/json': components['schemas']['ErrorResponse'];
+        };
+      };
+      /** Too Many Requests */
+      429: {
+        headers: {
+          /** Indicates how long the user should wait before making a follow-up request. */
+          'Retry-After'?: number;
+        };
+        content: {
+          'application/json': components['schemas']['ManyRequestsResponse'];
+        };
+      };
+    };
+  };
+  /** This endpoint allows you to get a history of visits with all available information. Use the visitorId as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId. */
+  getVisits: {
+    parameters: {
+      path: {
+        visitor_id: string;
+      };
+      query: {
+        /** Filter events by requestId */
+        request_id?: string;
+        /** Filter events by custom identifier */
+        linked_id?: string;
+        /** Limit scanned results */
+        limit?: number;
+        /** Used to paginate results */
+        before?: number;
+      };
+    };
+    responses: {
+      /** OK */
+      200: {
+        content: {
+          'application/json': components['schemas']['Response'];
+        };
+      };
+      /** Too Many Requests */
+      429: {
+        headers: {
+          /** Indicates how long the user should wait before making a follow-up request. */
+          'Retry-After'?: number;
+        };
+        content: {
+          'application/json': components['schemas']['ManyRequestsResponse'];
+        };
+      };
+    };
+  };
+}
 
 export interface external {}

@@ -18,7 +18,7 @@
     "lint": "eslint --ext .js,.ts --ignore-path .gitignore --max-warnings 0 .",
     "lint:fix": "yarn lint --fix",
     "test": "jest",
-    "generateTypes": "yarn openapi-typescript https://fingerprintjs.github.io/fingerprint-pro-server-api-openapi/schemes/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc.json",
+    "generateTypes": "yarn openapi-typescript resources/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc.json",
     "release": "semantic-release"
   },
   "keywords": [],
