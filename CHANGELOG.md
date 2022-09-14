@@ -1,3 +1,11 @@
+## [1.3.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.2.1...v1.3.0) (2022-09-14)
+
+
+### Features
+
+* improve type names ([66e1515](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/66e1515c2517a7d5e0443be5611495df7de09057))
+* introduce /event/{request_id} endpoint ([f06456f](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/f06456f7f98ba0a71b5c3703d889c9a8d7846da6))
+
 ## [1.2.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.2.0...v1.2.1) (2022-08-19)
 
 
