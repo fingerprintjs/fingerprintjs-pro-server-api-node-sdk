@@ -1,11 +1,12 @@
 import fetchFn from 'node-fetch';
-import { getVisitorsUrl } from './urlUtils';
+import { getEventUrl, getVisitorsUrl } from './urlUtils';
 import {
   VisitorHistoryFilter,
   VisitorsResponse,
   Region,
   Options,
   AuthenticationMode,
+  EventResponse,
 } from './types';
 
 export class FingerprintJsServerApiClient {
@@ -37,6 +38,28 @@ export class FingerprintJsServerApiClient {
     this.fetch = options.fetch ?? fetchFn;
   }
 
+  public async getEvent(requestId: string) {
+    if (!requestId) {
+      throw new TypeError('requestId is not set');
+    }
+
+    const url =
+      this.authenticationMode === AuthenticationMode.QueryParameter
+        ? getEventUrl(requestId, this.region, this.apiKey)
+        : getEventUrl(requestId, this.region);
+
+    const headers = this.getHeaders();
+
+    return this.fetch(url, {
+      method: 'GET',
+      headers,
+    })
+      .then((response) => response.json() as Promise<EventResponse>)
+      .catch((err) => {
+        throw new Error(err.toString());
+      });
+  }
+
   /**
    * Gets history for the given visitor
    * @param {string} visitorId - Identifier of the visitor
@@ -47,17 +70,14 @@ export class FingerprintJsServerApiClient {
     filter?: VisitorHistoryFilter
   ): Promise<VisitorsResponse> {
     if (!visitorId) {
-      throw Error('VisitorId is not set');
+      throw TypeError('VisitorId is not set');
     }
 
     const url =
       this.authenticationMode === AuthenticationMode.QueryParameter
         ? getVisitorsUrl(this.region, visitorId, filter, this.apiKey)
         : getVisitorsUrl(this.region, visitorId, filter);
-    const headers =
-      this.authenticationMode === AuthenticationMode.AuthHeader
-        ? { 'Auth-API-Key': this.apiKey }
-        : undefined;
+    const headers = this.getHeaders();
 
     return this.fetch(url, {
       method: 'GET',
@@ -67,5 +87,11 @@ export class FingerprintJsServerApiClient {
       .catch((err) => {
         throw new Error(err.toString());
       });
+  }
+
+  private getHeaders() {
+    return this.authenticationMode === AuthenticationMode.AuthHeader
+      ? { 'Auth-API-Key': this.apiKey }
+      : undefined;
   }
 }

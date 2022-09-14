@@ -47,6 +47,9 @@ export type VisitorHistoryFilter = paths['/visitors/{visitor_id}']['get']['param
 export type VisitorsResponse =
   paths['/visitors/{visitor_id}']['get']['responses']['200']['content']['application/json'];
 
+export type EventResponse =
+  paths['/events/{request_id}']['get']['responses']['200']['content']['application/json'];
+
 /**
  * More info: https://dev.fingerprintjs.com/docs/webhooks#identification-webhook-object-format
  */

@@ -10,6 +10,22 @@ type QueryStringParameters = VisitorHistoryFilter & {
   ii: string;
 };
 
+function getIntegrationInfo() {
+  return `fingerprint-pro-server-node-sdk/${version}`;
+}
+
+export function getEventUrl(requestId: string, region: Region, apiKey?: string) {
+  const params: QueryStringParameters = {
+    ii: getIntegrationInfo(),
+  };
+
+  if (apiKey) {
+    params.api_key = apiKey;
+  }
+
+  return `${getServerApiUrl(region)}events/${requestId}?${serializeQueryStringParams(params)}`;
+}
+
 export function getVisitorsUrl(
   region: Region,
   visitorId: string,
@@ -18,8 +34,9 @@ export function getVisitorsUrl(
 ): string {
   const queryStringParameters: QueryStringParameters = {
     ...filter,
-    ii: `fingerprint-pro-server-node-sdk/${version}`,
+    ii: getIntegrationInfo(),
   };
+
   if (apiKey) {
     queryStringParameters.api_key = apiKey;
   }
@@ -30,6 +47,7 @@ export function getVisitorsUrl(
   if (queryString === '') {
     return serverApiPath;
   }
+
   return `${serverApiPath}?${queryString}`;
 }
 
