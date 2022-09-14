@@ -2978,6 +2978,7 @@ components:
         visits:
           type: array
           items:
+            title: ResponseVisits
             type: object
             properties:
               requestId:
@@ -3003,6 +3004,7 @@ components:
                 format: int64
                 example: 1654815516086
               time:
+                title: Time
                 description: Time expressed according to ISO 8601 in UTC format.
                 type: string
                 format: date-time
@@ -3082,6 +3084,7 @@ components:
         error:
           type: object
           additionalProperties: false
+          title: ErrorResponseError
           properties:
             code:
               type: string
@@ -3127,6 +3130,7 @@ components:
           format: int64
           example: 1654815516086
         time:
+          title: Time
           description: Time expressed according to ISO 8601 in UTC format.
           type: string
           format: date-time
@@ -3201,6 +3205,7 @@ components:
           format: int64
           example: 1654815516086
         time:
+          title: Time
           description: Time expressed according to ISO 8601 in UTC format.
           type: string
           format: date-time
@@ -3348,6 +3353,7 @@ components:
         city:
           type: object
           additionalProperties: false
+          title: IPLocationCity
           properties:
             name:
               type: string
@@ -3410,8 +3416,10 @@ components:
         identification:
           type: object
           additionalProperties: false
+          title: ProductsResponseIdentification
           properties:
             data:
+              title: ProductsResponseIdentificationData
               type: object
               properties:
                 requestId:
@@ -3437,6 +3445,7 @@ components:
                   format: int64
                   example: 1654815516086
                 time:
+                  title: Time
                   description: Time expressed according to ISO 8601 in UTC format.
                   type: string
                   format: date-time
@@ -3493,6 +3502,7 @@ components:
                 - visitorFound
                 - visitorId
         botd:
+          title: ProductsResponseBotd
           type: object
           additionalProperties: false
           properties:
@@ -3516,6 +3526,7 @@ components:
           example: 8.8.8.8
           description: IP address of the requesting browser or bot.
         time:
+          title: Time
           description: >-
             Time in UTC when the request from the JS agent was made. We
             recommend to treat requests that are older than 2 minutes as

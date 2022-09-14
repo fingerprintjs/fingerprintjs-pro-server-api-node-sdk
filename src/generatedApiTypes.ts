@@ -48,6 +48,7 @@ export interface components {
          */
         timestamp: number;
         /**
+         * Time
          * Format: date-time
          * @description Time expressed according to ISO 8601 in UTC format.
          * @example 2022-06-09T22:58:36Z
@@ -97,6 +98,7 @@ export interface components {
       paginationKey?: string;
     };
     ErrorResponse: {
+      /** ErrorResponseError */
       error?: {
         /** @example TokenRequired */
         code?: string;
@@ -135,6 +137,7 @@ export interface components {
        */
       timestamp: number;
       /**
+       * Time
        * Format: date-time
        * @description Time expressed according to ISO 8601 in UTC format.
        * @example 2022-06-09T22:58:36Z
@@ -194,6 +197,7 @@ export interface components {
        */
       timestamp: number;
       /**
+       * Time
        * Format: date-time
        * @description Time expressed according to ISO 8601 in UTC format.
        * @example 2022-06-09T22:58:36Z
@@ -284,6 +288,7 @@ export interface components {
        * @example America/Chicago
        */
       timezone: string;
+      /** IPLocationCity */
       city?: {
         /** @example Prague */
         name?: string;
@@ -319,7 +324,9 @@ export interface components {
     };
     /** @description Contains all the information from each activated product - BOTD and Identification */
     ProductsResponse: {
+      /** ProductsResponseIdentification */
       identification?: {
+        /** ProductsResponseIdentificationData */
         data?: {
           /**
            * @description Unique identifier of the user's identification request.
@@ -342,6 +349,7 @@ export interface components {
            */
           timestamp: number;
           /**
+           * Time
            * Format: date-time
            * @description Time expressed according to ISO 8601 in UTC format.
            * @example 2022-06-09T22:58:36Z
@@ -380,6 +388,7 @@ export interface components {
           visitorId: string;
         };
       };
+      /** ProductsResponseBotd */
       botd?: {
         data?: components['schemas']['BotdResult'];
       };
@@ -397,6 +406,7 @@ export interface components {
        */
       ip: string;
       /**
+       * Time
        * Format: date-time
        * @description Time in UTC when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible
        * @example 2022-06-09T22:58:36Z
