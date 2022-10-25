@@ -413,6 +413,12 @@ export interface components {
        */
       time: string;
       /**
+       * Format: uri-reference
+       * @description Page URL from which identification request was sent.
+       * @example https://b.fpjs.sh/
+       */
+      url: string;
+      /**
        * @example {
        *   "result": "notDetected"
        * }
