@@ -12,6 +12,9 @@ try {
     client.getVisitorHistory(visitorId),
     client.getEvent(requestId),
   ]);
+
+  console.log(JSON.stringify(visitorHistory));
+  console.log(JSON.stringify(event));
 } catch (e) {
   console.error(e);
   process.exit(1);
