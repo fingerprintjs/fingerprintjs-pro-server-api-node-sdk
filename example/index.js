@@ -13,13 +13,8 @@ try {
     client.getEvent(requestId),
   ]);
 
-  if (visitorHistory.visitorId !== visitorId) {
-    throw new Error('Received visitorId does not match with given');
-  }
-
-  if (event.products.identification.data.requestId !== requestId) {
-    throw new Error('Received requestId does not match with given');
-  }
+  console.log(JSON.stringify(visitorHistory));
+  console.log(JSON.stringify(event));
 } catch (e) {
   console.error(e);
   process.exit(1);
