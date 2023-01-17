@@ -5,7 +5,7 @@
 
 export interface paths {
   '/events/{request_id}': {
-    /** This endpoint allows you to get events with all the information from each activated product - BOTD and Fingerprinting. Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId. */
+    /** This endpoint allows you to get events with all the information from each activated product (Fingerprint Pro or Bot Detection). Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId. */
     get: operations['getEvent'];
   };
   '/visitors/{visitor_id}': {
@@ -76,14 +76,14 @@ export interface components {
          *   "subscription": "2022-06-09T22:58:05.576Z"
          * }
          */
-        firstSeenAt: components['schemas']['StSeenAt'];
+        firstSeenAt: components['schemas']['SeenAt'];
         /**
          * @example {
          *   "global": "2022-06-09T22:58:35.795Z",
          *   "subscription": null
          * }
          */
-        lastSeenAt: components['schemas']['StSeenAt'];
+        lastSeenAt: components['schemas']['SeenAt'];
       }[];
       /**
        * Format: int64
@@ -97,13 +97,37 @@ export interface components {
        */
       paginationKey?: string;
     };
-    ErrorResponse: {
-      /** ErrorResponseError */
+    ErrorEvent403Response: {
+      /** ErrorEvent403ResponseError */
       error?: {
-        /** @example TokenRequired */
-        code?: string;
+        /**
+         * @description Error code:
+         *  * `TokenRequired` - `Auth-API-Key` header is missing or empty
+         *  * `TokenNotFound` - subscription not found for specified secret key
+         *  * `SubscriptionNotActive` - subscription is not active
+         *  * `WrongRegion` - server and subscription region differ
+         *
+         * @example TokenRequired
+         * @enum {string}
+         */
+        code: 'TokenRequired' | 'TokenNotFound' | 'SubscriptionNotActive' | 'WrongRegion';
         /** @example secret key is required */
-        message?: string;
+        message: string;
+      };
+    };
+    ErrorEvent404Response: {
+      /** ErrorEvent404ResponseError */
+      error?: {
+        /**
+         * @description Error code:
+         *  * `RequestNotFound` - request not found for specified id
+         *
+         * @example RequestNotFound
+         * @enum {string}
+         */
+        code: 'RequestNotFound';
+        /** @example request id is not found */
+        message: string;
       };
     };
     ManyRequestsResponse: {
@@ -165,14 +189,14 @@ export interface components {
        *   "subscription": "2022-06-09T22:58:05.576Z"
        * }
        */
-      firstSeenAt: components['schemas']['StSeenAt'];
+      firstSeenAt: components['schemas']['SeenAt'];
       /**
        * @example {
        *   "global": "2022-06-09T22:58:35.795Z",
        *   "subscription": null
        * }
        */
-      lastSeenAt: components['schemas']['StSeenAt'];
+      lastSeenAt: components['schemas']['SeenAt'];
     };
     /** Visit */
     Visit: {
@@ -225,14 +249,14 @@ export interface components {
        *   "subscription": "2022-06-09T22:58:05.576Z"
        * }
        */
-      firstSeenAt: components['schemas']['StSeenAt'];
+      firstSeenAt: components['schemas']['SeenAt'];
       /**
        * @example {
        *   "global": "2022-06-09T22:58:35.795Z",
        *   "subscription": null
        * }
        */
-      lastSeenAt: components['schemas']['StSeenAt'];
+      lastSeenAt: components['schemas']['SeenAt'];
     };
     /** BrowserDetails */
     BrowserDetails: {
@@ -260,8 +284,8 @@ export interface components {
        */
       score: number;
     };
-    /** StSeenAt */
-    StSeenAt: {
+    /** SeenAt */
+    SeenAt: {
       /** Format: date-time */
       global: string | null;
       /** Format: date-time */
@@ -322,7 +346,7 @@ export interface components {
       /** @example Hlavni mesto Praha */
       name?: string;
     };
-    /** @description Contains all the information from each activated product - BOTD and Identification */
+    /** @description Contains all the information from each activated product - Fingerprint Pro or Bot Detection */
     ProductsResponse: {
       /** ProductsResponseIdentification */
       identification?: {
@@ -377,27 +401,28 @@ export interface components {
            *   "subscription": "2022-06-09T22:58:05.576Z"
            * }
            */
-          firstSeenAt: components['schemas']['StSeenAt'];
+          firstSeenAt: components['schemas']['SeenAt'];
           /**
            * @example {
            *   "global": "2022-06-09T22:58:35.795Z",
            *   "subscription": null
            * }
            */
-          lastSeenAt: components['schemas']['StSeenAt'];
+          lastSeenAt: components['schemas']['SeenAt'];
           visitorId: string;
         };
       };
       /** ProductsResponseBotd */
       botd?: {
         data?: components['schemas']['BotdResult'];
+        error?: components['schemas']['BotdError'];
       };
     };
-    /** @description Contains event from activated products - BOTD and Identification */
+    /** @description Contains event from activated products - Fingerprint Pro or Bot Detection */
     EventResponse: {
       products?: components['schemas']['ProductsResponse'];
     };
-    /** @description Contains all the information from BOTD product */
+    /** @description Contains all the information from Bot Detection product */
     BotdResult: {
       /**
        * Format: ipv4
@@ -415,7 +440,7 @@ export interface components {
       /**
        * Format: uri-reference
        * @description Page URL from which identification request was sent.
-       * @example https://b.fpjs.sh/
+       * @example https://example.com/login
        */
       url: string;
       /**
@@ -437,15 +462,28 @@ export interface components {
        */
       result: 'notDetected' | 'good' | 'bad';
     };
+    BotdError: {
+      /**
+       * @description Error code:
+       *  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded
+       *  * `Failed` - internal server error
+       *
+       * @example TooManyRequests
+       * @enum {string}
+       */
+      code: 'TooManyRequests' | 'Failed';
+      /** @example too many requests */
+      message: string;
+    };
   };
 }
 
 export interface operations {
-  /** This endpoint allows you to get events with all the information from each activated product - BOTD and Fingerprinting. Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId. */
+  /** This endpoint allows you to get events with all the information from each activated product (Fingerprint Pro or Bot Detection). Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId. */
   getEvent: {
     parameters: {
       path: {
-        /** Request ID */
+        /** requestId is the unique identifier of each request */
         request_id: string;
       };
     };
@@ -456,22 +494,22 @@ export interface operations {
           'application/json': components['schemas']['EventResponse'];
         };
       };
-      /** Bad Request */
-      400: {
-        content: {
-          'application/json': components['schemas']['ErrorResponse'];
-        };
-      };
       /** Forbidden */
       403: {
         content: {
-          'application/json': components['schemas']['ErrorResponse'];
+          'application/json': components['schemas']['ErrorEvent403Response'];
+        };
+      };
+      /** Bad Request */
+      404: {
+        content: {
+          'application/json': components['schemas']['ErrorEvent404Response'];
         };
       };
       /** Too Many Requests */
       429: {
         headers: {
-          /** Indicates how long the user should wait before making a follow-up request. */
+          /** Indicates how long the user should wait in seconds before attempting the next request. */
           'Retry-After'?: number;
         };
         content: {
@@ -487,9 +525,9 @@ export interface operations {
         visitor_id: string;
       };
       query: {
-        /** Filter events by requestId */
+        /** Filter visits by requestId */
         request_id?: string;
-        /** Filter events by custom identifier */
+        /** Filter visits by custom identifier */
         linked_id?: string;
         /** Limit scanned results */
         limit?: number;
@@ -504,10 +542,16 @@ export interface operations {
           'application/json': components['schemas']['Response'];
         };
       };
+      /** Forbidden. Probably ApiKey is missed or provided the wrong one. */
+      403: {
+        content: {
+          'text/html': string;
+        };
+      };
       /** Too Many Requests */
       429: {
         headers: {
-          /** Indicates how long the user should wait before making a follow-up request. */
+          /** Indicates how long the user should wait before attempting the next request. */
           'Retry-After'?: number;
         };
         content: {
