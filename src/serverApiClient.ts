@@ -7,6 +7,12 @@ import {
   Options,
   AuthenticationMode,
   EventResponse,
+  EventError,
+  isEventError403,
+  isEventError404,
+  VisitorsError,
+  isVisitorsError403,
+  isVisitorsError429,
 } from './types';
 
 export class FingerprintJsServerApiClient {
@@ -54,9 +60,22 @@ export class FingerprintJsServerApiClient {
       method: 'GET',
       headers,
     })
-      .then((response) => response.json() as Promise<EventResponse>)
+      .then(async (response) => {
+        const jsonResponse = await response.json();
+        if (response.status !== 200) {
+          jsonResponse.status = response.status;
+          throw jsonResponse as EventError;
+        }
+        return jsonResponse as EventResponse;
+      })
       .catch((err) => {
-        throw new Error(err.toString());
+        if (isEventError403(err) || isEventError404(err)) {
+          throw err;
+        }
+        throw {
+          status: 0,
+          error: new Error(err.toString()),
+        };
       });
   }
 
@@ -83,9 +102,25 @@ export class FingerprintJsServerApiClient {
       method: 'GET',
       headers,
     })
-      .then((response) => response.json() as Promise<VisitorsResponse>)
+      .then(async (response) => {
+        const jsonResponse = await response.json();
+        if (response.status === 200) {
+          return jsonResponse as VisitorsResponse;
+        }
+        if (response.status === 429) {
+          jsonResponse.retryAfter = response.headers.get('retry-after');
+        }
+        jsonResponse.status = response.status;
+        throw jsonResponse as VisitorsError;
+      })
       .catch((err) => {
-        throw new Error(err.toString());
+        if (isVisitorsError403(err) || isVisitorsError429(err)) {
+          throw err;
+        }
+        throw {
+          status: 0,
+          error: new Error(err.toString()),
+        };
       });
   }
 

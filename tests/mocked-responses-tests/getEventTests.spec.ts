@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import { Region } from '../../src/types';
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient';
-import getEventResponse from './mocked-responses-data/get-event-body.json';
+import getEventResponse from './mocked-responses-data/external/get_event.json';
 
 const { Response } = jest.requireActual('node-fetch');
 jest.mock('node-fetch');
