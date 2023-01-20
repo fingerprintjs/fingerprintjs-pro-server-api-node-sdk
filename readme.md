@@ -75,9 +75,9 @@ Gets history for the given visitor and given filter, returns a promise with visi
 ##### Usage
 ```js
 client.getVisitorHistory("<visitorId>", filter)
-    .then(visitorHistory => {
-        console.log(visitorHistory);
-    })
+  .then(visitorHistory => {
+    console.log(visitorHistory);
+  })
   .catch(error => {
     if (error.status === 403) {
       console.log(error.error);
@@ -196,7 +196,7 @@ client.getEvent("<requestId>")
 - `Promise<EventResponse>` - promise with event response
 ---
 #### Server `EventResponse` response
-Find more info in [the API documentation](https://dev.fingerprint.com/docs/server-api#response-1)
+Find more info in the [API documentation](https://dev.fingerprint.com/docs/server-api#response-1).
 ```json
 {
   "products": {
