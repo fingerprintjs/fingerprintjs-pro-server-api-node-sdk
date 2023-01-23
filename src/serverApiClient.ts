@@ -107,7 +107,7 @@ export class FingerprintJsServerApiClient {
         }
         if (response.status === 429) {
           const retryAfter = response.headers.get('retry-after') || '';
-          jsonResponse.retryAfter = retryAfter === null ? 1 : parseInt(retryAfter);
+          jsonResponse.retryAfter = retryAfter === '' ? 1 : parseInt(retryAfter);
         }
         jsonResponse.status = response.status;
         throw jsonResponse as VisitorsError;
