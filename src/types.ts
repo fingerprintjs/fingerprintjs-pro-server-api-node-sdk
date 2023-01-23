@@ -58,12 +58,14 @@ export type VisitorsError429 =
 
 export type VisitorsError = VisitorsError403 | VisitorsError429;
 
-export function isVisitorsError403(response: VisitorsError): response is VisitorsError403 {
-  return response.status === 403;
-}
-
-export function isVisitorsError429(response: VisitorsError): response is VisitorsError429 {
-  return response.status === 429;
+export function isVisitorsError(response: any): response is EventError {
+  return (
+    (response?.hasOwnProperty('status') &&
+      (response.status === 403 || response.status === 429) &&
+      response?.hasOwnProperty('error') &&
+      typeof response.error === 'string') ||
+    false
+  );
 }
 
 export type EventResponse =
@@ -81,12 +83,17 @@ export type EventError<T extends GenericEventError = GenericEventError> = T & {
   status: EventErrorCode<T>;
 };
 
-export function isEventError403(response: EventError): response is EventError<EventError403> {
-  return response.status === 403;
-}
-
-export function isEventError404(response: EventError): response is EventError<EventError404> {
-  return response.status === 404;
+export function isEventError(response: any): response is EventError {
+  return (
+    (response?.hasOwnProperty('status') &&
+      (response.status === 403 || response.status === 404) &&
+      response?.hasOwnProperty('error') &&
+      response.error?.hasOwnProperty('message') &&
+      typeof response.error.message === 'string' &&
+      response.error?.hasOwnProperty('code') &&
+      typeof response.error.code === 'string') ||
+    false
+  );
 }
 
 /**

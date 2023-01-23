@@ -8,11 +8,9 @@ import {
   AuthenticationMode,
   EventResponse,
   EventError,
-  isEventError403,
-  isEventError404,
+  isEventError,
   VisitorsError,
-  isVisitorsError403,
-  isVisitorsError429,
+  isVisitorsError,
 } from './types';
 
 export class FingerprintJsServerApiClient {
@@ -69,7 +67,7 @@ export class FingerprintJsServerApiClient {
         return jsonResponse as EventResponse;
       })
       .catch((err) => {
-        if (isEventError403(err) || isEventError404(err)) {
+        if (isEventError(err)) {
           throw err;
         }
         throw {
@@ -108,13 +106,14 @@ export class FingerprintJsServerApiClient {
           return jsonResponse as VisitorsResponse;
         }
         if (response.status === 429) {
-          jsonResponse.retryAfter = response.headers.get('retry-after');
+          const retryAfter = response.headers.get('retry-after') || '';
+          jsonResponse.retryAfter = retryAfter === null ? 1 : parseInt(retryAfter);
         }
         jsonResponse.status = response.status;
         throw jsonResponse as VisitorsError;
       })
       .catch((err) => {
-        if (isVisitorsError403(err) || isVisitorsError429(err)) {
+        if (isVisitorsError(err)) {
           throw err;
         }
         throw {

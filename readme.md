@@ -277,21 +277,21 @@ Find more info in the [API documentation](https://dev.fingerprint.com/docs/serve
 You can use typeguards to narrow error types as in example below.
 
 ```typescript
-import { 
-  isVisitorsError403, isVisitorsError429, 
-  isEventError403, isEventError404 
-} from '@fingerprintjs/fingerprintjs-pro-server-api';
+import { isVisitorsError, isEventError } from '@fingerprintjs/fingerprintjs-pro-server-api';
 
 client
   .getVisitorHistory("<visitorId>", filter)
   .then(result => console.log(result))
   .catch(err => {
-    if (isVisitorsError403(err)) {
-      // VisitorsError403 type
-      console.log('error: ', err.error)
-    } else if (isVisitorsError429(err)) {
-      // VisitorsError429 type
-      retry(err.retryAfter);
+    if (isVisitorsError(err)) {
+      if (err.code === 429) {
+        // VisitorsError429 type
+        retry(err.retryAfter);
+      } else {
+        console.log('error: ', err.error)
+      }
+    } else {
+      console.log('unknown error: ', err)
     }
   });
 
@@ -299,10 +299,10 @@ client
   .getEvent("<requestId>")
   .then(result => console.log(result))
   .catch(err => {
-    if (isEventError403(err)) {
-      console.log('error 403: ', err.error.message)
-    } else if (isEventError404(err)) {
-      console.log('error 404: ', err.error.message)
+    if (isEventError(err)) {
+      console.log(`error ${err.code}: `, err.error.message)
+    } else {
+      console.log('unknown error: ', err)
     }
   });
 ```
