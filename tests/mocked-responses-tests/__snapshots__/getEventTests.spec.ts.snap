@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`[Mocked response] Get Event Error with bad shape 1`] = `
+Object {
+  "error": "{\\"error\\":\\"Some text instead og shaped object\\",\\"status\\":404}",
+  "status": 0,
+}
+`;
+
 exports[`[Mocked response] Get Event with request_id 1`] = `
 Object {
   "products": Object {

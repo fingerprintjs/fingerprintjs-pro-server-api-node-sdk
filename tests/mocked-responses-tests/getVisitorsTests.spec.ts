@@ -129,4 +129,17 @@ describe('[Mocked response] Get Visitors', () => {
       retryAfter: 1,
     });
   });
+
+  test('Error with bad JSON', async () => {
+    (fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(
+        new Response('(Some bad JSON)', {
+          status: 404,
+        })
+      )
+    );
+    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toMatchObject({
+      status: 0,
+    });
+  });
 });
