@@ -177,7 +177,7 @@ Find more info in [the API documentation](https://dev.fingerprint.com/docs/serve
 ```
 
 #### `client.getEvent(requestId: string): Promise<EventResponse>`
-Get events with all the information from each activated product - BotD and Fingerprinting.
+Get events with all the information from each activated product - Bot Detection and Identification.
 ##### Usage
 ```typescript
 client.getEvent("<requestId>")
