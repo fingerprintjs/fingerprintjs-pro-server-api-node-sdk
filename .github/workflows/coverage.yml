@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - code-coverage #TODO: remove before merge
 
 jobs:
   generate-docs-and-coverage:

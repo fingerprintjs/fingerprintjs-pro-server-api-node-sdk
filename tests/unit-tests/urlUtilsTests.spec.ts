@@ -34,6 +34,17 @@ describe('Get Visitors path', () => {
     expect(actualPath).toEqual(expectedPath);
   });
 
+  test('ap region without filter', async () => {
+    const actualPath = getVisitorsUrl(Region.AP, visitorId);
+    const expectedPath = `https://ap.api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?${ii}`;
+    expect(actualPath).toEqual(expectedPath);
+  });
+
+  test('unsupported region without filter', async () => {
+    // @ts-ignore need to pass unsupported region
+    expect(() => getVisitorsUrl('NOWWHERE', visitorId)).toThrowError();
+  });
+
   test('eu region with request_id filter', async () => {
     const filter: VisitorHistoryFilter = { request_id: requestId };
     const actualPath = getVisitorsUrl(Region.EU, visitorId, filter);
