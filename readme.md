@@ -82,7 +82,7 @@ client.getVisitorHistory("<visitorId>", filter)
     if (error.status === 403) {
       console.log(error.error);
     } else if (error.status === 429) {
-      retryLater(error.retryAfter);
+      retryLater(error.retryAfter); // this function needs to be implemented on your side 
     }
   });
 ```
@@ -286,7 +286,7 @@ client
     if (isVisitorsError(err)) {
       if (err.code === 429) {
         // VisitorsError429 type
-        retry(err.retryAfter);
+        retryLater(err.retryAfter); // this function needs to be implemented on your side 
       } else {
         console.log('error: ', err.error)
       }
