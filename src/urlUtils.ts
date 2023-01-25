@@ -44,10 +44,6 @@ export function getVisitorsUrl(
   const serverApiPath = getVisitorsPath(region, visitorId);
   const queryString = serializeQueryStringParams(queryStringParameters);
 
-  if (queryString === '') {
-    return serverApiPath;
-  }
-
   return `${serverApiPath}?${queryString}`;
 }
 
