@@ -70,7 +70,7 @@ export class FingerprintJsServerApiClient {
         if (isEventError(err)) {
           throw err;
         }
-        const error = err.toString() === '[object Object]' ? JSON.stringify(err) : err.toString();
+        const error = err instanceof Error ? err.toString() : JSON.stringify(err);
         throw {
           status: 0,
           error: error,
