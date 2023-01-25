@@ -33,7 +33,6 @@ jobs:
     name: 'Smoke test on node ${{ matrix.node-version }}'
     needs: build
     runs-on: ubuntu-latest
-    environment: test
 
     strategy:
       matrix:
