@@ -1,9 +1,7 @@
 name: Functional tests
 on:
   workflow_dispatch:
-  push:
-    branches-ignore:
-      - main
+  pull_request_target:
   schedule:
     - cron: '0 5 * * *'
 jobs:
@@ -39,7 +37,14 @@ jobs:
         node-version: [ 10, 12, 14, 16, 17, 18 ]
 
     steps:
-      - uses: actions/checkout@v3
+      - if: ${{ github.event_name == 'pull_request_target'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - if: ${{ github.event_name != 'pull_request_target'
+        uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.version }}
