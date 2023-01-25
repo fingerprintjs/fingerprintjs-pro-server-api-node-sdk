@@ -37,12 +37,12 @@ jobs:
         node-version: [ 10, 12, 14, 16, 17, 18 ]
 
     steps:
-      - if: ${{ github.event_name == 'pull_request_target'
+      - if: ${{ github.event_name == 'pull_request_target' }}
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
-      - if: ${{ github.event_name != 'pull_request_target'
+      - if: ${{ github.event_name != 'pull_request_target' }}
         uses: actions/checkout@v3
 
       - uses: actions/setup-node@v3
