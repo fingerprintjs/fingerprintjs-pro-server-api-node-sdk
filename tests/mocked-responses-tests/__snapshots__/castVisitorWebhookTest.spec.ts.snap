@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
+Object {
+  "browserDetails": Object {
+    "browserFullVersion": "73.0.3683.86",
+    "browserMajorVersion": "73",
+    "browserName": "Chrome",
+    "device": "Other",
+    "os": "Mac OS X",
+    "osVersion": "10.14.3",
+    "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
+  },
+  "clientReferrer": "https://google.com?search=banking+services",
+  "confidence": Object {
+    "score": 0.97,
+  },
+  "firstSeenAt": Object {
+    "global": "2022-03-16T11:26:45.362Z",
+    "subscription": "2022-03-16T11:31:01.101Z",
+  },
+  "incognito": false,
+  "ip": "216.3.128.12",
+  "ipLocation": Object {
+    "accuracyRadius": 1,
+    "city": Object {
+      "name": "Bolingbrook",
+    },
+    "continent": Object {
+      "code": "NA",
+      "name": "North America",
+    },
+    "country": Object {
+      "code": "US",
+      "name": "United States",
+    },
+    "latitude": 41.12933,
+    "longitude": -88.9954,
+    "postalCode": "60547",
+    "subdivisions": Array [
+      Object {
+        "isoCode": "IL",
+        "name": "Illinois",
+      },
+    ],
+    "timezone": "America/Chicago",
+  },
+  "lastSeenAt": Object {
+    "global": "2022-03-16T11:28:34.023Z",
+    "subscription": null,
+  },
+  "linkedId": "any-string",
+  "requestId": "Px6VxbRC6WBkA39yeNH3",
+  "tag": Object {
+    "requestType": "signup",
+    "yourCustomId": 45321,
+  },
+  "time": "2019-10-12T07:20:50.52Z",
+  "timestamp": 1554910997788,
+  "url": "https://banking.example.com/signup",
+  "visitorFound": true,
+  "visitorId": "3HNey93AkBW6CRbxV6xP",
+}
+`;

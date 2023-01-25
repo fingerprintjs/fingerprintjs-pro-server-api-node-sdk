@@ -1,5 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`[Mocked response] Get Event Error with bad shape 1`] = `
+Object {
+  "error": "{\\"error\\":\\"Some text instead og shaped object\\",\\"status\\":404}",
+  "status": 0,
+}
+`;
+
 exports[`[Mocked response] Get Event with request_id 1`] = `
 Object {
   "products": Object {
@@ -10,6 +17,7 @@ Object {
         },
         "ip": "61.127.217.15",
         "time": "2019-05-21T16:40:13Z",
+        "url": "https://www.example.com/login",
       },
     },
     "identification": Object {

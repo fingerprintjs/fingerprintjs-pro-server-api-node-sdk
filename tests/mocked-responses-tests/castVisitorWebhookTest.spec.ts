@@ -1,5 +1,5 @@
 import { VisitWebhook } from '../../src/types';
-import visitWebhookBody from './mocked-responses-data/visit-webhook-body.json';
+import visitWebhookBody from './mocked-responses-data/external/webhook.json';
 
 describe('[Mocked body] Cast visitor webhook', () => {
   test('with sample request body', async () => {

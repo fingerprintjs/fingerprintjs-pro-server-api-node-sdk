@@ -74,9 +74,17 @@ const client = new FingerprintJsServerApiClient({region: Region.EU, apiKey: "<ap
 Gets history for the given visitor and given filter, returns a promise with visitor history response.
 ##### Usage
 ```js
-client.getVisitorHistory("<visitorId>", filter).then(visitorHistory => {
+client.getVisitorHistory("<visitorId>", filter)
+  .then(visitorHistory => {
     console.log(visitorHistory);
-});
+  })
+  .catch(error => {
+    if (error.status === 403) {
+      console.log(error.error);
+    } else if (error.status === 429) {
+      retryLater(error.retryAfter); // this function needs to be implemented on your side 
+    }
+  });
 ```
 ##### Params
 - `visitorId: string` - identifier of the visitor
@@ -167,10 +175,134 @@ Find more info in [the API documentation](https://dev.fingerprint.com/docs/serve
   "lastTimestamp": 1582299576512
 }
 ```
----
-## Release new version
 
-- Create a new branch
-- Run `yarn release:(major|minor|patch)` depending on the version you need
-- Make a pull request
-- After merging the pull request into the main branch and after successful tests, GitHub Action will publish a new version to the npm
+#### `client.getEvent(requestId: string): Promise<EventResponse>`
+Get events with all the information from each activated product - Bot Detection and Identification.
+##### Usage
+```typescript
+client.getEvent("<requestId>")
+  .then(eventInfo => {
+    console.log(eventInfo);
+  })
+  .catch(error => {
+    if (error.status === 403 || error.status === 404) {
+      console.log(error.code, error.message);
+    }
+  });
+```
+##### Params
+- `requestId: string` - identifier of the event
+##### Returns
+- `Promise<EventResponse>` - promise with event response
+---
+#### Server `EventResponse` response
+Find more info in the [API documentation](https://dev.fingerprint.com/docs/server-api#response-1).
+```json
+{
+  "products": {
+    "identification": {
+      "data": {
+        "visitorId": "Ibk1527CUFmcnjLwIs4A9",
+        "requestId": "0KSh65EnVoB85JBmloQK",
+        "incognito": true,
+        "linkedId": "somelinkedId",
+        "time": "2019-05-21T16:40:13Z",
+        "timestamp": 1582299576512,
+        "url": "https://www.example.com/login",
+        "ip": "61.127.217.15",
+        "ipLocation": {
+          "accuracyRadius": 10,
+          "latitude": 49.982,
+          "longitude": 36.2566,
+          "postalCode": "61202",
+          "timezone": "Europe/Dusseldorf",
+          "city": {
+            "name": "Dusseldorf"
+          },
+          "continent": {
+            "code": "EU",
+            "name": "Europe"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
+          "subdivisions": [
+            {
+              "isoCode": "63",
+              "name": "North Rhine-Westphalia"
+            }
+          ],
+        },
+        "browserDetails": {
+          "browserName": "Chrome",
+          "browserMajorVersion": "74",
+          "browserFullVersion": "74.0.3729",
+          "os": "Windows",
+          "osVersion": "7",
+          "device": "Other",
+          "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+        },
+        "confidence": {
+           "score": 0.97
+        },
+        "visitorFound": true,
+        "firstSeenAt": {
+           "global": "2022-03-16T11:26:45.362Z",
+           "subscription": "2022-03-16T11:31:01.101Z"
+        },
+        "lastSeenAt": {
+          "global": "2022-03-16T11:28:34.023Z",
+          "subscription": null
+        }
+      }
+    },
+    "botd": {
+      "data": {
+        "bot": {
+          "result": "notDetected"
+        },
+        "url": "https://example.com/login",
+        "ip": "61.127.217.15",
+        "time": "2019-05-21T16:40:13Z"
+      }
+    }
+  }
+}
+```
+### Using with TypeScript
+
+`getEvent` and `getVisitorHistory` methods return generic types `Promise<EventResponse>` and `Promise<VisitorsResponse>` and throw `EventError` and `VisitorsError`.
+
+You can use typeguards to narrow error types as in example below.
+
+```typescript
+import { isVisitorsError, isEventError } from '@fingerprintjs/fingerprintjs-pro-server-api';
+
+client
+  .getVisitorHistory("<visitorId>", filter)
+  .then(result => console.log(result))
+  .catch(err => {
+    if (isVisitorsError(err)) {
+      if (err.code === 429) {
+        // VisitorsError429 type
+        retryLater(err.retryAfter); // this function needs to be implemented on your side 
+      } else {
+        console.log('error: ', err.error)
+      }
+    } else {
+      console.log('unknown error: ', err)
+    }
+  });
+
+client
+  .getEvent("<requestId>")
+  .then(result => console.log(result))
+  .catch(err => {
+    if (isEventError(err)) {
+      console.log(`error ${err.code}: `, err.error.message)
+    } else {
+      console.log('unknown error: ', err)
+    }
+  });
+```

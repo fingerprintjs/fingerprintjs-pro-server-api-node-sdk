@@ -7,6 +7,10 @@ import {
   Options,
   AuthenticationMode,
   EventResponse,
+  EventError,
+  isEventError,
+  VisitorsError,
+  isVisitorsError,
 } from './types';
 
 export class FingerprintJsServerApiClient {
@@ -54,9 +58,23 @@ export class FingerprintJsServerApiClient {
       method: 'GET',
       headers,
     })
-      .then((response) => response.json() as Promise<EventResponse>)
+      .then(async (response) => {
+        const jsonResponse = await response.json();
+        if (response.status !== 200) {
+          jsonResponse.status = response.status;
+          throw jsonResponse as EventError;
+        }
+        return jsonResponse as EventResponse;
+      })
       .catch((err) => {
-        throw new Error(err.toString());
+        if (isEventError(err)) {
+          throw err;
+        }
+        const error = err instanceof Error ? err.toString() : JSON.stringify(err);
+        throw {
+          status: 0,
+          error: error,
+        };
       });
   }
 
@@ -83,9 +101,26 @@ export class FingerprintJsServerApiClient {
       method: 'GET',
       headers,
     })
-      .then((response) => response.json() as Promise<VisitorsResponse>)
+      .then(async (response) => {
+        const jsonResponse = await response.json();
+        if (response.status === 200) {
+          return jsonResponse as VisitorsResponse;
+        }
+        if (response.status === 429) {
+          const retryAfter = response.headers.get('retry-after') || '';
+          jsonResponse.retryAfter = retryAfter === '' ? 1 : parseInt(retryAfter);
+        }
+        jsonResponse.status = response.status;
+        throw jsonResponse as VisitorsError;
+      })
       .catch((err) => {
-        throw new Error(err.toString());
+        if (isVisitorsError(err)) {
+          throw err;
+        }
+        throw {
+          status: 0,
+          error: new Error(err.toString()),
+        };
       });
   }
 

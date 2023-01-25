@@ -79,6 +79,9 @@ describe('[Mocked response] Get Visitors', () => {
       Promise.resolve(new Response('500 Internal Server Error'))
     );
 
-    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toThrowError();
+    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toMatchObject({
+      status: 0,
+      error: expect.anything(),
+    });
   });
 });

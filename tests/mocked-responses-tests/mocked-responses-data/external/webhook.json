@@ -1,0 +1,60 @@
+{
+  "requestId": "Px6VxbRC6WBkA39yeNH3",
+  "tag": {
+    "requestType": "signup",
+    "yourCustomId": 45321
+  },
+  "linkedId": "any-string",
+  "visitorId": "3HNey93AkBW6CRbxV6xP",
+  "visitorFound": true,
+  "timestamp": 1554910997788,
+  "time": "2019-10-12T07:20:50.52Z",
+  "incognito": false,
+  "url": "https://banking.example.com/signup",
+  "clientReferrer": "https://google.com?search=banking+services",
+  "ip": "216.3.128.12",
+  "ipLocation": {
+    "accuracyRadius": 1,
+    "city": {
+      "name": "Bolingbrook"
+    },
+    "continent": {
+      "code": "NA",
+      "name": "North America"
+    },
+    "country": {
+      "code": "US",
+      "name": "United States"
+    },
+    "latitude": 41.12933,
+    "longitude": -88.9954,
+    "postalCode": "60547",
+    "subdivisions": [
+      {
+        "isoCode": "IL",
+        "name": "Illinois"
+      }
+    ],
+    "timezone": "America/Chicago"
+  },
+  "browserDetails": {
+    "browserName": "Chrome",
+    "browserFullVersion": "73.0.3683.86",
+    "browserMajorVersion": "73",
+    "os": "Mac OS X",
+    "osVersion": "10.14.3",
+    "device": "Other",
+    "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86"
+  },
+  "confidence": {
+    "score": 0.97
+  },
+  "firstSeenAt": {
+    "global": "2022-03-16T11:26:45.362Z",
+    "subscription": "2022-03-16T11:31:01.101Z"
+  },
+  "lastSeenAt": {
+    "global": "2022-03-16T11:28:34.023Z",
+    "subscription": null
+  }
+}

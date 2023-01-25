@@ -69,4 +69,77 @@ describe('[Mocked response] Get Visitors', () => {
     const response = await client.getVisitorHistory(existingVisitorId, filter);
     expect(response).toMatchSnapshot();
   });
+
+  test('403 error', async () => {
+    (fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(
+        new Response(
+          JSON.stringify({
+            error: 'Forbidden',
+          }),
+          {
+            status: 403,
+          }
+        )
+      )
+    );
+    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toMatchObject({
+      status: 403,
+      error: 'Forbidden',
+    });
+  });
+
+  test('429 error', async () => {
+    (fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(
+        new Response(
+          JSON.stringify({
+            error: 'Too Many Requests',
+          }),
+          {
+            status: 429,
+            headers: { 'Retry-after': '10' },
+          }
+        )
+      )
+    );
+    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toMatchObject({
+      status: 429,
+      error: 'Too Many Requests',
+      retryAfter: 10,
+    });
+  });
+
+  test('429 error with empty retry-after header', async () => {
+    (fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(
+        new Response(
+          JSON.stringify({
+            error: 'Too Many Requests',
+          }),
+          {
+            status: 429,
+          }
+        )
+      )
+    );
+    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toMatchObject({
+      status: 429,
+      error: 'Too Many Requests',
+      retryAfter: 1,
+    });
+  });
+
+  test('Error with bad JSON', async () => {
+    (fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(
+        new Response('(Some bad JSON)', {
+          status: 404,
+        })
+      )
+    );
+    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toMatchObject({
+      status: 0,
+    });
+  });
 });
