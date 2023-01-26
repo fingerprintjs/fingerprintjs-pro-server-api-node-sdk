@@ -42,7 +42,7 @@ describe('Get Visitors path', () => {
 
   test('unsupported region without filter', async () => {
     // @ts-ignore need to pass unsupported region
-    expect(() => getVisitorsUrl('NOWWHERE', visitorId)).toThrowError();
+    expect(() => getVisitorsUrl('NOWHERE', visitorId)).toThrowError();
   });
 
   test('eu region with request_id filter', async () => {
