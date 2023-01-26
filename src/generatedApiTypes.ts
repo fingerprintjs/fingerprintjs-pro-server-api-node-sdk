@@ -542,7 +542,7 @@ export interface operations {
         linked_id?: string;
         /** Limit scanned results */
         limit?: number;
-        /** Used to paginate results */
+        /** Timestamp (in milliseconds since epoch) used to paginate results */
         before?: number;
       };
     };

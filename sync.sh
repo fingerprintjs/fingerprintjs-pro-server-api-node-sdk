@@ -7,6 +7,7 @@ examplesList=(
   'webhook.json'
   'get_event.json'
   'get_event_403_error.json'
+  'get_event_404_error.json'
 )
 
 for example in ${examplesList[*]}; do

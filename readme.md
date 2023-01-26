@@ -11,6 +11,9 @@
   <a href="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/actions/workflows/build.yml">
     <img src="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/actions/workflows/build.yml/badge.svg" alt="Build status">
   </a>
+  <a href="https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/">
+    <img src="https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/badges.svg" alt="coverage">
+  </a>
   <a href="https://www.npmjs.com/package/@fingerprintjs/fingerprintjs-pro-server-api">
     <img src="https://img.shields.io/npm/v/@fingerprintjs/fingerprintjs-pro-server-api.svg" alt="Current NPM version">
   </a>

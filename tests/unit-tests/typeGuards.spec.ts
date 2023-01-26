@@ -1,5 +1,6 @@
 import { isEventError, isVisitorsError } from '../../src/types';
 import getEventError403 from '../mocked-responses-tests/mocked-responses-data/external/get_event_403_error.json';
+import getEventError404 from '../mocked-responses-tests/mocked-responses-data/external/get_event_404_error.json';
 
 describe('getEvent type guard', () => {
   test('error 403 TokenRequired', () => {
@@ -41,13 +42,7 @@ describe('getEvent type guard', () => {
   });
 
   test('error 404 RequestNotFound', () => {
-    const response = {
-      status: 404,
-      error: {
-        code: 'RequestNotFound',
-        message: 'Some random message RequestNotFound',
-      },
-    };
+    const response = { ...getEventError404, status: 404 };
     expect(isEventError(response)).toBe(true);
   });
 
