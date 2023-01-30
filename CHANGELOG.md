@@ -1,3 +1,31 @@
+## [2.0.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.4.0...v2.0.0) (2023-01-30)
+
+
+### ⚠ BREAKING CHANGES
+
+* Change error reporting.
+`getVisitorHistory` and `getEvent` methods throw an exception in case of errors.
+
+### Features
+
+* update schema, rework error reporting ([baea2f7](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/baea2f7fff8a2d2350a67986c2f054217671fbef))
+
+
+### Bug Fixes
+
+* eslint error ([387fd4a](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/387fd4aefc2a8d06f166086dbfaabe13c1590611))
+* improve error reporting for `getEvents`, add more tests ([ffb00a3](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/ffb00a39d2598486cb10eacfe3180c0738c561c3))
+* remove unnecessary checks from the example ([e6dd2fd](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/e6dd2fd838c459ba4736e7b17efd1f2f2ed56ae8))
+* remove unreachable code ([3fa05d6](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/3fa05d6adb0061d13cf2c571b56c1609c64460d6))
+* retry-after with empty header ([e1bfba5](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/e1bfba5c92d34fb40df13f28914b0aead7d76453))
+* review fix for error serialisation ([d6e0a74](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/d6e0a7411780b08c3995c5470c8856c7111c34f1))
+* use generic typeguards for errors ([c415874](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/c4158748a86315d809686bf562314862edb95880))
+
+
+### Build System
+
+* **deps:** bump json5 from 2.2.1 to 2.2.3 ([dd19516](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/dd19516aeb9ff3f4b948dac98d017b64e73c338a))
+
 ## [1.4.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.3.0...v1.4.0) (2022-10-25)
 
 
