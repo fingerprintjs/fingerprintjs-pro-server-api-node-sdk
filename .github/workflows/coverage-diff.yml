@@ -28,5 +28,6 @@ jobs:
             ${{ steps.coverage.outputs.report }}
             <details>
               <summary>Show full coverage report</summary>
+
               ${{ steps.coverage-md.outputs.markdownReport }}
             </details>
