@@ -9,6 +9,8 @@ jobs:
     name: Run tests & check coverage
     permissions:
       checks: write
+      pull-requests: write
+      contents: write
     steps:
       - uses: actions/checkout@v3
       - name: Jest coverage comment
