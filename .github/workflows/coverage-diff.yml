@@ -15,6 +15,7 @@ jobs:
         with:
           package-manager: yarn
           output: report-markdown
+      - run: yarn test:coverage
       - name: Read coverage text report
         uses: fingerprintjs/action-coverage-report-md@v1
         id: coverage-md
