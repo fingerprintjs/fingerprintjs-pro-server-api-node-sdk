@@ -7,6 +7,8 @@ jobs:
   run-tests-check-coverage:
     runs-on: ubuntu-20.04
     name: Run tests & check coverage
+    permissions:
+      checks: write
     steps:
       - uses: actions/checkout@v3
       - name: Jest coverage comment
