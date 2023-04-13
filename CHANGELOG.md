@@ -1,3 +1,15 @@
+## [2.0.1-test.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.0.0...v2.0.1-test.1) (2023-04-13)
+
+
+### Bug Fixes
+
+* refactor bundle names and add `exports` section for better compatibility with nextjs ([4d56666](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4d5666632a4a6ddfed9e89cf2a40062f909ebec9))
+
+
+### Build System
+
+* **deps:** bump ArtiomTr/jest-coverage-report-action ([bd2a316](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/bd2a3162b2d51d2b4449527a85b6dc51f0486dbf))
+
 ## [2.0.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v1.4.0...v2.0.0) (2023-01-30)
 
 
