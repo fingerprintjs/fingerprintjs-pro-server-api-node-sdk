@@ -59,6 +59,16 @@ client.getVisitorHistory("<visitorId>").then(visitorHistory => {
 const visit = visitWebhookBody as unknown as VisitWebhook;
 ```
 
+### Compatibility
+This SDK might be also compatible, however not actively tested, with some runtimes that are incompatible with the NodeJS environment (such as [NextJS Edge](https://beta.nextjs.org/docs/rendering/edge-and-nodejs-runtimes#edge-runtime) runtime). The proper behavior might be achieved by passing the environment's native `fetch()` function with the proper binding: 
+```js
+const client = new FingerprintJsServerApiClient({
+  region: Region.EU,
+  apiKey: apiKey,
+  fetch: fetch.bind(globalThis),
+});
+```
+
 ## API
 
 #### `FingerprintJsServerApiClient({region: Region, apiKey: string})` constructor
