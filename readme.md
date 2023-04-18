@@ -59,6 +59,18 @@ client.getVisitorHistory("<visitorId>").then(visitorHistory => {
 const visit = visitWebhookBody as unknown as VisitWebhook;
 ```
 
+### Compatibility
+This SDK might be also compatible, however not actively tested, with JavaScript "edge" runtimes that do not support all Node APIs, for example, [Vercel Edge Runtime](https://edge-runtime.vercel.app/), or [Cloudflare Workers](https://developers.cloudflare.com/workers/). 
+
+To make it work, replace the SDK's built-in fetch function (which relies on Node APIs) with the runtime's native `fetch` function. Pass the function into the constructor with proper binding: 
+```js
+const client = new FingerprintJsServerApiClient({
+  region: Region.EU,
+  apiKey: apiKey,
+  fetch: fetch.bind(globalThis),
+});
+```
+
 ## API
 
 #### `FingerprintJsServerApiClient({region: Region, apiKey: string})` constructor
