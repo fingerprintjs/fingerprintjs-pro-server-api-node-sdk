@@ -6,6 +6,8 @@ examplesList=(
   'visits_limit_1.json'
   'webhook.json'
   'get_event.json'
+  'get_event_all_errors.json'
+  'get_event_extra_fields.json'
   'get_event_403_error.json'
   'get_event_404_error.json'
 )

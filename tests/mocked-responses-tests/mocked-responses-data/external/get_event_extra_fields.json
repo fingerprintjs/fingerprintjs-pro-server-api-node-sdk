@@ -60,92 +60,26 @@
     "botd": {
       "data": {
         "bot": {
-          "result": "bad",
-          "type": "selenium"
+          "result": "notDetected"
         },
         "url": "https://www.example.com/login",
         "ip": "61.127.217.15",
         "time": "2019-05-21T16:40:13Z"
       }
     },
-    "ipInfo": {
-      "data": {
-        "v4": {
-          "address": "94.142.239.124",
-          "geolocation": {
-            "accuracyRadius": 20,
-            "latitude": 50.05,
-            "longitude": 14.4,
-            "postalCode": "150 00",
-            "timezone": "Europe/Prague",
-            "city": {
-              "name": "Prague"
-            },
-            "country": {
-              "code": "CZ",
-              "name": "Czechia"
-            },
-            "continent": {
-              "code": "EU",
-              "name": "Europe"
-            },
-            "subdivisions": [
-              {
-                "isoCode": "10",
-                "name": "Hlavni mesto Praha"
-              }
-            ]
-          }
-        }
-      }
-    },
-    "incognito": {
+    "product3": {
       "data": {
         "result": false
       }
     },
-    "rootApps": {
+    "product4": {
       "data": {
-        "result": false
-      }
-    },
-    "emulator": {
-      "data": {
-        "result": false
-      }
-    },
-    "ipBlocklist": {
-      "data": {
-        "result": false,
+        "result": true,
         "details": {
-          "emailSpam": false,
-          "attackSource": false
+          "detail1": true,
+          "detail2": "detail description",
+          "detail3": 42
         }
-      }
-    },
-    "tor": {
-      "data": {
-        "result": false
-      }
-    },
-    "vpn": {
-      "data": {
-        "result": false,
-        "methods": {
-          "timezoneMismatch": false,
-          "publicVPN": false
-        }
-      }
-    },
-    "proxy": {
-      "data": {
-        "result": false
-      }
-    },
-    "tampering": {
-      "data": {
-        "result": false,
-        "anomalyScore": 0
       }
     }
   }

@@ -2,6 +2,10 @@
 
 exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
 Object {
+  "bot": Object {
+    "result": "bad",
+    "type": "selenium",
+  },
   "browserDetails": Object {
     "browserFullVersion": "73.0.3683.86",
     "browserMajorVersion": "73",
@@ -15,12 +19,51 @@ Object {
   "confidence": Object {
     "score": 0.97,
   },
+  "emulator": Object {
+    "result": false,
+  },
   "firstSeenAt": Object {
     "global": "2022-03-16T11:26:45.362Z",
     "subscription": "2022-03-16T11:31:01.101Z",
   },
   "incognito": false,
   "ip": "216.3.128.12",
+  "ipBlocklist": Object {
+    "details": Object {
+      "attackSource": false,
+      "emailSpam": false,
+    },
+    "result": false,
+  },
+  "ipInfo": Object {
+    "v4": Object {
+      "address": "94.142.239.124",
+      "geolocation": Object {
+        "accuracyRadius": 20,
+        "city": Object {
+          "name": "Prague",
+        },
+        "continent": Object {
+          "code": "EU",
+          "name": "Europe",
+        },
+        "country": Object {
+          "code": "CZ",
+          "name": "Czechia",
+        },
+        "latitude": 50.05,
+        "longitude": 14.4,
+        "postalCode": "150 00",
+        "subdivisions": Array [
+          Object {
+            "isoCode": "10",
+            "name": "Hlavni mesto Praha",
+          },
+        ],
+        "timezone": "Europe/Prague",
+      },
+    },
+  },
   "ipLocation": Object {
     "accuracyRadius": 1,
     "city": Object {
@@ -50,15 +93,36 @@ Object {
     "subscription": null,
   },
   "linkedId": "any-string",
+  "proxy": Object {
+    "result": false,
+  },
   "requestId": "Px6VxbRC6WBkA39yeNH3",
+  "rootApps": Object {
+    "result": false,
+  },
   "tag": Object {
     "requestType": "signup",
     "yourCustomId": 45321,
   },
+  "tampering": Object {
+    "anomalyScore": 0,
+    "result": false,
+  },
   "time": "2019-10-12T07:20:50.52Z",
   "timestamp": 1554910997788,
+  "tor": Object {
+    "result": false,
+  },
   "url": "https://banking.example.com/signup",
+  "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
   "visitorFound": true,
   "visitorId": "3HNey93AkBW6CRbxV6xP",
+  "vpn": Object {
+    "methods": Object {
+      "publicVPN": false,
+      "timezoneMismatch": false,
+    },
+    "result": false,
+  },
 }
 `;

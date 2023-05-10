@@ -56,5 +56,69 @@
   "lastSeenAt": {
     "global": "2022-03-16T11:28:34.023Z",
     "subscription": null
+  },
+  "bot": {
+    "result": "bad",
+    "type": "selenium"
+  },
+  "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
+  "ipInfo": {
+    "v4": {
+      "address": "94.142.239.124",
+      "geolocation": {
+        "accuracyRadius": 20,
+        "latitude": 50.05,
+        "longitude": 14.4,
+        "postalCode": "150 00",
+        "timezone": "Europe/Prague",
+        "city": {
+          "name": "Prague"
+        },
+        "country": {
+          "code": "CZ",
+          "name": "Czechia"
+        },
+        "continent": {
+          "code": "EU",
+          "name": "Europe"
+        },
+        "subdivisions": [
+          {
+            "isoCode": "10",
+            "name": "Hlavni mesto Praha"
+          }
+        ]
+      }
+    }
+  },
+  "rootApps": {
+    "result": false
+  },
+  "emulator": {
+    "result": false
+  },
+  "ipBlocklist": {
+    "result": false,
+    "details": {
+      "emailSpam": false,
+      "attackSource": false
+    }
+  },
+  "tor": {
+    "result": false
+  },
+  "vpn": {
+    "result": false,
+    "methods": {
+      "timezoneMismatch": false,
+      "publicVPN": false
+    }
+  },
+  "proxy": {
+    "result": false
+  },
+  "tampering": {
+    "result": false,
+    "anomalyScore": 0
   }
 }

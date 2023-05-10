@@ -2,6 +2,8 @@ import fetch from 'node-fetch';
 import { Region } from '../../src/types';
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient';
 import getEventResponse from './mocked-responses-data/external/get_event.json';
+import getEventWithExtraFieldsResponse from './mocked-responses-data/external/get_event_extra_fields.json';
+import getEventAllErrorsResponse from './mocked-responses-data/external/get_event_all_errors.json';
 
 const { Response } = jest.requireActual('node-fetch');
 jest.mock('node-fetch');
@@ -15,6 +17,26 @@ describe('[Mocked response] Get Event', () => {
   test('with request_id', async () => {
     (fetch as unknown as jest.Mock).mockReturnValue(
       Promise.resolve(new Response(JSON.stringify(getEventResponse)))
+    );
+
+    const response = await client.getEvent(existingRequestId);
+
+    expect(response).toMatchSnapshot();
+  });
+
+  test('with additional signals', async () => {
+    (fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(new Response(JSON.stringify(getEventWithExtraFieldsResponse)))
+    );
+
+    const response = await client.getEvent(existingRequestId);
+
+    expect(response).toMatchSnapshot();
+  });
+
+  test('with all signals with failed error', async () => {
+    (fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(new Response(JSON.stringify(getEventAllErrorsResponse)))
     );
 
     const response = await client.getEvent(existingRequestId);
