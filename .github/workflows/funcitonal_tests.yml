@@ -39,8 +39,8 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      max-parallel: 1
       matrix:
-        max-parallel: 4
         node-version: [ 10, 12, 14, 16, 17, 18, 19 ]
 
     steps:
