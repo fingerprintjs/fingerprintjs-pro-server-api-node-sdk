@@ -14,7 +14,12 @@ export interface paths {
   };
   '/webhook': {
     /** Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
-    trace: {};
+    trace: {
+      responses: {
+        /** Dummy for the schema */
+        default: unknown;
+      };
+    };
   };
 }
 
@@ -70,19 +75,7 @@ export interface components {
         confidence: components['schemas']['Confidence'];
         /** @description Attribute represents if a visitor had been identified before. */
         visitorFound: boolean;
-        /**
-         * @example {
-         *   "global": "2022-05-05T18:28:54.535Z",
-         *   "subscription": "2022-06-09T22:58:05.576Z"
-         * }
-         */
         firstSeenAt: components['schemas']['SeenAt'];
-        /**
-         * @example {
-         *   "global": "2022-06-09T22:58:35.795Z",
-         *   "subscription": null
-         * }
-         */
         lastSeenAt: components['schemas']['SeenAt'];
       }[];
       /**
@@ -145,16 +138,63 @@ export interface components {
       error: string;
     };
     WebhookVisit: {
+      /** @example 3HNey93AkBW6CRbxV6xP */
       visitorId: string;
+      /** @example https://google.com?search=banking+services */
       clientReferrer?: string;
+      /** @example Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 */
+      userAgent?: string;
+      bot?: components['schemas']['BotdDetectionResult'];
+      ipInfo?: components['schemas']['IpInfoResult'];
+      /** @description Flag if user used incognito session. */
+      incognito: boolean;
+      /** WebhookSignalResponseRootApps */
+      rootApps?: {
+        /**
+         * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected
+         * Available only for events from Android client. The field will not be present for a browser or iOS event.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      /** WebhookSignalResponseEmulator */
+      emulator?: {
+        /**
+         * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected
+         * Available only for events from Android client. The field will not be present for a browser or iOS event.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      ipBlocklist?: components['schemas']['IpBlockListResult'];
+      /** WebhookSignalResponseTor */
+      tor?: {
+        /**
+         * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      vpn?: components['schemas']['VpnResult'];
+      /** WebhookSignalResponseProxy */
+      proxy?: {
+        /**
+         * @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      tampering?: components['schemas']['TamperingResult'];
       /**
        * @description Unique identifier of the user's identification request.
        * @example 1654815516083.OX6kx8
        */
       requestId: string;
       browserDetails: components['schemas']['BrowserDetails'];
-      /** @description Flag if user used incognito session. */
-      incognito: boolean;
       /**
        * Format: ipv4
        * @example 8.8.8.8
@@ -190,19 +230,7 @@ export interface components {
       confidence: components['schemas']['Confidence'];
       /** @description Attribute represents if a visitor had been identified before. */
       visitorFound: boolean;
-      /**
-       * @example {
-       *   "global": "2022-05-05T18:28:54.535Z",
-       *   "subscription": "2022-06-09T22:58:05.576Z"
-       * }
-       */
       firstSeenAt: components['schemas']['SeenAt'];
-      /**
-       * @example {
-       *   "global": "2022-06-09T22:58:35.795Z",
-       *   "subscription": null
-       * }
-       */
       lastSeenAt: components['schemas']['SeenAt'];
     };
     /** Visit */
@@ -250,19 +278,7 @@ export interface components {
       confidence: components['schemas']['Confidence'];
       /** @description Attribute represents if a visitor had been identified before. */
       visitorFound: boolean;
-      /**
-       * @example {
-       *   "global": "2022-05-05T18:28:54.535Z",
-       *   "subscription": "2022-06-09T22:58:05.576Z"
-       * }
-       */
       firstSeenAt: components['schemas']['SeenAt'];
-      /**
-       * @example {
-       *   "global": "2022-06-09T22:58:35.795Z",
-       *   "subscription": null
-       * }
-       */
       lastSeenAt: components['schemas']['SeenAt'];
     };
     /** BrowserDetails */
@@ -291,11 +307,23 @@ export interface components {
        */
       score: number;
     };
-    /** SeenAt */
+    /**
+     * SeenAt
+     * @example {
+     *   "global": "2022-05-05T18:28:54.535Z",
+     *   "subscription": null
+     * }
+     */
     SeenAt: {
-      /** Format: date-time */
+      /**
+       * Format: date-time
+       * @example 2022-05-05T18:28:54.535Z
+       */
       global: string | null;
-      /** Format: date-time */
+      /**
+       * Format: date-time
+       * @example 2022-06-09T22:58:05.576Z
+       */
       subscription: string | null;
     };
     /** IPLocation */
@@ -324,19 +352,7 @@ export interface components {
         /** @example Prague */
         name?: string;
       };
-      /**
-       * @example {
-       *   "code": "US",
-       *   "name": "United States"
-       * }
-       */
       country: components['schemas']['Location'];
-      /**
-       * @example {
-       *   "code": "NA",
-       *   "name": "North America"
-       * }
-       */
       continent: components['schemas']['Location'];
       subdivisions?: components['schemas']['Subdivision'][];
     };
@@ -402,19 +418,7 @@ export interface components {
           confidence: components['schemas']['Confidence'];
           /** @description Attribute represents if a visitor had been identified before. */
           visitorFound: boolean;
-          /**
-           * @example {
-           *   "global": "2022-05-05T18:28:54.535Z",
-           *   "subscription": "2022-06-09T22:58:05.576Z"
-           * }
-           */
           firstSeenAt: components['schemas']['SeenAt'];
-          /**
-           * @example {
-           *   "global": "2022-06-09T22:58:35.795Z",
-           *   "subscription": null
-           * }
-           */
           lastSeenAt: components['schemas']['SeenAt'];
           visitorId: string;
         };
@@ -423,7 +427,89 @@ export interface components {
       /** ProductsResponseBotd */
       botd?: {
         data?: components['schemas']['BotdResult'];
-        error?: components['schemas']['BotdError'];
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseIpInfo */
+      ipInfo?: {
+        data?: components['schemas']['IpInfoResult'];
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseIncognito */
+      incognito?: {
+        data?: {
+          /**
+           * @description `true` if we detected incognito mode used in the browser, `false` otherwise.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseRootApps */
+      rootApps?: {
+        data?: {
+          /**
+           * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected
+           * Available only for events from Android client. The field will not be present for a browser or iOS event.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseEmulator */
+      emulator?: {
+        data?: {
+          /**
+           * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected
+           * Available only for events from Android client. The field will not be present for a browser or iOS event.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseIpBlocklist */
+      ipBlocklist?: {
+        data?: components['schemas']['IpBlockListResult'];
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseTor */
+      tor?: {
+        data?: {
+          /**
+           * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseVpn */
+      vpn?: {
+        data?: components['schemas']['VpnResult'];
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseProxy */
+      proxy?: {
+        data?: {
+          /**
+           * @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseTampering */
+      tampering?: {
+        data?: components['schemas']['TamperingResult'];
+        error?: components['schemas']['ProductError'];
       };
     };
     /** @description Contains event from activated products - Fingerprint Pro or Bot Detection */
@@ -464,11 +550,10 @@ export interface components {
        * @example https://example.com/login
        */
       url: string;
-      /**
-       * @example {
-       *   "result": "notDetected"
-       * }
-       */
+      /** @example Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 */
+      userAgent?: string;
+      /** @example 1681392853693.lRiBBD */
+      requestId?: string;
       bot: components['schemas']['BotdDetectionResult'];
     };
     /** @description Stores bot detection result */
@@ -479,11 +564,84 @@ export interface components {
        *  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
        *  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
        *
+       * @example bad
        * @enum {string}
        */
       result: 'notDetected' | 'good' | 'bad';
+      /** @example selenium */
+      type?: string;
     };
-    BotdError: {
+    /** @description Details about the request IP address. Has separate fields for v4 and v6 IP address versions. */
+    IpInfoResult: {
+      v4?: {
+        /**
+         * Format: ipv4
+         * @example 94.142.239.124
+         */
+        address?: string;
+        geolocation?: components['schemas']['IPLocation'];
+      };
+      v6?: {
+        /**
+         * Format: ipv6
+         * @example 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+         */
+        address?: string;
+        geolocation?: components['schemas']['IPLocation'];
+      };
+    };
+    IpBlockListResult: {
+      /**
+       * @description `true` if request IP address is part of any database that we use to search for known malicious actors, `false` otherwise.
+       *
+       * @example false
+       */
+      result?: boolean;
+      details?: {
+        /**
+         * @description IP address was part of a known email spam attack (SMTP).
+         * @example false
+         */
+        emailSpam?: boolean;
+        /**
+         * @description IP address was part of a known network attack (SSH/HTTPS).
+         * @example false
+         */
+        attackSource?: boolean;
+      };
+    };
+    VpnResult: {
+      /**
+       * @description VPN or other anonymising service has been used when sending the request.
+       * @example false
+       */
+      result?: boolean;
+      methods?: {
+        /**
+         * @description User's browser timezone doesn't match the timezone from which the request was originally made.
+         * @example false
+         */
+        timezoneMismatch?: boolean;
+        /**
+         * @description Request IP address is owned and used by a public VPN service provider.
+         * @example false
+         */
+        publicVPN?: boolean;
+      };
+    };
+    TamperingResult: {
+      /**
+       * @description Flag indicating whether browser tampering was detected according to our internal thresholds.
+       * @example false
+       */
+      result?: boolean;
+      /**
+       * @description Confidence score (`0.0 - 1.0`) for the tampering detection. Values above `0.5` suggest that we're reasonably sure there was a tampering attempt. Values below `0.5` are genuine browsers.
+       * @example 0
+       */
+      anomalyScore?: number;
+    };
+    ProductError: {
       /**
        * @description Error code:
        *  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded

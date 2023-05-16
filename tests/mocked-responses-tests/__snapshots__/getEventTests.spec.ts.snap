@@ -7,7 +7,7 @@ Object {
 }
 `;
 
-exports[`[Mocked response] Get Event with request_id 1`] = `
+exports[`[Mocked response] Get Event with additional signals 1`] = `
 Object {
   "products": Object {
     "botd": Object {
@@ -75,6 +75,249 @@ Object {
         "url": "https://www.example.com/login",
         "visitorFound": true,
         "visitorId": "Ibk1527CUFmcnjLwIs4A9",
+      },
+    },
+    "product3": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "product4": Object {
+      "data": Object {
+        "details": Object {
+          "detail1": true,
+          "detail2": "detail description",
+          "detail3": 42,
+        },
+        "result": true,
+      },
+    },
+  },
+}
+`;
+
+exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
+Object {
+  "products": Object {
+    "botd": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "emulator": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "identification": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "failed",
+      },
+    },
+    "incognito": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "ipBlocklist": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "ipInfo": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "proxy": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "rootApps": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "tampering": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "tor": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "vpn": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+  },
+}
+`;
+
+exports[`[Mocked response] Get Event with request_id 1`] = `
+Object {
+  "products": Object {
+    "botd": Object {
+      "data": Object {
+        "bot": Object {
+          "result": "bad",
+          "type": "selenium",
+        },
+        "ip": "61.127.217.15",
+        "time": "2019-05-21T16:40:13Z",
+        "url": "https://www.example.com/login",
+      },
+    },
+    "emulator": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "identification": Object {
+      "data": Object {
+        "browserDetails": Object {
+          "browserFullVersion": "74.0.3729",
+          "browserMajorVersion": "74",
+          "browserName": "Chrome",
+          "device": "Other",
+          "os": "Windows",
+          "osVersion": "7",
+          "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+        },
+        "confidence": Object {
+          "score": 0.97,
+        },
+        "firstSeenAt": Object {
+          "global": "2022-03-16T11:26:45.362Z",
+          "subscription": "2022-03-16T11:31:01.101Z",
+        },
+        "incognito": true,
+        "ip": "61.127.217.15",
+        "ipLocation": Object {
+          "accuracyRadius": 10,
+          "city": Object {
+            "name": "Dusseldorf",
+          },
+          "continent": Object {
+            "code": "EU",
+            "name": "Europe",
+          },
+          "country": Object {
+            "code": "DE",
+            "name": "Germany",
+          },
+          "latitude": 49.982,
+          "longitude": 36.2566,
+          "postalCode": "61202",
+          "subdivisions": Array [
+            Object {
+              "isoCode": "63",
+              "name": "North Rhine-Westphalia",
+            },
+          ],
+          "timezone": "Europe/Dusseldorf",
+        },
+        "lastSeenAt": Object {
+          "global": "2022-03-16T11:28:34.023Z",
+          "subscription": null,
+        },
+        "linkedId": "somelinkedId",
+        "requestId": "0KSh65EnVoB85JBmloQK",
+        "time": "2019-05-21T16:40:13Z",
+        "timestamp": 1582299576512,
+        "url": "https://www.example.com/login",
+        "visitorFound": true,
+        "visitorId": "Ibk1527CUFmcnjLwIs4A9",
+      },
+    },
+    "incognito": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "ipBlocklist": Object {
+      "data": Object {
+        "details": Object {
+          "attackSource": false,
+          "emailSpam": false,
+        },
+        "result": false,
+      },
+    },
+    "ipInfo": Object {
+      "data": Object {
+        "v4": Object {
+          "address": "94.142.239.124",
+          "geolocation": Object {
+            "accuracyRadius": 20,
+            "city": Object {
+              "name": "Prague",
+            },
+            "continent": Object {
+              "code": "EU",
+              "name": "Europe",
+            },
+            "country": Object {
+              "code": "CZ",
+              "name": "Czechia",
+            },
+            "latitude": 50.05,
+            "longitude": 14.4,
+            "postalCode": "150 00",
+            "subdivisions": Array [
+              Object {
+                "isoCode": "10",
+                "name": "Hlavni mesto Praha",
+              },
+            ],
+            "timezone": "Europe/Prague",
+          },
+        },
+      },
+    },
+    "proxy": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "rootApps": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "tampering": Object {
+      "data": Object {
+        "anomalyScore": 0,
+        "result": false,
+      },
+    },
+    "tor": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "vpn": Object {
+      "data": Object {
+        "methods": Object {
+          "publicVPN": false,
+          "timezoneMismatch": false,
+        },
+        "result": false,
       },
     },
   },
