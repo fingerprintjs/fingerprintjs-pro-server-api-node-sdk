@@ -1,3 +1,10 @@
+## [2.1.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.0.1...v2.1.0) (2023-05-16)
+
+
+### Features
+
+* introduce more signals ([a981440](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/a9814404ade63ca8f4857aa96cfb22c5a4604b6d))
+
 ## [2.0.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.0.0...v2.0.1) (2023-04-14)
 
 
