@@ -115,14 +115,27 @@ const filter = {
     request_id: "<request_id>",
     linked_id: "<linked_id>",
     limit: 5,
-    before: "<timeStamp>"
+    paginationKey: "<paginationKey>"
 };
 ```
 ##### Properties
-- `request_id: string` - filter events by requestId
-- `linked_id: string` - filter events by custom identifier
-- `limit: number` - limit scanned results
-- `before: number` - used to paginate results
+- `request_id: string` - filter visits by `requestId`.
+
+  Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
+- `linked_id: string` - filter visits by your custom identifier.
+
+  You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+- `limit: number` - limit scanned results.
+
+  For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500.
+- `paginationKey: string` -  use `paginationKey` to get the next page of results.
+
+  When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
+
+  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
+  2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
+
+  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
 ---
 #### Server `VisitorsResponse` response
 Find more info in [the API documentation](https://dev.fingerprint.com/docs/server-api#response)
@@ -161,7 +174,7 @@ Find more info in [the API documentation](https://dev.fingerprint.com/docs/serve
             "isoCode": "63",
             "name": "North Rhine-Westphalia"
           }
-        ],
+        ]
       },
       "browserDetails": {
         "browserName": "Chrome",
