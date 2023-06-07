@@ -54,7 +54,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.version }}
+          node-version: ${{ matrix.node-version }}
       - uses: actions/download-artifact@v3
         with:
           name: node-sdk-artifact
