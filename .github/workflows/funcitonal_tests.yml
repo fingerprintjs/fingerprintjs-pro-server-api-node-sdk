@@ -60,7 +60,7 @@ jobs:
           name: node-sdk-artifact
           path: ./dist
       - name: Install Dependencies for SDK
-        run: yarn install --production=true
+        run: yarn install --ignore-engines --production=true
         env:
           CI: true
       - name: Install Dependencies for example
