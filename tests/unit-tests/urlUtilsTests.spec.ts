@@ -27,6 +27,7 @@ describe('Get Visitors path', () => {
   const linkedId = 'makma';
   const limit = 10;
   const before = 1626538505244;
+  const paginationKey = '1683900801733.Ogvu1j';
 
   test('eu region without filter', async () => {
     const actualPath = getVisitorsUrl(Region.EU, visitorId);
@@ -71,6 +72,18 @@ describe('Get Visitors path', () => {
     expect(actualPath).toEqual(expectedPath);
   });
 
+  test('eu region with request_id, linked_id, limit, paginationKey filters', async () => {
+    const filter: VisitorHistoryFilter = {
+      request_id: requestId,
+      linked_id: linkedId,
+      limit,
+      paginationKey,
+    };
+    const actualPath = getVisitorsUrl(Region.EU, visitorId, filter);
+    const expectedPath = `https://eu.api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?request_id=1626550679751.cVc5Pm&linked_id=makma&limit=10&paginationKey=1683900801733.Ogvu1j&${ii}`;
+    expect(actualPath).toEqual(expectedPath);
+  });
+
   test('global region without filter', async () => {
     const actualPath = getVisitorsUrl(Region.Global, visitorId);
     const expectedPath = `https://api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?${ii}`;
@@ -91,15 +104,15 @@ describe('Get Visitors path', () => {
     expect(actualPath).toEqual(expectedPath);
   });
 
-  test('global region with request_id, linked_id, limit, before filters', async () => {
+  test('global region with request_id, linked_id, limit, paginationKey filters', async () => {
     const filter: VisitorHistoryFilter = {
       request_id: requestId,
       linked_id: linkedId,
       limit,
-      before,
+      paginationKey,
     };
     const actualPath = getVisitorsUrl(Region.Global, visitorId, filter);
-    const expectedPath = `https://api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?request_id=1626550679751.cVc5Pm&linked_id=makma&limit=10&before=1626538505244&${ii}`;
+    const expectedPath = `https://api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?request_id=1626550679751.cVc5Pm&linked_id=makma&limit=10&paginationKey=1683900801733.Ogvu1j&${ii}`;
     expect(actualPath).toEqual(expectedPath);
   });
 });

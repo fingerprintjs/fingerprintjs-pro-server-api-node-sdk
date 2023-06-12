@@ -5,11 +5,23 @@
 
 export interface paths {
   '/events/{request_id}': {
-    /** This endpoint allows you to get events with all the information from each activated product (Fingerprint Pro or Bot Detection). Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId. */
+    /**
+     * This endpoint allows you to retrieve an individual analysis event with all the information from each activated product (Identification, Bot Detection, and others).
+     * Products that are not activated for your application or not relevant to the event's detected platform (web, iOS, Android) are not included in the response.
+     *
+     * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
+     */
     get: operations['getEvent'];
   };
   '/visitors/{visitor_id}': {
-    /** This endpoint allows you to get a history of visits with all available information. Use the visitorId as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId. */
+    /**
+     * This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
+     * Only information from the _Identification_ product is returned.
+     *
+     * #### Headers
+     *
+     * * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
+     */
     get: operations['getVisits'];
   };
   '/webhook': {
@@ -45,7 +57,7 @@ export interface components {
          * @example 8.8.8.8
          */
         ip: string;
-        ipLocation: components['schemas']['IPLocation'];
+        ipLocation?: components['schemas']['IPLocation'];
         /**
          * Format: int64
          * @description Timestamp of the event with millisecond precision in Unix time.
@@ -80,12 +92,13 @@ export interface components {
       }[];
       /**
        * Format: int64
-       * @description When more results are available (e.g., you scanned 200 results using `limit` parameter, but a total of 600 results are available), a special `lastTimestamp` top-level attribute is added to the response. If you want to paginate the results further in the past, you should use the value of this attribute.
+       * @description ⚠️ Deprecated paging attribute, please use `paginationKey` instead. Timestamp of the last visit in the current page of results.
+       *
        * @example 1654815517198
        */
       lastTimestamp?: number;
       /**
-       * @description Visit's `requestId` of the last visit in the current page.
+       * @description Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results.
        * @example 1654815517198.azN4IZ
        */
       paginationKey?: string;
@@ -200,7 +213,7 @@ export interface components {
        * @example 8.8.8.8
        */
       ip: string;
-      ipLocation: components['schemas']['IPLocation'];
+      ipLocation?: components['schemas']['IPLocation'];
       /**
        * Format: int64
        * @description Timestamp of the event with millisecond precision in Unix time.
@@ -248,7 +261,7 @@ export interface components {
        * @example 8.8.8.8
        */
       ip: string;
-      ipLocation: components['schemas']['IPLocation'];
+      ipLocation?: components['schemas']['IPLocation'];
       /**
        * Format: int64
        * @description Timestamp of the event with millisecond precision in Unix time.
@@ -329,31 +342,31 @@ export interface components {
     /** IPLocation */
     IPLocation: {
       /** @example 1000 */
-      accuracyRadius: number;
+      accuracyRadius?: number;
       /**
        * Format: double
        * @example 37.75
        */
-      latitude: number;
+      latitude?: number;
       /**
        * Format: double
        * @example -97.82
        */
-      longitude: number;
+      longitude?: number;
       /** @example 130 00 */
       postalCode?: string;
       /**
        * Format: timezone
        * @example America/Chicago
        */
-      timezone: string;
+      timezone?: string;
       /** IPLocationCity */
       city?: {
         /** @example Prague */
         name?: string;
       };
-      country: components['schemas']['Location'];
-      continent: components['schemas']['Location'];
+      country?: components['schemas']['Location'];
+      continent?: components['schemas']['Location'];
       subdivisions?: components['schemas']['Subdivision'][];
     };
     /** Location */
@@ -388,7 +401,7 @@ export interface components {
            * @example 8.8.8.8
            */
           ip: string;
-          ipLocation: components['schemas']['IPLocation'];
+          ipLocation?: components['schemas']['IPLocation'];
           /**
            * Format: int64
            * @description Timestamp of the event with millisecond precision in Unix time.
@@ -512,7 +525,7 @@ export interface components {
         error?: components['schemas']['ProductError'];
       };
     };
-    /** @description Contains event from activated products - Fingerprint Pro or Bot Detection */
+    /** @description Contains results from all activated products - Fingerprint Pro, Bot Detection, and others. */
     EventResponse: {
       products?: components['schemas']['ProductsResponse'];
     };
@@ -658,11 +671,16 @@ export interface components {
 }
 
 export interface operations {
-  /** This endpoint allows you to get events with all the information from each activated product (Fingerprint Pro or Bot Detection). Use the requestId as a URL path :request_id parameter. This API method is scoped to a request, i.e. all returned information is by requestId. */
+  /**
+   * This endpoint allows you to retrieve an individual analysis event with all the information from each activated product (Identification, Bot Detection, and others).
+   * Products that are not activated for your application or not relevant to the event's detected platform (web, iOS, Android) are not included in the response.
+   *
+   * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
+   */
   getEvent: {
     parameters: {
       path: {
-        /** requestId is the unique identifier of each request */
+        /** The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. */
         request_id: string;
       };
     };
@@ -679,7 +697,7 @@ export interface operations {
           'application/json': components['schemas']['ErrorEvent403Response'];
         };
       };
-      /** Bad Request */
+      /** Not found */
       404: {
         content: {
           'application/json': components['schemas']['ErrorEvent404Response'];
@@ -687,20 +705,52 @@ export interface operations {
       };
     };
   };
-  /** This endpoint allows you to get a history of visits with all available information. Use the visitorId as a URL path parameter. This API method is scoped to a visitor, i.e. all returned information is by visitorId. */
+  /**
+   * This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
+   * Only information from the _Identification_ product is returned.
+   *
+   * #### Headers
+   *
+   * * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
+   */
   getVisits: {
     parameters: {
       path: {
+        /** Unique identifier of the visitor issued by Fingerprint Pro. */
         visitor_id: string;
       };
       query: {
-        /** Filter visits by requestId */
+        /**
+         * Filter visits by `requestId`.
+         *
+         * Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
+         */
         request_id?: string;
-        /** Filter visits by custom identifier */
+        /**
+         * Filter visits by your custom identifier.
+         *
+         * You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+         */
         linked_id?: string;
-        /** Limit scanned results */
+        /**
+         * Limit scanned results.
+         *
+         * For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first).
+         * By default, the most recent 100 visits are scanned, the maximum is 500.
+         */
         limit?: number;
-        /** Timestamp (in milliseconds since epoch) used to paginate results */
+        /**
+         * Use `paginationKey` to get the next page of results.
+         *
+         * When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
+         *
+         * 1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
+         * 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
+         *
+         * Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
+         */
+        paginationKey?: string;
+        /** ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. */
         before?: number;
       };
     };
@@ -711,7 +761,7 @@ export interface operations {
           'application/json': components['schemas']['Response'];
         };
       };
-      /** Forbidden. Probably ApiKey is missed or provided the wrong one. */
+      /** Forbidden. The API Key is probably missing or incorrect. */
       403: {
         content: {
           'application/json': components['schemas']['ErrorVisits403'];
@@ -720,7 +770,7 @@ export interface operations {
       /** Too Many Requests */
       429: {
         headers: {
-          /** Indicates how long the user should wait before attempting the next request. */
+          /** Indicates how long you should wait before attempting the next request. */
           'Retry-After'?: number;
         };
         content: {
