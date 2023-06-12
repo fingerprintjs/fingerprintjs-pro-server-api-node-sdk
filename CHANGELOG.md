@@ -1,3 +1,10 @@
+## [2.2.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.1.0...v2.2.0) (2023-06-12)
+
+
+### Features
+
+* update schema with correct `IpLocation` format and doc updates ([21e943a](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/21e943a1fdc91c9d48acfb3137699352f0e3d20d))
+
 ## [2.1.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.0.1...v2.1.0) (2023-05-16)
 
 
