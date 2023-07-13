@@ -120,5 +120,24 @@
   "tampering": {
     "result": false,
     "anomalyScore": 0
+  },
+  "clonedApp": {
+    "result": false
+  },
+  "factoryReset": {
+    "time": "1970-01-01T00:00:00Z",
+    "timestamp": 0
+  },
+  "jailbroken": {
+    "result": false
+  },
+  "frida": {
+    "result": false
+  },
+  "privacySettings": {
+    "result": false
+  },
+  "virtualMachine": {
+    "result": false
   }
 }

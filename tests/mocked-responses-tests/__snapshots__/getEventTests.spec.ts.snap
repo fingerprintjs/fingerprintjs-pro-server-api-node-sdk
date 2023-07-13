@@ -183,7 +183,23 @@ Object {
         "url": "https://www.example.com/login",
       },
     },
+    "clonedApp": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
     "emulator": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "factoryReset": Object {
+      "data": Object {
+        "time": "1970-01-01T00:00:00Z",
+        "timestamp": 0,
+      },
+    },
+    "frida": Object {
       "data": Object {
         "result": false,
       },
@@ -290,6 +306,16 @@ Object {
         },
       },
     },
+    "jailbroken": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "privacySettings": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
     "proxy": Object {
       "data": Object {
         "result": false,
@@ -307,6 +333,11 @@ Object {
       },
     },
     "tor": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "virtualMachine": Object {
       "data": Object {
         "result": false,
       },

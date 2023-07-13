@@ -16,15 +16,25 @@ Object {
     "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
   },
   "clientReferrer": "https://google.com?search=banking+services",
+  "clonedApp": Object {
+    "result": false,
+  },
   "confidence": Object {
     "score": 0.97,
   },
   "emulator": Object {
     "result": false,
   },
+  "factoryReset": Object {
+    "time": "1970-01-01T00:00:00Z",
+    "timestamp": 0,
+  },
   "firstSeenAt": Object {
     "global": "2022-03-16T11:26:45.362Z",
     "subscription": "2022-03-16T11:31:01.101Z",
+  },
+  "frida": Object {
+    "result": false,
   },
   "incognito": false,
   "ip": "216.3.128.12",
@@ -88,11 +98,17 @@ Object {
     ],
     "timezone": "America/Chicago",
   },
+  "jailbroken": Object {
+    "result": false,
+  },
   "lastSeenAt": Object {
     "global": "2022-03-16T11:28:34.023Z",
     "subscription": null,
   },
   "linkedId": "any-string",
+  "privacySettings": Object {
+    "result": false,
+  },
   "proxy": Object {
     "result": false,
   },
@@ -115,6 +131,9 @@ Object {
   },
   "url": "https://banking.example.com/signup",
   "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
+  "virtualMachine": Object {
+    "result": false,
+  },
   "visitorFound": true,
   "visitorId": "3HNey93AkBW6CRbxV6xP",
   "vpn": Object {

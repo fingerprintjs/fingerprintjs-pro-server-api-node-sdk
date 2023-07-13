@@ -6,8 +6,9 @@
 export interface paths {
   '/events/{request_id}': {
     /**
-     * This endpoint allows you to retrieve an individual analysis event with all the information from each activated product (Identification, Bot Detection, and others).
-     * Products that are not activated for your application or not relevant to the event's detected platform (web, iOS, Android) are not included in the response.
+     * This endpoint allows you to get a detailed analysis of an individual request.
+     * **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request orignated from a non-mobile platform.
+     * It is highly recommended that you **ignore** the mobile signals for such requests.
      *
      * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
      */
@@ -164,8 +165,7 @@ export interface components {
       /** WebhookSignalResponseRootApps */
       rootApps?: {
         /**
-         * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected
-         * Available only for events from Android client. The field will not be present for a browser or iOS event.
+         * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
          *
          * @example false
          */
@@ -174,8 +174,51 @@ export interface components {
       /** WebhookSignalResponseEmulator */
       emulator?: {
         /**
-         * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected
-         * Available only for events from Android client. The field will not be present for a browser or iOS event.
+         * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client isn't Android.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      /** WebhookSignalResponseClonedApp */
+      clonedApp?: {
+        /**
+         * @description Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      /** WebhookSignalResponseFactoryReset */
+      factoryReset?: {
+        /**
+         * Time
+         * Format: date-time
+         * @description Time in UTC for the Android client when recent factory reset was done.  If there is no sign of factory reset or the client isn't Android, the field will be epoch time.
+         *
+         * @example 2022-06-09T22:58:36Z
+         */
+        time?: string;
+        /**
+         * Format: int64
+         * @description Same value as it's in the `time` field but represented in timestamp format.
+         * @example 1654815517198
+         */
+        timestamp?: number;
+      };
+      /** WebhookSignalResponseJailbroken */
+      jailbroken?: {
+        /**
+         * @description iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      /** WebhookSignalResponseFrida */
+      frida?: {
+        /**
+         * @description iOS specific [Frida](https://frida.re/docs/ios/) detection. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not iOS.
          *
          * @example false
          */
@@ -186,6 +229,24 @@ export interface components {
       tor?: {
         /**
          * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      /** WebhookSignalResponsePrivacySettings */
+      privacySettings?: {
+        /**
+         * @description `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
+         *
+         * @example false
+         */
+        result?: boolean;
+      };
+      /** WebhookSignalResponseVirtualMachine */
+      virtualMachine?: {
+        /**
+         * @description `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
          *
          * @example false
          */
@@ -463,8 +524,7 @@ export interface components {
       rootApps?: {
         data?: {
           /**
-           * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected
-           * Available only for events from Android client. The field will not be present for a browser or iOS event.
+           * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client is not Android.
            *
            * @example false
            */
@@ -476,8 +536,63 @@ export interface components {
       emulator?: {
         data?: {
           /**
-           * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected
-           * Available only for events from Android client. The field will not be present for a browser or iOS event.
+           * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client is not Android.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseClonedApp */
+      clonedApp?: {
+        data?: {
+          /**
+           * @description Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseFactoryReset */
+      factoryReset?: {
+        data?: {
+          /**
+           * Time
+           * Format: date-time
+           * @description Time in UTC for the Android client when recent factory reset was done.  If there is no sign of factory reset or the client isn't Android, the field will be epoch time.
+           *
+           * @example 2022-06-09T22:58:36Z
+           */
+          time?: string;
+          /**
+           * Format: int64
+           * @description Same value as it's in the `time` field but represented in timestamp format.
+           * @example 1654815517198
+           */
+          timestamp?: number;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseJailbroken */
+      jailbroken?: {
+        data?: {
+          /**
+           * @description iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseFrida */
+      frida?: {
+        data?: {
+          /**
+           * @description iOS specific [Frida](https://frida.re/docs/ios/) detection. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not iOS.
            *
            * @example false
            */
@@ -495,6 +610,30 @@ export interface components {
         data?: {
           /**
            * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponsePrivacySettings */
+      privacySettings?: {
+        data?: {
+          /**
+           * @description `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
+           *
+           * @example false
+           */
+          result?: boolean;
+        };
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseVirtualMachine */
+      virtualMachine?: {
+        data?: {
+          /**
+           * @description `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
            *
            * @example false
            */
@@ -672,8 +811,9 @@ export interface components {
 
 export interface operations {
   /**
-   * This endpoint allows you to retrieve an individual analysis event with all the information from each activated product (Identification, Bot Detection, and others).
-   * Products that are not activated for your application or not relevant to the event's detected platform (web, iOS, Android) are not included in the response.
+   * This endpoint allows you to get a detailed analysis of an individual request.
+   * **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request orignated from a non-mobile platform.
+   * It is highly recommended that you **ignore** the mobile signals for such requests.
    *
    * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
    */
