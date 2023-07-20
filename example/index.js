@@ -4,9 +4,9 @@ const {
 } = require('@fingerprintjs/fingerprintjs-pro-server-api');
 require('dotenv').config();
 
-const apiKey = process.env.API_KEY ?? 'API key not defined';
-const visitorId = process.env.VISITOR_ID ?? 'Visitor ID not defined';
-const requestId = process.env.REQUEST_ID ?? 'Request ID not defined';
+const apiKey = process.env.API_KEY || 'API key not defined';
+const visitorId = process.env.VISITOR_ID || 'Visitor ID not defined';
+const requestId = process.env.REQUEST_ID || 'Request ID not defined';
 const envRegion = process.env.REGION;
 
 let region = Region.Global;
