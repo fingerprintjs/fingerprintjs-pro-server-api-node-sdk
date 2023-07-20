@@ -1,5 +1,8 @@
-import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api';
-import 'dotenv/config';
+const {
+  FingerprintJsServerApiClient,
+  Region,
+} = require('@fingerprintjs/fingerprintjs-pro-server-api');
+require('dotenv').config();
 
 const apiKey = process.env.API_KEY ?? 'API key not defined';
 const visitorId = process.env.VISITOR_ID ?? 'Visitor ID not defined';
@@ -15,17 +18,19 @@ if (envRegion === 'eu') {
 
 const client = new FingerprintJsServerApiClient({ region, apiKey: apiKey });
 
-try {
-  const [visitorHistory, event] = await Promise.all([
-    client.getVisitorHistory(visitorId, { limit: 1 }),
-    client.getEvent(requestId),
-  ]);
+async function main() {
+  try {
+    const [visitorHistory, event] = await Promise.all([
+      client.getVisitorHistory(visitorId, { limit: 1 }),
+      client.getEvent(requestId),
+    ]);
 
-  console.log(JSON.stringify(visitorHistory, null, 2));
-  console.log(JSON.stringify(event, null, 2));
-} catch (e) {
-  console.error(e);
-  process.exit(1);
+    console.log(JSON.stringify(visitorHistory, null, 2));
+    console.log(JSON.stringify(event, null, 2));
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
 }
 
-process.exit(0);
+main();
