@@ -321,6 +321,35 @@ Object {
         "result": false,
       },
     },
+    "rawDeviceAttributes": Object {
+      "data": Object {
+        "architecture": Object {
+          "value": 127,
+        },
+        "audio": Object {
+          "value": 35.73832903057337,
+        },
+        "canvas": Object {
+          "value": Object {
+            "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+            "Text": "dd2474a56ff78c1de3e7a07070ba3b7d",
+            "Winding": true,
+          },
+        },
+        "colorDepth": Object {
+          "value": 30,
+        },
+        "colorGamut": Object {
+          "value": "srgb",
+        },
+        "contrast": Object {
+          "value": 0,
+        },
+        "cookiesEnabled": Object {
+          "value": true,
+        },
+      },
+    },
     "rootApps": Object {
       "data": Object {
         "result": false,

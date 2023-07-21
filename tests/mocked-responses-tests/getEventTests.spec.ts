@@ -30,7 +30,6 @@ describe('[Mocked response] Get Event', () => {
     );
 
     const response = await client.getEvent(existingRequestId);
-
     expect(response).toMatchSnapshot();
   });
 
