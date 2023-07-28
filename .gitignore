@@ -107,11 +107,17 @@ dist
 # TernJS port file
 .tern-port
 
+# MacOS filesystem
+.DS_Store
+
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
 # Idea files
 .idea
+
+# VSCode
+.vscode
 
 # yarn v2
 .yarn/cache
