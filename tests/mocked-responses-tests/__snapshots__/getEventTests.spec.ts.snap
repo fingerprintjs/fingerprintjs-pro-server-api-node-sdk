@@ -105,7 +105,25 @@ Object {
         "message": "internal server error",
       },
     },
+    "clonedApp": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
     "emulator": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "factoryReset": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "frida": Object {
       "error": Object {
         "code": "Failed",
         "message": "internal server error",
@@ -135,10 +153,38 @@ Object {
         "message": "internal server error",
       },
     },
+    "jailbroken": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "privacySettings": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
     "proxy": Object {
       "error": Object {
         "code": "Failed",
         "message": "internal server error",
+      },
+    },
+    "rawDeviceAttributes": Object {
+      "data": Object {
+        "audio": Object {
+          "error": Object {
+            "message": "internal server error",
+            "name": "Error",
+          },
+        },
+        "canvas": Object {
+          "error": Object {
+            "message": "internal server error",
+            "name": "Error",
+          },
+        },
       },
     },
     "rootApps": Object {
@@ -154,6 +200,12 @@ Object {
       },
     },
     "tor": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "virtualMachine": Object {
       "error": Object {
         "code": "Failed",
         "message": "internal server error",
@@ -175,8 +227,7 @@ Object {
     "botd": Object {
       "data": Object {
         "bot": Object {
-          "result": "bad",
-          "type": "selenium",
+          "result": "notDetected",
         },
         "ip": "61.127.217.15",
         "time": "2019-05-21T16:40:13Z",
