@@ -16,15 +16,25 @@ Object {
     "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
   },
   "clientReferrer": "https://google.com?search=banking+services",
+  "clonedApp": Object {
+    "result": false,
+  },
   "confidence": Object {
     "score": 0.97,
   },
   "emulator": Object {
     "result": false,
   },
+  "factoryReset": Object {
+    "time": "1970-01-01T00:00:00Z",
+    "timestamp": 0,
+  },
   "firstSeenAt": Object {
     "global": "2022-03-16T11:26:45.362Z",
     "subscription": "2022-03-16T11:31:01.101Z",
+  },
+  "frida": Object {
+    "result": false,
   },
   "incognito": false,
   "ip": "216.3.128.12",
@@ -88,13 +98,46 @@ Object {
     ],
     "timezone": "America/Chicago",
   },
+  "jailbroken": Object {
+    "result": false,
+  },
   "lastSeenAt": Object {
     "global": "2022-03-16T11:28:34.023Z",
     "subscription": null,
   },
   "linkedId": "any-string",
+  "privacySettings": Object {
+    "result": false,
+  },
   "proxy": Object {
     "result": false,
+  },
+  "rawDeviceAttributes": Object {
+    "architecture": Object {
+      "value": 127,
+    },
+    "audio": Object {
+      "value": 35.73832903057337,
+    },
+    "canvas": Object {
+      "value": Object {
+        "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+        "Text": "dd2474a56ff78c1de3e7a07070ba3b7d",
+        "Winding": true,
+      },
+    },
+    "colorDepth": Object {
+      "value": 30,
+    },
+    "colorGamut": Object {
+      "value": "srgb",
+    },
+    "contrast": Object {
+      "value": 0,
+    },
+    "cookiesEnabled": Object {
+      "value": true,
+    },
   },
   "requestId": "Px6VxbRC6WBkA39yeNH3",
   "rootApps": Object {
@@ -115,6 +158,9 @@ Object {
   },
   "url": "https://banking.example.com/signup",
   "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
+  "virtualMachine": Object {
+    "result": false,
+  },
   "visitorFound": true,
   "visitorId": "3HNey93AkBW6CRbxV6xP",
   "vpn": Object {

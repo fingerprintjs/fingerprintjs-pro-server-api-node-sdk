@@ -105,7 +105,25 @@ Object {
         "message": "internal server error",
       },
     },
+    "clonedApp": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
     "emulator": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "factoryReset": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "frida": Object {
       "error": Object {
         "code": "Failed",
         "message": "internal server error",
@@ -135,10 +153,38 @@ Object {
         "message": "internal server error",
       },
     },
+    "jailbroken": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "privacySettings": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
     "proxy": Object {
       "error": Object {
         "code": "Failed",
         "message": "internal server error",
+      },
+    },
+    "rawDeviceAttributes": Object {
+      "data": Object {
+        "audio": Object {
+          "error": Object {
+            "message": "internal server error",
+            "name": "Error",
+          },
+        },
+        "canvas": Object {
+          "error": Object {
+            "message": "internal server error",
+            "name": "Error",
+          },
+        },
       },
     },
     "rootApps": Object {
@@ -154,6 +200,12 @@ Object {
       },
     },
     "tor": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "virtualMachine": Object {
       "error": Object {
         "code": "Failed",
         "message": "internal server error",
@@ -175,15 +227,30 @@ Object {
     "botd": Object {
       "data": Object {
         "bot": Object {
-          "result": "bad",
-          "type": "selenium",
+          "result": "notDetected",
         },
         "ip": "61.127.217.15",
         "time": "2019-05-21T16:40:13Z",
         "url": "https://www.example.com/login",
       },
     },
+    "clonedApp": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
     "emulator": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "factoryReset": Object {
+      "data": Object {
+        "time": "1970-01-01T00:00:00Z",
+        "timestamp": 0,
+      },
+    },
+    "frida": Object {
       "data": Object {
         "result": false,
       },
@@ -290,9 +357,48 @@ Object {
         },
       },
     },
+    "jailbroken": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "privacySettings": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
     "proxy": Object {
       "data": Object {
         "result": false,
+      },
+    },
+    "rawDeviceAttributes": Object {
+      "data": Object {
+        "architecture": Object {
+          "value": 127,
+        },
+        "audio": Object {
+          "value": 35.73832903057337,
+        },
+        "canvas": Object {
+          "value": Object {
+            "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+            "Text": "dd2474a56ff78c1de3e7a07070ba3b7d",
+            "Winding": true,
+          },
+        },
+        "colorDepth": Object {
+          "value": 30,
+        },
+        "colorGamut": Object {
+          "value": "srgb",
+        },
+        "contrast": Object {
+          "value": 0,
+        },
+        "cookiesEnabled": Object {
+          "value": true,
+        },
       },
     },
     "rootApps": Object {
@@ -307,6 +413,11 @@ Object {
       },
     },
     "tor": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
+    "virtualMachine": Object {
       "data": Object {
         "result": false,
       },

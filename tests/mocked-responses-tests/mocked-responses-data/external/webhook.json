@@ -120,5 +120,51 @@
   "tampering": {
     "result": false,
     "anomalyScore": 0
+  },
+  "clonedApp": {
+    "result": false
+  },
+  "factoryReset": {
+    "time": "1970-01-01T00:00:00Z",
+    "timestamp": 0
+  },
+  "jailbroken": {
+    "result": false
+  },
+  "frida": {
+    "result": false
+  },
+  "privacySettings": {
+    "result": false
+  },
+  "virtualMachine": {
+    "result": false
+  },
+  "rawDeviceAttributes": {
+    "architecture": {
+      "value": 127
+    },
+    "audio": {
+      "value": 35.73832903057337
+    },
+    "canvas": {
+      "value": {
+        "Winding": true,
+        "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+        "Text": "dd2474a56ff78c1de3e7a07070ba3b7d"
+      }
+    },
+    "colorDepth": {
+      "value": 30
+    },
+    "colorGamut": {
+      "value": "srgb"
+    },
+    "contrast": {
+      "value": 0
+    },
+    "cookiesEnabled": {
+      "value": true
+    }
   }
 }

@@ -1,3 +1,6 @@
+/**
+ * @type {import('@fingerprintjs/fingerprintjs-pro-server-api')}
+ **/
 const {
   FingerprintJsServerApiClient,
   Region,
