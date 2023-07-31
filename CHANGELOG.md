@@ -1,3 +1,16 @@
+## [2.3.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.2.0...v2.3.0) (2023-07-31)
+
+
+### Features
+
+* add raw device attributes support ([9f7adba](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/9f7adbac8de66d29edb7d98e6e3f7bc81f49602e))
+* add smart signals support ([d847128](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/d847128d19dc18320750ed3505af94176afbe601))
+
+
+### Documentation
+
+* **README:** add `Region.AP` to example values ([061242f](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/061242f313cf2f6a2f1cc0d6129e8e36099bedf3))
+
 ## [2.2.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.1.0...v2.2.0) (2023-06-12)
 
 
