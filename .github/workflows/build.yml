@@ -1,35 +1,12 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
-
 name: build
 
 on:
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-    - name: Cache
-      uses: actions/cache@v2
-      with:
-        path: node_modules
-        key: nodemodules-${{ hashFiles('yarn.lock') }}
-        restore-keys: nodemodules-
-    - name: Install Dependencies and prepare packages
-      run: yarn install
-      env:
-        CI: true
-    - name: Build
-      run: yarn build
-    - name: Lint
-      run: yarn lint
-    - name: Test
-      run: yarn test
+  build-and-check:
+    name: Build project and run CI checks
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/build-typescript-project.yml@v1
 
 
