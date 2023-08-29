@@ -6,33 +6,13 @@ on:
     - cron: '0 5 * * *'
 jobs:
   build:
-    name: 'Build sdk on node ${{ matrix.node-version }}'
-    runs-on: ubuntu-latest
-    steps:
-      - if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
+    name: 'Build sdk'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/build-typescript-project.yml@v1
+    with:
+      artifactName: node-sdk-artifact
+      artifactPath: ./dist
 
-      - if: ${{ github.event_name != 'pull_request_target' }}
-        uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-      - name: Cache
-        uses: actions/cache@v2
-        with:
-          path: node_modules
-          key: nodemodules-${{ hashFiles('yarn.lock') }}
-          restore-keys: nodemodules-
-      - name: Install Dependencies and prepare packages
-        run: yarn install --ignore-engines
-        env:
-          CI: true
-      - name: Build
-        run: yarn build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: node-sdk-artifact
-          path: ./dist
+
   functional_tests:
     name: 'Smoke test on node ${{ matrix.node-version }}'
     needs: build
@@ -77,7 +57,7 @@ jobs:
           VISITOR_ID: '${{ secrets.VISITOR_ID }}'
           REQUEST_ID: '${{ secrets.REQUEST_ID }}'
 
-  report-status:
+  report_status:
     needs: functional_tests
     if: always()
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/report-workflow-status.yml@v1
