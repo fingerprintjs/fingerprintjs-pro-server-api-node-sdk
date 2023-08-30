@@ -63,6 +63,6 @@ jobs:
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/report-workflow-status.yml@v1
     with:
       notification_title: 'Node SDK Functional Tests has {status_message}'
-      job_status: ${{ needs.functional_tests.status }}
+      job_status: ${{ needs.functional_tests.result }}
     secrets:
       SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
