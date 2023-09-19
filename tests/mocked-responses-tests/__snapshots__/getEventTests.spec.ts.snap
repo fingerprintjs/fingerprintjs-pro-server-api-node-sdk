@@ -330,6 +330,15 @@ Object {
       "data": Object {
         "v4": Object {
           "address": "94.142.239.124",
+          "asn": Object {
+            "asn": "7922",
+            "name": "COMCAST-7922",
+            "network": "73.136.0.0/13",
+          },
+          "dataCenter": Object {
+            "name": "DediPath",
+            "result": true,
+          },
           "geolocation": Object {
             "accuracyRadius": 20,
             "city": Object {
@@ -425,6 +434,7 @@ Object {
     "vpn": Object {
       "data": Object {
         "methods": Object {
+          "auxiliaryMobile": false,
           "publicVPN": false,
           "timezoneMismatch": false,
         },
