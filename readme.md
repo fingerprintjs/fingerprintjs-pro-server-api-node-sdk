@@ -25,7 +25,7 @@
   </a>
 </p>
 
-# FingerprintJS Server API Node.js SDK
+# Fingerprint Server API Node.js SDK
 
 [Fingerprint](https://fingerprint.com) is a device intelligence platform offering 99.5% accurate visitor identification.
 
