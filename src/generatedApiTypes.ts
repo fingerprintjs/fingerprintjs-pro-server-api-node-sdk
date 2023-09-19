@@ -799,7 +799,7 @@ export interface components {
     };
     VpnResult: {
       /**
-       * @description VPN or other anonymising service has been used when sending the request.
+       * @description VPN or other anonymizing service has been used when sending the request.
        * @example false
        */
       result?: boolean;
@@ -814,6 +814,11 @@ export interface components {
          * @example false
          */
         publicVPN?: boolean;
+        /**
+         * @description This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
+         * @example false
+         */
+        auxiliaryMobile?: boolean;
       };
     };
     TamperingResult: {
