@@ -95,16 +95,20 @@ client.getEvent('<requestId>').then((event) => {
 });
 ```
 
-## Using with TypeScript
+### Using with TypeScript
 
-When handling [Webhooks](https://dev.fingerprint.com/docs/webhooks) coming from Fingerprint, you can cast the payload as the built-in VisitWebhook type:
+#### Webhook types
+
+When handling [Webhooks](https://dev.fingerprint.com/docs/webhooks) coming from Fingerprint, you can cast the payload as the built-in `VisitWebhook` type:
 
 ```ts
 const visit = visitWebhookBody as unknown as VisitWebhook;
 ```
 
+#### Narrowing error types
+
 The `getEvent` and `getVisitorHistory` methods can throw `EventError` and `VisitorsError`.
-You can use the provided `isVisitorsError` and `isEventError` type guards to narrow error types:
+You can use the provided `isVisitorsError` and `isEventError` type guards to narrow down error types:
 
 ```typescript
 import { isVisitorsError, isEventError } from '@fingerprintjs/fingerprintjs-pro-server-api';
@@ -139,7 +143,7 @@ client
 
 ## API Reference
 
-### `FingerprintJsServerApiClient({region: Region, apiKey: string})` constructor
+### `constructor({region: Region, apiKey: string})`
 
 Creates an instance of the client.
 
@@ -157,9 +161,9 @@ const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: '<a
 
 ---
 
-### `client.getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
+### `getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
 
-Gets history for the given visitor and given filter, returns a promise with visitor history response.
+Retrieves event history for the specific visitor using the given filter, returns a promise with visitor history response.
 
 #### Usage
 
@@ -181,11 +185,11 @@ client
 #### Params
 
 - `visitorId: string` - identifier of the visitor
-- `filter?: VisitorHistoryFilter` - visitor history filter, more info in [the API documentation](https://dev.fingerprint.com/docs/server-api#query-parameters)
+- `filter?: VisitorHistoryFilter` - visitor history filter (details below)
 
 ##### `VisitorHistoryFilter`
 
-Filter for querying API - see [query parameters](https://dev.fingerprint.com/docs/server-api#query-parameters).
+Filter for querying the [visitors Server API endpoint](https://dev.fingerprint.com/reference/getvisits).
 
 Usage:
 
@@ -223,11 +227,11 @@ Properties:
 
 #### Returns
 
-- `Promise<VisitorsResponse>` - promise with visitor history response
+- `Promise<VisitorsResponse>` - promise with the visitor history response
 
-##### Server `VisitorsResponse` response
+##### `VisitorsResponse`
 
-Find more info in the [Server API documentation](https://dev.fingerprint.com/reference/getvisits)
+For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getvisits).
 
 ```json
 {
@@ -294,9 +298,11 @@ Find more info in the [Server API documentation](https://dev.fingerprint.com/ref
 }
 ```
 
-### `client.getEvent(requestId: string): Promise<EventResponse>`
+---
 
-Get events with all the information from each activated product - Bot Detection and Identification.
+### `getEvent(requestId: string): Promise<EventResponse>`
+
+Retrieves a specific identification event with the information from each activated product - identification and all active [Smart signals](https://dev.fingerprint.com/docs/smart-signals-overview).
 
 #### Usage
 
@@ -321,11 +327,9 @@ client
 
 - `Promise<EventResponse>` - promise with event response
 
----
+##### `EventResponse`
 
-##### Server `EventResponse` response
-
-Find more info in the [API documentation](https://dev.fingerprint.com/docs/server-api#response-1).
+For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getevent).
 
 ```json
 {
