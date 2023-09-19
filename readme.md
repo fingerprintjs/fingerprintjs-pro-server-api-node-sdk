@@ -161,6 +161,113 @@ const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: '<a
 
 ---
 
+### `getEvent(requestId: string): Promise<EventResponse>`
+
+Retrieves a specific identification event with the information from each activated product — identification and all active [Smart signals](https://dev.fingerprint.com/docs/smart-signals-overview).
+
+#### Usage
+
+```typescript
+client
+  .getEvent('<requestId>')
+  .then((eventInfo) => {
+    console.log(eventInfo);
+  })
+  .catch((error) => {
+    if (error.status === 403 || error.status === 404) {
+      console.log(error.code, error.message);
+    }
+  });
+```
+
+#### Params
+
+- `requestId: string` - identifier of the event
+
+#### Returns
+
+- `Promise<EventResponse>` - promise with event response
+
+##### `EventResponse`
+
+For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getevent).
+
+```json
+{
+  "products": {
+    "identification": {
+      "data": {
+        "visitorId": "Ibk1527CUFmcnjLwIs4A9",
+        "requestId": "0KSh65EnVoB85JBmloQK",
+        "incognito": true,
+        "linkedId": "somelinkedId",
+        "time": "2019-05-21T16:40:13Z",
+        "timestamp": 1582299576512,
+        "url": "https://www.example.com/login",
+        "ip": "61.127.217.15",
+        "ipLocation": {
+          "accuracyRadius": 10,
+          "latitude": 49.982,
+          "longitude": 36.2566,
+          "postalCode": "61202",
+          "timezone": "Europe/Dusseldorf",
+          "city": {
+            "name": "Dusseldorf"
+          },
+          "continent": {
+            "code": "EU",
+            "name": "Europe"
+          },
+          "country": {
+            "code": "DE",
+            "name": "Germany"
+          },
+          "subdivisions": [
+            {
+              "isoCode": "63",
+              "name": "North Rhine-Westphalia"
+            }
+          ]
+        },
+        "browserDetails": {
+          "browserName": "Chrome",
+          "browserMajorVersion": "74",
+          "browserFullVersion": "74.0.3729",
+          "os": "Windows",
+          "osVersion": "7",
+          "device": "Other",
+          "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ...."
+        },
+        "confidence": {
+          "score": 0.97
+        },
+        "visitorFound": true,
+        "firstSeenAt": {
+          "global": "2022-03-16T11:26:45.362Z",
+          "subscription": "2022-03-16T11:31:01.101Z"
+        },
+        "lastSeenAt": {
+          "global": "2022-03-16T11:28:34.023Z",
+          "subscription": null
+        }
+      }
+    },
+    "botd": {
+      "data": {
+        "bot": {
+          "result": "notDetected"
+        },
+        "url": "https://example.com/login",
+        "ip": "61.127.217.15",
+        "time": "2019-05-21T16:40:13Z"
+      }
+    }
+  }
+}
+```
+
+---
+
 ### `getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
 
 Retrieves event history for the specific visitor using the given filter, returns a promise with visitor history response.
@@ -295,113 +402,6 @@ For more information, see the [Server API documentation](https://dev.fingerprint
   ],
   // optional, if more results are available for pagination.
   "lastTimestamp": 1582299576512
-}
-```
-
----
-
-### `getEvent(requestId: string): Promise<EventResponse>`
-
-Retrieves a specific identification event with the information from each activated product - identification and all active [Smart signals](https://dev.fingerprint.com/docs/smart-signals-overview).
-
-#### Usage
-
-```typescript
-client
-  .getEvent('<requestId>')
-  .then((eventInfo) => {
-    console.log(eventInfo);
-  })
-  .catch((error) => {
-    if (error.status === 403 || error.status === 404) {
-      console.log(error.code, error.message);
-    }
-  });
-```
-
-#### Params
-
-- `requestId: string` - identifier of the event
-
-#### Returns
-
-- `Promise<EventResponse>` - promise with event response
-
-##### `EventResponse`
-
-For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getevent).
-
-```json
-{
-  "products": {
-    "identification": {
-      "data": {
-        "visitorId": "Ibk1527CUFmcnjLwIs4A9",
-        "requestId": "0KSh65EnVoB85JBmloQK",
-        "incognito": true,
-        "linkedId": "somelinkedId",
-        "time": "2019-05-21T16:40:13Z",
-        "timestamp": 1582299576512,
-        "url": "https://www.example.com/login",
-        "ip": "61.127.217.15",
-        "ipLocation": {
-          "accuracyRadius": 10,
-          "latitude": 49.982,
-          "longitude": 36.2566,
-          "postalCode": "61202",
-          "timezone": "Europe/Dusseldorf",
-          "city": {
-            "name": "Dusseldorf"
-          },
-          "continent": {
-            "code": "EU",
-            "name": "Europe"
-          },
-          "country": {
-            "code": "DE",
-            "name": "Germany"
-          },
-          "subdivisions": [
-            {
-              "isoCode": "63",
-              "name": "North Rhine-Westphalia"
-            }
-          ]
-        },
-        "browserDetails": {
-          "browserName": "Chrome",
-          "browserMajorVersion": "74",
-          "browserFullVersion": "74.0.3729",
-          "os": "Windows",
-          "osVersion": "7",
-          "device": "Other",
-          "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ...."
-        },
-        "confidence": {
-          "score": 0.97
-        },
-        "visitorFound": true,
-        "firstSeenAt": {
-          "global": "2022-03-16T11:26:45.362Z",
-          "subscription": "2022-03-16T11:31:01.101Z"
-        },
-        "lastSeenAt": {
-          "global": "2022-03-16T11:28:34.023Z",
-          "subscription": null
-        }
-      }
-    },
-    "botd": {
-      "data": {
-        "bot": {
-          "result": "notDetected"
-        },
-        "url": "https://example.com/login",
-        "ip": "61.127.217.15",
-        "time": "2019-05-21T16:40:13Z"
-      }
-    }
-  }
 }
 ```
 
