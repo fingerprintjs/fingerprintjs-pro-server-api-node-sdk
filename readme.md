@@ -163,7 +163,7 @@ const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: '<a
 
 ### `getEvent(requestId: string): Promise<EventResponse>`
 
-Retrieves a specific identification event with the information from each activated product — identification and all active [Smart signals](https://dev.fingerprint.com/docs/smart-signals-overview).
+Retrieves a specific identification event with the information from each activated product — Identification and all active [Smart signals](https://dev.fingerprint.com/docs/smart-signals-overview).
 
 #### Usage
 
