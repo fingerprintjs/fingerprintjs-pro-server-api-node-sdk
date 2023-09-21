@@ -401,6 +401,21 @@ export interface components {
        */
       subscription: string | null;
     };
+    /** ASN */
+    ASN: {
+      /** @example 7922 */
+      asn: string;
+      /** @example 73.136.0.0/13 */
+      network: string;
+      /** @example COMCAST-7922 */
+      name?: string;
+    };
+    /** DataCenter */
+    DataCenter: {
+      result: boolean;
+      /** @example DediPath */
+      name?: string;
+    };
     /** IPLocation */
     IPLocation: {
       /** @example 1000 */
@@ -444,7 +459,7 @@ export interface components {
       /** @example Hlavni mesto Praha */
       name?: string;
     };
-    /** @description Contains all the information from each activated product - Fingerprint Pro or Bot Detection */
+    /** @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise) */
     ProductsResponse: {
       /** ProductsResponseIdentification */
       identification?: {
@@ -495,6 +510,17 @@ export interface components {
           visitorFound: boolean;
           firstSeenAt: components['schemas']['SeenAt'];
           lastSeenAt: components['schemas']['SeenAt'];
+          /**
+           * @description String of 20 characters that uniquely identifies the visitor's browser.
+           *
+           * **Pro Plus:**
+           * If a bot is detected (`products.botd.bot.result != "notDetected"`), the `visitorId` value contains a placeholder string `BotDetected000000000`.
+           *
+           * @example [
+           *   "Ibk1527CUFmcnjLwIs4A",
+           *   "BotDetected000000000"
+           * ]
+           */
           visitorId: string;
         };
         error?: components['schemas']['IdentificationError'];
@@ -737,6 +763,8 @@ export interface components {
          */
         address?: string;
         geolocation?: components['schemas']['IPLocation'];
+        asn?: components['schemas']['ASN'];
+        dataCenter?: components['schemas']['DataCenter'];
       };
       v6?: {
         /**
@@ -745,6 +773,8 @@ export interface components {
          */
         address?: string;
         geolocation?: components['schemas']['IPLocation'];
+        asn?: components['schemas']['ASN'];
+        dataCenter?: components['schemas']['DataCenter'];
       };
     };
     IpBlockListResult: {
@@ -769,7 +799,7 @@ export interface components {
     };
     VpnResult: {
       /**
-       * @description VPN or other anonymising service has been used when sending the request.
+       * @description VPN or other anonymizing service has been used when sending the request.
        * @example false
        */
       result?: boolean;
@@ -784,6 +814,11 @@ export interface components {
          * @example false
          */
         publicVPN?: boolean;
+        /**
+         * @description This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
+         * @example false
+         */
+        auxiliaryMobile?: boolean;
       };
     };
     TamperingResult: {

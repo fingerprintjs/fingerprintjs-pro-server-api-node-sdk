@@ -1,3 +1,18 @@
+## [2.3.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.3.0...v2.3.1) (2023-09-19)
+
+
+### Bug Fixes
+
+* update OpenAPI Schema with `asn` and `dataCenter` signals ([e10f677](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/e10f677d78ddd3f68019b9e1fcd0d447b978c5a3))
+* update OpenAPI Schema with `auxiliaryMobile` method for VPN signal ([72f5ada](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/72f5adafeb9abcb691dd5b34afb611c63c810299))
+
+
+### Build System
+
+* **deps:** bump semver from 5.7.1 to 5.7.2 ([10427f0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/10427f07575cda54405924ff703dc9699029366d))
+* **deps:** bump tough-cookie from 4.0.0 to 4.1.3 ([5c7d259](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/5c7d25908eee6a9bea21bf67a64edf79c76e9abf))
+* **deps:** bump word-wrap from 1.2.3 to 1.2.5 ([f3a576d](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/f3a576d5edc0a2c5b17c0b6363458240a454b803))
+
 ## [2.3.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.2.0...v2.3.0) (2023-07-31)
 
 
