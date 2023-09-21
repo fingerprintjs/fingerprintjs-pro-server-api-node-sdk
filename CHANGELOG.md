@@ -1,3 +1,10 @@
+## [2.3.2](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.3.1...v2.3.2) (2023-09-21)
+
+
+### Documentation
+
+* **README:** add requirements section, polish readme INTER-257 ([#84](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues/84)) ([633b12b](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/633b12bc5766d7aa98a019c67a5c48260087c3f4))
+
 ## [2.3.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.3.0...v2.3.1) (2023-09-19)
 
 
