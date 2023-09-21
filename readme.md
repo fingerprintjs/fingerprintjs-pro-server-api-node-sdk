@@ -62,15 +62,19 @@ Supported runtimes:
 
 Install the package using your favorite package manager:
 
-```sh
-npm i @fingerprintjs/fingerprintjs-pro-server-api
-```
+* NPM:
 
-or
-
-```sh
-yarn add @fingerprintjs/fingerprintjs-pro-server-api
-```
+  ```sh
+  npm i @fingerprintjs/fingerprintjs-pro-server-api
+  ```
+* Yarn:
+  ```sh
+  yarn add @fingerprintjs/fingerprintjs-pro-server-api
+  ```
+* pnpm:
+  ```sh
+  pnpm i @fingerprintjs/fingerprintjs-pro-server-api
+  ```
 
 ## Getting started
 
