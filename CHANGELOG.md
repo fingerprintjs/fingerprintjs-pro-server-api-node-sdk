@@ -1,3 +1,11 @@
+## [2.3.3](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.3.2...v2.3.3) (2023-10-17)
+
+
+### Build System
+
+* **deps:** bump @babel/traverse from 7.17.3 to 7.23.2 ([1617f26](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/1617f26d021919865eccb80527fc213b1c9eb5fe))
+* **deps:** bump undici from 5.21.0 to 5.26.3 ([9f58385](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/9f583859a7038dcf82fec125193fc1cfbfe63266))
+
 ## [2.3.2](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.3.1...v2.3.2) (2023-09-21)
 
 
