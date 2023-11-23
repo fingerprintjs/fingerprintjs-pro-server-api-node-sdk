@@ -36,6 +36,9 @@ Object {
   "frida": Object {
     "result": false,
   },
+  "highActivity": Object {
+    "result": false,
+  },
   "incognito": false,
   "ip": "216.3.128.12",
   "ipBlocklist": Object {
@@ -115,6 +118,9 @@ Object {
     "subscription": null,
   },
   "linkedId": "any-string",
+  "locationSpoofing": Object {
+    "result": true,
+  },
   "privacySettings": Object {
     "result": false,
   },
@@ -178,6 +184,7 @@ Object {
       "publicVPN": false,
       "timezoneMismatch": false,
     },
+    "originTimezone": "Europe/Berlin",
     "result": false,
   },
 }
