@@ -264,6 +264,8 @@ export interface components {
       };
       tampering?: components['schemas']['TamperingResult'];
       rawDeviceAttributes?: components['schemas']['RawDeviceAttributesResult'];
+      highActivity?: components['schemas']['HighActivityResult'];
+      locationSpoofing?: components['schemas']['LocationSpoofingResult'];
       /**
        * @description Unique identifier of the user's identification request.
        * @example 1654815516083.OX6kx8
@@ -418,7 +420,10 @@ export interface components {
     };
     /** IPLocation */
     IPLocation: {
-      /** @example 1000 */
+      /**
+       * @description The IP address is likely to be within this radius (in km) of the specified location.
+       * @example 1000
+       */
       accuracyRadius?: number;
       /**
        * Format: double
@@ -513,12 +518,8 @@ export interface components {
           /**
            * @description String of 20 characters that uniquely identifies the visitor's browser.
            *
-           * **Pro Plus:**
-           * If a bot is detected (`products.botd.bot.result != "notDetected"`), the `visitorId` value contains a placeholder string `BotDetected000000000`.
-           *
            * @example [
-           *   "Ibk1527CUFmcnjLwIs4A",
-           *   "BotDetected000000000"
+           *   "Ibk1527CUFmcnjLwIs4A"
            * ]
            */
           visitorId: string;
@@ -690,6 +691,16 @@ export interface components {
         data?: components['schemas']['TamperingResult'];
         error?: components['schemas']['ProductError'];
       };
+      /** SignalResponseHighActivity */
+      highActivity?: {
+        data?: components['schemas']['HighActivityResult'];
+        error?: components['schemas']['ProductError'];
+      };
+      /** SignalResponseLocationSpoofing */
+      locationSpoofing?: {
+        data?: components['schemas']['LocationSpoofingResult'];
+        error?: components['schemas']['ProductError'];
+      };
       /** SignalResponseRawDeviceAttributes */
       rawDeviceAttributes?: {
         data?: components['schemas']['RawDeviceAttributesResult'];
@@ -803,6 +814,11 @@ export interface components {
        * @example false
        */
       result?: boolean;
+      /**
+       * @description Local timezone which is used in timezoneMismatch method.
+       * @example Europe/Berlin
+       */
+      originTimezone?: string;
       methods?: {
         /**
          * @description User's browser timezone doesn't match the timezone from which the request was originally made.
@@ -832,6 +848,25 @@ export interface components {
        * @example 0
        */
       anomalyScore?: number;
+    };
+    HighActivityResult: {
+      /**
+       * @description Flag indicating whether the request came from a high activity visitor.
+       * @example false
+       */
+      result?: boolean;
+      /**
+       * @description Number of requests from the same visitor in the previous day.
+       * @example 10
+       */
+      dailyRequests?: number;
+    };
+    LocationSpoofingResult: {
+      /**
+       * @description Flag indicating whether the request came from a device with location spoofing enabled.
+       * @example false
+       */
+      result?: boolean;
     };
     /**
      * @description It includes 35+ raw browser identification attributes to provide Fingerprint users with even more information than our standard visitor ID provides. This enables Fingerprint users to not have to run our open-source product in conjunction with Fingerprint Pro Plus and Enterprise to get those additional attributes.

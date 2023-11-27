@@ -255,6 +255,11 @@ Object {
         "result": false,
       },
     },
+    "highActivity": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
     "identification": Object {
       "data": Object {
         "browserDetails": Object {
@@ -371,6 +376,11 @@ Object {
         "result": false,
       },
     },
+    "locationSpoofing": Object {
+      "data": Object {
+        "result": false,
+      },
+    },
     "privacySettings": Object {
       "data": Object {
         "result": false,
@@ -438,6 +448,7 @@ Object {
           "publicVPN": false,
           "timezoneMismatch": false,
         },
+        "originTimezone": "Europe/Berlin",
         "result": false,
       },
     },
