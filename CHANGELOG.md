@@ -1,3 +1,15 @@
+## [2.4.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.3.3...v2.4.0) (2023-11-27)
+
+
+### Features
+
+* add `highActivity` and `locationSpoofing` signals, support `originTimezone` for `vpn` signal ([ce69197](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/ce6919774d1e21757722232c07adc8cdb9471f0a))
+
+
+### Documentation
+
+* **README:** use common logos in readme ([#87](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues/87)) ([8c6e3cd](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/8c6e3cdb076a2637852563d011a9c08b8ddc5d2b))
+
 ## [2.3.3](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v2.3.2...v2.3.3) (2023-10-17)
 
 
