@@ -412,17 +412,7 @@ export interface components {
       /** @example COMCAST-7922 */
       name?: string;
     };
-    /** DataCenterInfo */
-    DataCenterInfo: {
-      result: boolean;
-      /** @example DediPath */
-      name?: string;
-    };
-    /**
-     * DataCenter
-     * @deprecated
-     * @description `dataCenter` is deprecated in favor of `datacenter`
-     */
+    /** DataCenter */
     DataCenter: {
       result: boolean;
       /** @example DediPath */
@@ -789,8 +779,7 @@ export interface components {
         address?: string;
         geolocation?: components['schemas']['IPLocation'];
         asn?: components['schemas']['ASN'];
-        datacenter?: components['schemas']['DataCenterInfo'];
-        dataCenter?: components['schemas']['DataCenter'];
+        datacenter?: components['schemas']['DataCenter'];
       };
       v6?: {
         /**
@@ -800,8 +789,7 @@ export interface components {
         address?: string;
         geolocation?: components['schemas']['IPLocation'];
         asn?: components['schemas']['ASN'];
-        datacenter?: components['schemas']['DataCenterInfo'];
-        dataCenter?: components['schemas']['DataCenter'];
+        datacenter?: components['schemas']['DataCenter'];
       };
     };
     IpBlockListResult: {
