@@ -418,7 +418,11 @@ export interface components {
       /** @example DediPath */
       name?: string;
     };
-    /** IPLocation */
+    /**
+     * IPLocation
+     * @deprecated
+     * @description This field is **deprecated** and will not return a result for **accounts created after December 18th, 2023**. Please use the [`ipInfo` Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
+     */
     IPLocation: {
       /**
        * @description The IP address is likely to be within this radius (in km) of the specified location.
@@ -775,7 +779,7 @@ export interface components {
         address?: string;
         geolocation?: components['schemas']['IPLocation'];
         asn?: components['schemas']['ASN'];
-        dataCenter?: components['schemas']['DataCenter'];
+        datacenter?: components['schemas']['DataCenter'];
       };
       v6?: {
         /**
@@ -785,7 +789,7 @@ export interface components {
         address?: string;
         geolocation?: components['schemas']['IPLocation'];
         asn?: components['schemas']['ASN'];
-        dataCenter?: components['schemas']['DataCenter'];
+        datacenter?: components['schemas']['DataCenter'];
       };
     };
     IpBlockListResult: {

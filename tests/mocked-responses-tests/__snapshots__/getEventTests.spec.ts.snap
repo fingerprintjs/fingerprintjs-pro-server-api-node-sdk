@@ -340,7 +340,7 @@ Object {
             "name": "COMCAST-7922",
             "network": "73.136.0.0/13",
           },
-          "dataCenter": Object {
+          "datacenter": Object {
             "name": "DediPath",
             "result": true,
           },
