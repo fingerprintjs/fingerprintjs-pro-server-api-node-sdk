@@ -29,7 +29,8 @@
     "test:coverage": "jest --coverage",
     "test:dts": "tsc --noEmit --isolatedModules dist/index.d.ts",
     "generateTypes": "yarn openapi-typescript resources/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc.json",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "docs": "typedoc --out docs src"
   },
   "keywords": [],
   "author": "FingerprintJS, Inc (https://fingerprint.com)",

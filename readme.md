@@ -145,6 +145,11 @@ client
   });
 ```
 
+## Sealed results
+
+This SDK provides utility methods for decoding sealed results.
+To learn more, refer to example located in [example/sealedResults.js](./example/sealedResults.js).
+
 ## API Reference
 
 ### `constructor({region: Region, apiKey: string})`
