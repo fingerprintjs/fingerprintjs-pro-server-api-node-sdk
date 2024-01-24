@@ -1,7 +1,7 @@
 import { DecryptionKey } from '../sealedResults';
 
 export class UnsealError extends Error {
-  constructor(readonly key: DecryptionKey) {
+  constructor(readonly key: DecryptionKey, readonly error?: Error) {
     super('Unable to decrypt sealed data');
     this.name = 'UnsealError';
   }

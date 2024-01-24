@@ -48,7 +48,7 @@ export async function unseal(sealedData: Buffer, decryptionKeys: DecryptionKey[]
         try {
           return await unsealAes256Gcm(sealedData, decryptionKey.key);
         } catch (e) {
-          errors.addError(new UnsealError(decryptionKey));
+          errors.addError(new UnsealError(decryptionKey, e as Error));
           continue;
         }
 
