@@ -1,9 +1,18 @@
 import {
   DecryptionAlgorithm,
+  parseEventsResponse,
   UnsealAggregateError,
   UnsealError,
   unsealEventsResponse,
 } from '../../src';
+
+describe('Parse events response', () => {
+  it('throws if response is not valid events response', () => {
+    expect(() => {
+      parseEventsResponse('{}');
+    }).toThrowError('Sealed data is not valid events response');
+  });
+});
 
 describe('Unseal event response', () => {
   const sealedData = Buffer.from(
@@ -126,6 +135,17 @@ describe('Unseal event response', () => {
         },
       ])
     ).rejects.toThrowError('Invalid sealed data header');
+  });
+
+  it('throws error if invalid algorithm is provided', async () => {
+    await expect(
+      unsealEventsResponse(sealedData, [
+        {
+          key: invalidKey,
+          algorithm: 'invalid-algorithm' as DecryptionAlgorithm,
+        },
+      ])
+    ).rejects.toThrowError('Unsupported decryption algorithm: invalid-algorithm');
   });
 
   it('throws error if all decryption keys are invalid', async () => {

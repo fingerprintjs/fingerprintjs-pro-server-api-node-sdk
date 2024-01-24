@@ -17,8 +17,7 @@ export interface DecryptionKey {
 
 const SEALED_HEADER = Buffer.from([0x9e, 0x85, 0xdc, 0xed]);
 
-export async function unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]) {
-  const unsealed = await unseal(sealedData, decryptionKeys);
+export function parseEventsResponse(unsealed: string) {
   const json = JSON.parse(unsealed) as EventResponse;
 
   if (!json.products) {
@@ -26,6 +25,12 @@ export async function unsealEventsResponse(sealedData: Buffer, decryptionKeys: D
   }
 
   return json;
+}
+
+export async function unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]) {
+  const unsealed = await unseal(sealedData, decryptionKeys);
+
+  return parseEventsResponse(unsealed);
 }
 
 export async function unseal(sealedData: Buffer, decryptionKeys: DecryptionKey[]) {
