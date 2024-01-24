@@ -1,4 +1,9 @@
-import { DecryptionAlgorithm, unsealEventsResponse } from '../../src';
+import {
+  DecryptionAlgorithm,
+  UnsealAggregateError,
+  UnsealError,
+  unsealEventsResponse,
+} from '../../src';
 
 describe('Unseal event response', () => {
   const sealedData = Buffer.from(
@@ -124,13 +129,13 @@ describe('Unseal event response', () => {
   });
 
   it('throws error if all decryption keys are invalid', async () => {
-    await expect(
-      unsealEventsResponse(sealedData, [
-        {
-          key: invalidKey,
-          algorithm: DecryptionAlgorithm.Aes256Gcm,
-        },
-      ])
-    ).rejects.toThrowError('Unable to decrypt sealed data');
+    const key = {
+      key: invalidKey,
+      algorithm: DecryptionAlgorithm.Aes256Gcm,
+    };
+
+    await expect(unsealEventsResponse(sealedData, [key])).rejects.toThrow(
+      new UnsealAggregateError([new UnsealError(key)])
+    );
   });
 });

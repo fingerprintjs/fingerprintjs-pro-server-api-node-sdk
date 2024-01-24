@@ -2,6 +2,7 @@ import { createDecipheriv } from 'crypto';
 import { inflateRaw } from 'zlib';
 import { promisify } from 'util';
 import { EventResponse } from './types';
+import { UnsealAggregateError, UnsealError } from './errors/unsealError';
 
 const asyncInflateRaw = promisify(inflateRaw);
 
@@ -34,12 +35,15 @@ export async function unseal(sealedData: Buffer, decryptionKeys: DecryptionKey[]
     throw new Error('Invalid sealed data header');
   }
 
+  const errors = new UnsealAggregateError([]);
+
   for (const decryptionKey of decryptionKeys) {
     switch (decryptionKey.algorithm) {
       case DecryptionAlgorithm.Aes256Gcm:
         try {
           return await unsealAes256Gcm(sealedData, decryptionKey.key);
-        } catch {
+        } catch (e) {
+          errors.addError(new UnsealError(decryptionKey));
           continue;
         }
 
@@ -48,7 +52,7 @@ export async function unseal(sealedData: Buffer, decryptionKeys: DecryptionKey[]
     }
   }
 
-  throw new Error('Unable to decrypt sealed data');
+  throw errors;
 }
 
 async function unsealAes256Gcm(sealedData: Buffer, decryptionKey: Buffer) {
