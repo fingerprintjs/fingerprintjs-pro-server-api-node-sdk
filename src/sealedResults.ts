@@ -27,6 +27,11 @@ export function parseEventsResponse(unsealed: string) {
   return json;
 }
 
+/**
+ * Decrypts the sealed response with the provided keys.
+ * The SDK will try to decrypt the result with each key until it succeeds.
+ * To learn more about sealed results visit: https://dev.fingerprint.com/docs/sealed-client-results
+ */
 export async function unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]) {
   const unsealed = await unseal(sealedData, decryptionKeys);
 

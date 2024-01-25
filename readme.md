@@ -414,6 +414,49 @@ For more information, see the [Server API documentation](https://dev.fingerprint
 }
 ```
 
+## Sealed results API Reference
+
+##### `unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]): Promise<EventResponse>`
+
+Decrypts the sealed events response with provided keys.
+
+#### Usage
+
+```js
+import { unsealEventsResponse, DecryptionAlgorithm } from '@fingerprintjs/fingerprintjs-pro-server-api';
+
+unsealEventsResponse(sealedData, [
+  {
+    key: Buffer.from('p2PA7MGy5tx56cnyJaFZMr96BCFwZeHjZV2EqMvTq53=', 'base64'),
+    algorithm: DecryptionAlgorithm.Aes256Gcm,
+  },
+]).then(result => {
+  console.log(result);
+});
+```
+
+### Params
+- `sealedData: Buffer` - sealed data to decrypt
+- `decryptionKeys: DecryptionKey[]` - array of decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
+
+##### `DecryptionKey`
+
+```js
+const decryptionKey =  {
+  key: Buffer.from('aW52YWxpZA==', 'base64'),
+  algorithm: DecryptionAlgorithm.Aes256Gcm,
+}
+```
+
+Properties:
+
+- `key: Buffer` - key generated in dashboard that will be used to decrypt sealed result
+- `algorithm: DecryptionAlgorithm` - algorithm to use for decryption. Currently only `Aes256Gcm` value is supported.
+
+#### Returns
+
+- `Promise<EventResponse>` - promise with the decrypted event response
+
 ## Support and feedback
 
 To report problems, ask questions or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
