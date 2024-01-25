@@ -2,7 +2,13 @@ import { DecryptionKey } from '../sealedResults';
 
 export class UnsealError extends Error {
   constructor(readonly key: DecryptionKey, readonly error?: Error) {
-    super('Unable to decrypt sealed data');
+    let msg = `Unable to decrypt sealed data`;
+
+    if (error) {
+      msg = msg.concat(`: ${error.message}`);
+    }
+
+    super(msg);
     this.name = 'UnsealError';
   }
 }
@@ -15,5 +21,9 @@ export class UnsealAggregateError extends Error {
 
   addError(error: UnsealError) {
     this.errors.push(error);
+  }
+
+  toString() {
+    return this.errors.map((e) => e.toString()).join('\n');
   }
 }
