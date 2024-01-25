@@ -149,13 +149,19 @@ describe('Unseal event response', () => {
   });
 
   it('throws error if all decryption keys are invalid', async () => {
-    const key = {
-      key: invalidKey,
-      algorithm: DecryptionAlgorithm.Aes256Gcm,
-    };
+    const keys = [
+      {
+        key: invalidKey,
+        algorithm: DecryptionAlgorithm.Aes256Gcm,
+      },
+      {
+        key: Buffer.from('aW52YWxpZA==', 'base64'),
+        algorithm: DecryptionAlgorithm.Aes256Gcm,
+      },
+    ];
 
-    await expect(unsealEventsResponse(sealedData, [key])).rejects.toThrow(
-      new UnsealAggregateError([new UnsealError(key)])
+    await expect(unsealEventsResponse(sealedData, keys)).rejects.toThrow(
+      new UnsealAggregateError(keys.map((k) => new UnsealError(k)))
     );
   });
 });
