@@ -210,4 +210,21 @@ describe('Unseal event response', () => {
       new UnsealAggregateError(keys.map((k) => new UnsealError(k)))
     );
   });
+
+  it('throws if data is empty', async () => {
+    const invalidData = Buffer.from('', 'utf-8');
+
+    await expect(
+      unsealEventsResponse(invalidData, [
+        {
+          key: invalidKey,
+          algorithm: DecryptionAlgorithm.Aes256Gcm,
+        },
+        {
+          key: validKey,
+          algorithm: DecryptionAlgorithm.Aes256Gcm,
+        },
+      ])
+    ).rejects.toThrowError('Invalid sealed data header');
+  });
 });
