@@ -227,4 +227,31 @@ describe('Unseal event response', () => {
       ])
     ).rejects.toThrowError('Invalid sealed data header');
   });
+
+  it('throws if nonce is not correct', async () => {
+    const invalidData = Buffer.from([0x9e, 0x85, 0xdc, 0xed, 0xaa, 0xbb, 0xcc]);
+
+    try {
+      await unsealEventsResponse(
+        invalidData,
+
+        [
+          {
+            key: validKey,
+            algorithm: DecryptionAlgorithm.Aes256Gcm,
+          },
+        ]
+      );
+    } catch (e) {
+      expect(e).toBeInstanceOf(UnsealAggregateError);
+
+      expect((e as Error).toString()).toMatchInlineSnapshot(
+        `"UnsealError: Unable to decrypt sealed data: Invalid authentication tag length: 7"`
+      );
+
+      return;
+    }
+
+    throw new Error('Expected error to be thrown');
+  });
 });
