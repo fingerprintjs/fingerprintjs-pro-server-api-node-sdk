@@ -416,7 +416,7 @@ For more information, see the [Server API documentation](https://dev.fingerprint
 
 ## Sealed results API Reference
 
-##### `unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]): Promise<EventResponse>`
+### `unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]): Promise<EventResponse>`
 
 Decrypts the sealed events response with provided keys.
 
@@ -435,7 +435,7 @@ unsealEventsResponse(sealedData, [
 });
 ```
 
-### Params
+#### Params
 - `sealedData: Buffer` - sealed data to decrypt
 - `decryptionKeys: DecryptionKey[]` - array of decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
 

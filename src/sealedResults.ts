@@ -17,10 +17,14 @@ export interface DecryptionKey {
 
 const SEALED_HEADER = Buffer.from([0x9e, 0x85, 0xdc, 0xed]);
 
-export function parseEventsResponse(unsealed: string) {
-  const json = JSON.parse(unsealed) as EventResponse;
+function isEventResponse(data: unknown): data is EventResponse {
+  return Boolean(data && typeof data === 'object' && 'products' in data);
+}
 
-  if (!json.products) {
+export function parseEventsResponse(unsealed: string) {
+  const json = JSON.parse(unsealed);
+
+  if (!isEventResponse(json)) {
     throw new Error('Sealed data is not valid events response');
   }
 
