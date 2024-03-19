@@ -1,35 +1,35 @@
-import { createDecipheriv } from 'crypto'
-import { inflateRaw } from 'zlib'
-import { promisify } from 'util'
-import { EventResponse } from './types'
-import { UnsealAggregateError, UnsealError } from './errors/unsealError'
-import { Buffer } from 'buffer'
+import { createDecipheriv } from 'crypto';
+import { inflateRaw } from 'zlib';
+import { promisify } from 'util';
+import { EventResponse } from './types';
+import { UnsealAggregateError, UnsealError } from './errors/unsealError';
+import { Buffer } from 'buffer';
 
-const asyncInflateRaw = promisify(inflateRaw)
+const asyncInflateRaw = promisify(inflateRaw);
 
 export enum DecryptionAlgorithm {
   Aes256Gcm = 'aes-256-gcm',
 }
 
 export interface DecryptionKey {
-  key: Buffer
-  algorithm: DecryptionAlgorithm
+  key: Buffer;
+  algorithm: DecryptionAlgorithm;
 }
 
-const SEALED_HEADER = Buffer.from([0x9e, 0x85, 0xdc, 0xed])
+const SEALED_HEADER = Buffer.from([0x9e, 0x85, 0xdc, 0xed]);
 
 function isEventResponse(data: unknown): data is EventResponse {
-  return Boolean(data && typeof data === 'object' && 'products' in data)
+  return Boolean(data && typeof data === 'object' && 'products' in data);
 }
 
 export function parseEventsResponse(unsealed: string) {
-  const json = JSON.parse(unsealed)
+  const json = JSON.parse(unsealed);
 
   if (!isEventResponse(json)) {
-    throw new Error('Sealed data is not valid events response')
+    throw new Error('Sealed data is not valid events response');
   }
 
-  return json
+  return json;
 }
 
 /**
@@ -38,49 +38,51 @@ export function parseEventsResponse(unsealed: string) {
  * To learn more about sealed results visit: https://dev.fingerprint.com/docs/sealed-client-results
  */
 export async function unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]) {
-  const unsealed = await unseal(sealedData, decryptionKeys)
+  const unsealed = await unseal(sealedData, decryptionKeys);
 
-  return parseEventsResponse(unsealed)
+  return parseEventsResponse(unsealed);
 }
 
 export async function unseal(sealedData: Buffer, decryptionKeys: DecryptionKey[]) {
-  if (sealedData.subarray(0, SEALED_HEADER.length).toString('hex') !== SEALED_HEADER.toString('hex')) {
-    throw new Error('Invalid sealed data header')
+  if (
+    sealedData.subarray(0, SEALED_HEADER.length).toString('hex') !== SEALED_HEADER.toString('hex')
+  ) {
+    throw new Error('Invalid sealed data header');
   }
 
-  const errors = new UnsealAggregateError([])
+  const errors = new UnsealAggregateError([]);
 
   for (const decryptionKey of decryptionKeys) {
     switch (decryptionKey.algorithm) {
       case DecryptionAlgorithm.Aes256Gcm:
         try {
-          return await unsealAes256Gcm(sealedData, decryptionKey.key)
+          return await unsealAes256Gcm(sealedData, decryptionKey.key);
         } catch (e) {
-          errors.addError(new UnsealError(decryptionKey, e as Error))
-          continue
+          errors.addError(new UnsealError(decryptionKey, e as Error));
+          continue;
         }
 
       default:
-        throw new Error(`Unsupported decryption algorithm: ${decryptionKey.algorithm}`)
+        throw new Error(`Unsupported decryption algorithm: ${decryptionKey.algorithm}`);
     }
   }
 
-  throw errors
+  throw errors;
 }
 
 async function unsealAes256Gcm(sealedData: Buffer, decryptionKey: Buffer) {
-  const nonceLength = 12
-  const nonce = sealedData.subarray(SEALED_HEADER.length, SEALED_HEADER.length + nonceLength)
+  const nonceLength = 12;
+  const nonce = sealedData.subarray(SEALED_HEADER.length, SEALED_HEADER.length + nonceLength);
 
-  const authTagLength = 16
-  const authTag = sealedData.subarray(-authTagLength)
+  const authTagLength = 16;
+  const authTag = sealedData.subarray(-authTagLength);
 
-  const ciphertext = sealedData.subarray(SEALED_HEADER.length + nonceLength, -authTagLength)
+  const ciphertext = sealedData.subarray(SEALED_HEADER.length + nonceLength, -authTagLength);
 
-  const decipher = createDecipheriv('aes-256-gcm', decryptionKey, nonce).setAuthTag(authTag)
-  const compressed = Buffer.concat([decipher.update(ciphertext), decipher.final()])
+  const decipher = createDecipheriv('aes-256-gcm', decryptionKey, nonce).setAuthTag(authTag);
+  const compressed = Buffer.concat([decipher.update(ciphertext), decipher.final()]);
 
-  const payload = await asyncInflateRaw(compressed)
+  const payload = await asyncInflateRaw(compressed);
 
-  return payload.toString()
+  return payload.toString();
 }
