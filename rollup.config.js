@@ -1,7 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 import jsonPlugin from '@rollup/plugin-json';
 import external from 'rollup-plugin-peer-deps-external';
-import dtsPlugin from 'rollup-plugin-dts';
+import { dts } from 'rollup-plugin-dts';
 import licensePlugin from 'rollup-plugin-license';
 import { join } from 'path';
 
@@ -50,7 +50,7 @@ export default [
   // TypeScript definition
   {
     ...commonInput,
-    plugins: [dtsPlugin(), commonBanner],
+    plugins: [dts(), commonBanner],
     output: {
       file: types,
       format: 'es',
