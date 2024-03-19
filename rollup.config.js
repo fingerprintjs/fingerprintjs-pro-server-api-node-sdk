@@ -1,13 +1,13 @@
-import typescript from '@rollup/plugin-typescript'
-import jsonPlugin from '@rollup/plugin-json'
-import external from 'rollup-plugin-peer-deps-external'
-import { dts } from 'rollup-plugin-dts'
-import licensePlugin from 'rollup-plugin-license'
-import { join } from 'path'
+import typescript from '@rollup/plugin-typescript';
+import jsonPlugin from '@rollup/plugin-json';
+import external from 'rollup-plugin-peer-deps-external';
+import { dts } from 'rollup-plugin-dts';
+import licensePlugin from 'rollup-plugin-license';
+import { join } from 'path';
 
-const { dependencies = {}, main, module, types } = require('./package.json')
+const { dependencies = {}, main, module, types } = require('./package.json');
 
-const inputFile = 'src/index.ts'
+const inputFile = 'src/index.ts';
 
 const commonBanner = licensePlugin({
   banner: {
@@ -15,16 +15,16 @@ const commonBanner = licensePlugin({
       file: join(__dirname, 'resources', 'license_banner.txt'),
     },
   },
-})
+});
 
 const commonInput = {
   input: inputFile,
   plugins: [jsonPlugin(), typescript(), external(), commonBanner],
-}
+};
 
 const commonOutput = {
   exports: 'named',
-}
+};
 
 export default [
   {
@@ -56,4 +56,4 @@ export default [
       format: 'es',
     },
   },
-]
+];
