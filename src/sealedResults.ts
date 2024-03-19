@@ -3,6 +3,7 @@ import { inflateRaw } from 'zlib';
 import { promisify } from 'util';
 import { EventResponse } from './types';
 import { UnsealAggregateError, UnsealError } from './errors/unsealError';
+import { Buffer } from 'buffer';
 
 const asyncInflateRaw = promisify(inflateRaw);
 
