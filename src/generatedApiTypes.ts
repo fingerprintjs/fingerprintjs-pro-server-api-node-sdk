@@ -6,8 +6,9 @@
 export interface paths {
   '/events/{request_id}': {
     /**
-     * This endpoint allows you to get a detailed analysis of an individual request.
-     * **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request orignated from a non-mobile platform.
+     * Get event by requestId
+     * @description This endpoint allows you to get a detailed analysis of an individual request.
+     * **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform.
      * It is highly recommended that you **ignore** the mobile signals for such requests.
      *
      * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
@@ -16,7 +17,8 @@ export interface paths {
   };
   '/visitors/{visitor_id}': {
     /**
-     * This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
+     * Get visits by visitorId
+     * @description This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
      * Only information from the _Identification_ product is returned.
      *
      * #### Headers
@@ -26,15 +28,19 @@ export interface paths {
     get: operations['getVisits'];
   };
   '/webhook': {
-    /** Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
+    /** @description Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
     trace: {
       responses: {
-        /** Dummy for the schema */
-        default: unknown;
+        /** @description Dummy for the schema */
+        default: {
+          content: never;
+        };
       };
     };
   };
 }
+
+export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
@@ -58,7 +64,29 @@ export interface components {
          * @example 8.8.8.8
          */
         ip: string;
-        ipLocation?: components['schemas']['IPLocation'];
+        /**
+         * DeprecatedIPLocation
+         * @deprecated
+         * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
+         */
+        ipLocation?: {
+          /** @description The IP address is likely to be within this radius (in km) of the specified location. */
+          accuracyRadius?: number;
+          /** Format: double */
+          latitude?: number;
+          /** Format: double */
+          longitude?: number;
+          postalCode?: string;
+          /** Format: timezone */
+          timezone?: string;
+          /** DeprecatedIPLocationCity */
+          city?: {
+            name?: string;
+          };
+          country?: components['schemas']['Location'];
+          continent?: components['schemas']['Location'];
+          subdivisions?: components['schemas']['Subdivision'][];
+        };
         /**
          * Format: int64
          * @description Timestamp of the event with millisecond precision in Unix time.
@@ -73,19 +101,20 @@ export interface components {
          */
         time: string;
         /**
-         * Format: uri
-         * @description Page URL from which identification request was sent.
+         * @description Page URL from which the identification request was sent.
          * @example https://some.website/path?query=params
          */
         url: string;
         /** @description A customer-provided value or an object that was sent with identification request. */
-        tag: { [key: string]: unknown };
+        tag: {
+          [key: string]: unknown;
+        };
         /**
          * @description A customer-provided id that was sent with identification request.
          * @example someID
          */
         linkedId?: string;
-        confidence: components['schemas']['Confidence'];
+        confidence?: components['schemas']['Confidence'];
         /** @description Attribute represents if a visitor had been identified before. */
         visitorFound: boolean;
         firstSeenAt: components['schemas']['SeenAt'];
@@ -162,110 +191,23 @@ export interface components {
       ipInfo?: components['schemas']['IpInfoResult'];
       /** @description Flag if user used incognito session. */
       incognito: boolean;
-      /** WebhookSignalResponseRootApps */
-      rootApps?: {
-        /**
-         * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
-      /** WebhookSignalResponseEmulator */
-      emulator?: {
-        /**
-         * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client isn't Android.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
-      /** WebhookSignalResponseClonedApp */
-      clonedApp?: {
-        /**
-         * @description Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
-      /** WebhookSignalResponseFactoryReset */
-      factoryReset?: {
-        /**
-         * Time
-         * Format: date-time
-         * @description Time in UTC for the Android client when recent factory reset was done.  If there is no sign of factory reset or the client isn't Android, the field will be epoch time.
-         *
-         * @example 2022-06-09T22:58:36Z
-         */
-        time?: string;
-        /**
-         * Format: int64
-         * @description Same value as it's in the `time` field but represented in timestamp format.
-         * @example 1654815517198
-         */
-        timestamp?: number;
-      };
-      /** WebhookSignalResponseJailbroken */
-      jailbroken?: {
-        /**
-         * @description iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
-      /** WebhookSignalResponseFrida */
-      frida?: {
-        /**
-         * @description iOS specific [Frida](https://frida.re/docs/ios/) detection. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not iOS.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
+      rootApps?: components['schemas']['RootAppsResult'];
+      emulator?: components['schemas']['EmulatorResult'];
+      clonedApp?: components['schemas']['ClonedAppResult'];
+      factoryReset?: components['schemas']['FactoryResetResult'];
+      jailbroken?: components['schemas']['JailbrokenResult'];
+      frida?: components['schemas']['FridaResult'];
       ipBlocklist?: components['schemas']['IpBlockListResult'];
-      /** WebhookSignalResponseTor */
-      tor?: {
-        /**
-         * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
-      /** WebhookSignalResponsePrivacySettings */
-      privacySettings?: {
-        /**
-         * @description `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
-      /** WebhookSignalResponseVirtualMachine */
-      virtualMachine?: {
-        /**
-         * @description `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
+      tor?: components['schemas']['TorResult'];
+      privacySettings?: components['schemas']['PrivacySettingsResult'];
+      virtualMachine?: components['schemas']['VirtualMachineResult'];
       vpn?: components['schemas']['VpnResult'];
-      /** WebhookSignalResponseProxy */
-      proxy?: {
-        /**
-         * @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
-         *
-         * @example false
-         */
-        result?: boolean;
-      };
+      proxy?: components['schemas']['ProxyResult'];
       tampering?: components['schemas']['TamperingResult'];
       rawDeviceAttributes?: components['schemas']['RawDeviceAttributesResult'];
       highActivity?: components['schemas']['HighActivityResult'];
       locationSpoofing?: components['schemas']['LocationSpoofingResult'];
+      suspectScore?: components['schemas']['SuspectScoreResult'];
       /**
        * @description Unique identifier of the user's identification request.
        * @example 1654815516083.OX6kx8
@@ -277,7 +219,29 @@ export interface components {
        * @example 8.8.8.8
        */
       ip: string;
-      ipLocation?: components['schemas']['IPLocation'];
+      /**
+       * DeprecatedIPLocation
+       * @deprecated
+       * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
+       */
+      ipLocation?: {
+        /** @description The IP address is likely to be within this radius (in km) of the specified location. */
+        accuracyRadius?: number;
+        /** Format: double */
+        latitude?: number;
+        /** Format: double */
+        longitude?: number;
+        postalCode?: string;
+        /** Format: timezone */
+        timezone?: string;
+        /** DeprecatedIPLocationCity */
+        city?: {
+          name?: string;
+        };
+        country?: components['schemas']['Location'];
+        continent?: components['schemas']['Location'];
+        subdivisions?: components['schemas']['Subdivision'][];
+      };
       /**
        * Format: int64
        * @description Timestamp of the event with millisecond precision in Unix time.
@@ -292,19 +256,20 @@ export interface components {
        */
       time: string;
       /**
-       * Format: uri
-       * @description Page URL from which identification request was sent.
+       * @description Page URL from which the identification request was sent.
        * @example https://some.website/path?query=params
        */
       url: string;
       /** @description A customer-provided value or an object that was sent with identification request. */
-      tag?: { [key: string]: unknown };
+      tag: {
+        [key: string]: unknown;
+      };
       /**
        * @description A customer-provided id that was sent with identification request.
        * @example someID
        */
       linkedId?: string;
-      confidence: components['schemas']['Confidence'];
+      confidence?: components['schemas']['Confidence'];
       /** @description Attribute represents if a visitor had been identified before. */
       visitorFound: boolean;
       firstSeenAt: components['schemas']['SeenAt'];
@@ -325,7 +290,29 @@ export interface components {
        * @example 8.8.8.8
        */
       ip: string;
-      ipLocation?: components['schemas']['IPLocation'];
+      /**
+       * DeprecatedIPLocation
+       * @deprecated
+       * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
+       */
+      ipLocation?: {
+        /** @description The IP address is likely to be within this radius (in km) of the specified location. */
+        accuracyRadius?: number;
+        /** Format: double */
+        latitude?: number;
+        /** Format: double */
+        longitude?: number;
+        postalCode?: string;
+        /** Format: timezone */
+        timezone?: string;
+        /** DeprecatedIPLocationCity */
+        city?: {
+          name?: string;
+        };
+        country?: components['schemas']['Location'];
+        continent?: components['schemas']['Location'];
+        subdivisions?: components['schemas']['Subdivision'][];
+      };
       /**
        * Format: int64
        * @description Timestamp of the event with millisecond precision in Unix time.
@@ -340,19 +327,20 @@ export interface components {
        */
       time: string;
       /**
-       * Format: uri
-       * @description Page URL from which identification request was sent.
+       * @description Page URL from which the identification request was sent.
        * @example https://some.website/path?query=params
        */
       url: string;
       /** @description A customer-provided value or an object that was sent with identification request. */
-      tag?: { [key: string]: unknown };
+      tag: {
+        [key: string]: unknown;
+      };
       /**
        * @description A customer-provided id that was sent with identification request.
        * @example someID
        */
       linkedId?: string;
-      confidence: components['schemas']['Confidence'];
+      confidence?: components['schemas']['Confidence'];
       /** @description Attribute represents if a visitor had been identified before. */
       visitorFound: boolean;
       firstSeenAt: components['schemas']['SeenAt'];
@@ -418,11 +406,7 @@ export interface components {
       /** @example DediPath */
       name?: string;
     };
-    /**
-     * IPLocation
-     * @deprecated
-     * @description This field is **deprecated** and will not return a result for **accounts created after December 18th, 2023**. Please use the [`ipInfo` Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
-     */
+    /** IPLocation */
     IPLocation: {
       /**
        * @description The IP address is likely to be within this radius (in km) of the specified location.
@@ -487,7 +471,29 @@ export interface components {
            * @example 8.8.8.8
            */
           ip: string;
-          ipLocation?: components['schemas']['IPLocation'];
+          /**
+           * DeprecatedIPLocation
+           * @deprecated
+           * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
+           */
+          ipLocation?: {
+            /** @description The IP address is likely to be within this radius (in km) of the specified location. */
+            accuracyRadius?: number;
+            /** Format: double */
+            latitude?: number;
+            /** Format: double */
+            longitude?: number;
+            postalCode?: string;
+            /** Format: timezone */
+            timezone?: string;
+            /** DeprecatedIPLocationCity */
+            city?: {
+              name?: string;
+            };
+            country?: components['schemas']['Location'];
+            continent?: components['schemas']['Location'];
+            subdivisions?: components['schemas']['Subdivision'][];
+          };
           /**
            * Format: int64
            * @description Timestamp of the event with millisecond precision in Unix time.
@@ -502,19 +508,20 @@ export interface components {
            */
           time: string;
           /**
-           * Format: uri
-           * @description Page URL from which identification request was sent.
+           * @description Page URL from which the identification request was sent.
            * @example https://some.website/path?query=params
            */
           url: string;
           /** @description A customer-provided value or an object that was sent with identification request. */
-          tag?: { [key: string]: unknown };
+          tag: {
+            [key: string]: unknown;
+          };
           /**
            * @description A customer-provided id that was sent with identification request.
            * @example someID
            */
           linkedId?: string;
-          confidence: components['schemas']['Confidence'];
+          confidence?: components['schemas']['Confidence'];
           /** @description Attribute represents if a visitor had been identified before. */
           visitorFound: boolean;
           firstSeenAt: components['schemas']['SeenAt'];
@@ -542,94 +549,37 @@ export interface components {
       };
       /** SignalResponseIncognito */
       incognito?: {
-        data?: {
-          /**
-           * @description `true` if we detected incognito mode used in the browser, `false` otherwise.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['IncognitoResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseRootApps */
       rootApps?: {
-        data?: {
-          /**
-           * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client is not Android.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['RootAppsResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseEmulator */
       emulator?: {
-        data?: {
-          /**
-           * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client is not Android.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['EmulatorResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseClonedApp */
       clonedApp?: {
-        data?: {
-          /**
-           * @description Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['ClonedAppResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseFactoryReset */
       factoryReset?: {
-        data?: {
-          /**
-           * Time
-           * Format: date-time
-           * @description Time in UTC for the Android client when recent factory reset was done.  If there is no sign of factory reset or the client isn't Android, the field will be epoch time.
-           *
-           * @example 2022-06-09T22:58:36Z
-           */
-          time?: string;
-          /**
-           * Format: int64
-           * @description Same value as it's in the `time` field but represented in timestamp format.
-           * @example 1654815517198
-           */
-          timestamp?: number;
-        };
+        data?: components['schemas']['FactoryResetResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseJailbroken */
       jailbroken?: {
-        data?: {
-          /**
-           * @description iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['JailbrokenResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseFrida */
       frida?: {
-        data?: {
-          /**
-           * @description iOS specific [Frida](https://frida.re/docs/ios/) detection. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not iOS.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['FridaResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseIpBlocklist */
@@ -639,38 +589,17 @@ export interface components {
       };
       /** SignalResponseTor */
       tor?: {
-        data?: {
-          /**
-           * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['TorResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponsePrivacySettings */
       privacySettings?: {
-        data?: {
-          /**
-           * @description `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['PrivacySettingsResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseVirtualMachine */
       virtualMachine?: {
-        data?: {
-          /**
-           * @description `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['VirtualMachineResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseVpn */
@@ -680,14 +609,7 @@ export interface components {
       };
       /** SignalResponseProxy */
       proxy?: {
-        data?: {
-          /**
-           * @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
-           *
-           * @example false
-           */
-          result?: boolean;
-        };
+        data?: components['schemas']['ProxyResult'];
         error?: components['schemas']['ProductError'];
       };
       /** SignalResponseTampering */
@@ -705,14 +627,21 @@ export interface components {
         data?: components['schemas']['LocationSpoofingResult'];
         error?: components['schemas']['ProductError'];
       };
+      /** SignalResponseSuspectScore */
+      suspectScore?: {
+        data?: components['schemas']['SuspectScoreResult'];
+        error?: components['schemas']['ProductError'];
+      };
       /** SignalResponseRawDeviceAttributes */
       rawDeviceAttributes?: {
         data?: components['schemas']['RawDeviceAttributesResult'];
+        error?: components['schemas']['ProductError'];
       };
     };
     /** @description Contains results from all activated products - Fingerprint Pro, Bot Detection, and others. */
     EventResponse: {
-      products?: components['schemas']['ProductsResponse'];
+      products: components['schemas']['ProductsResponse'];
+      error?: components['schemas']['ProductError'];
     };
     IdentificationError: {
       /**
@@ -743,15 +672,16 @@ export interface components {
        */
       time: string;
       /**
-       * Format: uri-reference
        * @description Page URL from which identification request was sent.
        * @example https://example.com/login
        */
       url: string;
       /** @example Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 */
-      userAgent?: string;
+      userAgent: string;
       /** @example 1681392853693.lRiBBD */
-      requestId?: string;
+      requestId: string;
+      /** @example Automatic tests bot */
+      linkedId?: string;
       bot: components['schemas']['BotdDetectionResult'];
     };
     /** @description Stores bot detection result */
@@ -776,8 +706,8 @@ export interface components {
          * Format: ipv4
          * @example 94.142.239.124
          */
-        address?: string;
-        geolocation?: components['schemas']['IPLocation'];
+        address: string;
+        geolocation: components['schemas']['IPLocation'];
         asn?: components['schemas']['ASN'];
         datacenter?: components['schemas']['DataCenter'];
       };
@@ -786,8 +716,8 @@ export interface components {
          * Format: ipv6
          * @example 2001:0db8:85a3:0000:0000:8a2e:0370:7334
          */
-        address?: string;
-        geolocation?: components['schemas']['IPLocation'];
+        address: string;
+        geolocation: components['schemas']['IPLocation'];
         asn?: components['schemas']['ASN'];
         datacenter?: components['schemas']['DataCenter'];
       };
@@ -798,18 +728,18 @@ export interface components {
        *
        * @example false
        */
-      result?: boolean;
-      details?: {
+      result: boolean;
+      details: {
         /**
          * @description IP address was part of a known email spam attack (SMTP).
          * @example false
          */
-        emailSpam?: boolean;
+        emailSpam: boolean;
         /**
          * @description IP address was part of a known network attack (SSH/HTTPS).
          * @example false
          */
-        attackSource?: boolean;
+        attackSource: boolean;
       };
     };
     VpnResult: {
@@ -817,28 +747,33 @@ export interface components {
        * @description VPN or other anonymizing service has been used when sending the request.
        * @example false
        */
-      result?: boolean;
+      result: boolean;
       /**
        * @description Local timezone which is used in timezoneMismatch method.
        * @example Europe/Berlin
        */
-      originTimezone?: string;
-      methods?: {
+      originTimezone: string;
+      /**
+       * @description Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
+       * @example unknown
+       */
+      originCountry?: string;
+      methods: {
         /**
          * @description User's browser timezone doesn't match the timezone from which the request was originally made.
          * @example false
          */
-        timezoneMismatch?: boolean;
+        timezoneMismatch: boolean;
         /**
          * @description Request IP address is owned and used by a public VPN service provider.
          * @example false
          */
-        publicVPN?: boolean;
+        publicVPN: boolean;
         /**
          * @description This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
          * @example false
          */
-        auxiliaryMobile?: boolean;
+        auxiliaryMobile: boolean;
       };
     };
     TamperingResult: {
@@ -846,19 +781,19 @@ export interface components {
        * @description Flag indicating whether browser tampering was detected according to our internal thresholds.
        * @example false
        */
-      result?: boolean;
+      result: boolean;
       /**
        * @description Confidence score (`0.0 - 1.0`) for the tampering detection. Values above `0.5` suggest that we're reasonably sure there was a tampering attempt. Values below `0.5` are genuine browsers.
        * @example 0
        */
-      anomalyScore?: number;
+      anomalyScore: number;
     };
     HighActivityResult: {
       /**
        * @description Flag indicating whether the request came from a high activity visitor.
        * @example false
        */
-      result?: boolean;
+      result: boolean;
       /**
        * @description Number of requests from the same visitor in the previous day.
        * @example 10
@@ -867,10 +802,18 @@ export interface components {
     };
     LocationSpoofingResult: {
       /**
-       * @description Flag indicating whether the request came from a device with location spoofing enabled.
+       * @description Flag indicating whether the request came from a mobile device with location spoofing enabled.
        * @example false
        */
-      result?: boolean;
+      result: boolean;
+    };
+    SuspectScoreResult: {
+      /**
+       * @description Suspect Score is an easy way to integrate Smart Signals into your fraud protection work flow.  It is a weighted representation of all Smart Signals present in the payload that helps identify suspicious activity. The value range is [0; S] where S is sum of all Smart Signals weights.  See more details here: https://dev.fingerprint.com/docs/suspect-score
+       *
+       * @example 0
+       */
+      result: number;
     };
     /**
      * @description It includes 35+ raw browser identification attributes to provide Fingerprint users with even more information than our standard visitor ID provides. This enables Fingerprint users to not have to run our open-source product in conjunction with Fingerprint Pro Plus and Enterprise to get those additional attributes.
@@ -889,6 +832,102 @@ export interface components {
         value?: unknown;
       };
     };
+    FactoryResetResult: {
+      /**
+       * Time
+       * Format: date-time
+       * @description Time in UTC when the most recent factory reset of the Android or iOS device was done.  If there is no sign of factory reset or the client is not a mobile device, the field will contain the epoch time (1 January 1970) in UTC.
+       *
+       * @example 2022-06-09T22:58:36Z
+       */
+      time: string;
+      /**
+       * Format: int64
+       * @description Same value as it's in the `time` field but represented in timestamp format.
+       * @example 1654815517198
+       */
+      timestamp: number;
+    };
+    ClonedAppResult: {
+      /**
+       * @description Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    EmulatorResult: {
+      /**
+       * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client is not Android.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    RootAppsResult: {
+      /**
+       * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    IncognitoResult: {
+      /**
+       * @description `true` if we detected incognito mode used in the browser, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    JailbrokenResult: {
+      /**
+       * @description iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    FridaResult: {
+      /**
+       * @description [Frida](https://frida.re/docs/) detection for Android and iOS devices. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not a mobile device.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    TorResult: {
+      /**
+       * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    PrivacySettingsResult: {
+      /**
+       * @description `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    VirtualMachineResult: {
+      /**
+       * @description `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
+    ProxyResult: {
+      /**
+       * @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean;
+    };
     ProductError: {
       /**
        * @description Error code:
@@ -903,12 +942,22 @@ export interface components {
       message: string;
     };
   };
+  responses: never;
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
+
+export type $defs = Record<string, never>;
+
+export type external = Record<string, never>;
 
 export interface operations {
   /**
-   * This endpoint allows you to get a detailed analysis of an individual request.
-   * **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request orignated from a non-mobile platform.
+   * Get event by requestId
+   * @description This endpoint allows you to get a detailed analysis of an individual request.
+   * **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform.
    * It is highly recommended that you **ignore** the mobile signals for such requests.
    *
    * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
@@ -916,24 +965,24 @@ export interface operations {
   getEvent: {
     parameters: {
       path: {
-        /** The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. */
+        /** @description The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. */
         request_id: string;
       };
     };
     responses: {
-      /** OK */
+      /** @description OK */
       200: {
         content: {
           'application/json': components['schemas']['EventResponse'];
         };
       };
-      /** Forbidden */
+      /** @description Forbidden */
       403: {
         content: {
           'application/json': components['schemas']['ErrorEvent403Response'];
         };
       };
-      /** Not found */
+      /** @description Not found */
       404: {
         content: {
           'application/json': components['schemas']['ErrorEvent404Response'];
@@ -942,7 +991,8 @@ export interface operations {
     };
   };
   /**
-   * This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
+   * Get visits by visitorId
+   * @description This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
    * Only information from the _Identification_ product is returned.
    *
    * #### Headers
@@ -951,32 +1001,28 @@ export interface operations {
    */
   getVisits: {
     parameters: {
-      path: {
-        /** Unique identifier of the visitor issued by Fingerprint Pro. */
-        visitor_id: string;
-      };
-      query: {
+      query?: {
         /**
-         * Filter visits by `requestId`.
+         * @description Filter visits by `requestId`.
          *
          * Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
          */
         request_id?: string;
         /**
-         * Filter visits by your custom identifier.
+         * @description Filter visits by your custom identifier.
          *
          * You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
          */
         linked_id?: string;
         /**
-         * Limit scanned results.
+         * @description Limit scanned results.
          *
          * For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first).
          * By default, the most recent 100 visits are scanned, the maximum is 500.
          */
         limit?: number;
         /**
-         * Use `paginationKey` to get the next page of results.
+         * @description Use `paginationKey` to get the next page of results.
          *
          * When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
          *
@@ -986,27 +1032,34 @@ export interface operations {
          * Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
          */
         paginationKey?: string;
-        /** ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. */
+        /** @description ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. */
         before?: number;
+      };
+      path: {
+        /**
+         * @description Unique identifier of the visitor issued by Fingerprint Pro.
+         * @example uYIm7Ksp5rf00SllPhFp
+         */
+        visitor_id: string;
       };
     };
     responses: {
-      /** OK */
+      /** @description OK */
       200: {
         content: {
           'application/json': components['schemas']['Response'];
         };
       };
-      /** Forbidden. The API Key is probably missing or incorrect. */
+      /** @description Forbidden. The API Key is probably missing or incorrect. */
       403: {
         content: {
           'application/json': components['schemas']['ErrorVisits403'];
         };
       };
-      /** Too Many Requests */
+      /** @description Too Many Requests */
       429: {
         headers: {
-          /** Indicates how long you should wait before attempting the next request. */
+          /** @description Indicates how long you should wait before attempting the next request. */
           'Retry-After'?: number;
         };
         content: {
@@ -1016,5 +1069,3 @@ export interface operations {
     };
   };
 }
-
-export interface external {}
