@@ -1,4 +1,3 @@
-import fetchFn from 'node-fetch'
 import { getEventUrl, getVisitorsUrl } from './urlUtils'
 import {
   VisitorHistoryFilter,
@@ -21,7 +20,7 @@ export class FingerprintJsServerApiClient {
 
   public readonly authenticationMode: AuthenticationMode
 
-  protected readonly fetch: typeof fetchFn
+  protected readonly fetch: typeof fetch
 
   /**
    * FingerprintJS server API client used to fetch data from FingerprintJS
@@ -40,7 +39,7 @@ export class FingerprintJsServerApiClient {
     this.region = options.region
     this.apiKey = options.apiKey
     this.authenticationMode = options.authenticationMode ?? AuthenticationMode.AuthHeader // Default auth mode is AuthHeader
-    this.fetch = options.fetch ?? fetchFn
+    this.fetch = options.fetch ?? fetch
   }
 
   public async getEvent(requestId: string) {
