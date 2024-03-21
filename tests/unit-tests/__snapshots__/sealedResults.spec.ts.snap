@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unseal event response unseals sealed data using aes256gcm 1`] = `
+{
+  "products": {
+    "botd": {
+      "data": {
+        "bot": {
+          "result": "notDetected",
+        },
+        "ip": "::1",
+        "meta": {
+          "foo": "bar",
+        },
+        "requestId": "1703067132750.Z5hutJ",
+        "time": "2023-12-20T10:12:13.894Z",
+        "url": "http://localhost:8080/",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15",
+      },
+    },
+    "identification": {
+      "data": {
+        "browserDetails": {
+          "browserFullVersion": "17.3",
+          "browserMajorVersion": "17",
+          "browserName": "Safari",
+          "device": "Other",
+          "os": "Mac OS X",
+          "osVersion": "10.15.7",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3 Safari/605.1.15",
+        },
+        "confidence": {
+          "score": 1,
+        },
+        "firstSeenAt": {
+          "global": "2023-12-15T12:13:55.103Z",
+          "subscription": "2023-12-15T12:13:55.103Z",
+        },
+        "incognito": false,
+        "ip": "::1",
+        "ipLocation": {
+          "accuracyRadius": 1000,
+          "city": {
+            "name": "Stockholm",
+          },
+          "continent": {
+            "code": "EU",
+            "name": "Europe",
+          },
+          "country": {
+            "code": "SE",
+            "name": "Sweden",
+          },
+          "latitude": 59.3241,
+          "longitude": 18.0517,
+          "postalCode": "100 05",
+          "subdivisions": [
+            {
+              "isoCode": "AB",
+              "name": "Stockholm County",
+            },
+          ],
+          "timezone": "Europe/Stockholm",
+        },
+        "lastSeenAt": {
+          "global": "2023-12-19T11:39:51.52Z",
+          "subscription": "2023-12-19T11:39:51.52Z",
+        },
+        "requestId": "1703067132750.Z5hutJ",
+        "tag": {
+          "foo": "bar",
+        },
+        "time": "2023-12-20T10:12:16Z",
+        "timestamp": 1703067136286,
+        "url": "http://localhost:8080/",
+        "visitorFound": true,
+        "visitorId": "2ZEDCZEfOfXjEmMuE3tq",
+      },
+    },
+  },
+}
+`;

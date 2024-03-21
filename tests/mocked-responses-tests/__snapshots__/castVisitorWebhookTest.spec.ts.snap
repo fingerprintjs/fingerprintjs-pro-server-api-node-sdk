@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
-Object {
-  "bot": Object {
+{
+  "bot": {
     "result": "bad",
     "type": "selenium",
   },
-  "browserDetails": Object {
+  "browserDetails": {
     "browserFullVersion": "73.0.3683.86",
     "browserMajorVersion": "73",
     "browserName": "Chrome",
@@ -16,68 +16,68 @@ Object {
     "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
   },
   "clientReferrer": "https://google.com?search=banking+services",
-  "clonedApp": Object {
+  "clonedApp": {
     "result": false,
   },
-  "confidence": Object {
+  "confidence": {
     "score": 0.97,
   },
-  "emulator": Object {
+  "emulator": {
     "result": false,
   },
-  "factoryReset": Object {
+  "factoryReset": {
     "time": "1970-01-01T00:00:00Z",
     "timestamp": 0,
   },
-  "firstSeenAt": Object {
+  "firstSeenAt": {
     "global": "2022-03-16T11:26:45.362Z",
     "subscription": "2022-03-16T11:31:01.101Z",
   },
-  "frida": Object {
+  "frida": {
     "result": false,
   },
-  "highActivity": Object {
+  "highActivity": {
     "result": false,
   },
   "incognito": false,
   "ip": "216.3.128.12",
-  "ipBlocklist": Object {
-    "details": Object {
+  "ipBlocklist": {
+    "details": {
       "attackSource": false,
       "emailSpam": false,
     },
     "result": false,
   },
-  "ipInfo": Object {
-    "v4": Object {
+  "ipInfo": {
+    "v4": {
       "address": "94.142.239.124",
-      "asn": Object {
+      "asn": {
         "asn": "7922",
         "name": "COMCAST-7922",
         "network": "73.136.0.0/13",
       },
-      "datacenter": Object {
+      "datacenter": {
         "name": "DediPath",
         "result": true,
       },
-      "geolocation": Object {
+      "geolocation": {
         "accuracyRadius": 20,
-        "city": Object {
+        "city": {
           "name": "Prague",
         },
-        "continent": Object {
+        "continent": {
           "code": "EU",
           "name": "Europe",
         },
-        "country": Object {
+        "country": {
           "code": "CZ",
           "name": "Czechia",
         },
         "latitude": 50.05,
         "longitude": 14.4,
         "postalCode": "150 00",
-        "subdivisions": Array [
-          Object {
+        "subdivisions": [
+          {
             "isoCode": "10",
             "name": "Hlavni mesto Praha",
           },
@@ -86,108 +86,104 @@ Object {
       },
     },
   },
-  "ipLocation": Object {
+  "ipLocation": {
     "accuracyRadius": 1,
-    "city": Object {
+    "city": {
       "name": "Bolingbrook",
     },
-    "continent": Object {
+    "continent": {
       "code": "NA",
       "name": "North America",
     },
-    "country": Object {
+    "country": {
       "code": "US",
       "name": "United States",
     },
     "latitude": 41.12933,
     "longitude": -88.9954,
     "postalCode": "60547",
-    "subdivisions": Array [
-      Object {
+    "subdivisions": [
+      {
         "isoCode": "IL",
         "name": "Illinois",
       },
     ],
     "timezone": "America/Chicago",
   },
-  "jailbroken": Object {
+  "jailbroken": {
     "result": false,
   },
-  "lastSeenAt": Object {
+  "lastSeenAt": {
     "global": "2022-03-16T11:28:34.023Z",
     "subscription": null,
   },
   "linkedId": "any-string",
-  "locationSpoofing": Object {
+  "locationSpoofing": {
     "result": true,
   },
-  "privacySettings": Object {
+  "privacySettings": {
     "result": false,
   },
-  "proxy": Object {
+  "proxy": {
     "result": false,
   },
-  "rawDeviceAttributes": Object {
-    "architecture": Object {
+  "rawDeviceAttributes": {
+    "architecture": {
       "value": 127,
     },
-    "audio": Object {
+    "audio": {
       "value": 35.73832903057337,
     },
-    "canvas": Object {
-      "value": Object {
+    "canvas": {
+      "value": {
         "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
         "Text": "dd2474a56ff78c1de3e7a07070ba3b7d",
         "Winding": true,
       },
     },
-    "colorDepth": Object {
+    "colorDepth": {
       "value": 30,
     },
-    "colorGamut": Object {
+    "colorGamut": {
       "value": "srgb",
     },
-    "contrast": Object {
+    "contrast": {
       "value": 0,
     },
-    "cookiesEnabled": Object {
+    "cookiesEnabled": {
       "value": true,
     },
   },
   "requestId": "Px6VxbRC6WBkA39yeNH3",
-  "rootApps": Object {
+  "rootApps": {
     "result": false,
   },
-  "suspectScore": Object {
-    "result": 0,
-  },
-  "tag": Object {
+  "tag": {
     "requestType": "signup",
     "yourCustomId": 45321,
   },
-  "tampering": Object {
+  "tampering": {
     "anomalyScore": 0,
     "result": false,
   },
   "time": "2019-10-12T07:20:50.52Z",
   "timestamp": 1554910997788,
-  "tor": Object {
+  "tor": {
     "result": false,
   },
   "url": "https://banking.example.com/signup",
   "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
-  "virtualMachine": Object {
+  "virtualMachine": {
     "result": false,
   },
   "visitorFound": true,
   "visitorId": "3HNey93AkBW6CRbxV6xP",
-  "vpn": Object {
-    "methods": Object {
+  "vpn": {
+    "methods": {
       "auxiliaryMobile": false,
       "publicVPN": false,
       "timezoneMismatch": false,
     },
-    "originCountry": "unknown",
     "originTimezone": "Europe/Berlin",
     "result": false,
   },
