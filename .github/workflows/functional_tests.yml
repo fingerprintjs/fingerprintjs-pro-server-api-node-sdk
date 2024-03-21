@@ -22,7 +22,7 @@ jobs:
       max-parallel: 3
       fail-fast: false
       matrix:
-        node-version: [ 10, 12, 14, 16, 17, 18, 19, 20 ]
+        node-version: [ 18, 19, 20, 21 ]
 
     steps:
       - if: ${{ github.event_name == 'pull_request_target' }}
