@@ -1,4 +1,3 @@
-import fetch from 'node-fetch'
 import { VisitorHistoryFilter, Region } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import visitorsWithoutFilterResponse from './mocked-responses-data/visitors-without-filter-response.json'
@@ -7,8 +6,7 @@ import visitorsResponseWithRequestIdLinkedId from './mocked-responses-data/visit
 import visitorsResponseWithLinkedIdLimit from './mocked-responses-data/visitors-with-linked-id-limit.json'
 import visitorsWithLimitBefore from './mocked-responses-data/visitors-with-limit-before.json'
 
-const { Response } = jest.requireActual('node-fetch')
-jest.mock('node-fetch')
+jest.spyOn(global, 'fetch')
 
 describe('[Mocked response] Get Visitors', () => {
   const apiKey = 'dummy_api_key'
