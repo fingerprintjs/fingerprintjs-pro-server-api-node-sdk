@@ -1,4 +1,5 @@
 import { FingerprintJsServerApiClient, Region } from '../../src'
+import { Response } from 'node-fetch'
 
 describe('ServerApiClient', () => {
   it('should support passing custom fetch implementation', async () => {
