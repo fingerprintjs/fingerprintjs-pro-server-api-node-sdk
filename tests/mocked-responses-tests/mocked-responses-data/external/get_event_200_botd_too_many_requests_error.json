@@ -6,6 +6,7 @@
         "requestId": "0KSh65EnVoB85JBmloQK",
         "incognito": true,
         "linkedId": "somelinkedId",
+        "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login",
@@ -58,28 +59,9 @@
       }
     },
     "botd": {
-      "data": {
-        "bot": {
-          "result": "notDetected"
-        },
-        "url": "https://www.example.com/login",
-        "ip": "61.127.217.15",
-        "time": "2019-05-21T16:40:13Z"
-      }
-    },
-    "product3": {
-      "data": {
-        "result": false
-      }
-    },
-    "product4": {
-      "data": {
-        "result": true,
-        "details": {
-          "detail1": true,
-          "detail2": "detail description",
-          "detail3": 42
-        }
+      "error": {
+        "code": "TooManyRequests",
+        "message": "too many requests"
       }
     }
   }

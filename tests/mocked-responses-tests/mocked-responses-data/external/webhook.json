@@ -119,6 +119,7 @@
   "vpn": {
     "result": false,
     "originTimezone": "Europe/Berlin",
+    "originCountry": "unknown",
     "methods": {
       "timezoneMismatch": false,
       "publicVPN": false,
@@ -183,5 +184,8 @@
   },
   "locationSpoofing": {
     "result": true
+  },
+  "suspectScore": {
+    "result": 0
   }
 }
