@@ -1,10 +1,7 @@
 import { DecryptionKey } from '../sealedResults';
 
 export class UnsealError extends Error {
-  constructor(
-    readonly key: DecryptionKey,
-    readonly error?: Error
-  ) {
+  constructor(readonly key: DecryptionKey, readonly error?: Error) {
     let msg = `Unable to decrypt sealed data`;
 
     if (error) {
