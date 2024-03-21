@@ -1,12 +1,10 @@
-import fetch from 'node-fetch'
 import { Region } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getEventResponse from './mocked-responses-data/external/get_event.json'
 import getEventWithExtraFieldsResponse from './mocked-responses-data/external/get_event_extra_fields.json'
 import getEventAllErrorsResponse from './mocked-responses-data/external/get_event_all_errors.json'
 
-const { Response } = jest.requireActual('node-fetch')
-jest.mock('node-fetch')
+jest.spyOn(global, 'fetch')
 
 describe('[Mocked response] Get Event', () => {
   const apiKey = 'dummy_api_key'
