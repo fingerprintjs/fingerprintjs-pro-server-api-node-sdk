@@ -156,7 +156,6 @@ const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: '<a
 
 - `region: Region` - a region of the server, possible values: `Region.EU`, `Region.AP`, or `Region.Global`
 - `apiKey: string` - secret API key from the [FingerprintJS dashboard](https://dashboard.fingerprint.com/)
-- `fetch?: typeof fetch` - optional implementation of `fetch` function (defaults to `node-fetch`)
 
 ---
 
