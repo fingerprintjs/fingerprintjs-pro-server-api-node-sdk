@@ -1,3 +1,4 @@
+import type fetchFn from 'node-fetch'
 import { components, paths } from './generatedApiTypes'
 
 export enum Region {
@@ -32,7 +33,7 @@ export interface Options {
   /**
    * Optional fetch implementation
    * */
-  fetch?: typeof fetch
+  fetch?: typeof fetchFn
 }
 
 /**
