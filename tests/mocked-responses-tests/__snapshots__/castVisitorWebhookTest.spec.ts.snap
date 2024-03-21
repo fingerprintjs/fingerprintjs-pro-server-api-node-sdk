@@ -158,9 +158,6 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
   "rootApps": {
     "result": false,
   },
-  "suspectScore": {
-    "result": 0,
-  },
   "tag": {
     "requestType": "signup",
     "yourCustomId": 45321,
@@ -187,7 +184,6 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
       "publicVPN": false,
       "timezoneMismatch": false,
     },
-    "originCountry": "unknown",
     "originTimezone": "Europe/Berlin",
     "result": false,
   },
