@@ -1,5 +1,5 @@
-import type fetchFn from 'node-fetch';
-import { components, paths } from './generatedApiTypes';
+import type fetchFn from 'node-fetch'
+import { components, paths } from './generatedApiTypes'
 
 export enum Region {
   EU = 'EU',
@@ -19,44 +19,43 @@ export interface Options {
   /**
    * Secret API key
    */
-  apiKey: string;
+  apiKey: string
   /**
    * Region of the FingerprintJS service server
    */
-  region: Region;
+  region: Region
   /**
    * Authentication mode
    * Optional, default value is AuthHeader
    */
-  authenticationMode?: AuthenticationMode;
+  authenticationMode?: AuthenticationMode
 
   /**
    * Optional fetch implementation
    * */
-  fetch?: typeof fetchFn;
+  fetch?: typeof fetchFn
 }
 
 /**
  * More info: https://dev.fingerprintjs.com/docs/server-api#query-parameters
  */
-export type VisitorHistoryFilter = paths['/visitors/{visitor_id}']['get']['parameters']['query'];
+export type VisitorHistoryFilter = paths['/visitors/{visitor_id}']['get']['parameters']['query']
 
 /**
  * More info: https://dev.fingerprintjs.com/docs/server-api#response
  */
-export type VisitorsResponse =
-  paths['/visitors/{visitor_id}']['get']['responses']['200']['content']['application/json'];
+export type VisitorsResponse = paths['/visitors/{visitor_id}']['get']['responses']['200']['content']['application/json']
 export type VisitorsError403 =
   paths['/visitors/{visitor_id}']['get']['responses']['403']['content']['application/json'] & {
-    status: 403;
-  };
+    status: 403
+  }
 export type VisitorsError429 =
   paths['/visitors/{visitor_id}']['get']['responses']['429']['content']['application/json'] & {
-    status: 429;
-    retryAfter: number;
-  };
+    status: 429
+    retryAfter: number
+  }
 
-export type VisitorsError = VisitorsError403 | VisitorsError429;
+export type VisitorsError = VisitorsError403 | VisitorsError429
 
 export function isVisitorsError(response: any): response is EventError {
   return (
@@ -65,23 +64,20 @@ export function isVisitorsError(response: any): response is EventError {
       response?.hasOwnProperty('error') &&
       typeof response.error === 'string') ||
     false
-  );
+  )
 }
 
-export type EventResponse =
-  paths['/events/{request_id}']['get']['responses']['200']['content']['application/json'];
-export type EventError403 =
-  paths['/events/{request_id}']['get']['responses']['403']['content']['application/json'];
-export type EventError404 =
-  paths['/events/{request_id}']['get']['responses']['404']['content']['application/json'];
+export type EventResponse = paths['/events/{request_id}']['get']['responses']['200']['content']['application/json']
+export type EventError403 = paths['/events/{request_id}']['get']['responses']['403']['content']['application/json']
+export type EventError404 = paths['/events/{request_id}']['get']['responses']['404']['content']['application/json']
 
-type GenericEventError = EventError403 | EventError404;
+type GenericEventError = EventError403 | EventError404
 
-type EventErrorCode<T extends GenericEventError> = T extends EventError403 ? 403 : 404;
+type EventErrorCode<T extends GenericEventError> = T extends EventError403 ? 403 : 404
 
 export type EventError<T extends GenericEventError = GenericEventError> = T & {
-  status: EventErrorCode<T>;
-};
+  status: EventErrorCode<T>
+}
 
 export function isEventError(response: any): response is EventError {
   return (
@@ -93,10 +89,10 @@ export function isEventError(response: any): response is EventError {
       response.error?.hasOwnProperty('code') &&
       typeof response.error.code === 'string') ||
     false
-  );
+  )
 }
 
 /**
  * More info: https://dev.fingerprintjs.com/docs/webhooks#identification-webhook-object-format
  */
-export type VisitWebhook = components['schemas']['WebhookVisit'];
+export type VisitWebhook = components['schemas']['WebhookVisit']
