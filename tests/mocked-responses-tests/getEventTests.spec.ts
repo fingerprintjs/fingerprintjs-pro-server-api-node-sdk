@@ -1,9 +1,8 @@
-import fetch from 'node-fetch';
-import { Region } from '../../src/types';
-import { FingerprintJsServerApiClient } from '../../src/serverApiClient';
-import getEventResponse from './mocked-responses-data/external/get_event_200.json';
-import getEventWithExtraFieldsResponse from './mocked-responses-data/external/get_event_200_extra_fields.json';
-import getEventAllErrorsResponse from './mocked-responses-data/external/get_event_200_all_errors.json';
+import { Region } from '../../src/types'
+import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
+import getEventResponse from './mocked-responses-data/external/get_event_200.json'
+import getEventWithExtraFieldsResponse from './mocked-responses-data/external/get_event_200_extra_fields.json'
+import getEventAllErrorsResponse from './mocked-responses-data/external/get_event_200_all_errors.json'
 
 jest.spyOn(global, 'fetch')
 

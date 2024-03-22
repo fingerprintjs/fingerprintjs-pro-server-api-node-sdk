@@ -72,7 +72,7 @@ exports[`[Mocked response] Get Event with additional signals 1`] = `
         },
         "linkedId": "somelinkedId",
         "requestId": "0KSh65EnVoB85JBmloQK",
-        "tag": Object {},
+        "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login",
@@ -132,14 +132,14 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
         "message": "internal server error",
       },
     },
-    "highActivity": Object {
-      "error": Object {
+    "highActivity": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "identification": Object {
-      "error": Object {
+    "identification": {
+      "error": {
         "code": "Failed",
         "message": "failed",
       },
@@ -168,14 +168,14 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
         "message": "internal server error",
       },
     },
-    "locationSpoofing": Object {
-      "error": Object {
+    "locationSpoofing": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "privacySettings": Object {
-      "error": Object {
+    "privacySettings": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
@@ -208,14 +208,14 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
         "message": "internal server error",
       },
     },
-    "suspectScore": Object {
-      "error": Object {
+    "suspectScore": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "tampering": Object {
-      "error": Object {
+    "tampering": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
@@ -327,13 +327,13 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
           ],
           "timezone": "Europe/Dusseldorf",
         },
-        "lastSeenAt": Object {
+        "lastSeenAt": {
           "global": null,
           "subscription": null,
         },
         "linkedId": "somelinkedId",
         "requestId": "1708102555327.NLOjmg",
-        "tag": Object {},
+        "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login?hope{this{works[!",
@@ -393,35 +393,35 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
             "timezone": "Europe/Prague",
           },
         },
-        "v6": Object {
+        "v6": {
           "address": "2001:db8:3333:4444:5555:6666:7777:8888",
-          "asn": Object {
+          "asn": {
             "asn": "6805",
             "name": "Telefonica Germany",
             "network": "2a02:3100::/24",
           },
-          "datacenter": Object {
+          "datacenter": {
             "name": "",
             "result": false,
           },
-          "geolocation": Object {
+          "geolocation": {
             "accuracyRadius": 5,
-            "city": Object {
+            "city": {
               "name": "Berlin",
             },
-            "continent": Object {
+            "continent": {
               "code": "EU",
               "name": "Europe",
             },
-            "country": Object {
+            "country": {
               "code": "DE",
               "name": "Germany",
             },
             "latitude": 49.982,
             "longitude": 36.2566,
             "postalCode": "10112",
-            "subdivisions": Array [
-              Object {
+            "subdivisions": [
+              {
                 "isoCode": "BE",
                 "name": "Land Berlin",
               },
@@ -469,7 +469,7 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
         "colorDepth": {
           "value": 30,
         },
-        "colorGamut": Object {
+        "colorGamut": {
           "value": "p3",
         },
         "contrast": {
@@ -478,9 +478,9 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
         "cookiesEnabled": {
           "value": true,
         },
-        "cpuClass": Object {},
-        "fonts": Object {
-          "value": Array [
+        "cpuClass": {},
+        "fonts": {
+          "value": [
             "Arial Unicode MS",
             "Gill Sans",
             "Helvetica Neue",
@@ -494,8 +494,8 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
         "result": false,
       },
     },
-    "tampering": Object {
-      "data": Object {
+    "tampering": {
+      "data": {
         "anomalyScore": 0.1955,
         "result": false,
       },

@@ -158,10 +158,10 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
   "rootApps": {
     "result": false,
   },
-  "suspectScore": Object {
+  "suspectScore": {
     "result": 0,
   },
-  "tag": Object {
+  "tag": {
     "requestType": "signup",
     "yourCustomId": 45321,
   },
