@@ -16,8 +16,10 @@ exports[`[Mocked response] Get Event with additional signals 1`] = `
           "result": "notDetected",
         },
         "ip": "61.127.217.15",
+        "requestId": "1708102555327.NLOjmg",
         "time": "2019-05-21T16:40:13Z",
         "url": "https://www.example.com/login",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
       },
     },
     "identification": {
@@ -70,6 +72,7 @@ exports[`[Mocked response] Get Event with additional signals 1`] = `
         },
         "linkedId": "somelinkedId",
         "requestId": "0KSh65EnVoB85JBmloQK",
+        "tag": Object {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login",
@@ -129,8 +132,14 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
         "message": "internal server error",
       },
     },
-    "identification": {
-      "error": {
+    "highActivity": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "identification": Object {
+      "error": Object {
         "code": "Failed",
         "message": "failed",
       },
@@ -159,8 +168,14 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
         "message": "internal server error",
       },
     },
-    "privacySettings": {
-      "error": {
+    "locationSpoofing": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "privacySettings": Object {
+      "error": Object {
         "code": "Failed",
         "message": "internal server error",
       },
@@ -193,8 +208,14 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
         "message": "internal server error",
       },
     },
-    "tampering": {
-      "error": {
+    "suspectScore": Object {
+      "error": Object {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "tampering": Object {
+      "error": Object {
         "code": "Failed",
         "message": "internal server error",
       },
@@ -230,8 +251,10 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
           "result": "notDetected",
         },
         "ip": "61.127.217.15",
+        "requestId": "1708102555327.NLOjmg",
         "time": "2019-05-21T16:40:13Z",
-        "url": "https://www.example.com/login",
+        "url": "https://www.example.com/login?hope{this{works}[!",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
       },
     },
     "clonedApp": {
@@ -304,16 +327,17 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
           ],
           "timezone": "Europe/Dusseldorf",
         },
-        "lastSeenAt": {
-          "global": "2022-03-16T11:28:34.023Z",
+        "lastSeenAt": Object {
+          "global": null,
           "subscription": null,
         },
         "linkedId": "somelinkedId",
-        "requestId": "0KSh65EnVoB85JBmloQK",
+        "requestId": "1708102555327.NLOjmg",
+        "tag": Object {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
-        "url": "https://www.example.com/login",
-        "visitorFound": true,
+        "url": "https://www.example.com/login?hope{this{works[!",
+        "visitorFound": false,
         "visitorId": "Ibk1527CUFmcnjLwIs4A9",
       },
     },
@@ -369,6 +393,42 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
             "timezone": "Europe/Prague",
           },
         },
+        "v6": Object {
+          "address": "2001:db8:3333:4444:5555:6666:7777:8888",
+          "asn": Object {
+            "asn": "6805",
+            "name": "Telefonica Germany",
+            "network": "2a02:3100::/24",
+          },
+          "datacenter": Object {
+            "name": "",
+            "result": false,
+          },
+          "geolocation": Object {
+            "accuracyRadius": 5,
+            "city": Object {
+              "name": "Berlin",
+            },
+            "continent": Object {
+              "code": "EU",
+              "name": "Europe",
+            },
+            "country": Object {
+              "code": "DE",
+              "name": "Germany",
+            },
+            "latitude": 49.982,
+            "longitude": 36.2566,
+            "postalCode": "10112",
+            "subdivisions": Array [
+              Object {
+                "isoCode": "BE",
+                "name": "Land Berlin",
+              },
+            ],
+            "timezone": "Europe/Berlin",
+          },
+        },
       },
     },
     "jailbroken": {
@@ -409,14 +469,23 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
         "colorDepth": {
           "value": 30,
         },
-        "colorGamut": {
-          "value": "srgb",
+        "colorGamut": Object {
+          "value": "p3",
         },
         "contrast": {
           "value": 0,
         },
         "cookiesEnabled": {
           "value": true,
+        },
+        "cpuClass": Object {},
+        "fonts": Object {
+          "value": Array [
+            "Arial Unicode MS",
+            "Gill Sans",
+            "Helvetica Neue",
+            "Menlo",
+          ],
         },
       },
     },
@@ -425,9 +494,9 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
         "result": false,
       },
     },
-    "tampering": {
-      "data": {
-        "anomalyScore": 0,
+    "tampering": Object {
+      "data": Object {
+        "anomalyScore": 0.1955,
         "result": false,
       },
     },
@@ -448,6 +517,7 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
           "publicVPN": false,
           "timezoneMismatch": false,
         },
+        "originCountry": "unknown",
         "originTimezone": "Europe/Berlin",
         "result": false,
       },
