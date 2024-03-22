@@ -158,6 +158,9 @@ Object {
   "rootApps": Object {
     "result": false,
   },
+  "suspectScore": Object {
+    "result": 0,
+  },
   "tag": Object {
     "requestType": "signup",
     "yourCustomId": 45321,
@@ -184,6 +187,7 @@ Object {
       "publicVPN": false,
       "timezoneMismatch": false,
     },
+    "originCountry": "unknown",
     "originTimezone": "Europe/Berlin",
     "result": false,
   },
