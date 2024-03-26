@@ -1,3 +1,10 @@
+## [4.0.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v4.0.0...v4.0.1) (2024-03-26)
+
+
+### Build System
+
+* **deps:** remove redundant packages ([da386da](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/da386dae91fc8b3a2710b24c06178b9fa4235e85))
+
 ## [4.0.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v3.1.0...v4.0.0) (2024-03-26)
 
 
