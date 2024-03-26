@@ -10,7 +10,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@fingerprintjs/fingerprintjs-pro-server-api": "link:../",
-    "dotenv": "^16.0.1"
+    "@fingerprintjs/fingerprintjs-pro-server-api": "workspace:*",
+    "dotenv": "^16.4.5"
   }
 }
