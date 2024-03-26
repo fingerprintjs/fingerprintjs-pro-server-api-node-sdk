@@ -28,8 +28,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:dts": "tsc --noEmit --isolatedModules dist/index.d.ts",
-    "generateTypes": "pnpm openapi-typescript resources/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc",
-    "release": "semantic-release"
+    "generateTypes": "pnpm openapi-typescript resources/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc"
   },
   "keywords": [],
   "author": "FingerprintJS, Inc (https://fingerprint.com)",
