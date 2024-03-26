@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[Mocked response] Get Event Error with bad shape 1`] = `
-Object {
-  "error": "{\\"error\\":\\"Some text instead og shaped object\\",\\"status\\":404}",
+{
+  "error": "{"error":"Some text instead og shaped object","status":404}",
   "status": 0,
 }
 `;
 
 exports[`[Mocked response] Get Event with additional signals 1`] = `
-Object {
-  "products": Object {
-    "botd": Object {
-      "data": Object {
-        "bot": Object {
+{
+  "products": {
+    "botd": {
+      "data": {
+        "bot": {
           "result": "notDetected",
         },
         "ip": "61.127.217.15",
@@ -22,9 +22,9 @@ Object {
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
       },
     },
-    "identification": Object {
-      "data": Object {
-        "browserDetails": Object {
+    "identification": {
+      "data": {
+        "browserDetails": {
           "browserFullVersion": "74.0.3729",
           "browserMajorVersion": "74",
           "browserName": "Chrome",
@@ -33,46 +33,46 @@ Object {
           "osVersion": "7",
           "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
         },
-        "confidence": Object {
+        "confidence": {
           "score": 0.97,
         },
-        "firstSeenAt": Object {
+        "firstSeenAt": {
           "global": "2022-03-16T11:26:45.362Z",
           "subscription": "2022-03-16T11:31:01.101Z",
         },
         "incognito": true,
         "ip": "61.127.217.15",
-        "ipLocation": Object {
+        "ipLocation": {
           "accuracyRadius": 10,
-          "city": Object {
+          "city": {
             "name": "Dusseldorf",
           },
-          "continent": Object {
+          "continent": {
             "code": "EU",
             "name": "Europe",
           },
-          "country": Object {
+          "country": {
             "code": "DE",
             "name": "Germany",
           },
           "latitude": 49.982,
           "longitude": 36.2566,
           "postalCode": "61202",
-          "subdivisions": Array [
-            Object {
+          "subdivisions": [
+            {
               "isoCode": "63",
               "name": "North Rhine-Westphalia",
             },
           ],
           "timezone": "Europe/Dusseldorf",
         },
-        "lastSeenAt": Object {
+        "lastSeenAt": {
           "global": "2022-03-16T11:28:34.023Z",
           "subscription": null,
         },
         "linkedId": "somelinkedId",
         "requestId": "0KSh65EnVoB85JBmloQK",
-        "tag": Object {},
+        "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login",
@@ -80,14 +80,14 @@ Object {
         "visitorId": "Ibk1527CUFmcnjLwIs4A9",
       },
     },
-    "product3": Object {
-      "data": Object {
+    "product3": {
+      "data": {
         "result": false,
       },
     },
-    "product4": Object {
-      "data": Object {
-        "details": Object {
+    "product4": {
+      "data": {
+        "details": {
           "detail1": true,
           "detail2": "detail description",
           "detail3": 42,
@@ -100,140 +100,140 @@ Object {
 `;
 
 exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
-Object {
-  "products": Object {
-    "botd": Object {
-      "error": Object {
+{
+  "products": {
+    "botd": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "clonedApp": Object {
-      "error": Object {
+    "clonedApp": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "emulator": Object {
-      "error": Object {
+    "emulator": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "factoryReset": Object {
-      "error": Object {
+    "factoryReset": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "frida": Object {
-      "error": Object {
+    "frida": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "highActivity": Object {
-      "error": Object {
+    "highActivity": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "identification": Object {
-      "error": Object {
+    "identification": {
+      "error": {
         "code": "Failed",
         "message": "failed",
       },
     },
-    "incognito": Object {
-      "error": Object {
+    "incognito": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "ipBlocklist": Object {
-      "error": Object {
+    "ipBlocklist": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "ipInfo": Object {
-      "error": Object {
+    "ipInfo": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "jailbroken": Object {
-      "error": Object {
+    "jailbroken": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "locationSpoofing": Object {
-      "error": Object {
+    "locationSpoofing": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "privacySettings": Object {
-      "error": Object {
+    "privacySettings": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "proxy": Object {
-      "error": Object {
+    "proxy": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "rawDeviceAttributes": Object {
-      "data": Object {
-        "audio": Object {
-          "error": Object {
+    "rawDeviceAttributes": {
+      "data": {
+        "audio": {
+          "error": {
             "message": "internal server error",
             "name": "Error",
           },
         },
-        "canvas": Object {
-          "error": Object {
+        "canvas": {
+          "error": {
             "message": "internal server error",
             "name": "Error",
           },
         },
       },
     },
-    "rootApps": Object {
-      "error": Object {
+    "rootApps": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "suspectScore": Object {
-      "error": Object {
+    "suspectScore": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "tampering": Object {
-      "error": Object {
+    "tampering": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "tor": Object {
-      "error": Object {
+    "tor": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "virtualMachine": Object {
-      "error": Object {
+    "virtualMachine": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
     },
-    "vpn": Object {
-      "error": Object {
+    "vpn": {
+      "error": {
         "code": "Failed",
         "message": "internal server error",
       },
@@ -243,11 +243,11 @@ Object {
 `;
 
 exports[`[Mocked response] Get Event with request_id 1`] = `
-Object {
-  "products": Object {
-    "botd": Object {
-      "data": Object {
-        "bot": Object {
+{
+  "products": {
+    "botd": {
+      "data": {
+        "bot": {
           "result": "notDetected",
         },
         "ip": "61.127.217.15",
@@ -257,35 +257,35 @@ Object {
         "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
       },
     },
-    "clonedApp": Object {
-      "data": Object {
+    "clonedApp": {
+      "data": {
         "result": false,
       },
     },
-    "emulator": Object {
-      "data": Object {
+    "emulator": {
+      "data": {
         "result": false,
       },
     },
-    "factoryReset": Object {
-      "data": Object {
+    "factoryReset": {
+      "data": {
         "time": "1970-01-01T00:00:00Z",
         "timestamp": 0,
       },
     },
-    "frida": Object {
-      "data": Object {
+    "frida": {
+      "data": {
         "result": false,
       },
     },
-    "highActivity": Object {
-      "data": Object {
+    "highActivity": {
+      "data": {
         "result": false,
       },
     },
-    "identification": Object {
-      "data": Object {
-        "browserDetails": Object {
+    "identification": {
+      "data": {
+        "browserDetails": {
           "browserFullVersion": "74.0.3729",
           "browserMajorVersion": "74",
           "browserName": "Chrome",
@@ -294,46 +294,46 @@ Object {
           "osVersion": "7",
           "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
         },
-        "confidence": Object {
+        "confidence": {
           "score": 0.97,
         },
-        "firstSeenAt": Object {
+        "firstSeenAt": {
           "global": "2022-03-16T11:26:45.362Z",
           "subscription": "2022-03-16T11:31:01.101Z",
         },
         "incognito": true,
         "ip": "61.127.217.15",
-        "ipLocation": Object {
+        "ipLocation": {
           "accuracyRadius": 10,
-          "city": Object {
+          "city": {
             "name": "Dusseldorf",
           },
-          "continent": Object {
+          "continent": {
             "code": "EU",
             "name": "Europe",
           },
-          "country": Object {
+          "country": {
             "code": "DE",
             "name": "Germany",
           },
           "latitude": 49.982,
           "longitude": 36.2566,
           "postalCode": "61202",
-          "subdivisions": Array [
-            Object {
+          "subdivisions": [
+            {
               "isoCode": "63",
               "name": "North Rhine-Westphalia",
             },
           ],
           "timezone": "Europe/Dusseldorf",
         },
-        "lastSeenAt": Object {
+        "lastSeenAt": {
           "global": null,
           "subscription": null,
         },
         "linkedId": "somelinkedId",
         "requestId": "1708102555327.NLOjmg",
-        "tag": Object {},
+        "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login?hope{this{works[!",
@@ -341,51 +341,51 @@ Object {
         "visitorId": "Ibk1527CUFmcnjLwIs4A9",
       },
     },
-    "incognito": Object {
-      "data": Object {
+    "incognito": {
+      "data": {
         "result": false,
       },
     },
-    "ipBlocklist": Object {
-      "data": Object {
-        "details": Object {
+    "ipBlocklist": {
+      "data": {
+        "details": {
           "attackSource": false,
           "emailSpam": false,
         },
         "result": false,
       },
     },
-    "ipInfo": Object {
-      "data": Object {
-        "v4": Object {
+    "ipInfo": {
+      "data": {
+        "v4": {
           "address": "94.142.239.124",
-          "asn": Object {
+          "asn": {
             "asn": "7922",
             "name": "COMCAST-7922",
             "network": "73.136.0.0/13",
           },
-          "datacenter": Object {
+          "datacenter": {
             "name": "DediPath",
             "result": true,
           },
-          "geolocation": Object {
+          "geolocation": {
             "accuracyRadius": 20,
-            "city": Object {
+            "city": {
               "name": "Prague",
             },
-            "continent": Object {
+            "continent": {
               "code": "EU",
               "name": "Europe",
             },
-            "country": Object {
+            "country": {
               "code": "CZ",
               "name": "Czechia",
             },
             "latitude": 50.05,
             "longitude": 14.4,
             "postalCode": "150 00",
-            "subdivisions": Array [
-              Object {
+            "subdivisions": [
+              {
                 "isoCode": "10",
                 "name": "Hlavni mesto Praha",
               },
@@ -393,35 +393,35 @@ Object {
             "timezone": "Europe/Prague",
           },
         },
-        "v6": Object {
+        "v6": {
           "address": "2001:db8:3333:4444:5555:6666:7777:8888",
-          "asn": Object {
+          "asn": {
             "asn": "6805",
             "name": "Telefonica Germany",
             "network": "2a02:3100::/24",
           },
-          "datacenter": Object {
+          "datacenter": {
             "name": "",
             "result": false,
           },
-          "geolocation": Object {
+          "geolocation": {
             "accuracyRadius": 5,
-            "city": Object {
+            "city": {
               "name": "Berlin",
             },
-            "continent": Object {
+            "continent": {
               "code": "EU",
               "name": "Europe",
             },
-            "country": Object {
+            "country": {
               "code": "DE",
               "name": "Germany",
             },
             "latitude": 49.982,
             "longitude": 36.2566,
             "postalCode": "10112",
-            "subdivisions": Array [
-              Object {
+            "subdivisions": [
+              {
                 "isoCode": "BE",
                 "name": "Land Berlin",
               },
@@ -431,56 +431,56 @@ Object {
         },
       },
     },
-    "jailbroken": Object {
-      "data": Object {
+    "jailbroken": {
+      "data": {
         "result": false,
       },
     },
-    "locationSpoofing": Object {
-      "data": Object {
+    "locationSpoofing": {
+      "data": {
         "result": false,
       },
     },
-    "privacySettings": Object {
-      "data": Object {
+    "privacySettings": {
+      "data": {
         "result": false,
       },
     },
-    "proxy": Object {
-      "data": Object {
+    "proxy": {
+      "data": {
         "result": false,
       },
     },
-    "rawDeviceAttributes": Object {
-      "data": Object {
-        "architecture": Object {
+    "rawDeviceAttributes": {
+      "data": {
+        "architecture": {
           "value": 127,
         },
-        "audio": Object {
+        "audio": {
           "value": 35.73832903057337,
         },
-        "canvas": Object {
-          "value": Object {
+        "canvas": {
+          "value": {
             "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
             "Text": "dd2474a56ff78c1de3e7a07070ba3b7d",
             "Winding": true,
           },
         },
-        "colorDepth": Object {
+        "colorDepth": {
           "value": 30,
         },
-        "colorGamut": Object {
+        "colorGamut": {
           "value": "p3",
         },
-        "contrast": Object {
+        "contrast": {
           "value": 0,
         },
-        "cookiesEnabled": Object {
+        "cookiesEnabled": {
           "value": true,
         },
-        "cpuClass": Object {},
-        "fonts": Object {
-          "value": Array [
+        "cpuClass": {},
+        "fonts": {
+          "value": [
             "Arial Unicode MS",
             "Gill Sans",
             "Helvetica Neue",
@@ -489,30 +489,30 @@ Object {
         },
       },
     },
-    "rootApps": Object {
-      "data": Object {
+    "rootApps": {
+      "data": {
         "result": false,
       },
     },
-    "tampering": Object {
-      "data": Object {
+    "tampering": {
+      "data": {
         "anomalyScore": 0.1955,
         "result": false,
       },
     },
-    "tor": Object {
-      "data": Object {
+    "tor": {
+      "data": {
         "result": false,
       },
     },
-    "virtualMachine": Object {
-      "data": Object {
+    "virtualMachine": {
+      "data": {
         "result": false,
       },
     },
-    "vpn": Object {
-      "data": Object {
-        "methods": Object {
+    "vpn": {
+      "data": {
+        "methods": {
           "auxiliaryMobile": false,
           "publicVPN": false,
           "timezoneMismatch": false,
