@@ -65,7 +65,7 @@ export class FingerprintJsServerApiClient {
         }
         return jsonResponse as EventResponse
       })
-      .catch((err: any) => {
+      .catch((err: Error) => {
         if (isEventError(err)) {
           throw err
         }
@@ -108,7 +108,7 @@ export class FingerprintJsServerApiClient {
         }
         throw { ...(jsonResponse as VisitorsError), status: response.status } as VisitorsError
       })
-      .catch((err: any) => {
+      .catch((err: Error) => {
         if (isVisitorsError(err)) {
           throw err
         }
