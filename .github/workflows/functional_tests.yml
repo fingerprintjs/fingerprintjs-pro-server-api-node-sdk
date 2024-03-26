@@ -26,26 +26,26 @@ jobs:
 
     steps:
       - if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - if: ${{ github.event_name != 'pull_request_target' }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           name: node-sdk-artifact
           path: ./dist
       - name: Install Dependencies for SDK
-        run: yarn install --ignore-engines --production=true
+        run: pnpm install --production=true
         env:
           CI: true
       - name: Install Dependencies for example
-        run: yarn --ignore-engines install
+        run: pnpm install
         working-directory: ./example
         env:
           CI: true
