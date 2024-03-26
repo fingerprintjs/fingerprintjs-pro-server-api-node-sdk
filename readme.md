@@ -8,21 +8,11 @@
   </a>
 </p>
 <p align="center">
-  <a href="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/actions/workflows/build.yml">
-    <img src="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/actions/workflows/build.yml/badge.svg" alt="Build status">
-  </a>
-  <a href="https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/">
-    <img src="https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/badges.svg" alt="coverage">
-  </a>
-  <a href="https://www.npmjs.com/package/@fingerprintjs/fingerprintjs-pro-server-api">
-    <img src="https://img.shields.io/npm/v/@fingerprintjs/fingerprintjs-pro-server-api.svg" alt="Current NPM version">
-  </a>
-  <a href="https://www.npmjs.com/package/@fingerprintjs/fingerprintjs-pro-server-api">
-    <img src="https://img.shields.io/npm/dm/@fingerprintjs/fingerprintjs-pro-server-api.svg" alt="Monthly downloads from NPM">
-  </a>
-  <a href="https://discord.gg/39EpE2neBg">
-    <img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server">
-  </a>
+  <a href="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/actions/workflows/build.yml"><img src="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/actions/workflows/build.yml/badge.svg" alt="Build status"></a>
+  <a href="https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/"><img src="https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/badges.svg" alt="coverage"></a>
+  <a href="https://www.npmjs.com/package/@fingerprintjs/fingerprintjs-pro-server-api"><img src="https://img.shields.io/npm/v/@fingerprintjs/fingerprintjs-pro-server-api.svg" alt="Current NPM version"></a>
+  <a href="https://www.npmjs.com/package/@fingerprintjs/fingerprintjs-pro-server-api"><img src="https://img.shields.io/npm/dm/@fingerprintjs/fingerprintjs-pro-server-api.svg" alt="Monthly downloads from NPM"></a>
+  <a href="https://discord.gg/39EpE2neBg"><img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server"></a>
 </p>
 
 # Fingerprint Server API Node.js SDK
