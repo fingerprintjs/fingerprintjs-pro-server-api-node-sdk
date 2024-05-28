@@ -6,8 +6,8 @@
 export interface paths {
   '/events/{request_id}': {
     /**
-     * Get event by requestId
-     * @description This endpoint allows you to get a detailed analysis of an individual request.
+     * Get event by request ID
+     * @description Get a detailed analysis of an individual identification event, including Smart Signals.
      * **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform.
      * It is highly recommended that you **ignore** the mobile signals for such requests.
      *
@@ -17,8 +17,8 @@ export interface paths {
   }
   '/visitors/{visitor_id}': {
     /**
-     * Get visits by visitorId
-     * @description This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
+     * Get visits by visitor ID
+     * @description Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
      * Only information from the _Identification_ product is returned.
      *
      * #### Headers
@@ -26,6 +26,17 @@ export interface paths {
      * * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
      */
     get: operations['getVisits']
+    /**
+     * Delete data by visitor ID
+     * @description Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
+     * All delete requests are queued:
+     *
+     * * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
+     * * Data from older (11 days or more) identification events  will be deleted after 90 days.
+     *
+     * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to activate it for you. Otherwise, you will receive a 403.
+     */
+    delete: operations['deleteVisitorData']
   }
   '/webhook': {
     /** @description Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
@@ -133,20 +144,21 @@ export interface components {
        */
       paginationKey?: string
     }
-    ErrorEvent403Response: {
-      /** ErrorEvent403ResponseError */
+    ErrorCommon403Response: {
+      /** Common403ErrorResponse */
       error?: {
         /**
          * @description Error code:
          *  * `TokenRequired` - `Auth-API-Key` header is missing or empty
-         *  * `TokenNotFound` - subscription not found for specified secret key
-         *  * `SubscriptionNotActive` - subscription is not active
-         *  * `WrongRegion` - server and subscription region differ
+         *  * `TokenNotFound` - No Fingerprint application found for specified secret key
+         *  * `SubscriptionNotActive` - Fingerprint application is not active
+         *  * `WrongRegion` - server and application region differ
+         *  * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application
          *
          * @example TokenRequired
          * @enum {string}
          */
-        code: 'TokenRequired' | 'TokenNotFound' | 'SubscriptionNotActive' | 'WrongRegion'
+        code: 'TokenRequired' | 'TokenNotFound' | 'SubscriptionNotActive' | 'WrongRegion' | 'FeatureNotEnabled'
         /** @example secret key is required */
         message: string
       }
@@ -156,7 +168,7 @@ export interface components {
       error?: {
         /**
          * @description Error code:
-         *  * `RequestNotFound` - request not found for specified id
+         *  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
          *
          * @example RequestNotFound
          * @enum {string}
@@ -179,6 +191,20 @@ export interface components {
        * @example request throttled
        */
       error: string
+    }
+    ErrorVisitsDelete404Response: {
+      /** ErrorVisitsDelete404ResponseError */
+      error?: {
+        /**
+         * @description Error code: * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.
+         *
+         * @example VisitorNotFound
+         * @enum {string}
+         */
+        code: 'VisitorNotFound'
+        /** @example visitor not found */
+        message: string
+      }
     }
     WebhookVisit: {
       /** @example 3HNey93AkBW6CRbxV6xP */
@@ -762,7 +788,7 @@ export interface components {
       originCountry?: string
       methods: {
         /**
-         * @description User's browser timezone doesn't match the timezone from which the request was originally made.
+         * @description The browser timezone doesn't match the timezone inferred from the request IP address.
          * @example false
          */
         timezoneMismatch: boolean
@@ -962,8 +988,8 @@ export type external = Record<string, never>
 
 export interface operations {
   /**
-   * Get event by requestId
-   * @description This endpoint allows you to get a detailed analysis of an individual request.
+   * Get event by request ID
+   * @description Get a detailed analysis of an individual identification event, including Smart Signals.
    * **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform.
    * It is highly recommended that you **ignore** the mobile signals for such requests.
    *
@@ -972,7 +998,7 @@ export interface operations {
   getEvent: {
     parameters: {
       path: {
-        /** @description The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each analysis request. */
+        /** @description The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each identification request. */
         request_id: string
       }
     }
@@ -986,7 +1012,7 @@ export interface operations {
       /** @description Forbidden */
       403: {
         content: {
-          'application/json': components['schemas']['ErrorEvent403Response']
+          'application/json': components['schemas']['ErrorCommon403Response']
         }
       }
       /** @description Not found */
@@ -998,8 +1024,8 @@ export interface operations {
     }
   }
   /**
-   * Get visits by visitorId
-   * @description This endpoint allows you to get a history of visits for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
+   * Get visits by visitor ID
+   * @description Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
    * Only information from the _Identification_ product is returned.
    *
    * #### Headers
@@ -1044,7 +1070,7 @@ export interface operations {
       }
       path: {
         /**
-         * @description Unique identifier of the visitor issued by Fingerprint Pro.
+         * @description Unique [visitor identifier](https://dev.fingerprint.com/docs/js-agent#visitorid) issued by Fingerprint Pro.
          * @example uYIm7Ksp5rf00SllPhFp
          */
         visitor_id: string
@@ -1071,6 +1097,42 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['ManyRequestsResponse']
+        }
+      }
+    }
+  }
+  /**
+   * Delete data by visitor ID
+   * @description Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
+   * All delete requests are queued:
+   *
+   * * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
+   * * Data from older (11 days or more) identification events  will be deleted after 90 days.
+   *
+   * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to activate it for you. Otherwise, you will receive a 403.
+   */
+  deleteVisitorData: {
+    parameters: {
+      path: {
+        /** @description The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete. */
+        visitor_id: string
+      }
+    }
+    responses: {
+      /** @description OK. The visitor ID is scheduled for deletion. */
+      200: {
+        content: never
+      }
+      /** @description Forbidden. Access to this API is denied. */
+      403: {
+        content: {
+          'application/json': components['schemas']['ErrorCommon403Response']
+        }
+      }
+      /** @description Not found. The visitor ID cannot be found in this application's data. */
+      404: {
+        content: {
+          'application/json': components['schemas']['ErrorVisitsDelete404Response']
         }
       }
     }

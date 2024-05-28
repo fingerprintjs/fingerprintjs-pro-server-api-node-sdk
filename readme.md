@@ -404,6 +404,52 @@ For more information, see the [Server API documentation](https://dev.fingerprint
 }
 ```
 
+---
+
+### `deleteVisitorData(visitorId: string): Promise<void>`
+
+Request deleting all data associated with the specified visitor ID. This
+API is useful for compliance with privacy regulations.
+
+All delete requests are queued: 
+
+
+* Recent data (10 days or newer) belonging to the specified visitor will
+be deleted within 24 hours.
+
+* Data from older (11 days or more) identification events  will be
+deleted after 90 days.
+
+
+If you are interested in using this API, please [contact our support
+team](https://fingerprint.com/support/) to activate it for you.
+Otherwise, you will receive a 403.
+
+#### Usage
+
+```js
+client
+  .deleteVisitorData('<visitorId>')
+  .then(() => {
+    // Data deletion request was successfully queued
+  })
+  .catch((error) => {
+    if (error.status === 403 || error.status === 404) {
+      console.log(error.error);
+    }
+  });
+```
+
+#### Returns
+
+- `Promise<void>` - promise that resolves when the deletion request is successfully queued
+
+#### Params
+
+- `visitorId: string` - identifier of the visitor to delete
+
+---
+
 ## Sealed results API Reference
 
 ### `unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]): Promise<EventResponse>`

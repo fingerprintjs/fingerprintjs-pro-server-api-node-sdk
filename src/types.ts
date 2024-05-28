@@ -54,7 +54,19 @@ export type VisitorsError429 =
     retryAfter: number
   }
 
+export type DeleteVisitError404 =
+  paths['/visitors/{visitor_id}']['delete']['responses']['404']['content']['application/json'] & {
+    status: 404
+  }
+
+export type DeleteVisitError403 =
+  paths['/visitors/{visitor_id}']['delete']['responses']['403']['content']['application/json'] & {
+    status: 403
+  }
+
 export type VisitorsError = VisitorsError403 | VisitorsError429
+
+export type DeleteVisitorError = DeleteVisitError404 | DeleteVisitError403
 
 export function isVisitorsError(response: any): response is EventError {
   return (
@@ -62,6 +74,18 @@ export function isVisitorsError(response: any): response is EventError {
       (response.status === 403 || response.status === 429) &&
       response?.hasOwnProperty('error') &&
       typeof response.error === 'string') ||
+    false
+  )
+}
+
+export function isDeleteVisitorError(response: any): response is DeleteVisitorError {
+  return (
+    (response?.hasOwnProperty('status') &&
+      (response.status === 403 || response.status === 404) &&
+      response.error?.hasOwnProperty('message') &&
+      typeof response.error.message === 'string' &&
+      response.error?.hasOwnProperty('code') &&
+      typeof response.error.code === 'string') ||
     false
   )
 }

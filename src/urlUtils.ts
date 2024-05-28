@@ -26,6 +26,21 @@ export function getEventUrl(requestId: string, region: Region, apiKey?: string) 
   return `${getServerApiUrl(region)}events/${requestId}?${serializeQueryStringParams(params)}`
 }
 
+export function getDeleteVisitorDataUrl(region: Region, visitorId: string, apiKey?: string): string {
+  const queryStringParameters: QueryStringParameters = {
+    ii: getIntegrationInfo(),
+  }
+
+  if (apiKey) {
+    queryStringParameters.api_key = apiKey
+  }
+
+  const serverApiPath = getVisitorsPath(region, visitorId)
+  const queryString = serializeQueryStringParams(queryStringParameters)
+
+  return `${serverApiPath}?${queryString}`
+}
+
 export function getVisitorsUrl(
   region: Region,
   visitorId: string,

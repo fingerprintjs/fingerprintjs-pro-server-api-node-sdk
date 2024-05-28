@@ -1,16 +1,18 @@
-import { getEventUrl, getVisitorsUrl } from './urlUtils'
+import { getDeleteVisitorDataUrl, getEventUrl, getVisitorsUrl } from './urlUtils'
 import {
-  VisitorHistoryFilter,
-  VisitorsResponse,
-  Region,
-  Options,
   AuthenticationMode,
-  EventResponse,
+  DeleteVisitorError,
   EventError,
+  EventResponse,
+  isDeleteVisitorError,
   isEventError,
-  VisitorsError,
   isVisitorsError,
+  Options,
+  Region,
+  VisitorHistoryFilter,
+  VisitorsError,
   VisitorsError429,
+  VisitorsResponse,
 } from './types'
 
 export class FingerprintJsServerApiClient {
@@ -73,6 +75,51 @@ export class FingerprintJsServerApiClient {
         throw {
           status: 0,
           error: error,
+        }
+      })
+  }
+
+  /**
+   * Delete data by visitor ID
+   * Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. All delete requests are queued:
+   * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours. * Data from older (11 days or more) identification events  will be deleted after 90 days.
+   * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to activate it for you. Otherwise, you will receive a 403.
+   *
+   * @param visitorId The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete.*
+   */
+  public async deleteVisitorData(visitorId: string) {
+    if (!visitorId) {
+      throw TypeError('VisitorId is not set')
+    }
+
+    const url =
+      this.authenticationMode === AuthenticationMode.QueryParameter
+        ? getDeleteVisitorDataUrl(this.region, visitorId, this.apiKey)
+        : getDeleteVisitorDataUrl(this.region, visitorId)
+
+    const headers = this.getHeaders()
+
+    await this.fetch(url, {
+      method: 'DELETE',
+      headers,
+    })
+      .then(async (response) => {
+        if (response.status === 200) {
+          return
+        }
+
+        const jsonResponse = await response.json()
+
+        throw { ...(jsonResponse as DeleteVisitorError), status: response.status } as DeleteVisitorError
+      })
+      .catch((err) => {
+        if (isDeleteVisitorError(err)) {
+          throw err
+        }
+
+        throw {
+          status: 0,
+          error: err,
         }
       })
   }
