@@ -776,6 +776,11 @@ export interface components {
          * @example false
          */
         auxiliaryMobile: boolean
+        /**
+         * @description The browser runs on a different operating system than the operating system inferred from the  request network signature.
+         * @example false
+         */
+        osMismatch: boolean
       }
     }
     TamperingResult: {
