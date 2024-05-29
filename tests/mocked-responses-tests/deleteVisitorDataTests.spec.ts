@@ -81,6 +81,7 @@ describe('[Mocked response] Delete visitor data', () => {
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toEqual({
       status: 0,
       error: {
+        response: expect.any(Response),
         error: errorInfo,
         status: 404,
       },

@@ -63,7 +63,7 @@ export class FingerprintJsServerApiClient {
       .then(async (response) => {
         const jsonResponse = await response.json()
         if (response.status !== 200) {
-          throw { ...(jsonResponse as EventError), status: response.status } as EventError
+          throw { ...(jsonResponse as EventError), response, status: response.status } as EventError
         }
         return jsonResponse as EventResponse
       })
@@ -72,6 +72,7 @@ export class FingerprintJsServerApiClient {
           throw err
         }
         const error = (err as unknown) instanceof Error ? (err as Error).toString() : JSON.stringify(err)
+
         throw {
           status: 0,
           error: error,
@@ -110,7 +111,7 @@ export class FingerprintJsServerApiClient {
 
         const jsonResponse = await response.json()
 
-        throw { ...(jsonResponse as DeleteVisitorError), status: response.status } as DeleteVisitorError
+        throw { ...(jsonResponse as DeleteVisitorError), response, status: response.status } as DeleteVisitorError
       })
       .catch((err) => {
         if (isDeleteVisitorError(err)) {
@@ -153,7 +154,7 @@ export class FingerprintJsServerApiClient {
           const retryAfter = response.headers.get('retry-after') || ''
           ;(jsonResponse as VisitorsError429).retryAfter = retryAfter === '' ? 1 : parseInt(retryAfter)
         }
-        throw { ...(jsonResponse as VisitorsError), status: response.status } as VisitorsError
+        throw { ...(jsonResponse as VisitorsError), response, status: response.status } as VisitorsError
       })
       .catch((err: Error) => {
         if (isVisitorsError(err)) {

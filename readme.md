@@ -114,6 +114,10 @@ client
     if (isVisitorsError(err)) {
       if (err.code === 429) {
         // VisitorsError429 type
+        
+        // You can also access raw response
+        console.log(err.response);
+        
         retryLater(err.retryAfter); // this function needs to be implemented on your side
       } else {
         console.log('error: ', err.error);
@@ -128,6 +132,9 @@ client
   .then((result) => console.log(result))
   .catch((err) => {
     if (isEventError(err)) {
+      // You can also access raw response
+      console.log(err.response);
+      
       console.log(`error ${err.code}: `, err.error.message);
     } else {
       console.log('unknown error: ', err);
