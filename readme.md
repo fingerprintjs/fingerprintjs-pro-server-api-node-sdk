@@ -493,6 +493,36 @@ Properties:
 
 - `Promise<EventResponse>` - promise with the decrypted event response
 
+## Webhook API Reference
+
+### `checkWebhookHeader(header: string, data: Buffer, secret: string): boolean`
+
+Verifies the HMAC signature extracted from the "fpjs-event-signature" header of the incoming request. This is a part of the webhook signing process, which is available only for enterprise customers.
+If you wish to enable it, please [contact our support](https://fingerprint.com/support).
+
+#### Usage
+
+```js
+import { checkWebhookHeader } from '@fingerprintjs/fingerprintjs-pro-server-api';
+
+const secret = 'secret'
+const data = Buffer.from('data')
+const header = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db'
+
+const isValid = checkWebhookHeader(header, data, secret)
+
+console.log(isValid); // true
+```
+
+#### Params
+- `header: string` - HMAC signature extracted from the "fpjs-event-signature" header of the incoming request
+- `data: Buffer` - data to verify
+- `secret: string` - secret key used to sign the data
+
+#### Returns
+
+- `boolean` - true if the signature is valid, false otherwise.
+
 ## Support and feedback
 
 To report problems, ask questions or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
