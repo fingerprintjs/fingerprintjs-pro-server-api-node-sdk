@@ -64,9 +64,9 @@ export type DeleteVisitError403 =
     status: 403
   }
 
-export type VisitorsError = VisitorsError403 | VisitorsError429
+export type VisitorsError = WithResponse<VisitorsError403 | VisitorsError429>
 
-export type DeleteVisitorError = DeleteVisitError404 | DeleteVisitError403
+export type DeleteVisitorError = WithResponse<DeleteVisitError404 | DeleteVisitError403>
 
 export function isVisitorsError(response: any): response is EventError {
   return (
@@ -94,14 +94,19 @@ export type EventResponse = paths['/events/{request_id}']['get']['responses']['2
 export type EventError403 = paths['/events/{request_id}']['get']['responses']['403']['content']['application/json']
 export type EventError404 = paths['/events/{request_id}']['get']['responses']['404']['content']['application/json']
 
-type GenericEventError = EventError403 | EventError404
+type WithResponse<T> = T & {
+  response: Response
+}
+
+type GenericEventError = WithResponse<EventError403 | EventError404>
 
 type EventErrorCode<T extends GenericEventError> = T extends EventError403 ? 403 : 404
 
-export type EventError<T extends GenericEventError = GenericEventError> = T & {
-  status: EventErrorCode<T>
-}
-
+export type EventError<T extends GenericEventError = GenericEventError> = WithResponse<
+  T & {
+    status: EventErrorCode<T>
+  }
+>
 export function isEventError(response: any): response is EventError {
   return (
     (response?.hasOwnProperty('status') &&
