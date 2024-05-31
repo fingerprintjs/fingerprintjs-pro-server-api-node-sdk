@@ -1,8 +1,8 @@
-/**
- * @type {import('@fingerprintjs/fingerprintjs-pro-server-api')}
- **/
-const { FingerprintJsServerApiClient, Region } = require('@fingerprintjs/fingerprintjs-pro-server-api')
-require('dotenv').config()
+import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api'
+
+import { config } from 'dotenv'
+
+config()
 
 const apiKey = process.env.API_KEY || 'API key not defined'
 const visitorId = process.env.VISITOR_ID || 'Visitor ID not defined'
