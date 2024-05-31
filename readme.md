@@ -145,7 +145,7 @@ client
 ## Sealed results
 
 This SDK provides utility methods for decoding sealed results.
-To learn more, refer to example located in [example/sealedResults.js](./example/sealedResults.js).
+To learn more, refer to example located in [example/sealedResults.mjs](./example/sealedResults.mjs).
 
 ## API Reference
 
