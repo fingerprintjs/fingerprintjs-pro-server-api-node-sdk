@@ -47,7 +47,7 @@ jobs:
           name: node-sdk-artifact
           path: ./dist
       - name: Install Dependencies for SDK
-        run: pnpm install
+        run: ls -a && pnpm install
         env:
           CI: true
       - name: Install Dependencies for example
