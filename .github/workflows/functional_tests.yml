@@ -1,7 +1,7 @@
 name: Functional tests
 on:
   workflow_dispatch:
-  pull_request:
+  pull_request_target:
   schedule:
     - cron: '0 5 * * *'
 jobs:
@@ -47,7 +47,7 @@ jobs:
           name: node-sdk-artifact
           path: ./dist
       - name: Install Dependencies for SDK
-        run: ls -a && pnpm install
+        run: pnpm install
         env:
           CI: true
       - name: Install Dependencies for example
