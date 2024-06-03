@@ -43,7 +43,7 @@ Supported runtimes:
     region: Region.EU,
     apiKey: apiKey,
     fetch: fetch.bind(globalThis),
-  });
+  })
   ```
 
 </details>
@@ -52,16 +52,17 @@ Supported runtimes:
 
 Install the package using your favorite package manager:
 
-* NPM:
+- NPM:
 
   ```sh
   npm i @fingerprintjs/fingerprintjs-pro-server-api
   ```
-* Yarn:
+
+- Yarn:
   ```sh
   yarn add @fingerprintjs/fingerprintjs-pro-server-api
   ```
-* pnpm:
+- pnpm:
   ```sh
   pnpm i @fingerprintjs/fingerprintjs-pro-server-api
   ```
@@ -71,22 +72,22 @@ Install the package using your favorite package manager:
 Initialize the client instance and use it to make API requests. You need to specify your Fingerprint [Secret API key](https://dev.fingerprint.com/docs/quick-start-guide#server-api) and the region of your Fingerprint application.
 
 ```ts
-import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api';
+import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 const client = new FingerprintJsServerApiClient({
   apiKey: '<SECRET_API_KEY>',
   region: Region.Global,
-});
+})
 
 // Get visit history of a specific visitor
 client.getVisitorHistory('<visitorId>').then((visitorHistory) => {
-  console.log(visitorHistory);
-});
+  console.log(visitorHistory)
+})
 
 // Get a specific identification event
 client.getEvent('<requestId>').then((event) => {
-  console.log(event);
-});
+  console.log(event)
+})
 ```
 
 ### Using with TypeScript
@@ -96,7 +97,7 @@ client.getEvent('<requestId>').then((event) => {
 When handling [Webhooks](https://dev.fingerprint.com/docs/webhooks) coming from Fingerprint, you can cast the payload as the built-in `VisitWebhook` type:
 
 ```ts
-const visit = visitWebhookBody as unknown as VisitWebhook;
+const visit = visitWebhookBody as unknown as VisitWebhook
 ```
 
 #### Narrowing error types
@@ -105,7 +106,7 @@ The `getEvent` and `getVisitorHistory` methods can throw `EventError` and `Visit
 You can use the provided `isVisitorsError` and `isEventError` type guards to narrow down error types:
 
 ```typescript
-import { isVisitorsError, isEventError } from '@fingerprintjs/fingerprintjs-pro-server-api';
+import { isVisitorsError, isEventError } from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 client
   .getVisitorHistory('<visitorId>', filter)
@@ -114,18 +115,18 @@ client
     if (isVisitorsError(err)) {
       if (err.status === 429) {
         // VisitorsError429 type
-        
+
         // You can also access the raw response
-        console.log(err.response);
-        
-        retryLater(err.retryAfter); // this function needs to be implemented on your side
+        console.log(err.response)
+
+        retryLater(err.retryAfter) // this function needs to be implemented on your side
       } else {
-        console.log('error: ', err.error);
+        console.log('error: ', err.error)
       }
     } else {
-      console.log('unknown error: ', err);
+      console.log('unknown error: ', err)
     }
-  });
+  })
 
 client
   .getEvent('<requestId>')
@@ -133,13 +134,13 @@ client
   .catch((err) => {
     if (isEventError(err)) {
       // You can also access the raw response
-      console.log(err.response);
-      
-      console.log(`error ${err.status}: `, err.error.message);
+      console.log(err.response)
+
+      console.log(`error ${err.status}: `, err.error?.message)
     } else {
-      console.log('unknown error: ', err);
+      console.log('unknown error: ', err)
     }
-  });
+  })
 ```
 
 ## Sealed results
@@ -156,7 +157,7 @@ Creates an instance of the client.
 #### Usage
 
 ```js
-const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: '<api_key>' });
+const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: '<api_key>' })
 ```
 
 #### Params
@@ -177,13 +178,13 @@ Retrieves a specific identification event with the information from each activat
 client
   .getEvent('<requestId>')
   .then((eventInfo) => {
-    console.log(eventInfo);
+    console.log(eventInfo)
   })
   .catch((error) => {
-    if (isEventError(error) && (error.status === 403 || error.status === 404)) {
-      console.log(error.code, error.message);
+    if (isEventError(error)) {
+      console.log(error.status, error.error?.message)
     }
-  });
+  })
 ```
 
 #### Params
@@ -258,17 +259,18 @@ Retrieves event history for the specific visitor using the given filter, returns
 
 ```js
 client
-  .getVisitorHistory('<visitorId>', filter)
+  .getVisitorHistory('<visitorId>', { limit: 1 })
   .then((visitorHistory) => {
-    console.log(visitorHistory);
+    console.log(visitorHistory)
   })
   .catch((error) => {
-    if (error.status === 403) {
-      console.log(error.error);
-    } else if (error.status === 429) {
-      retryLater(error.retryAfter); // this function needs to be implemented on your side
+    if (isVisitorsError(error)) {
+      console.log(error.status, error.error)
+      if (error.status === 429) {
+        retryLater(error.retryAfter) // Needs to be implemented on your side
+      }
     }
-  });
+  })
 ```
 
 #### Params
@@ -288,7 +290,7 @@ const filter = {
   linked_id: '<linked_id>',
   limit: 5,
   paginationKey: '<paginationKey>',
-};
+}
 ```
 
 Properties:
@@ -370,15 +372,13 @@ For more information, see the [Server API documentation](https://dev.fingerprint
 Request deleting all data associated with the specified visitor ID. This
 API is useful for compliance with privacy regulations.
 
-All delete requests are queued: 
+All delete requests are queued:
 
+- Recent data (10 days or newer) belonging to the specified visitor will
+  be deleted within 24 hours.
 
-* Recent data (10 days or newer) belonging to the specified visitor will
-be deleted within 24 hours.
-
-* Data from older (11 days or more) identification events  will be
-deleted after 90 days.
-
+- Data from older (11 days or more) identification events will be
+  deleted after 90 days.
 
 If you are interested in using this API, please [contact our support
 team](https://fingerprint.com/support/) to activate it for you.
@@ -393,10 +393,10 @@ client
     // Data deletion request was successfully queued
   })
   .catch((error) => {
-    if (error.status === 403 || error.status === 404) {
-      console.log(error.error);
+    if (isDeleteVisitorError(error)) {
+      console.log(error.status, error.error)
     }
-  });
+  })
 ```
 
 #### Returns
@@ -418,26 +418,27 @@ Decrypts the sealed events response with provided keys.
 #### Usage
 
 ```js
-import { unsealEventsResponse, DecryptionAlgorithm } from '@fingerprintjs/fingerprintjs-pro-server-api';
+import { unsealEventsResponse, DecryptionAlgorithm } from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 unsealEventsResponse(sealedData, [
   {
     key: Buffer.from('p2PA7MGy5tx56cnyJaFZMr96BCFwZeHjZV2EqMvTq53=', 'base64'),
     algorithm: DecryptionAlgorithm.Aes256Gcm,
   },
-]).then(result => {
-  console.log(result);
-});
+]).then((result) => {
+  console.log(result)
+})
 ```
 
 #### Params
+
 - `sealedData: Buffer` - sealed data to decrypt
 - `decryptionKeys: DecryptionKey[]` - array of decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
 
 ##### `DecryptionKey`
 
 ```js
-const decryptionKey =  {
+const decryptionKey = {
   key: Buffer.from('aW52YWxpZA==', 'base64'),
   algorithm: DecryptionAlgorithm.Aes256Gcm,
 }
@@ -454,7 +455,7 @@ Properties:
 
 ## Webhook API Reference
 
-### `isValidHmacSignature(header: string, data: Buffer, secret: string): boolean`
+### `isValidWebhookSignature(header: string, data: Buffer, secret: string): boolean`
 
 Verifies the HMAC signature extracted from the "fpjs-event-signature" header of the incoming request. This is a part of the [webhook signing process](https://dev.fingerprint.com/docs/webhooks-security), which is available only for enterprise customers.
 If you wish to enable it, please [contact our support](https://fingerprint.com/support).
@@ -462,18 +463,19 @@ If you wish to enable it, please [contact our support](https://fingerprint.com/s
 #### Usage
 
 ```js
-import { isValidHmacSignature } from '@fingerprintjs/fingerprintjs-pro-server-api';
+import { isValidWebhookSignature } from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 const secret = 'secret'
 const data = Buffer.from('data')
 const header = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db'
 
-const isValid = isValidHmacSignature(header, data, secret)
+const isValid = isValidWebhookSignature(header, data, secret)
 
-console.log(isValid); // true
+console.log(isValid) // true
 ```
 
 #### Params
+
 - `header: string` - HMAC signature extracted from the "fpjs-event-signature" header of the incoming request
 - `data: Buffer` - data to verify
 - `secret: string` - secret key used to sign the data
