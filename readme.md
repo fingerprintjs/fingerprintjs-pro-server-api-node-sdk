@@ -211,30 +211,6 @@ For more information, see the [Server API documentation](https://dev.fingerprint
         "timestamp": 1582299576512,
         "url": "https://www.example.com/login",
         "ip": "61.127.217.15",
-        "ipLocation": {
-          "accuracyRadius": 10,
-          "latitude": 49.982,
-          "longitude": 36.2566,
-          "postalCode": "61202",
-          "timezone": "Europe/Dusseldorf",
-          "city": {
-            "name": "Dusseldorf"
-          },
-          "continent": {
-            "code": "EU",
-            "name": "Europe"
-          },
-          "country": {
-            "code": "DE",
-            "name": "Germany"
-          },
-          "subdivisions": [
-            {
-              "isoCode": "63",
-              "name": "North Rhine-Westphalia"
-            }
-          ]
-        },
         "browserDetails": {
           "browserName": "Chrome",
           "browserMajorVersion": "74",
@@ -359,30 +335,6 @@ For more information, see the [Server API documentation](https://dev.fingerprint
       "timestamp": 1582299576512,
       "url": "https://www.example.com/login",
       "ip": "61.127.217.15",
-      "ipLocation": {
-        "accuracyRadius": 10,
-        "latitude": 49.982,
-        "longitude": 36.2566,
-        "postalCode": "61202",
-        "timezone": "Europe/Dusseldorf",
-        "city": {
-          "name": "Dusseldorf"
-        },
-        "continent": {
-          "code": "EU",
-          "name": "Europe"
-        },
-        "country": {
-          "code": "DE",
-          "name": "Germany"
-        },
-        "subdivisions": [
-          {
-            "isoCode": "63",
-            "name": "North Rhine-Westphalia"
-          }
-        ]
-      },
       "browserDetails": {
         "browserName": "Chrome",
         "browserMajorVersion": "74",
