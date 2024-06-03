@@ -63,7 +63,7 @@ export class FingerprintJsServerApiClient {
       .then(async (response) => {
         const jsonResponse = await response.json()
         if (response.status !== 200) {
-          throw { ...(jsonResponse as EventError), response, status: response.status } as EventError
+          throw { ...jsonResponse, response, status: response.status } as EventError
         }
         return jsonResponse as EventResponse
       })
