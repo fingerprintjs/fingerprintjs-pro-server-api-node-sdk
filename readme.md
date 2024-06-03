@@ -115,7 +115,7 @@ client
       if (err.code === 429) {
         // VisitorsError429 type
         
-        // You can also access raw response
+        // You can also access the raw response
         console.log(err.response);
         
         retryLater(err.retryAfter); // this function needs to be implemented on your side
@@ -132,7 +132,7 @@ client
   .then((result) => console.log(result))
   .catch((err) => {
     if (isEventError(err)) {
-      // You can also access raw response
+      // You can also access the raw response
       console.log(err.response);
       
       console.log(`error ${err.code}: `, err.error.message);
@@ -145,7 +145,7 @@ client
 ## Sealed results
 
 This SDK provides utility methods for decoding sealed results.
-To learn more, refer to example located in [example/sealedResults.mjs](./example/sealedResults.mjs).
+To learn more, see the example in [example/sealedResults.mjs](./example/sealedResults.mjs) or the [API Reference](#sealed-results-api-reference).
 
 ## API Reference
 
@@ -504,7 +504,7 @@ Properties:
 
 ### `checkWebhookHeader(header: string, data: Buffer, secret: string): boolean`
 
-Verifies the HMAC signature extracted from the "fpjs-event-signature" header of the incoming request. This is a part of the webhook signing process, which is available only for enterprise customers.
+Verifies the HMAC signature extracted from the "fpjs-event-signature" header of the incoming request. This is a part of the [webhook signing process](https://dev.fingerprint.com/docs/webhooks-security), which is available only for enterprise customers.
 If you wish to enable it, please [contact our support](https://fingerprint.com/support).
 
 #### Usage

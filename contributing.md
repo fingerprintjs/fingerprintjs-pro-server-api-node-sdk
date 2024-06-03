@@ -69,7 +69,7 @@ Use the `example` folder to make API requests using the local version of the SDK
    ```shell
    cd example
    pnpm install
-   node index.js
+   node index.mjs
    ```
 
 Every time you change the SDK code, you need to rebuild it in the root folder using `pnpm build` and then run the example again.
