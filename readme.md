@@ -180,7 +180,7 @@ client
     console.log(eventInfo);
   })
   .catch((error) => {
-    if (error.status === 403 || error.status === 404) {
+    if (isEventError(error) && (error.status === 403 || error.status === 404)) {
       console.log(error.code, error.message);
     }
   });
