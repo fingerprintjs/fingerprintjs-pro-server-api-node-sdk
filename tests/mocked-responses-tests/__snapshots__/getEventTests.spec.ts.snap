@@ -2,7 +2,105 @@
 
 exports[`[Mocked response] Get Event Error with bad shape 1`] = `
 {
-  "error": "{"error":"Some text instead og shaped object","response":{},"status":404}",
+  "error": {
+    "error": "Some text instead og shaped object",
+    "response": Response {
+      Symbol(realm): {
+        "settingsObject": {},
+      },
+      Symbol(state): {
+        "aborted": false,
+        "body": {
+          "length": 46,
+          "source": "{"error":"Some text instead og shaped object"}",
+          "stream": ReadableStream {
+            Symbol(kType): "ReadableStream",
+            Symbol(kState): {
+              "controller": ReadableStreamDefaultController {
+                Symbol(kType): "ReadableStreamDefaultController",
+                Symbol(kState): {
+                  "cancelAlgorithm": undefined,
+                  "closeRequested": true,
+                  "highWaterMark": 1,
+                  "pullAgain": false,
+                  "pullAlgorithm": undefined,
+                  "pulling": false,
+                  "queue": [],
+                  "queueTotalSize": 0,
+                  "sizeAlgorithm": undefined,
+                  "started": true,
+                  "stream": [Circular],
+                },
+              },
+              "disturbed": true,
+              "reader": ReadableStreamDefaultReader {
+                Symbol(kType): "ReadableStreamDefaultReader",
+                Symbol(kState): {
+                  "close": {
+                    "promise": Promise {},
+                    "reject": [Function],
+                    "resolve": [Function],
+                  },
+                  "readRequests": [],
+                  "stream": [Circular],
+                },
+              },
+              "state": "closed",
+              "storedError": undefined,
+              "transfer": {
+                "port1": undefined,
+                "port2": undefined,
+                "promise": undefined,
+                "writable": undefined,
+              },
+            },
+            Symbol(nodejs.webstream.isClosedPromise): {
+              "promise": Promise {},
+              "reject": [Function],
+              "resolve": [Function],
+            },
+            Symbol(nodejs.webstream.controllerErrorFunction): [Function],
+          },
+        },
+        "cacheState": "",
+        "headersList": HeadersList {
+          "cookies": null,
+          Symbol(headers map): Map {
+            "content-type" => {
+              "name": "content-type",
+              "value": "text/plain;charset=UTF-8",
+            },
+          },
+          Symbol(headers map sorted): null,
+        },
+        "rangeRequested": false,
+        "requestIncludesCredentials": false,
+        "status": 404,
+        "statusText": "",
+        "timingAllowPassed": false,
+        "timingInfo": null,
+        "type": "default",
+        "urlList": [],
+      },
+      Symbol(headers): Headers {
+        Symbol(guard): "response",
+        Symbol(headers list): HeadersList {
+          "cookies": null,
+          Symbol(headers map): Map {
+            "content-type" => {
+              "name": "content-type",
+              "value": "text/plain;charset=UTF-8",
+            },
+          },
+          Symbol(headers map sorted): null,
+        },
+        Symbol(realm): {
+          "settingsObject": {},
+        },
+      },
+    },
+    "status": 404,
+  },
   "status": 0,
 }
 `;

@@ -71,11 +71,10 @@ export class FingerprintJsServerApiClient {
         if (isEventError(err)) {
           throw err
         }
-        const error = (err as unknown) instanceof Error ? (err as Error).toString() : JSON.stringify(err)
 
         throw {
           status: 0,
-          error: error,
+          error: err,
         }
       })
   }
@@ -156,13 +155,13 @@ export class FingerprintJsServerApiClient {
         }
         throw { ...(jsonResponse as VisitorsError), response, status: response.status } as VisitorsError
       })
-      .catch((err: Error) => {
+      .catch((err) => {
         if (isVisitorsError(err)) {
           throw err
         }
         throw {
           status: 0,
-          error: new Error((err as any).toString()),
+          error: err,
         }
       })
   }
