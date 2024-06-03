@@ -68,7 +68,7 @@ export type VisitorsError = WithResponse<VisitorsError403 | VisitorsError429>
 
 export type DeleteVisitorError = WithResponse<DeleteVisitError404 | DeleteVisitError403>
 
-export function isVisitorsError(response: any): response is EventError {
+export function isVisitorsError(response: any): response is VisitorsError {
   return (
     (response?.hasOwnProperty('status') &&
       (response.status === 403 || response.status === 429) &&
