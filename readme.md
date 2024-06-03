@@ -112,7 +112,7 @@ client
   .then((result) => console.log(result))
   .catch((err) => {
     if (isVisitorsError(err)) {
-      if (err.code === 429) {
+      if (err.status === 429) {
         // VisitorsError429 type
         
         // You can also access the raw response
@@ -135,7 +135,7 @@ client
       // You can also access the raw response
       console.log(err.response);
       
-      console.log(`error ${err.code}: `, err.error.message);
+      console.log(`error ${err.status}: `, err.error.message);
     } else {
       console.log('unknown error: ', err);
     }
