@@ -22,6 +22,9 @@ function isEventResponse(data: unknown): data is EventResponse {
   return Boolean(data && typeof data === 'object' && 'products' in data)
 }
 
+/**
+ * @private
+ * */
 export function parseEventsResponse(unsealed: string) {
   const json = JSON.parse(unsealed)
 
@@ -43,6 +46,9 @@ export async function unsealEventsResponse(sealedData: Buffer, decryptionKeys: D
   return parseEventsResponse(unsealed)
 }
 
+/**
+ * @private
+ * */
 export async function unseal(sealedData: Buffer, decryptionKeys: DecryptionKey[]) {
   if (sealedData.subarray(0, SEALED_HEADER.length).toString('hex') !== SEALED_HEADER.toString('hex')) {
     throw new Error('Invalid sealed data header')
