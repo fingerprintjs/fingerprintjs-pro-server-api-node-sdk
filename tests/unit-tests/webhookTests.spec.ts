@@ -7,26 +7,26 @@ const validHeader = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de13
 
 describe('Is valid hmac signature', () => {
   it('with valid signature', () => {
-    expect(isValidHmacSignature(validHeader, data, secret)).toEqual(true)
+    expect(isValidHmacSignature({ header: validHeader, data: data, secret: secret })).toEqual(true)
   })
 
   it('with invalid header', () => {
-    expect(isValidHmacSignature('v2=invalid', data, secret)).toEqual(false)
+    expect(isValidHmacSignature({ header: 'v2=invalid', data: data, secret: secret })).toEqual(false)
   })
 
   it('with header without version', () => {
-    expect(isValidHmacSignature('invalid', data, secret)).toEqual(false)
+    expect(isValidHmacSignature({ header: 'invalid', data: data, secret: secret })).toEqual(false)
   })
 
   it('with empty header', () => {
-    expect(isValidHmacSignature('', data, secret)).toEqual(false)
+    expect(isValidHmacSignature({ header: '', data: data, secret: secret })).toEqual(false)
   })
 
   it('with empty secret', () => {
-    expect(isValidHmacSignature(validHeader, data, '')).toEqual(false)
+    expect(isValidHmacSignature({ header: validHeader, data: data, secret: '' })).toEqual(false)
   })
 
   it('with empty data', () => {
-    expect(isValidHmacSignature(validHeader, Buffer.from(''), secret)).toEqual(false)
+    expect(isValidHmacSignature({ header: validHeader, data: Buffer.from(''), secret: secret })).toEqual(false)
   })
 })

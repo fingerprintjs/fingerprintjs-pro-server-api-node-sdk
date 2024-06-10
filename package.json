@@ -28,7 +28,8 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:dts": "tsc --noEmit --isolatedModules dist/index.d.ts",
-    "generateTypes": "pnpm openapi-typescript resources/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc"
+    "generateTypes": "pnpm openapi-typescript resources/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc",
+    "docs": "typedoc src/index.ts --out docs"
   },
   "keywords": [],
   "author": "FingerprintJS, Inc (https://fingerprint.com)",
@@ -66,6 +67,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "ts-jest": "^29.1.2",
     "tslib": "^2.6.2",
+    "typedoc": "^0.25.13",
     "typescript": "^5.4.0"
   }
 }
