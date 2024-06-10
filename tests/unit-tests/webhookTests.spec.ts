@@ -1,32 +1,32 @@
-import { checkWebhookHeader } from '../../src'
+import { isValidHmacSignature } from '../../src'
 
 const secret = 'secret'
 const data = Buffer.from('data')
 
 const validHeader = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db'
 
-describe('Check webhook signature', () => {
+describe('Is valid hmac signature', () => {
   it('with valid signature', () => {
-    expect(checkWebhookHeader(validHeader, data, secret)).toEqual(true)
+    expect(isValidHmacSignature(validHeader, data, secret)).toEqual(true)
   })
 
   it('with invalid header', () => {
-    expect(checkWebhookHeader('v2=invalid', data, secret)).toEqual(false)
+    expect(isValidHmacSignature('v2=invalid', data, secret)).toEqual(false)
   })
 
   it('with header without version', () => {
-    expect(checkWebhookHeader('invalid', data, secret)).toEqual(false)
+    expect(isValidHmacSignature('invalid', data, secret)).toEqual(false)
   })
 
   it('with empty header', () => {
-    expect(checkWebhookHeader('', data, secret)).toEqual(false)
+    expect(isValidHmacSignature('', data, secret)).toEqual(false)
   })
 
   it('with empty secret', () => {
-    expect(checkWebhookHeader(validHeader, data, '')).toEqual(false)
+    expect(isValidHmacSignature(validHeader, data, '')).toEqual(false)
   })
 
   it('with empty data', () => {
-    expect(checkWebhookHeader(validHeader, Buffer.from(''), secret)).toEqual(false)
+    expect(isValidHmacSignature(validHeader, Buffer.from(''), secret)).toEqual(false)
   })
 })

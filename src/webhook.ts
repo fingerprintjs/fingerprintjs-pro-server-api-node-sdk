@@ -14,7 +14,7 @@ function checkWebhookSignature(signature: string, data: Buffer, secret: string) 
  *
  * @return {boolean} true if the signature is valid, false otherwise.
  */
-export function checkWebhookHeader(header: string, data: Buffer, secret: string): boolean {
+export function isValidHmacSignature(header: string, data: Buffer, secret: string): boolean {
   const signatures = header.split(',')
   for (const signature of signatures) {
     const [version, hash] = signature.split('=')

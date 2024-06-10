@@ -454,7 +454,7 @@ Properties:
 
 ## Webhook API Reference
 
-### `checkWebhookHeader(header: string, data: Buffer, secret: string): boolean`
+### `isValidHmacSignature(header: string, data: Buffer, secret: string): boolean`
 
 Verifies the HMAC signature extracted from the "fpjs-event-signature" header of the incoming request. This is a part of the [webhook signing process](https://dev.fingerprint.com/docs/webhooks-security), which is available only for enterprise customers.
 If you wish to enable it, please [contact our support](https://fingerprint.com/support).
@@ -462,13 +462,13 @@ If you wish to enable it, please [contact our support](https://fingerprint.com/s
 #### Usage
 
 ```js
-import { checkWebhookHeader } from '@fingerprintjs/fingerprintjs-pro-server-api';
+import { isValidHmacSignature } from '@fingerprintjs/fingerprintjs-pro-server-api';
 
 const secret = 'secret'
 const data = Buffer.from('data')
 const header = 'v1=1b2c16b75bd2a870c114153ccda5bcfca63314bc722fa160d690de133ccbb9db'
 
-const isValid = checkWebhookHeader(header, data, secret)
+const isValid = isValidHmacSignature(header, data, secret)
 
 console.log(isValid); // true
 ```
