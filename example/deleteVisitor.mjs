@@ -6,13 +6,6 @@ const apiKey = process.env.API_KEY || 'API key not defined'
 const visitorId = process.env.VISITOR_ID || 'Visitor ID not defined'
 const envRegion = process.env.REGION
 
-let region = Region.Global
-if (envRegion === 'eu') {
-  region = Region.EU
-} else if (envRegion === 'ap') {
-  region = Region.AP
-}
-
 if (!visitorId) {
   console.error('Visitor ID not defined')
   process.exit(1)
@@ -21,6 +14,13 @@ if (!visitorId) {
 if (!apiKey) {
   console.error('API key not defined')
   process.exit(1)
+}
+
+let region = Region.Global
+if (envRegion === 'eu') {
+  region = Region.EU
+} else if (envRegion === 'ap') {
+  region = Region.AP
 }
 
 const client = new FingerprintJsServerApiClient({ region, apiKey })
