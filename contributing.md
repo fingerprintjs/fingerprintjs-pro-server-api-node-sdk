@@ -72,12 +72,13 @@ Use the `example` folder to make API requests using the local version of the SDK
    pnpm build
    ```
 
-3. Install dependencies and run the example (inside the `example` folder)):
+3. Install dependencies and run the examples (inside the `example` folder)):
 
    ```shell
    cd example
    pnpm install
-   node index.mjs
+   node getEvent.mjs
+   node getVisitorHistory.mjs
    ```
 
 Every time you change the SDK code, you need to rebuild it in the root folder using `pnpm build` and then run the example again.
