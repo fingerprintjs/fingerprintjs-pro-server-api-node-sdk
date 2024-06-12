@@ -28,6 +28,14 @@ Just run:
 pnpm build
 ```
 
+### How to build API reference documentation
+
+Run:
+
+```shell
+pnpm run docs
+```
+
 ### Code style
 
 The code style is controlled by [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/). Run to check that the code style is ok:

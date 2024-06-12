@@ -47,6 +47,21 @@ export class FingerprintJsServerApiClient {
    *
    * @returns {Promise<EventResponse>} - promise with event response. For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getevent).
    *
+   * @example
+   * ```javascript
+   * client
+   *  .getEvent('<requestId>')
+   *  .then((result) => console.log(result))
+   *  .catch((err) => {
+   *    if (isEventError(err)) {
+   *      // You can also access the raw response
+   *      console.log(err.response)
+   *      console.log(`error ${err.status}: `, err.error?.message)
+   *    } else {
+   *      console.log('unknown error: ', err)
+   *    }
+   *  })
+   * ```
    * */
   public async getEvent(requestId: string): Promise<EventResponse> {
     if (!requestId) {

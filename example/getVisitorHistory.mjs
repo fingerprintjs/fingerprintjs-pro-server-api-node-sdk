@@ -1,4 +1,4 @@
-import { FingerprintJsServerApiClient, Region, isDeleteVisitorError } from '@fingerprintjs/fingerprintjs-pro-server-api'
+import { FingerprintJsServerApiClient, Region, isVisitorsError } from '@fingerprintjs/fingerprintjs-pro-server-api'
 import { config } from 'dotenv'
 config()
 
@@ -26,13 +26,23 @@ if (!apiKey) {
 const client = new FingerprintJsServerApiClient({ region, apiKey })
 
 try {
-  await client.deleteVisitorData(visitorId)
-  console.log(`All data associated with visitor ${visitorId} is scheduled to be deleted.`)
+  const visitorHistory = await client.getVisitorHistory(visitorId, { limit: 10 })
+  console.log(JSON.stringify(visitorHistory, null, 2))
 } catch (error) {
-  if (isDeleteVisitorError(error)) {
+  if (isVisitorsError(error)) {
     console.log(error.status, error.error)
+    if (error.status === 429) {
+      retryLater(error.retryAfter) // Needs to be implemented on your side
+    }
   } else {
     console.error('unknown error: ', error)
   }
   process.exit(1)
+}
+
+/**
+ * @param {number} delay - How many seconds to wait before retrying
+ */
+function retryLater(delay) {
+  console.log(`Implement your own retry logic here and retry after ${delay} seconds`)
 }
