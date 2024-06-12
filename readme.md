@@ -157,20 +157,20 @@ const visit = visitWebhookBody as unknown as VisitWebhook
 
 #### Webhook signature validation
 
-Customers on the Enterprise plan can enable [webhook signatures](https://dev.fingerprint.com/docs/webhooks-security) to cryptographically verify the authenticity of incoming webhooks.
+Customers on the Enterprise plan can enable [Webhook signatures](https://dev.fingerprint.com/docs/webhooks-security) to cryptographically verify the authenticity of incoming webhooks.
 This SDK provides a utility method for verifying the HMAC signature of the incoming webhook request.
 
 To learn more, see [example/validateWebhookSignature.mjs](example/validateWebhookSignature.mjs) or read the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/isValidWebhookSignature.html).
 
 ### Sealed results
 
-Customers on the Enterprise plan can enable [sealed results](https://dev.fingerprint.com/docs/sealed-results) to receive the full device intelligence result on the client and unseal it on the server. This SDK provides utility methods for decoding sealed results.
+Customers on the Enterprise plan can enable [Sealed results](https://dev.fingerprint.com/docs/sealed-results) to receive the full device intelligence result on the client and unseal it on the server. This SDK provides utility methods for decoding sealed results.
 
 To learn more, see [example/unsealResult.mjs](./example/unsealResult.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/unsealEventsResponse.html).
 
 ### Deleting visitor data
 
-Customers on the Enterprise plan can [delete all data associated with a specific visitor](https://dev.fingerprint.com/reference/deletevisitordata) to comply with privacy regulations. See [example/deleteVisitorData.mjs](./example/deleteVisitorData.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/docs/classes/FingerprintJsServerApiClient.html#deleteVisitorData).
+Customers on the Enterprise plan can [Delete all data associated with a specific visitor](https://dev.fingerprint.com/reference/deletevisitordata) to comply with privacy regulations. See [example/deleteVisitorData.mjs](./example/deleteVisitorData.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/docs/classes/FingerprintJsServerApiClient.html#deleteVisitorData).
 
 ## API Reference
 
@@ -178,7 +178,7 @@ See the full [API reference](https://fingerprintjs.github.io/fingerprintjs-pro-n
 
 ## Support and feedback
 
-To report problems, ask questions or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
+To report problems, ask questions, or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
 
 ## License
 
