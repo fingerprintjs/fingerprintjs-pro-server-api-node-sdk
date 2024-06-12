@@ -1,4 +1,4 @@
-import { unsealEventsResponse } from '@fingerprintjs/fingerprintjs-pro-server-api'
+import { unsealEventsResponse, DecryptionAlgorithm } from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 const sealedData = process.env.BASE64_SEALED_RESULT
 const decryptionKey = process.env.BASE64_KEY
@@ -12,7 +12,7 @@ try {
   const unsealedData = await unsealEventsResponse(Buffer.from(sealedData, 'base64'), [
     {
       key: Buffer.from(decryptionKey, 'base64'),
-      algorithm: 'aes-256-gcm',
+      algorithm: DecryptionAlgorithm.Aes256Gcm,
     },
   ])
   console.log(JSON.stringify(unsealedData, null, 2))
