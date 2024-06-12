@@ -30,15 +30,11 @@ export class FingerprintJsServerApiClient {
    * @param {Options} options - Options for FingerprintJS server API client
    */
   constructor(options: Readonly<Options>) {
-    if (!options.region) {
-      throw Error('Region is not set')
-    }
-
     if (!options.apiKey) {
       throw Error('Api key is not set')
     }
 
-    this.region = options.region
+    this.region = options.region ?? Region.Global
     this.apiKey = options.apiKey
     this.authenticationMode = options.authenticationMode ?? AuthenticationMode.AuthHeader // Default auth mode is AuthHeader
     this.fetch = options.fetch ?? fetch
