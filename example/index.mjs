@@ -18,19 +18,15 @@ if (envRegion === 'eu') {
 
 const client = new FingerprintJsServerApiClient({ region, apiKey: apiKey })
 
-async function main() {
-  try {
-    const [visitorHistory, event] = await Promise.all([
-      client.getVisitorHistory(visitorId, { limit: 1 }),
-      client.getEvent(requestId),
-    ])
+try {
+  const [visitorHistory, event] = await Promise.all([
+    client.getVisitorHistory(visitorId, { limit: 1 }),
+    client.getEvent(requestId),
+  ])
 
-    console.log(JSON.stringify(visitorHistory, null, 2))
-    console.log(JSON.stringify(event, null, 2))
-  } catch (e) {
-    console.error(e)
-    process.exit(1)
-  }
+  console.log(JSON.stringify(visitorHistory, null, 2))
+  console.log(JSON.stringify(event, null, 2))
+} catch (e) {
+  console.error(e)
+  process.exit(1)
 }
-
-main()
