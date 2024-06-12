@@ -2,25 +2,25 @@ import { FingerprintJsServerApiClient, Region, isEventError } from '@fingerprint
 import { config } from 'dotenv'
 config()
 
-const apiKey = process.env.API_KEY || 'API key not defined'
-const requestId = process.env.REQUEST_ID || 'Request ID not defined'
+const apiKey = process.env.API_KEY
+const requestId = process.env.REQUEST_ID
 const envRegion = process.env.REGION
 
-let region = Region.Global
-if (envRegion === 'eu') {
-  region = Region.EU
-} else if (envRegion === 'ap') {
-  region = Region.AP
-}
-
 if (!requestId) {
-  console.error('Visitor ID not defined')
+  console.error('Request ID not defined')
   process.exit(1)
 }
 
 if (!apiKey) {
   console.error('API key not defined')
   process.exit(1)
+}
+
+let region = Region.Global
+if (envRegion === 'eu') {
+  region = Region.EU
+} else if (envRegion === 'ap') {
+  region = Region.AP
 }
 
 const client = new FingerprintJsServerApiClient({ region, apiKey })
@@ -30,9 +30,9 @@ try {
   console.log(JSON.stringify(event, null, 2))
 } catch (error) {
   if (isEventError(error)) {
-    // You can also access the raw response
-    console.log(error.response)
     console.log(`error ${error.status}: `, error.error?.message)
+    // You can also access the raw response
+    console.log(error.response.statusText)
   } else {
     console.log('unknown error: ', error)
   }
