@@ -56,7 +56,9 @@ jobs:
         env:
           CI: true
       - name: Run test
-        run: node index.js
+        run: |
+          node getEvent.mjs
+          node getVisitorHistory.mjs
         working-directory: ./example
         env:
           API_KEY: '${{ secrets.PRIVATE_KEY }}'
