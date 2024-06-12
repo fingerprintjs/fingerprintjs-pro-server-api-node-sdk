@@ -59,10 +59,8 @@ export function isValidWebhookSignature(params: IsValidWebhookSignatureParams): 
   const signatures = header.split(',')
   for (const signature of signatures) {
     const [version, hash] = signature.split('=')
-    if (version === 'v1') {
-      if (isValidHmacSignature(hash, data, secret)) {
-        return true
-      }
+    if (version === 'v1' && isValidHmacSignature(hash, data, secret)) {
+      return true
     }
   }
   return false
