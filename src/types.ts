@@ -22,7 +22,7 @@ export interface Options {
   /**
    * Region of the FingerprintJS service server
    */
-  region: Region
+  region?: Region
   /**
    * Authentication mode
    * Optional, default value is AuthHeader
