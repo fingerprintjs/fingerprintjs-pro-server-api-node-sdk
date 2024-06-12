@@ -72,7 +72,10 @@ Install the package using your favorite package manager:
 Initialize the client instance and use it to make API requests. You need to specify your Fingerprint [Secret API key](https://dev.fingerprint.com/docs/quick-start-guide#server-api) and the region of your Fingerprint application.
 
 ```ts
-import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api'
+import {
+  FingerprintJsServerApiClient,
+  Region,
+} from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 const client = new FingerprintJsServerApiClient({
   apiKey: '<SECRET_API_KEY>',
@@ -106,7 +109,10 @@ The `getEvent` and `getVisitorHistory` methods can throw `EventError` and `Visit
 You can use the provided `isVisitorsError` and `isEventError` type guards to narrow down error types:
 
 ```typescript
-import { isVisitorsError, isEventError } from '@fingerprintjs/fingerprintjs-pro-server-api'
+import {
+  isVisitorsError,
+  isEventError,
+} from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 client
   .getVisitorHistory('<visitorId>', filter)
@@ -146,7 +152,12 @@ client
 ## Sealed results
 
 This SDK provides utility methods for decoding sealed results.
-To learn more, see the example in [example/sealedResults.mjs](./example/sealedResults.mjs) or the [API Reference](#sealed-results-api-reference).
+To learn more, see the example in [example/sealedResults.mjs](./example/sealedResults.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/unsealEventsResponse.html).
+
+## Webhook signature validation
+
+This SDK provides utility method for verifying the HMAC signature of the incoming webhook request.
+To learn more, see the example in [example/webhookSignatureValidation.mjs](example/webhookSignatureValidation.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/isValidWebhookSignature.html).
 
 ## API Reference
 
