@@ -2,6 +2,9 @@ name: Functional tests
 on:
   workflow_dispatch:
   pull_request_target:
+    branches:
+      - main
+      - test
   schedule:
     - cron: '0 5 * * *'
 jobs:
@@ -12,7 +15,6 @@ jobs:
       artifactName: node-sdk-artifact
       artifactPath: ./dist
 
-
   functional_tests:
     name: 'Smoke test on node ${{ matrix.node-version }}'
     needs: build
@@ -22,7 +24,7 @@ jobs:
       max-parallel: 3
       fail-fast: false
       matrix:
-        node-version: [ 18, 19, 20, 21 ]
+        node-version: [18, 19, 20, 21]
 
     steps:
       - if: ${{ github.event_name == 'pull_request_target' }}
