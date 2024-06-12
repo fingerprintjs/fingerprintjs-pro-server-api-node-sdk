@@ -24,7 +24,7 @@ export interface IsValidWebhookSignatureParams {
  * If you wish to enable it, please contact our support: https://fingerprint.com/support
  *
  * @param {IsValidWebhookSignatureParams} params
- * @param {string} params.signatureHeader - The value of the "fpjs-event-signature" header.
+ * @param {string} params.header - The value of the "fpjs-event-signature" header.
  * @param {Buffer} params.data - The raw data of the incoming request.
  * @param {string} params.secret - The secret key used to sign the request.
  *
