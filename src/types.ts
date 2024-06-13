@@ -51,6 +51,9 @@ export type VisitorsError403 =
 export type VisitorsError429 =
   paths['/visitors/{visitor_id}']['get']['responses']['429']['content']['application/json'] & {
     status: 429
+    /**
+     * How many seconds to wait before retrying
+     */
     retryAfter: number
   }
 
