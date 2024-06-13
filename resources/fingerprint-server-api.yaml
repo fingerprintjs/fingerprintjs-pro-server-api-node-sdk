@@ -36,10 +36,10 @@ paths:
       tags:
         - Fingerprint
       operationId: getEvent
-      summary: Get event by requestId
+      summary: Get event by request ID
       description: >
-        This endpoint allows you to get a detailed analysis of an individual
-        request. 
+        Get a detailed analysis of an individual identification event, including
+        Smart Signals. 
 
         **Only for Enterprise customers:** Please note that the response
         includes mobile signals (e.g. `rootApps`) even if the request originated
@@ -57,7 +57,7 @@ paths:
           description: >-
             The unique
             [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of
-            each analysis request.
+            each identification request.
           required: true
           schema:
             type: string
@@ -73,7 +73,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorEvent403Response'
+                $ref: '#/components/schemas/ErrorCommon403Response'
         '404':
           description: Not found
           content:
@@ -85,9 +85,9 @@ paths:
       tags:
         - Fingerprint
       operationId: getVisits
-      summary: Get visits by visitorId
+      summary: Get visits by visitor ID
       description: >
-        This endpoint allows you to get a history of visits for a specific
+        Get a history of visits (identification events) for a specific
         `visitorId`. Use the `visitorId` as a URL path parameter.
 
         Only information from the _Identification_ product is returned.
@@ -102,7 +102,10 @@ paths:
         response is received.
       parameters:
         - name: visitor_id
-          description: Unique identifier of the visitor issued by Fingerprint Pro.
+          description: >-
+            Unique [visitor
+            identifier](https://dev.fingerprint.com/docs/js-agent#visitorid)
+            issued by Fingerprint Pro.
           in: path
           required: true
           schema:
@@ -220,6 +223,55 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ManyRequestsResponse'
+    delete:
+      tags:
+        - Fingerprint
+      operationId: deleteVisitorData
+      summary: Delete data by visitor ID
+      description: >
+        Request deleting all data associated with the specified visitor ID. This
+        API is useful for compliance with privacy regulations.
+
+        All delete requests are queued: 
+
+
+        * Recent data (10 days or newer) belonging to the specified visitor will
+        be deleted within 24 hours.
+
+        * Data from older (11 days or more) identification events  will be
+        deleted after 90 days.
+
+
+        If you are interested in using this API, please [contact our support
+        team](https://fingerprint.com/support/) to activate it for you.
+        Otherwise, you will receive a 403.
+      parameters:
+        - name: visitor_id
+          in: path
+          description: >-
+            The [visitor
+            ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to
+            delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK. The visitor ID is scheduled for deletion.
+        '403':
+          description: Forbidden. Access to this API is denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCommon403Response'
+        '404':
+          description: >-
+            Not found. The visitor ID cannot be found in this application's
+            data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVisitsDelete404Response'
   /webhook:
     trace:
       tags:
@@ -346,6 +398,7 @@ paths:
                             timezoneMismatch: false
                             publicVPN: false
                             auxiliaryMobile: false
+                            osMismatch: false
                         proxy:
                           result: false
                         tampering:
@@ -547,28 +600,30 @@ components:
       description: >-
         Fields `lastTimestamp` and `paginationKey` added when `limit` or
         `before` parameter provided and there is more data to show
-    ErrorEvent403Response:
+    ErrorCommon403Response:
       type: object
       additionalProperties: false
       properties:
         error:
           type: object
           additionalProperties: false
-          title: ErrorEvent403ResponseError
+          title: Common403ErrorResponse
           properties:
             code:
               type: string
               description: |
                 Error code:
                  * `TokenRequired` - `Auth-API-Key` header is missing or empty
-                 * `TokenNotFound` - subscription not found for specified secret key
-                 * `SubscriptionNotActive` - subscription is not active
-                 * `WrongRegion` - server and subscription region differ
+                 * `TokenNotFound` - No Fingerprint application found for specified secret key
+                 * `SubscriptionNotActive` - Fingerprint application is not active
+                 * `WrongRegion` - server and application region differ
+                 * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application 
               enum:
                 - TokenRequired
                 - TokenNotFound
                 - SubscriptionNotActive
                 - WrongRegion
+                - FeatureNotEnabled
               example: TokenRequired
             message:
               type: string
@@ -589,7 +644,7 @@ components:
               type: string
               description: |
                 Error code:
-                 * `RequestNotFound` - request not found for specified id
+                 * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
               enum:
                 - RequestNotFound
               example: RequestNotFound
@@ -619,6 +674,29 @@ components:
           example: request throttled
       required:
         - error
+    ErrorVisitsDelete404Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorVisitsDelete404ResponseError
+          properties:
+            code:
+              type: string
+              description: >
+                Error code: * `VisitorNotFound` - The specified visitor ID was
+                not found. It never existed or it may have already been deleted.
+              enum:
+                - VisitorNotFound
+              example: VisitorNotFound
+            message:
+              type: string
+              example: visitor not found
+          required:
+            - code
+            - message
     WebhookVisit:
       type: object
       properties:
@@ -942,6 +1020,12 @@ components:
           format: float
           minimum: 0
           maximum: 1
+        revision:
+          description: >-
+            The revision name of the method used to calculate the Confidence
+            score. This field is only present for customers who opted in to an
+            alternative calculation method.
+          type: string
       required:
         - score
       title: Confidence
@@ -1582,8 +1666,8 @@ components:
             timezoneMismatch:
               type: boolean
               description: >-
-                User's browser timezone doesn't match the timezone from which
-                the request was originally made.
+                The browser timezone doesn't match the timezone inferred from
+                the request IP address.
               example: false
             publicVPN:
               type: boolean
@@ -1597,10 +1681,17 @@ components:
                 This method applies to mobile devices only. Indicates the result
                 of additional methods used to detect a VPN in mobile devices.
               example: false
+            osMismatch:
+              type: boolean
+              description: >-
+                The browser runs on a different operating system than the
+                operating system inferred from the  request network signature.
+              example: false
           required:
             - timezoneMismatch
             - publicVPN
             - auxiliaryMobile
+            - osMismatch
       required:
         - result
         - originTimezone

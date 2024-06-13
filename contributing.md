@@ -2,7 +2,7 @@
 
 ## Working with code
 
-We prefer using [yarn](https://yarnpkg.com/) for installing dependencies and running scripts.
+We prefer using [pnpm](https://pnpmpkg.com/) for installing dependencies and running scripts.
 
 The main branch is locked for the push action. For proposing changes, use the standard [pull request approach](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request). It's recommended to discuss fixes or new functionality in the Issues, first.
 
@@ -11,7 +11,7 @@ The main branch is locked for the push action. For proposing changes, use the st
 Run the following command that will regenerate types:
 
 ```shell
-yarn generateTypes
+pnpm generateTypes
 ```
 
 It uses schema stored in [res/schema.json](resources/fingerprint-server-api.yaml). To fetch the latest schema run:
@@ -25,7 +25,15 @@ It uses schema stored in [res/schema.json](resources/fingerprint-server-api.yaml
 Just run:
 
 ```shell
-yarn build
+pnpm build
+```
+
+### How to build API reference documentation
+
+Run:
+
+```shell
+pnpm run docs
 ```
 
 ### Code style
@@ -33,13 +41,13 @@ yarn build
 The code style is controlled by [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/). Run to check that the code style is ok:
 
 ```shell
-yarn lint
+pnpm lint
 ```
 
 You aren't required to run the check manually, the CI will do it. Run the following command to fix style issues (not all issues can be fixed automatically):
 
 ```shell
-yarn lint:fix
+pnpm lint:fix
 ```
 
 ### Running tests
@@ -49,7 +57,7 @@ Tests are located in `tests` folder and run by [jest](https://jestjs.io/) in nod
 To run tests you can use IDE instruments or just run:
 
 ```shell
-yarn test
+pnpm test
 ```
 
 ### Testing the local source code of the SDK
@@ -60,19 +68,20 @@ Use the `example` folder to make API requests using the local version of the SDK
 2. Install dependencies and build the SDK (inside the root folder):
 
    ```shell
-   yarn install
-   yarn build
+   pnpm install
+   pnpm build
    ```
 
-3. Install dependencies and run the example (inside the `example` folder)):
+3. Install dependencies and run the examples (inside the `example` folder)):
 
    ```shell
    cd example
-   yarn install
-   node index.js
+   pnpm install
+   node getEvent.mjs
+   node getVisitorHistory.mjs
    ```
 
-Every time you change the SDK code, you need to rebuild it in the root folder using `yarn build` and then run the example again.
+Every time you change the SDK code, you need to rebuild it in the root folder using `pnpm build` and then run the example again.
 
 ### How to publish
 

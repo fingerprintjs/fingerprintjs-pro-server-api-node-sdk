@@ -43,7 +43,7 @@ Supported runtimes:
     region: Region.EU,
     apiKey: apiKey,
     fetch: fetch.bind(globalThis),
-  });
+  })
   ```
 
 </details>
@@ -52,16 +52,17 @@ Supported runtimes:
 
 Install the package using your favorite package manager:
 
-* NPM:
+- NPM:
 
   ```sh
   npm i @fingerprintjs/fingerprintjs-pro-server-api
   ```
-* Yarn:
+
+- Yarn:
   ```sh
   yarn add @fingerprintjs/fingerprintjs-pro-server-api
   ```
-* pnpm:
+- pnpm:
   ```sh
   pnpm i @fingerprintjs/fingerprintjs-pro-server-api
   ```
@@ -71,385 +72,113 @@ Install the package using your favorite package manager:
 Initialize the client instance and use it to make API requests. You need to specify your Fingerprint [Secret API key](https://dev.fingerprint.com/docs/quick-start-guide#server-api) and the region of your Fingerprint application.
 
 ```ts
-import { FingerprintJsServerApiClient, Region } from '@fingerprintjs/fingerprintjs-pro-server-api';
+import {
+  FingerprintJsServerApiClient,
+  Region,
+} from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 const client = new FingerprintJsServerApiClient({
   apiKey: '<SECRET_API_KEY>',
   region: Region.Global,
-});
+})
 
 // Get visit history of a specific visitor
 client.getVisitorHistory('<visitorId>').then((visitorHistory) => {
-  console.log(visitorHistory);
-});
+  console.log(visitorHistory)
+})
 
 // Get a specific identification event
 client.getEvent('<requestId>').then((event) => {
-  console.log(event);
-});
+  console.log(event)
+})
 ```
 
-### Using with TypeScript
+See the [Examples](./example) folder for more detailed examples.
+
+### Error handling
+
+The Server API methods like `getEvent` and `getVisitorHistory` can throw `EventError` and `VisitorsError`.
+You can use the provided `isVisitorsError` and `isEventError` type guards to narrow down error types:
+
+```typescript
+import {
+  isVisitorsError,
+  isEventError,
+  FingerprintJsServerApiClient,
+} from '@fingerprintjs/fingerprintjs-pro-server-api'
+
+const client = new FingerprintJsServerApiClient({
+  apiKey: '<SECRET_API_KEY>',
+  region: Region.Global,
+})
+
+// Handling getEvent errors
+try {
+  const event = await client.getEvent(requestId)
+  console.log(JSON.stringify(event, null, 2))
+} catch (error) {
+  if (isEventError(error)) {
+    console.log(error.response) // You can also access the raw response
+    console.log(`error ${error.status}: `, error.error?.message)
+  } else {
+    console.log('unknown error: ', error)
+  }
+}
+
+// Handling getVisitorHistory errors
+try {
+  const visitorHistory = await client.getVisitorHistory(visitorId, {
+    limit: 10,
+  })
+  console.log(JSON.stringify(visitorHistory, null, 2))
+} catch (error) {
+  if (isVisitorsError(error)) {
+    console.log(error.status, error.error)
+    if (error.status === 429) {
+      retryLater(error.retryAfter) // Needs to be implemented on your side
+    }
+  } else {
+    console.error('unknown error: ', error)
+  }
+}
+```
+
+### Webhooks
 
 #### Webhook types
 
 When handling [Webhooks](https://dev.fingerprint.com/docs/webhooks) coming from Fingerprint, you can cast the payload as the built-in `VisitWebhook` type:
 
 ```ts
-const visit = visitWebhookBody as unknown as VisitWebhook;
+import { VisitWebhook } from '@fingerprintjs/fingerprintjs-pro-server-api'
+
+const visit = visitWebhookBody as unknown as VisitWebhook
 ```
 
-#### Narrowing error types
+#### Webhook signature validation
 
-The `getEvent` and `getVisitorHistory` methods can throw `EventError` and `VisitorsError`.
-You can use the provided `isVisitorsError` and `isEventError` type guards to narrow down error types:
+Customers on the Enterprise plan can enable [Webhook signatures](https://dev.fingerprint.com/docs/webhooks-security) to cryptographically verify the authenticity of incoming webhooks.
+This SDK provides a utility method for verifying the HMAC signature of the incoming webhook request.
 
-```typescript
-import { isVisitorsError, isEventError } from '@fingerprintjs/fingerprintjs-pro-server-api';
+To learn more, see [example/validateWebhookSignature.mjs](example/validateWebhookSignature.mjs) or read the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/isValidWebhookSignature.html).
 
-client
-  .getVisitorHistory('<visitorId>', filter)
-  .then((result) => console.log(result))
-  .catch((err) => {
-    if (isVisitorsError(err)) {
-      if (err.code === 429) {
-        // VisitorsError429 type
-        retryLater(err.retryAfter); // this function needs to be implemented on your side
-      } else {
-        console.log('error: ', err.error);
-      }
-    } else {
-      console.log('unknown error: ', err);
-    }
-  });
+### Sealed results
 
-client
-  .getEvent('<requestId>')
-  .then((result) => console.log(result))
-  .catch((err) => {
-    if (isEventError(err)) {
-      console.log(`error ${err.code}: `, err.error.message);
-    } else {
-      console.log('unknown error: ', err);
-    }
-  });
-```
+Customers on the Enterprise plan can enable [Sealed results](https://dev.fingerprint.com/docs/sealed-results) to receive the full device intelligence result on the client and unseal it on the server. This SDK provides utility methods for decoding sealed results.
 
-## Sealed results
+To learn more, see [example/unsealResult.mjs](./example/unsealResult.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/unsealEventsResponse.html).
 
-This SDK provides utility methods for decoding sealed results.
-To learn more, refer to example located in [example/sealedResults.js](./example/sealedResults.js).
+### Deleting visitor data
+
+Customers on the Enterprise plan can [Delete all data associated with a specific visitor](https://dev.fingerprint.com/reference/deletevisitordata) to comply with privacy regulations. See [example/deleteVisitorData.mjs](./example/deleteVisitorData.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/docs/classes/FingerprintJsServerApiClient.html#deleteVisitorData).
 
 ## API Reference
 
-### `constructor({region: Region, apiKey: string})`
-
-Creates an instance of the client.
-
-#### Usage
-
-```js
-const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: '<api_key>' });
-```
-
-#### Params
-
-- `region: Region` - a region of the server, possible values: `Region.EU`, `Region.AP`, or `Region.Global`
-- `apiKey: string` - secret API key from the [FingerprintJS dashboard](https://dashboard.fingerprint.com/)
-- `fetch?: typeof fetch` - optional implementation of `fetch` function (defaults to `node-fetch`)
-
----
-
-### `getEvent(requestId: string): Promise<EventResponse>`
-
-Retrieves a specific identification event with the information from each activated product — Identification and all active [Smart signals](https://dev.fingerprint.com/docs/smart-signals-overview).
-
-#### Usage
-
-```typescript
-client
-  .getEvent('<requestId>')
-  .then((eventInfo) => {
-    console.log(eventInfo);
-  })
-  .catch((error) => {
-    if (error.status === 403 || error.status === 404) {
-      console.log(error.code, error.message);
-    }
-  });
-```
-
-#### Params
-
-- `requestId: string` - identifier of the event
-
-#### Returns
-
-- `Promise<EventResponse>` - promise with event response
-
-##### `EventResponse`
-
-For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getevent).
-
-```json
-{
-  "products": {
-    "identification": {
-      "data": {
-        "visitorId": "Ibk1527CUFmcnjLwIs4A9",
-        "requestId": "0KSh65EnVoB85JBmloQK",
-        "incognito": true,
-        "linkedId": "somelinkedId",
-        "time": "2019-05-21T16:40:13Z",
-        "timestamp": 1582299576512,
-        "url": "https://www.example.com/login",
-        "ip": "61.127.217.15",
-        "ipLocation": {
-          "accuracyRadius": 10,
-          "latitude": 49.982,
-          "longitude": 36.2566,
-          "postalCode": "61202",
-          "timezone": "Europe/Dusseldorf",
-          "city": {
-            "name": "Dusseldorf"
-          },
-          "continent": {
-            "code": "EU",
-            "name": "Europe"
-          },
-          "country": {
-            "code": "DE",
-            "name": "Germany"
-          },
-          "subdivisions": [
-            {
-              "isoCode": "63",
-              "name": "North Rhine-Westphalia"
-            }
-          ]
-        },
-        "browserDetails": {
-          "browserName": "Chrome",
-          "browserMajorVersion": "74",
-          "browserFullVersion": "74.0.3729",
-          "os": "Windows",
-          "osVersion": "7",
-          "device": "Other",
-          "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ...."
-        },
-        "confidence": {
-          "score": 0.97
-        },
-        "visitorFound": true,
-        "firstSeenAt": {
-          "global": "2022-03-16T11:26:45.362Z",
-          "subscription": "2022-03-16T11:31:01.101Z"
-        },
-        "lastSeenAt": {
-          "global": "2022-03-16T11:28:34.023Z",
-          "subscription": null
-        }
-      }
-    },
-    "botd": {
-      "data": {
-        "bot": {
-          "result": "notDetected"
-        },
-        "url": "https://example.com/login",
-        "ip": "61.127.217.15",
-        "time": "2019-05-21T16:40:13Z"
-      }
-    }
-  }
-}
-```
-
----
-
-### `getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse>`
-
-Retrieves event history for the specific visitor using the given filter, returns a promise with visitor history response.
-
-#### Usage
-
-```js
-client
-  .getVisitorHistory('<visitorId>', filter)
-  .then((visitorHistory) => {
-    console.log(visitorHistory);
-  })
-  .catch((error) => {
-    if (error.status === 403) {
-      console.log(error.error);
-    } else if (error.status === 429) {
-      retryLater(error.retryAfter); // this function needs to be implemented on your side
-    }
-  });
-```
-
-#### Params
-
-- `visitorId: string` - identifier of the visitor
-- `filter?: VisitorHistoryFilter` - visitor history filter (details below)
-
-##### `VisitorHistoryFilter`
-
-Filter for querying the [visitors Server API endpoint](https://dev.fingerprint.com/reference/getvisits).
-
-Usage:
-
-```js
-const filter = {
-  request_id: '<request_id>',
-  linked_id: '<linked_id>',
-  limit: 5,
-  paginationKey: '<paginationKey>',
-};
-```
-
-Properties:
-
-- `request_id: string` - filter visits by `requestId`.
-
-  Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
-
-- `linked_id: string` - filter visits by your custom identifier.
-
-  You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
-
-- `limit: number` - limit scanned results.
-
-  For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first). By default, the most recent 100 visits are scanned, the maximum is 500.
-
-- `paginationKey: string` - use `paginationKey` to get the next page of results.
-
-  When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
-
-  1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
-  2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
-
-  Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
-
-#### Returns
-
-- `Promise<VisitorsResponse>` - promise with the visitor history response
-
-##### `VisitorsResponse`
-
-For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getvisits).
-
-```json
-{
-  "visitorId": "Ibk1527CUFmcnjLwIs4A9",
-  "visits": [
-    {
-      "requestId": "0KSh65EnVoB85JBmloQK",
-      "incognito": true,
-      "linkedId": "somelinkedId",
-      "time": "2019-05-21T16:40:13Z",
-      // timestamp of the event with millisecond precision
-      "timestamp": 1582299576512,
-      "url": "https://www.example.com/login",
-      "ip": "61.127.217.15",
-      "ipLocation": {
-        "accuracyRadius": 10,
-        "latitude": 49.982,
-        "longitude": 36.2566,
-        "postalCode": "61202",
-        "timezone": "Europe/Dusseldorf",
-        "city": {
-          "name": "Dusseldorf"
-        },
-        "continent": {
-          "code": "EU",
-          "name": "Europe"
-        },
-        "country": {
-          "code": "DE",
-          "name": "Germany"
-        },
-        "subdivisions": [
-          {
-            "isoCode": "63",
-            "name": "North Rhine-Westphalia"
-          }
-        ]
-      },
-      "browserDetails": {
-        "browserName": "Chrome",
-        "browserMajorVersion": "74",
-        "browserFullVersion": "74.0.3729",
-        "os": "Windows",
-        "osVersion": "7",
-        "device": "Other",
-        "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ...."
-      },
-      "confidence": {
-        "score": 0.97
-      },
-      "visitorFound": true,
-      "firstSeenAt": {
-        "global": "2022-03-16T11:26:45.362Z",
-        "subscription": "2022-03-16T11:31:01.101Z"
-      },
-      "lastSeenAt": {
-        "global": "2022-03-16T11:28:34.023Z",
-        "subscription": null
-      }
-    }
-  ],
-  // optional, if more results are available for pagination.
-  "lastTimestamp": 1582299576512
-}
-```
-
-## Sealed results API Reference
-
-### `unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]): Promise<EventResponse>`
-
-Decrypts the sealed events response with provided keys.
-
-#### Usage
-
-```js
-import { unsealEventsResponse, DecryptionAlgorithm } from '@fingerprintjs/fingerprintjs-pro-server-api';
-
-unsealEventsResponse(sealedData, [
-  {
-    key: Buffer.from('p2PA7MGy5tx56cnyJaFZMr96BCFwZeHjZV2EqMvTq53=', 'base64'),
-    algorithm: DecryptionAlgorithm.Aes256Gcm,
-  },
-]).then(result => {
-  console.log(result);
-});
-```
-
-#### Params
-- `sealedData: Buffer` - sealed data to decrypt
-- `decryptionKeys: DecryptionKey[]` - array of decryption keys. The SDK will try to decrypt the result with each key until it succeeds.
-
-##### `DecryptionKey`
-
-```js
-const decryptionKey =  {
-  key: Buffer.from('aW52YWxpZA==', 'base64'),
-  algorithm: DecryptionAlgorithm.Aes256Gcm,
-}
-```
-
-Properties:
-
-- `key: Buffer` - key generated in dashboard that will be used to decrypt sealed result
-- `algorithm: DecryptionAlgorithm` - algorithm to use for decryption. Currently only `Aes256Gcm` value is supported.
-
-#### Returns
-
-- `Promise<EventResponse>` - promise with the decrypted event response
+See the full [API reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/).
 
 ## Support and feedback
 
-To report problems, ask questions or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
+To report problems, ask questions, or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
 
 ## License
 

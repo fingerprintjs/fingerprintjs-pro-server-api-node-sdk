@@ -184,6 +184,7 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
   "vpn": {
     "methods": {
       "auxiliaryMobile": false,
+      "osMismatch": false,
       "publicVPN": false,
       "timezoneMismatch": false,
     },
