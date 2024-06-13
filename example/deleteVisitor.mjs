@@ -2,8 +2,8 @@ import { FingerprintJsServerApiClient, Region, isDeleteVisitorError } from '@fin
 import { config } from 'dotenv'
 config()
 
-const apiKey = process.env.API_KEY || 'API key not defined'
-const visitorId = process.env.VISITOR_ID || 'Visitor ID not defined'
+const apiKey = process.env.API_KEY
+const visitorId = process.env.VISITOR_ID
 const envRegion = process.env.REGION
 
 if (!visitorId) {
