@@ -93,71 +93,84 @@ client.getEvent('<requestId>').then((event) => {
 })
 ```
 
-### Using with TypeScript
+See the [Examples](./example) folder for more detailed examples.
 
-#### Webhook types
+### Error handling
 
-When handling [Webhooks](https://dev.fingerprint.com/docs/webhooks) coming from Fingerprint, you can cast the payload as the built-in `VisitWebhook` type:
-
-```ts
-const visit = visitWebhookBody as unknown as VisitWebhook
-```
-
-#### Narrowing error types
-
-The `getEvent` and `getVisitorHistory` methods can throw `EventError` and `VisitorsError`.
+The Server API methods like `getEvent` and `getVisitorHistory` can throw `EventError` and `VisitorsError`.
 You can use the provided `isVisitorsError` and `isEventError` type guards to narrow down error types:
 
 ```typescript
 import {
   isVisitorsError,
   isEventError,
+  FingerprintJsServerApiClient,
 } from '@fingerprintjs/fingerprintjs-pro-server-api'
 
-client
-  .getVisitorHistory('<visitorId>', filter)
-  .then((result) => console.log(result))
-  .catch((err) => {
-    if (isVisitorsError(err)) {
-      if (err.status === 429) {
-        // VisitorsError429 type
+const client = new FingerprintJsServerApiClient({
+  apiKey: '<SECRET_API_KEY>',
+  region: Region.Global,
+})
 
-        // You can also access the raw response
-        console.log(err.response)
+// Handling getEvent errors
+try {
+  const event = await client.getEvent(requestId)
+  console.log(JSON.stringify(event, null, 2))
+} catch (error) {
+  if (isEventError(error)) {
+    console.log(error.response) // You can also access the raw response
+    console.log(`error ${error.status}: `, error.error?.message)
+  } else {
+    console.log('unknown error: ', error)
+  }
+}
 
-        retryLater(err.retryAfter) // this function needs to be implemented on your side
-      } else {
-        console.log('error: ', err.error)
-      }
-    } else {
-      console.log('unknown error: ', err)
-    }
+// Handling getVisitorHistory errors
+try {
+  const visitorHistory = await client.getVisitorHistory(visitorId, {
+    limit: 10,
   })
-
-client
-  .getEvent('<requestId>')
-  .then((result) => console.log(result))
-  .catch((err) => {
-    if (isEventError(err)) {
-      // You can also access the raw response
-      console.log(err.response)
-
-      console.log(`error ${err.status}: `, err.error?.message)
-    } else {
-      console.log('unknown error: ', err)
+  console.log(JSON.stringify(visitorHistory, null, 2))
+} catch (error) {
+  if (isVisitorsError(error)) {
+    console.log(error.status, error.error)
+    if (error.status === 429) {
+      retryLater(error.retryAfter) // Needs to be implemented on your side
     }
-  })
+  } else {
+    console.error('unknown error: ', error)
+  }
+}
 ```
 
-## Sealed results
+### Webhooks
 
-This SDK provides utility methods for decoding sealed results.
-To learn more, see the example in [example/sealedResults.mjs](./example/sealedResults.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/unsealEventsResponse.html).
+#### Webhook types
 
-## Webhook signature validation
+When handling [Webhooks](https://dev.fingerprint.com/docs/webhooks) coming from Fingerprint, you can cast the payload as the built-in `VisitWebhook` type:
 
-This SDK provides utility method for verifying the HMAC signature of the incoming webhook request.
-To learn more, see the example in [example/webhookSignatureValidation.mjs](example/webhookSignatureValidation.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/isValidWebhookSignature.html).
+```ts
+import { VisitWebhook } from '@fingerprintjs/fingerprintjs-pro-server-api'
+
+const visit = visitWebhookBody as unknown as VisitWebhook
+```
+
+#### Webhook signature validation
+
+Customers on the Enterprise plan can enable [Webhook signatures](https://dev.fingerprint.com/docs/webhooks-security) to cryptographically verify the authenticity of incoming webhooks.
+This SDK provides a utility method for verifying the HMAC signature of the incoming webhook request.
+
+To learn more, see [example/validateWebhookSignature.mjs](example/validateWebhookSignature.mjs) or read the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/isValidWebhookSignature.html).
+
+### Sealed results
+
+Customers on the Enterprise plan can enable [Sealed results](https://dev.fingerprint.com/docs/sealed-results) to receive the full device intelligence result on the client and unseal it on the server. This SDK provides utility methods for decoding sealed results.
+
+To learn more, see [example/unsealResult.mjs](./example/unsealResult.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/unsealEventsResponse.html).
+
+### Deleting visitor data
+
+Customers on the Enterprise plan can [Delete all data associated with a specific visitor](https://dev.fingerprint.com/reference/deletevisitordata) to comply with privacy regulations. See [example/deleteVisitorData.mjs](./example/deleteVisitorData.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/docs/classes/FingerprintJsServerApiClient.html#deleteVisitorData).
 
 ## API Reference
 
@@ -165,7 +178,7 @@ See the full [API reference](https://fingerprintjs.github.io/fingerprintjs-pro-n
 
 ## Support and feedback
 
-To report problems, ask questions or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
+To report problems, ask questions, or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
 
 ## License
 

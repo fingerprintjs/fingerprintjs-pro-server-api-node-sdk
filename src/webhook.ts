@@ -48,7 +48,7 @@ export interface IsValidWebhookSignatureParams {
  *
  *     return Response.json({ message: "Webhook received." });
  *   } catch (error) {
- *     return Response.json({ error: e }, { status: 500 });
+ *     return Response.json({ error }, { status: 500 });
  *   }
  * }
  * ```
