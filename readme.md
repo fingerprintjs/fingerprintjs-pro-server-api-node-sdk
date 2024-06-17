@@ -174,7 +174,7 @@ Customers on the Enterprise plan can [Delete all data associated with a specific
 
 ## API Reference
 
-See the full [API reference](https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/).
+See the full [API reference](https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/).
 
 ## Support and feedback
 
