@@ -164,7 +164,7 @@ To learn more, see [example/validateWebhookSignature.mjs](example/validateWebhoo
 
 ### Sealed results
 
-Customers on the Enterprise plan can enable [Sealed results](https://dev.fingerprint.com/docs/sealed-results) to receive the full device intelligence result on the client and unseal it on the server. This SDK provides utility methods for decoding sealed results.
+Customers on the Enterprise plan can enable [Sealed results](https://dev.fingerprint.com/docs/sealed-client-results) to receive the full device intelligence result on the client and unseal it on the server. This SDK provides utility methods for decoding sealed results.
 
 To learn more, see [example/unsealResult.mjs](./example/unsealResult.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/functions/unsealEventsResponse.html).
 
