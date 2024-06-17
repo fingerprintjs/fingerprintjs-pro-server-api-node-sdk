@@ -1,3 +1,21 @@
+## [4.1.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v4.0.1...v4.1.0) (2024-06-17)
+
+
+### Features
+
+* add `isValidWebhookSignature` function for validating webhook signature [INTER-731] ([885b693](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/885b693c7fcfcd1abe4f6891ca7d3d87412db101))
+* add delete API ([9f581ab](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/9f581ab514fb7675ea0439aa0b08075aa7ae254e))
+* add os Mismatch ([c3ca8d7](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/c3ca8d7263341edb89cb650b6718a5e2230c4a81))
+* add revision string field to confidence object ([a664c2d](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/a664c2ddb051d1bc0f3ef3fb19a1116933cdbd16))
+* expose raw response in errors ([fd8e352](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/fd8e352c08eb79dc43bb5f0ffc0ca3830099ab33))
+* make `Options.region` optional ([48c8024](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/48c8024ee46384d8692df041bbd38e44d83959fe))
+* provide error as-is without serialization in `getEvent` method ([c21a7b6](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/c21a7b6af23a135242fddd390d99f11f38c2e47f))
+
+
+### Documentation
+
+* **README:** remove ipLocation field ([acb7c38](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/acb7c38b1cdde75e6d032fa0342d017320f36d03))
+
 ## [4.0.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v4.0.0...v4.0.1) (2024-03-26)
 
 
