@@ -1,131 +1,76 @@
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>@fingerprintjs/fingerprintjs-pro-server-api</title><meta name="description" content="Documentation for @fingerprintjs/fingerprintjs-pro-server-api"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">@fingerprintjs/fingerprintjs-pro-server-api</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h2>@fingerprintjs/fingerprintjs-pro-server-api</h2></div><div class="tsd-panel tsd-typography"><p align="center">
+  <a href="https://fingerprint.com">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="https://fingerprintjs.github.io/home/resources/logo_light.svg" />
+      <source media="(prefers-color-scheme: light)" srcset="https://fingerprintjs.github.io/home/resources/logo_dark.svg" />
+      <img src="https://fingerprintjs.github.io/home/resources/logo_dark.svg" alt="Fingerprint logo" width="312px" />
+    </picture>
+  </a>
+</p>
+<p align="center">
+  <a href="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/actions/workflows/build.yml"><img src="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/actions/workflows/build.yml/badge.svg" alt="Build status"></a>
+  <a href="https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/"><img src="https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/badges.svg" alt="coverage"></a>
+  <a href="https://www.npmjs.com/package/@fingerprintjs/fingerprintjs-pro-server-api"><img src="https://img.shields.io/npm/v/@fingerprintjs/fingerprintjs-pro-server-api.svg" alt="Current NPM version"></a>
+  <a href="https://www.npmjs.com/package/@fingerprintjs/fingerprintjs-pro-server-api"><img src="https://img.shields.io/npm/dm/@fingerprintjs/fingerprintjs-pro-server-api.svg" alt="Monthly downloads from NPM"></a>
+  <a href="https://discord.gg/39EpE2neBg"><img src="https://img.shields.io/discord/852099967190433792?style=logo&label=Discord&logo=Discord&logoColor=white" alt="Discord server"></a>
+</p>
 
-<!doctype html>
-<html lang="en">
+<a id="md:fingerprint-server-api-nodejs-sdk" class="tsd-anchor"></a><h1><a href="#md:fingerprint-server-api-nodejs-sdk">Fingerprint Server API Node.js SDK</a></h1><p><a href="https://fingerprint.com">Fingerprint</a> is a device intelligence platform offering 99.5% accurate visitor identification.</p>
+<p>The Fingerprint Server Node SDK is an easy way to interact with the Fingerprint <a href="https://dev.fingerprint.com/reference/pro-server-api">Server API</a> from your Node application. You can retrieve visitor history or individual identification events.</p>
+<a id="md:requirements" class="tsd-anchor"></a><h2><a href="#md:requirements">Requirements</a></h2><p>TypeScript support:</p>
+<ul>
+<li>TypeScript 4.5.5 or higher</li>
+</ul>
+<p>Supported runtimes:</p>
+<ul>
+<li><p>Node.js 18 LTS or higher (we support all <a href="https://nodejs.dev/en/about/releases/">Node LTS releases before end-of-life</a>).</p>
+</li>
+<li><p>Deno and Bun might work but are not actively tested.</p>
+</li>
+<li><p>&quot;Edge&quot; runtimes might work with some modifications but are not actively tested. <details></p>
+<summary>See "edge" runtimes compatibility</summary>
 
-<head>
-    <title>Code coverage report for All files</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="prettify.css" />
-    <link rel="stylesheet" href="base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(sort-arrow-sprite.png);
-        }
-    </style>
-</head>
-    
-<body>
-<div class='wrapper'>
-    <div class='pad1'>
-        <h1>All files</h1>
-        <div class='clearfix'>
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">97.14% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>136/140</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">89.77% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>79/88</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>31/31</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">97.12% </span>
-                <span class="quiet">Lines</span>
-                <span class='fraction'>135/139</span>
-            </div>
-        
-            
-        </div>
-        <p class="quiet">
-            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
-        </p>
-        <template id="filterTemplate">
-            <div class="quiet">
-                Filter:
-                <input type="search" id="fileSearch">
-            </div>
-        </template>
-    </div>
-    <div class='status-line high'></div>
-    <div class="pad1">
-<table class="coverage-summary">
-<thead>
-<tr>
-   <th data-col="file" data-fmt="html" data-html="true" class="file">File</th>
-   <th data-col="pic" data-type="number" data-fmt="html" data-html="true" class="pic"></th>
-   <th data-col="statements" data-type="number" data-fmt="pct" class="pct">Statements</th>
-   <th data-col="statements_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="branches" data-type="number" data-fmt="pct" class="pct">Branches</th>
-   <th data-col="branches_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="functions" data-type="number" data-fmt="pct" class="pct">Functions</th>
-   <th data-col="functions_raw" data-type="number" data-fmt="html" class="abs"></th>
-   <th data-col="lines" data-type="number" data-fmt="pct" class="pct">Lines</th>
-   <th data-col="lines_raw" data-type="number" data-fmt="html" class="abs"></th>
-</tr>
-</thead>
-<tbody><tr>
-	<td class="file high" data-value="src"><a href="src/index.html">src</a></td>
-	<td data-value="96.8" class="pic high">
-	<div class="chart"><div class="cover-fill" style="width: 96%"></div><div class="cover-empty" style="width: 4%"></div></div>
-	</td>
-	<td data-value="96.8" class="pct high">96.8%</td>
-	<td data-value="125" class="abs high">121/125</td>
-	<td data-value="89.65" class="pct high">89.65%</td>
-	<td data-value="87" class="abs high">78/87</td>
-	<td data-value="100" class="pct high">100%</td>
-	<td data-value="26" class="abs high">26/26</td>
-	<td data-value="96.8" class="pct high">96.8%</td>
-	<td data-value="125" class="abs high">121/125</td>
-	</tr>
+<p>This SDK can be made compatible with JavaScript &quot;edge&quot; runtimes that do not support all Node APIs, for example, <a href="https://edge-runtime.vercel.app/">Vercel Edge Runtime</a>, or <a href="https://developers.cloudflare.com/workers/">Cloudflare Workers</a>.</p>
+<p>To make it work, replace the SDK&#39;s built-in <code>fetch</code> function (which relies on Node APIs) with the runtime&#39;s native <code>fetch</code> function. Pass the function into the constructor with proper binding:</p>
+<pre><code class="language-js"><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-3">FingerprintJsServerApiClient</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">region:</span><span class="hl-1"> </span><span class="hl-4">Region</span><span class="hl-1">.</span><span class="hl-2">EU</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">apiKey:</span><span class="hl-1"> </span><span class="hl-4">apiKey</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">fetch:</span><span class="hl-1"> </span><span class="hl-4">fetch</span><span class="hl-1">.</span><span class="hl-3">bind</span><span class="hl-1">(</span><span class="hl-4">globalThis</span><span class="hl-1">),</span><br/><span class="hl-1">})</span>
+</code><button>Copy</button></pre>
+</li>
+</ul>
+</details>
 
-<tr>
-	<td class="file high" data-value="src/errors"><a href="src/errors/index.html">src/errors</a></td>
-	<td data-value="100" class="pic high">
-	<div class="chart"><div class="cover-fill cover-full" style="width: 100%"></div><div class="cover-empty" style="width: 0%"></div></div>
-	</td>
-	<td data-value="100" class="pct high">100%</td>
-	<td data-value="15" class="abs high">15/15</td>
-	<td data-value="100" class="pct high">100%</td>
-	<td data-value="1" class="abs high">1/1</td>
-	<td data-value="100" class="pct high">100%</td>
-	<td data-value="5" class="abs high">5/5</td>
-	<td data-value="100" class="pct high">100%</td>
-	<td data-value="14" class="abs high">14/14</td>
-	</tr>
-
-</tbody>
-</table>
-</div>
-                <div class='push'></div><!-- for sticky footer -->
-            </div><!-- /wrapper -->
-            <div class='footer quiet pad2 space-top1 center small'>
-                Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-03-29T08:59:11.950Z
-            </div>
-        <script src="prettify.js"></script>
-        <script>
-            window.onload = function () {
-                prettyPrint();
-            };
-        </script>
-        <script src="sorter.js"></script>
-        <script src="block-navigation.js"></script>
-    </body>
-</html>
-    
+<a id="md:how-to-install" class="tsd-anchor"></a><h2><a href="#md:how-to-install">How to install</a></h2><p>Install the package using your favorite package manager:</p>
+<ul>
+<li><p>NPM:</p>
+<pre><code class="language-sh"><span class="hl-3">npm</span><span class="hl-1"> </span><span class="hl-5">i</span><span class="hl-1"> </span><span class="hl-5">@fingerprintjs/fingerprintjs-pro-server-api</span>
+</code><button>Copy</button></pre>
+</li>
+<li><p>Yarn:</p>
+<pre><code class="language-sh"><span class="hl-3">yarn</span><span class="hl-1"> </span><span class="hl-5">add</span><span class="hl-1"> </span><span class="hl-5">@fingerprintjs/fingerprintjs-pro-server-api</span>
+</code><button>Copy</button></pre>
+</li>
+<li><p>pnpm:</p>
+<pre><code class="language-sh"><span class="hl-3">pnpm</span><span class="hl-1"> </span><span class="hl-5">i</span><span class="hl-1"> </span><span class="hl-5">@fingerprintjs/fingerprintjs-pro-server-api</span>
+</code><button>Copy</button></pre>
+</li>
+</ul>
+<a id="md:getting-started" class="tsd-anchor"></a><h2><a href="#md:getting-started">Getting started</a></h2><p>Initialize the client instance and use it to make API requests. You need to specify your Fingerprint <a href="https://dev.fingerprint.com/docs/quick-start-guide#server-api">Secret API key</a> and the region of your Fingerprint application.</p>
+<pre><code class="language-ts"><span class="hl-6">import</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">FingerprintJsServerApiClient</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">Region</span><span class="hl-1">,</span><br/><span class="hl-1">} </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-5">&#39;@fingerprintjs/fingerprintjs-pro-server-api&#39;</span><br/><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-3">FingerprintJsServerApiClient</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">apiKey:</span><span class="hl-1"> </span><span class="hl-5">&#39;&lt;SECRET_API_KEY&gt;&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">region:</span><span class="hl-1"> </span><span class="hl-4">Region</span><span class="hl-1">.</span><span class="hl-4">Global</span><span class="hl-1">,</span><br/><span class="hl-1">})</span><br/><br/><span class="hl-7">// Get visit history of a specific visitor</span><br/><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-3">getVisitorHistory</span><span class="hl-1">(</span><span class="hl-5">&#39;&lt;visitorId&gt;&#39;</span><span class="hl-1">).</span><span class="hl-3">then</span><span class="hl-1">((</span><span class="hl-4">visitorHistory</span><span class="hl-1">) </span><span class="hl-0">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-4">visitorHistory</span><span class="hl-1">)</span><br/><span class="hl-1">})</span><br/><br/><span class="hl-7">// Get a specific identification event</span><br/><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-3">getEvent</span><span class="hl-1">(</span><span class="hl-5">&#39;&lt;requestId&gt;&#39;</span><span class="hl-1">).</span><span class="hl-3">then</span><span class="hl-1">((</span><span class="hl-4">event</span><span class="hl-1">) </span><span class="hl-0">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-4">event</span><span class="hl-1">)</span><br/><span class="hl-1">})</span>
+</code><button>Copy</button></pre>
+<p>See the <a href="./example">Examples</a> folder for more detailed examples.</p>
+<a id="md:error-handling" class="tsd-anchor"></a><h3><a href="#md:error-handling">Error handling</a></h3><p>The Server API methods like <code>getEvent</code> and <code>getVisitorHistory</code> can throw <code>EventError</code> and <code>VisitorsError</code>.
+You can use the provided <code>isVisitorsError</code> and <code>isEventError</code> type guards to narrow down error types:</p>
+<pre><code class="language-typescript"><span class="hl-6">import</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-4">isVisitorsError</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">isEventError</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">FingerprintJsServerApiClient</span><span class="hl-1">,</span><br/><span class="hl-1">} </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-5">&#39;@fingerprintjs/fingerprintjs-pro-server-api&#39;</span><br/><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">client</span><span class="hl-1"> = </span><span class="hl-0">new</span><span class="hl-1"> </span><span class="hl-3">FingerprintJsServerApiClient</span><span class="hl-1">({</span><br/><span class="hl-1">  </span><span class="hl-4">apiKey:</span><span class="hl-1"> </span><span class="hl-5">&#39;&lt;SECRET_API_KEY&gt;&#39;</span><span class="hl-1">,</span><br/><span class="hl-1">  </span><span class="hl-4">region:</span><span class="hl-1"> </span><span class="hl-4">Region</span><span class="hl-1">.</span><span class="hl-4">Global</span><span class="hl-1">,</span><br/><span class="hl-1">})</span><br/><br/><span class="hl-7">// Handling getEvent errors</span><br/><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">event</span><span class="hl-1"> = </span><span class="hl-6">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-3">getEvent</span><span class="hl-1">(</span><span class="hl-4">requestId</span><span class="hl-1">)</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-2">JSON</span><span class="hl-1">.</span><span class="hl-3">stringify</span><span class="hl-1">(</span><span class="hl-4">event</span><span class="hl-1">, </span><span class="hl-0">null</span><span class="hl-1">, </span><span class="hl-8">2</span><span class="hl-1">))</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-6">if</span><span class="hl-1"> (</span><span class="hl-3">isEventError</span><span class="hl-1">(</span><span class="hl-4">error</span><span class="hl-1">)) {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-4">error</span><span class="hl-1">.</span><span class="hl-4">response</span><span class="hl-1">) </span><span class="hl-7">// You can also access the raw response</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-5">`error </span><span class="hl-0">${</span><span class="hl-4">error</span><span class="hl-9">.</span><span class="hl-4">status</span><span class="hl-0">}</span><span class="hl-5">: `</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">.</span><span class="hl-4">error</span><span class="hl-1">?.</span><span class="hl-4">message</span><span class="hl-1">)</span><br/><span class="hl-1">  } </span><span class="hl-6">else</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-5">&#39;unknown error: &#39;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">)</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span><br/><br/><span class="hl-7">// Handling getVisitorHistory errors</span><br/><span class="hl-6">try</span><span class="hl-1"> {</span><br/><span class="hl-1">  </span><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">visitorHistory</span><span class="hl-1"> = </span><span class="hl-6">await</span><span class="hl-1"> </span><span class="hl-4">client</span><span class="hl-1">.</span><span class="hl-3">getVisitorHistory</span><span class="hl-1">(</span><span class="hl-4">visitorId</span><span class="hl-1">, {</span><br/><span class="hl-1">    </span><span class="hl-4">limit:</span><span class="hl-1"> </span><span class="hl-8">10</span><span class="hl-1">,</span><br/><span class="hl-1">  })</span><br/><span class="hl-1">  </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-2">JSON</span><span class="hl-1">.</span><span class="hl-3">stringify</span><span class="hl-1">(</span><span class="hl-4">visitorHistory</span><span class="hl-1">, </span><span class="hl-0">null</span><span class="hl-1">, </span><span class="hl-8">2</span><span class="hl-1">))</span><br/><span class="hl-1">} </span><span class="hl-6">catch</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">) {</span><br/><span class="hl-1">  </span><span class="hl-6">if</span><span class="hl-1"> (</span><span class="hl-3">isVisitorsError</span><span class="hl-1">(</span><span class="hl-4">error</span><span class="hl-1">)) {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">log</span><span class="hl-1">(</span><span class="hl-4">error</span><span class="hl-1">.</span><span class="hl-4">status</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">.</span><span class="hl-4">error</span><span class="hl-1">)</span><br/><span class="hl-1">    </span><span class="hl-6">if</span><span class="hl-1"> (</span><span class="hl-4">error</span><span class="hl-1">.</span><span class="hl-4">status</span><span class="hl-1"> === </span><span class="hl-8">429</span><span class="hl-1">) {</span><br/><span class="hl-1">      </span><span class="hl-3">retryLater</span><span class="hl-1">(</span><span class="hl-4">error</span><span class="hl-1">.</span><span class="hl-4">retryAfter</span><span class="hl-1">) </span><span class="hl-7">// Needs to be implemented on your side</span><br/><span class="hl-1">    }</span><br/><span class="hl-1">  } </span><span class="hl-6">else</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-4">console</span><span class="hl-1">.</span><span class="hl-3">error</span><span class="hl-1">(</span><span class="hl-5">&#39;unknown error: &#39;</span><span class="hl-1">, </span><span class="hl-4">error</span><span class="hl-1">)</span><br/><span class="hl-1">  }</span><br/><span class="hl-1">}</span>
+</code><button>Copy</button></pre>
+<a id="md:webhooks" class="tsd-anchor"></a><h3><a href="#md:webhooks">Webhooks</a></h3><a id="md:webhook-types" class="tsd-anchor"></a><h4><a href="#md:webhook-types">Webhook types</a></h4><p>When handling <a href="https://dev.fingerprint.com/docs/webhooks">Webhooks</a> coming from Fingerprint, you can cast the payload as the built-in <code>VisitWebhook</code> type:</p>
+<pre><code class="language-ts"><span class="hl-6">import</span><span class="hl-1"> { </span><span class="hl-4">VisitWebhook</span><span class="hl-1"> } </span><span class="hl-6">from</span><span class="hl-1"> </span><span class="hl-5">&#39;@fingerprintjs/fingerprintjs-pro-server-api&#39;</span><br/><br/><span class="hl-0">const</span><span class="hl-1"> </span><span class="hl-2">visit</span><span class="hl-1"> = </span><span class="hl-4">visitWebhookBody</span><span class="hl-1"> </span><span class="hl-6">as</span><span class="hl-1"> </span><span class="hl-10">unknown</span><span class="hl-1"> </span><span class="hl-6">as</span><span class="hl-1"> </span><span class="hl-10">VisitWebhook</span>
+</code><button>Copy</button></pre>
+<a id="md:webhook-signature-validation" class="tsd-anchor"></a><h4><a href="#md:webhook-signature-validation">Webhook signature validation</a></h4><p>Customers on the Enterprise plan can enable <a href="https://dev.fingerprint.com/docs/webhooks-security">Webhook signatures</a> to cryptographically verify the authenticity of incoming webhooks.
+This SDK provides a utility method for verifying the HMAC signature of the incoming webhook request.</p>
+<p>To learn more, see <a href="example/validateWebhookSignature.mjs">example/validateWebhookSignature.mjs</a> or read the <a href="https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/isValidWebhookSignature.html">API Reference</a>.</p>
+<a id="md:sealed-results" class="tsd-anchor"></a><h3><a href="#md:sealed-results">Sealed results</a></h3><p>Customers on the Enterprise plan can enable <a href="https://dev.fingerprint.com/docs/sealed-results">Sealed results</a> to receive the full device intelligence result on the client and unseal it on the server. This SDK provides utility methods for decoding sealed results.</p>
+<p>To learn more, see <a href="./example/unsealResult.mjs">example/unsealResult.mjs</a> or the <a href="https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/functions/unsealEventsResponse.html">API Reference</a>.</p>
+<a id="md:deleting-visitor-data" class="tsd-anchor"></a><h3><a href="#md:deleting-visitor-data">Deleting visitor data</a></h3><p>Customers on the Enterprise plan can <a href="https://dev.fingerprint.com/reference/deletevisitordata">Delete all data associated with a specific visitor</a> to comply with privacy regulations. See <a href="./example/deleteVisitorData.mjs">example/deleteVisitorData.mjs</a> or the <a href="https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/docs/classes/FingerprintJsServerApiClient.html#deleteVisitorData">API Reference</a>.</p>
+<a id="md:api-reference" class="tsd-anchor"></a><h2><a href="#md:api-reference">API Reference</a></h2><p>See the full <a href="https://fingerprintjs.github.io/fingerprintjs-pro-node-sdk/">API reference</a>.</p>
+<a id="md:support-and-feedback" class="tsd-anchor"></a><h2><a href="#md:support-and-feedback">Support and feedback</a></h2><p>To report problems, ask questions, or provide feedback, please use <a href="https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues">Issues</a>. If you need private support, you can email us at <a href="mailto:oss-support@fingerprint.com">oss-support@fingerprint.com</a>.</p>
+<a id="md:license" class="tsd-anchor"></a><h2><a href="#md:license">License</a></h2><p>This project is licensed under the <a href="./LICENSE">MIT license</a>.</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-index-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><h4 class="uppercase">Member Visibility</h4><form><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-external" name="external"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>External</span></label></li></ul></form></div><div class="tsd-theme-toggle"><h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#md:fingerprint-server-api-nodejs-sdk"><span>Fingerprint <wbr/>Server API <wbr/>Node.js SDK</span></a><ul><li><a href="#md:requirements"><span>Requirements</span></a></li><li><a href="#md:how-to-install"><span>How to install</span></a></li><li><a href="#md:getting-started"><span>Getting started</span></a></li><li><ul><li><a href="#md:error-handling"><span>Error handling</span></a></li><li><a href="#md:webhooks"><span>Webhooks</span></a></li><li><ul><li><a href="#md:webhook-types"><span>Webhook types</span></a></li><li><a href="#md:webhook-signature-validation"><span>Webhook signature validation</span></a></li></ul></li><li><a href="#md:sealed-results"><span>Sealed results</span></a></li><li><a href="#md:deleting-visitor-data"><span>Deleting visitor data</span></a></li></ul></li><li><a href="#md:api-reference"><span>API <wbr/>Reference</span></a></li><li><a href="#md:support-and-feedback"><span>Support and feedback</span></a></li><li><a href="#md:license"><span>License</span></a></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>@fingerprintjs/fingerprintjs-pro-server-api</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
