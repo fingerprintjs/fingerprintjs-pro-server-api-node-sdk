@@ -170,7 +170,7 @@ To learn more, see [example/unsealResult.mjs](./example/unsealResult.mjs) or the
 
 ### Deleting visitor data
 
-Customers on the Enterprise plan can [Delete all data associated with a specific visitor](https://dev.fingerprint.com/reference/deletevisitordata) to comply with privacy regulations. See [example/deleteVisitor.mjs](./example/deleteVisitor.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/docs/classes/FingerprintJsServerApiClient.html#deleteVisitorData).
+Customers on the Enterprise plan can [Delete all data associated with a specific visitor](https://dev.fingerprint.com/reference/deletevisitordata) to comply with privacy regulations. See [example/deleteVisitor.mjs](./example/deleteVisitor.mjs) or the [API Reference](https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/classes/FingerprintJsServerApiClient.html#deleteVisitorData).
 
 ## API Reference
 
