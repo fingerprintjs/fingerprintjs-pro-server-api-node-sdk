@@ -99,7 +99,11 @@ describe('[Mocked response] Get Event', () => {
         )
       )
     )
-    await expect(client.getEvent(existingRequestId)).rejects.toMatchSnapshot()
+    await expect(client.getEvent(existingRequestId)).rejects.toMatchSnapshot({
+      error: {
+        response: expect.any(Response),
+      },
+    } as any)
   })
 
   test('Error with bad JSON', async () => {

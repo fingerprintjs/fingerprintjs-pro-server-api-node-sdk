@@ -1,5 +1,5 @@
 import { Region, VisitorHistoryFilter } from '../../src/types'
-import { getEventUrl, getVisitorsUrl } from '../../src/urlUtils'
+import { getDeleteVisitorDataUrl, getEventUrl, getVisitorsUrl } from '../../src/urlUtils'
 import { version } from '../../package.json'
 
 const visitorId = 'TaDnMBz9XCpZNuSzFUqP'
@@ -113,6 +113,26 @@ describe('Get Visitors path', () => {
     }
     const actualPath = getVisitorsUrl(Region.Global, visitorId, filter)
     const expectedPath = `https://api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?request_id=1626550679751.cVc5Pm&linked_id=makma&limit=10&paginationKey=1683900801733.Ogvu1j&${ii}`
+    expect(actualPath).toEqual(expectedPath)
+  })
+})
+
+describe('Delete visitor path', () => {
+  test('eu region', async () => {
+    const actualPath = getDeleteVisitorDataUrl(Region.EU, visitorId)
+    const expectedPath = `https://eu.api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?${ii}`
+    expect(actualPath).toEqual(expectedPath)
+  })
+
+  test('ap region', async () => {
+    const actualPath = getDeleteVisitorDataUrl(Region.AP, visitorId)
+    const expectedPath = `https://ap.api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?${ii}`
+    expect(actualPath).toEqual(expectedPath)
+  })
+
+  test('global region', async () => {
+    const actualPath = getDeleteVisitorDataUrl(Region.Global, visitorId)
+    const expectedPath = `https://api.fpjs.io/visitors/TaDnMBz9XCpZNuSzFUqP?${ii}`
     expect(actualPath).toEqual(expectedPath)
   })
 })

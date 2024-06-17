@@ -178,7 +178,8 @@
         "methods": {
           "timezoneMismatch": false,
           "publicVPN": false,
-          "auxiliaryMobile": false
+          "auxiliaryMobile": false,
+          "osMismatch": false
         }
       }
     },

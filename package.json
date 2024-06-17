@@ -28,7 +28,8 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:dts": "tsc --noEmit --isolatedModules dist/index.d.ts",
-    "generateTypes": "pnpm openapi-typescript resources/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc"
+    "generateTypes": "pnpm openapi-typescript resources/fingerprint-server-api.yaml --output ./src/generatedApiTypes.ts -c .prettierrc",
+    "docs": "typedoc src/index.ts --out docs"
   },
   "keywords": [],
   "author": "FingerprintJS, Inc (https://fingerprint.com)",
@@ -46,7 +47,7 @@
     "@fingerprintjs/commit-lint-dx-team": "^0.0.2",
     "@fingerprintjs/conventional-changelog-dx-team": "^0.1.0",
     "@fingerprintjs/eslint-config-dx-team": "^0.1.0",
-    "@fingerprintjs/prettier-config-dx-team": "^0.1.0",
+    "@fingerprintjs/prettier-config-dx-team": "^0.2.0",
     "@fingerprintjs/tsconfig-dx-team": "^0.0.2",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -66,6 +67,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "ts-jest": "^29.1.2",
     "tslib": "^2.6.2",
+    "typedoc": "^0.25.13",
     "typescript": "^5.4.0"
   }
 }

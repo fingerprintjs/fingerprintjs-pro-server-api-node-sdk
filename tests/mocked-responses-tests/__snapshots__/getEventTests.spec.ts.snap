@@ -2,7 +2,11 @@
 
 exports[`[Mocked response] Get Event Error with bad shape 1`] = `
 {
-  "error": "{"error":"Some text instead og shaped object","status":404}",
+  "error": {
+    "error": "Some text instead og shaped object",
+    "response": Any<Response>,
+    "status": 404,
+  },
   "status": 0,
 }
 `;
@@ -34,6 +38,7 @@ exports[`[Mocked response] Get Event with additional signals 1`] = `
           "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
         },
         "confidence": {
+          "revision": "v1.1",
           "score": 0.97,
         },
         "firstSeenAt": {
@@ -514,6 +519,7 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
       "data": {
         "methods": {
           "auxiliaryMobile": false,
+          "osMismatch": false,
           "publicVPN": false,
           "timezoneMismatch": false,
         },

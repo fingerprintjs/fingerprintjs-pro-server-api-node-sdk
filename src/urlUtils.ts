@@ -14,6 +14,9 @@ function getIntegrationInfo() {
   return `fingerprint-pro-server-node-sdk/${version}`
 }
 
+/**
+ * @private
+ * */
 export function getEventUrl(requestId: string, region: Region, apiKey?: string) {
   const params: QueryStringParameters = {
     ii: getIntegrationInfo(),
@@ -26,6 +29,27 @@ export function getEventUrl(requestId: string, region: Region, apiKey?: string) 
   return `${getServerApiUrl(region)}events/${requestId}?${serializeQueryStringParams(params)}`
 }
 
+/**
+ * @private
+ * */
+export function getDeleteVisitorDataUrl(region: Region, visitorId: string, apiKey?: string): string {
+  const queryStringParameters: QueryStringParameters = {
+    ii: getIntegrationInfo(),
+  }
+
+  if (apiKey) {
+    queryStringParameters.api_key = apiKey
+  }
+
+  const serverApiPath = getVisitorsPath(region, visitorId)
+  const queryString = serializeQueryStringParams(queryStringParameters)
+
+  return `${serverApiPath}?${queryString}`
+}
+
+/**
+ * @private
+ * */
 export function getVisitorsUrl(
   region: Region,
   visitorId: string,
