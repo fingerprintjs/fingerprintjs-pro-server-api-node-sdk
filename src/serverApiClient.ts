@@ -14,6 +14,7 @@ import {
   VisitorsError429,
   VisitorsResponse,
 } from './types'
+import { getJson } from './responseUtils'
 
 export class FingerprintJsServerApiClient {
   public readonly region: Region
@@ -80,7 +81,8 @@ export class FingerprintJsServerApiClient {
       headers,
     })
       .then(async (response) => {
-        const jsonResponse = await response.json()
+        const jsonResponse = await getJson<EventError | EventResponse>(response)
+
         if (response.status !== 200) {
           throw { ...jsonResponse, response, status: response.status } as EventError
         }
@@ -143,7 +145,7 @@ export class FingerprintJsServerApiClient {
           return
         }
 
-        const jsonResponse = await response.json()
+        const jsonResponse = await getJson<DeleteVisitorError>(response)
 
         throw { ...(jsonResponse as DeleteVisitorError), response, status: response.status } as DeleteVisitorError
       })
@@ -206,7 +208,8 @@ export class FingerprintJsServerApiClient {
       headers,
     })
       .then(async (response) => {
-        const jsonResponse = await response.json()
+        const jsonResponse = await getJson<VisitorsResponse | VisitorsError429 | VisitorsError>(response)
+
         if (response.status === 200) {
           return jsonResponse as VisitorsResponse
         }
