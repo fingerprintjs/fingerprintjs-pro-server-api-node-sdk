@@ -1,11 +1,11 @@
-import { EventError, FingerprintJsServerApiClient, isEventError, Region } from '../../src'
+import { FingerprintJsServerApiClient, isEventError, Region } from '../../src'
 
 describe('ServerApiClient', () => {
   it('should support passing custom fetch implementation', async () => {
     const mockFetch = jest.fn().mockResolvedValue(new Response(JSON.stringify({})))
 
     const client = new FingerprintJsServerApiClient({
-      fetch: mockFetch as any,
+      fetch: mockFetch,
       apiKey: 'test',
       region: Region.Global,
     })
@@ -19,18 +19,17 @@ describe('ServerApiClient', () => {
     const mockFetch = jest.fn().mockResolvedValue(
       new Response(
         JSON.stringify({
-          status: 403,
           error: {
             code: 'FeatureNotEnabled',
             message: 'feature not enabled',
           },
-        } as Omit<EventError, 'response'>),
+        }),
         { status: 403 }
       )
     )
 
     const client = new FingerprintJsServerApiClient({
-      fetch: mockFetch as any,
+      fetch: mockFetch,
       apiKey: 'test',
       region: Region.Global,
     })
