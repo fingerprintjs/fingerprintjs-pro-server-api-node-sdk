@@ -1,6 +1,7 @@
 import { getDeleteVisitorDataUrl, getEventUrl, getVisitorsUrl } from './urlUtils'
 import {
   AuthenticationMode,
+  CommonError429,
   DeleteVisitorError,
   EventError,
   EventResponse,
@@ -23,6 +24,8 @@ export class FingerprintJsServerApiClient {
   public readonly authenticationMode: AuthenticationMode
 
   protected readonly fetch: typeof fetch
+
+  protected static readonly DEFAULT_RETRY_AFTER = 1
 
   /**
    * FingerprintJS server API client used to fetch data from FingerprintJS
@@ -145,6 +148,14 @@ export class FingerprintJsServerApiClient {
 
         const jsonResponse = await response.json()
 
+        if (response.status === 429) {
+          const retryAfter = this.getRetryAfter(response)
+
+          ;(jsonResponse as CommonError429).retryAfter = retryAfter
+            ? parseInt(retryAfter)
+            : FingerprintJsServerApiClient.DEFAULT_RETRY_AFTER
+        }
+
         throw { ...(jsonResponse as DeleteVisitorError), response, status: response.status } as DeleteVisitorError
       })
       .catch((err) => {
@@ -211,8 +222,10 @@ export class FingerprintJsServerApiClient {
           return jsonResponse as VisitorsResponse
         }
         if (response.status === 429) {
-          const retryAfter = response.headers.get('retry-after') || ''
-          ;(jsonResponse as VisitorsError429).retryAfter = retryAfter === '' ? 1 : parseInt(retryAfter)
+          const retryAfter = this.getRetryAfter(response)
+          ;(jsonResponse as VisitorsError429).retryAfter = retryAfter
+            ? parseInt(retryAfter)
+            : FingerprintJsServerApiClient.DEFAULT_RETRY_AFTER
         }
         throw { ...(jsonResponse as VisitorsError), response, status: response.status } as VisitorsError
       })
@@ -229,5 +242,9 @@ export class FingerprintJsServerApiClient {
 
   private getHeaders() {
     return this.authenticationMode === AuthenticationMode.AuthHeader ? { 'Auth-API-Key': this.apiKey } : undefined
+  }
+
+  private getRetryAfter(response: Response) {
+    return response.headers.get('retry-after')
   }
 }

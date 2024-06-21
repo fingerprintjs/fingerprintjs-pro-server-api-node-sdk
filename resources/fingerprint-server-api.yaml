@@ -213,8 +213,8 @@ paths:
           headers:
             Retry-After:
               description: >-
-                Indicates how long you should wait before attempting the next
-                request.
+                Indicates how many seconds you should wait before attempting the
+                next request.
               schema:
                 type: integer
                 format: int32
@@ -222,7 +222,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManyRequestsResponse'
+                $ref: '#/components/schemas/TooManyRequestsResponse'
     delete:
       tags:
         - Fingerprint
@@ -258,6 +258,14 @@ paths:
       responses:
         '200':
           description: OK. The visitor ID is scheduled for deletion.
+        '400':
+          description: >-
+            Bad request. The visitor ID parameter is missing or in the wrong
+            format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVisitsDelete400Response'
         '403':
           description: Forbidden. Access to this API is denied.
           content:
@@ -272,6 +280,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorVisitsDelete404Response'
+        '429':
+          description: Too Many Requests. The request is throttled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCommon429Response'
   /webhook:
     trace:
       tags:
@@ -631,6 +645,27 @@ components:
           required:
             - code
             - message
+    ErrorCommon429Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: |
+                Error code: * `TooManyRequests` - The request is throttled.
+              enum:
+                - TooManyRequests
+              example: TooManyRequests
+            message:
+              type: string
+              example: request throttled
+          required:
+            - code
+            - message
     ErrorEvent404Response:
       type: object
       additionalProperties: false
@@ -664,7 +699,7 @@ components:
           example: Forbidden (HTTP 403)
       required:
         - error
-    ManyRequestsResponse:
+    TooManyRequestsResponse:
       type: object
       additionalProperties: false
       properties:
@@ -694,6 +729,28 @@ components:
             message:
               type: string
               example: visitor not found
+          required:
+            - code
+            - message
+    ErrorVisitsDelete400Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: >
+                Error code: * `RequestCannotBeParsed` - The visitor ID parameter
+                is missing or in the wrong format.
+              enum:
+                - RequestCannotBeParsed
+              example: RequestCannotBeParsed
+            message:
+              type: string
+              example: invalid visitor id
           required:
             - code
             - message
