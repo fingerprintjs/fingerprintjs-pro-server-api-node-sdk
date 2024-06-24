@@ -1,3 +1,11 @@
+## [4.1.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v4.1.0...v4.1.1) (2024-06-24)
+
+
+### Bug Fixes
+
+* add 400 and 429 status mappings for DELETE API ([8574924](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/8574924fbd6474795307d610de1220cd519282fc))
+* provide raw HTTP response in errors that supports body related methods, such as `response.json()` ([6689b87](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/6689b871810e7131362c89deacabd6f5b62e3221))
+
 ## [4.1.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v4.0.1...v4.1.0) (2024-06-17)
 
 
