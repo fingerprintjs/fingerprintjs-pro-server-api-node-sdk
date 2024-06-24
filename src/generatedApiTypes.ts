@@ -163,6 +163,19 @@ export interface components {
         message: string
       }
     }
+    ErrorCommon429Response: {
+      error?: {
+        /**
+         * @description Error code: * `TooManyRequests` - The request is throttled.
+         *
+         * @example TooManyRequests
+         * @enum {string}
+         */
+        code: 'TooManyRequests'
+        /** @example request throttled */
+        message: string
+      }
+    }
     ErrorEvent404Response: {
       /** ErrorEvent404ResponseError */
       error?: {
@@ -185,7 +198,7 @@ export interface components {
        */
       error: string
     }
-    ManyRequestsResponse: {
+    TooManyRequestsResponse: {
       /**
        * @description Error text.
        * @example request throttled
@@ -203,6 +216,19 @@ export interface components {
          */
         code: 'VisitorNotFound'
         /** @example visitor not found */
+        message: string
+      }
+    }
+    ErrorVisitsDelete400Response: {
+      error?: {
+        /**
+         * @description Error code: * `RequestCannotBeParsed` - The visitor ID parameter is missing or in the wrong format.
+         *
+         * @example RequestCannotBeParsed
+         * @enum {string}
+         */
+        code: 'RequestCannotBeParsed'
+        /** @example invalid visitor id */
         message: string
       }
     }
@@ -1092,11 +1118,11 @@ export interface operations {
       /** @description Too Many Requests */
       429: {
         headers: {
-          /** @description Indicates how long you should wait before attempting the next request. */
+          /** @description Indicates how many seconds you should wait before attempting the next request. */
           'Retry-After'?: number
         }
         content: {
-          'application/json': components['schemas']['ManyRequestsResponse']
+          'application/json': components['schemas']['TooManyRequestsResponse']
         }
       }
     }
@@ -1123,6 +1149,12 @@ export interface operations {
       200: {
         content: never
       }
+      /** @description Bad request. The visitor ID parameter is missing or in the wrong format. */
+      400: {
+        content: {
+          'application/json': components['schemas']['ErrorVisitsDelete400Response']
+        }
+      }
       /** @description Forbidden. Access to this API is denied. */
       403: {
         content: {
@@ -1133,6 +1165,12 @@ export interface operations {
       404: {
         content: {
           'application/json': components['schemas']['ErrorVisitsDelete404Response']
+        }
+      }
+      /** @description Too Many Requests. The request is throttled. */
+      429: {
+        content: {
+          'application/json': components['schemas']['ErrorCommon429Response']
         }
       }
     }

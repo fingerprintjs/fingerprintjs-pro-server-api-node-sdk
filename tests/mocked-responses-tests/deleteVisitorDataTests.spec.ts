@@ -1,6 +1,8 @@
 import { FingerprintJsServerApiClient, Region } from '../../src'
 import Error404 from './mocked-responses-data/external/delete_visits_404_error.json'
 import Error403 from './mocked-responses-data/external/delete_visits_403_error.json'
+import Error400 from './mocked-responses-data/external/delete_visits_400_error.json'
+import Error429 from './mocked-responses-data/external/delete_visits_429_error.json'
 
 jest.spyOn(global, 'fetch')
 
@@ -46,6 +48,40 @@ describe('[Mocked response] Delete visitor data', () => {
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toMatchObject({
       ...Error403,
       status: 403,
+    })
+  })
+
+  test('400 error', async () => {
+    ;(fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(
+        new Response(JSON.stringify(Error400), {
+          status: 400,
+        })
+      )
+    )
+
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toMatchObject({
+      ...Error400,
+      status: 400,
+    })
+  })
+
+  test('429 error', async () => {
+    ;(fetch as unknown as jest.Mock).mockReturnValue(
+      Promise.resolve(
+        new Response(JSON.stringify(Error429), {
+          status: 429,
+          headers: {
+            'retry-after': '5',
+          },
+        })
+      )
+    )
+
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toMatchObject({
+      ...Error429,
+      status: 429,
+      retryAfter: 5,
     })
   })
 

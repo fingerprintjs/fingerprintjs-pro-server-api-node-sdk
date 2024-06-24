@@ -40,6 +40,14 @@ export interface Options {
  */
 export type VisitorHistoryFilter = paths['/visitors/{visitor_id}']['get']['parameters']['query']
 
+export type TooManyRequestsError = {
+  status: 429
+  /**
+   * How many seconds to wait before retrying
+   */
+  retryAfter: number
+}
+
 /**
  * More info: https://dev.fingerprintjs.com/docs/server-api#response
  */
@@ -49,13 +57,7 @@ export type VisitorsError403 =
     status: 403
   }
 export type VisitorsError429 =
-  paths['/visitors/{visitor_id}']['get']['responses']['429']['content']['application/json'] & {
-    status: 429
-    /**
-     * How many seconds to wait before retrying
-     */
-    retryAfter: number
-  }
+  paths['/visitors/{visitor_id}']['get']['responses']['429']['content']['application/json'] & TooManyRequestsError
 
 export type DeleteVisitError404 =
   paths['/visitors/{visitor_id}']['delete']['responses']['404']['content']['application/json'] & {
@@ -67,9 +69,18 @@ export type DeleteVisitError403 =
     status: 403
   }
 
+export type DeleteVisitError400 =
+  paths['/visitors/{visitor_id}']['delete']['responses']['400']['content']['application/json'] & {
+    status: 400
+  }
+
+export type CommonError429 = components['schemas']['ErrorCommon429Response'] & TooManyRequestsError
+
 export type VisitorsError = WithResponse<VisitorsError403 | VisitorsError429>
 
-export type DeleteVisitorError = WithResponse<DeleteVisitError404 | DeleteVisitError403>
+export type DeleteVisitorError = WithResponse<
+  DeleteVisitError404 | DeleteVisitError403 | DeleteVisitError400 | CommonError429
+>
 
 export function isVisitorsError(response: any): response is VisitorsError {
   return (
@@ -82,14 +93,15 @@ export function isVisitorsError(response: any): response is VisitorsError {
 }
 
 export function isDeleteVisitorError(response: any): response is DeleteVisitorError {
-  return (
-    (response?.hasOwnProperty('status') &&
-      (response.status === 403 || response.status === 404) &&
+  const statusCodes = [400, 403, 404, 429]
+
+  return Boolean(
+    response?.hasOwnProperty('status') &&
+      statusCodes.includes(response.status) &&
       response.error?.hasOwnProperty('message') &&
       typeof response.error.message === 'string' &&
       response.error?.hasOwnProperty('code') &&
-      typeof response.error.code === 'string') ||
-    false
+      typeof response.error.code === 'string'
   )
 }
 
