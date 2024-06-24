@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.47% </span>
+                <span class="strong">90.16% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>57/63</span>
+                <span class='fraction'>55/61</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/13</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -192,7 +192,19 @@
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a>
+<a name='L139'></a><a href='#L139'>139</a>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -203,6 +215,17 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -276,8 +299,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,6 +387,14 @@ export interface Options {
  */
 export type VisitorHistoryFilter = paths['/visitors/{visitor_id}']['get']['parameters']['query']
 &nbsp;
+export type TooManyRequestsError = {
+  status: 429
+  /**
+   * How many seconds to wait before retrying
+   */
+  retryAfter: number
+}
+&nbsp;
 /**
  * More info: https://dev.fingerprintjs.com/docs/server-api#response
  */
@@ -372,13 +404,7 @@ export type VisitorsError403 =
     status: 403
   }
 export type VisitorsError429 =
-  paths['/visitors/{visitor_id}']['get']['responses']['429']['content']['application/json'] &amp; {
-    status: 429
-    /**
-     * How many seconds to wait before retrying
-     */
-    retryAfter: number
-  }
+  paths['/visitors/{visitor_id}']['get']['responses']['429']['content']['application/json'] &amp; TooManyRequestsError
 &nbsp;
 export type DeleteVisitError404 =
   paths['/visitors/{visitor_id}']['delete']['responses']['404']['content']['application/json'] &amp; {
@@ -390,9 +416,18 @@ export type DeleteVisitError403 =
     status: 403
   }
 &nbsp;
+export type DeleteVisitError400 =
+  paths['/visitors/{visitor_id}']['delete']['responses']['400']['content']['application/json'] &amp; {
+    status: 400
+  }
+&nbsp;
+export type CommonError429 = components['schemas']['ErrorCommon429Response'] &amp; TooManyRequestsError
+&nbsp;
 export type VisitorsError = WithResponse&lt;VisitorsError403 | VisitorsError429&gt;
 &nbsp;
-export type DeleteVisitorError = WithResponse&lt;DeleteVisitError404 | DeleteVisitError403&gt;
+export type DeleteVisitorError = WithResponse&lt;
+  DeleteVisitError404 | DeleteVisitError403 | DeleteVisitError400 | CommonError429
+&gt;
 &nbsp;
 export function isVisitorsError(response: any): response is VisitorsError {
   return (
@@ -405,14 +440,15 @@ export function isVisitorsError(response: any): response is VisitorsError {
 }
 &nbsp;
 export function isDeleteVisitorError(response: any): response is DeleteVisitorError {
-  return (
-    (response<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>asOwnProperty('status') &amp;&amp;
-      (response.status === 403 || response.status === 404) &amp;&amp;
+  const statusCodes = [400, 403, 404, 429]
+&nbsp;
+  return Boolean(
+    response<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>asOwnProperty('status') &amp;&amp;
+      statusCodes.includes(response.status) &amp;&amp;
       response.error<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>asOwnProperty('message') &amp;&amp;
       typeof response.error.message === 'string' &amp;&amp;
       response.error<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>asOwnProperty('code') &amp;&amp;
-      typeof response.error.code === 'string') ||
-    false
+      typeof response.error.code === 'string'
   )
 }
 &nbsp;
@@ -457,7 +493,7 @@ export type VisitWebhook = components['schemas']['WebhookVisit']
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-21T11:05:57.521Z
+                at 2024-06-24T11:47:55.330Z
             </div>
         <script src="../prettify.js"></script>
         <script>
