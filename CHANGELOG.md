@@ -1,3 +1,10 @@
+## [4.1.2](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v4.1.1...v4.1.2) (2024-07-02)
+
+
+### Bug Fixes
+
+* use correct error type for `incognito`, `rawDeviceAttributes` and `tampering` in the `GetEvent` method ([ad66ae3](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/ad66ae3e93ea29ff0e41eaf07c17c3444c1a4a26))
+
 ## [4.1.1](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v4.1.0...v4.1.1) (2024-06-24)
 
 
