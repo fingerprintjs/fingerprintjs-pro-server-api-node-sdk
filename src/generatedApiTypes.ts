@@ -604,7 +604,7 @@ export interface components {
       /** SignalResponseIncognito */
       incognito?: {
         data?: components['schemas']['IncognitoResult']
-        error?: components['schemas']['ProductError']
+        error?: components['schemas']['IdentificationError']
       }
       /** SignalResponseRootApps */
       rootApps?: {
@@ -669,7 +669,7 @@ export interface components {
       /** SignalResponseTampering */
       tampering?: {
         data?: components['schemas']['TamperingResult']
-        error?: components['schemas']['ProductError']
+        error?: components['schemas']['IdentificationError']
       }
       /** SignalResponseHighActivity */
       highActivity?: {
@@ -689,7 +689,7 @@ export interface components {
       /** SignalResponseRawDeviceAttributes */
       rawDeviceAttributes?: {
         data?: components['schemas']['RawDeviceAttributesResult']
-        error?: components['schemas']['ProductError']
+        error?: components['schemas']['IdentificationError']
       }
     }
     /** @description Contains results from all activated products - Fingerprint Pro, Bot Detection, and others. */
