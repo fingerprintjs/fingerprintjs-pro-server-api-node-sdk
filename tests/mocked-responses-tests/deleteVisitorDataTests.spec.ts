@@ -1,10 +1,26 @@
-import { FingerprintJsServerApiClient, Region } from '../../src'
+import {
+  CommonResponse429,
+  DeleteVisit400Response,
+  DeleteVisit403Response,
+  DeleteVisit404Response,
+  FingerprintJsServerApiClient,
+  Region,
+} from '../../src'
 import Error404 from './mocked-responses-data/external/delete_visits_404_error.json'
 import Error403 from './mocked-responses-data/external/delete_visits_403_error.json'
 import Error400 from './mocked-responses-data/external/delete_visits_400_error.json'
 import Error429 from './mocked-responses-data/external/delete_visits_429_error.json'
+import {
+  CommonError429,
+  DeleteVisit400Error,
+  DeleteVisit403Error,
+  DeleteVisit404Error,
+  SdkError,
+} from '../../src/errors/apiErrors'
 
 jest.spyOn(global, 'fetch')
+
+const mockFetch = fetch as unknown as jest.Mock
 
 describe('[Mocked response] Delete visitor data', () => {
   const apiKey = 'dummy_api_key'
@@ -14,7 +30,7 @@ describe('[Mocked response] Delete visitor data', () => {
   const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey })
 
   test('with visitorId', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(Promise.resolve(new Response()))
+    mockFetch.mockReturnValue(Promise.resolve(new Response()))
 
     const response = await client.deleteVisitorData(existingVisitorId)
 
@@ -22,105 +38,81 @@ describe('[Mocked response] Delete visitor data', () => {
   })
 
   test('404 error', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response(JSON.stringify(Error404), {
-          status: 404,
-        })
-      )
-    )
-
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toMatchObject({
-      ...Error404,
+    const mockResponse = new Response(JSON.stringify(Error404), {
       status: 404,
     })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
+      new DeleteVisit404Error(Error404 as DeleteVisit404Response, mockResponse)
+    )
   })
 
   test('403 error', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response(JSON.stringify(Error403), {
-          status: 403,
-        })
-      )
-    )
-
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toMatchObject({
-      ...Error403,
+    const mockResponse = new Response(JSON.stringify(Error403), {
       status: 403,
     })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
+      new DeleteVisit403Error(Error403 as DeleteVisit403Response, mockResponse)
+    )
   })
 
   test('400 error', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response(JSON.stringify(Error400), {
-          status: 400,
-        })
-      )
-    )
-
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toMatchObject({
-      ...Error400,
+    const mockResponse = new Response(JSON.stringify(Error400), {
       status: 400,
     })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
+      new DeleteVisit400Error(Error400 as DeleteVisit400Response, mockResponse)
+    )
   })
 
   test('429 error', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response(JSON.stringify(Error429), {
-          status: 429,
-          headers: {
-            'retry-after': '5',
-          },
-        })
-      )
-    )
-
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toMatchObject({
-      ...Error429,
+    const mockResponse = new Response(JSON.stringify(Error429), {
       status: 429,
-      retryAfter: 5,
+      headers: {
+        'retry-after': '5',
+      },
     })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+
+    const expectedError = new CommonError429(Error429 as CommonResponse429, mockResponse)
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(expectedError)
+    expect(expectedError.retryAfter).toEqual(5)
   })
 
   test('Error with bad JSON', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response('(Some bad JSON)', {
-          status: 404,
-        })
+    const mockResponse = new Response('(Some bad JSON)', {
+      status: 404,
+    })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toMatchObject(
+      new SdkError(
+        'Failed to parse JSON response',
+        mockResponse,
+        new SyntaxError('Unexpected token \'(\', "(Some bad JSON)" is not valid JSON')
       )
     )
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toEqual({
-      status: 0,
-      error: new SyntaxError(),
-    })
   })
 
   test('Error with bad shape', async () => {
     const errorInfo = 'Some text instead of shaped object'
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response(
-          JSON.stringify({
-            error: errorInfo,
-          }),
-          {
-            status: 404,
-          }
-        )
-      )
+    const mockResponse = new Response(
+      JSON.stringify({
+        error: errorInfo,
+      }),
+      {
+        status: 404,
+      }
     )
 
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toEqual({
-      status: 0,
-      error: {
-        response: expect.any(Response),
-        error: errorInfo,
-        status: 404,
-      },
-    })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(DeleteVisit404Error)
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow('Visit not found')
   })
 })

@@ -1,11 +1,13 @@
-import { Region } from '../../src/types'
+import { EventResponse403, EventResponse404, Region } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getEventResponse from './mocked-responses-data/external/get_event_200.json'
 import getEventWithExtraFieldsResponse from './mocked-responses-data/external/get_event_200_extra_fields.json'
 import getEventAllErrorsResponse from './mocked-responses-data/external/get_event_200_all_errors.json'
+import { EventError403, EventError404, SdkError } from '../../src/errors/apiErrors'
 
 jest.spyOn(global, 'fetch')
 
+const mockFetch = fetch as unknown as jest.Mock
 describe('[Mocked response] Get Event', () => {
   const apiKey = 'dummy_api_key'
   const existingRequestId = '1626550679751.cVc5Pm'
@@ -13,7 +15,7 @@ describe('[Mocked response] Get Event', () => {
   const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey })
 
   test('with request_id', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(Promise.resolve(new Response(JSON.stringify(getEventResponse))))
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getEventResponse))))
 
     const response = await client.getEvent(existingRequestId)
 
@@ -21,18 +23,14 @@ describe('[Mocked response] Get Event', () => {
   })
 
   test('with additional signals', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(new Response(JSON.stringify(getEventWithExtraFieldsResponse)))
-    )
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getEventWithExtraFieldsResponse))))
 
     const response = await client.getEvent(existingRequestId)
     expect(response).toMatchSnapshot()
   })
 
   test('with all signals with failed error', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(new Response(JSON.stringify(getEventAllErrorsResponse)))
-    )
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getEventAllErrorsResponse))))
 
     const response = await client.getEvent(existingRequestId)
 
@@ -41,81 +39,63 @@ describe('[Mocked response] Get Event', () => {
 
   test('403 error', async () => {
     const errorInfo = {
-      code: 'TokenRequired',
-      message: 'secret key is required',
+      error: {
+        code: 'TokenRequired',
+        message: 'secret key is required',
+      },
     }
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response(
-          JSON.stringify({
-            error: errorInfo,
-          }),
-          {
-            status: 403,
-          }
-        )
-      )
-    )
-    await expect(client.getEvent(existingRequestId)).rejects.toMatchObject({
+    const mockResponse = new Response(JSON.stringify(errorInfo), {
       status: 403,
-      error: errorInfo,
     })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(
+      new EventError403(errorInfo as EventResponse403, mockResponse)
+    )
   })
 
   test('404 error', async () => {
     const errorInfo = {
-      code: 'RequestNotFound',
-      message: 'request id is not found',
+      error: {
+        code: 'RequestNotFound',
+        message: 'request id is not found',
+      },
     }
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response(
-          JSON.stringify({
-            error: errorInfo,
-          }),
-          {
-            status: 404,
-          }
-        )
-      )
-    )
-    await expect(client.getEvent(existingRequestId)).rejects.toMatchObject({
+    const mockResponse = new Response(JSON.stringify(errorInfo), {
       status: 404,
-      error: errorInfo,
     })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(
+      new EventError404(errorInfo as EventResponse404, mockResponse)
+    )
   })
 
   test('Error with bad shape', async () => {
     const errorInfo = 'Some text instead og shaped object'
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response(
-          JSON.stringify({
-            error: errorInfo,
-          }),
-          {
-            status: 404,
-          }
-        )
-      )
+    const mockResponse = new Response(
+      JSON.stringify({
+        error: errorInfo,
+      }),
+      {
+        status: 404,
+      }
     )
-    await expect(client.getEvent(existingRequestId)).rejects.toMatchSnapshot({
-      error: {
-        response: expect.any(Response),
-      },
-    } as any)
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(EventError404)
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow('request id is not found')
   })
 
   test('Error with bad JSON', async () => {
-    ;(fetch as unknown as jest.Mock).mockReturnValue(
-      Promise.resolve(
-        new Response('(Some bad JSON)', {
-          status: 404,
-        })
+    const mockResponse = new Response('(Some bad JSON)', {
+      status: 404,
+    })
+    mockFetch.mockReturnValue(Promise.resolve(mockResponse))
+
+    await expect(client.getEvent(existingRequestId)).rejects.toMatchObject(
+      new SdkError(
+        'Failed to parse JSON response',
+        mockResponse,
+        new SyntaxError('Unexpected token \'(\', \\"(Some bad JSON)\\" is not valid JSON')
       )
     )
-    await expect(client.getEvent(existingRequestId)).rejects.toMatchObject({
-      status: 0,
-    })
   })
 })
