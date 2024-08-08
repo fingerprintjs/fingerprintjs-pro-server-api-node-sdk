@@ -1,16 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[Mocked response] Get Event Error with bad shape 1`] = `
-{
-  "error": {
-    "error": "Some text instead og shaped object",
-    "response": Any<Response>,
-    "status": 404,
-  },
-  "status": 0,
-}
-`;
-
 exports[`[Mocked response] Get Event with additional signals 1`] = `
 {
   "products": {
@@ -119,6 +108,12 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
         "message": "internal server error",
       },
     },
+    "developerTools": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
     "emulator": {
       "error": {
         "code": "Failed",
@@ -207,6 +202,12 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
         },
       },
     },
+    "remoteControl": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
     "rootApps": {
       "error": {
         "code": "Failed",
@@ -226,6 +227,12 @@ exports[`[Mocked response] Get Event with all signals with failed error 1`] = `
       },
     },
     "tor": {
+      "error": {
+        "code": "Failed",
+        "message": "internal server error",
+      },
+    },
+    "velocity": {
       "error": {
         "code": "Failed",
         "message": "internal server error",
@@ -263,6 +270,11 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
       },
     },
     "clonedApp": {
+      "data": {
+        "result": false,
+      },
+    },
+    "developerTools": {
       "data": {
         "result": false,
       },
@@ -494,6 +506,11 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
         },
       },
     },
+    "remoteControl": {
+      "data": {
+        "result": false,
+      },
+    },
     "rootApps": {
       "data": {
         "result": false,
@@ -508,6 +525,32 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
     "tor": {
       "data": {
         "result": false,
+      },
+    },
+    "velocity": {
+      "data": {
+        "distinctCountry": {
+          "intervals": {
+            "1h": 2,
+            "24h": 2,
+            "5m": 1,
+          },
+        },
+        "distinctIp": {
+          "intervals": {
+            "1h": 1,
+            "24h": 1,
+            "5m": 1,
+          },
+        },
+        "distinctLinkedId": {},
+        "events": {
+          "intervals": {
+            "1h": 5,
+            "24h": 5,
+            "5m": 1,
+          },
+        },
       },
     },
     "virtualMachine": {

@@ -6,10 +6,10 @@ import {
   FingerprintJsServerApiClient,
   Region,
 } from '../../src'
-import Error404 from './mocked-responses-data/external/delete_visits_404_error.json'
-import Error403 from './mocked-responses-data/external/delete_visits_403_error.json'
-import Error400 from './mocked-responses-data/external/delete_visits_400_error.json'
-import Error429 from './mocked-responses-data/external/delete_visits_429_error.json'
+import Error404 from './mocked-responses-data/external/shared/404_error_visitor_not_found.json'
+import Error403 from './mocked-responses-data/external/shared/403_error_feature_not_enabled.json'
+import Error400 from './mocked-responses-data/external/shared/400_error_incorrect_visitor_id.json'
+import Error429 from './mocked-responses-data/external/shared/429_error_too_many_requests.json'
 import {
   CommonError429,
   DeleteVisit400Error,

@@ -5,29 +5,15 @@
 
 export interface paths {
   '/events/{request_id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
     /**
      * Get event by request ID
      * @description Get a detailed analysis of an individual identification event, including Smart Signals.
-     *     **Only for Enterprise customers:** Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform.
-     *     It is highly recommended that you **ignore** the mobile signals for such requests.
+     * Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform.
+     * It is highly recommended that you **ignore** the mobile signals for such requests.
      *
-     *     Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
-     *
+     * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
      */
     get: operations['getEvent']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
   }
   '/visitors/{visitor_id}': {
     parameters: {
@@ -102,6 +88,7 @@ export interface paths {
   }
 }
 export type webhooks = Record<string, never>
+
 export interface components {
   schemas: {
     /**
@@ -198,11 +185,11 @@ export interface components {
       error?: {
         /**
          * @description Error code:
-         *      * `TokenRequired` - `Auth-API-Key` header is missing or empty
-         *      * `TokenNotFound` - No Fingerprint application found for specified secret key
-         *      * `SubscriptionNotActive` - Fingerprint application is not active
-         *      * `WrongRegion` - server and application region differ
-         *      * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application
+         *  * `TokenRequired` - `Auth-API-Key` header is missing or empty
+         *  * `TokenNotFound` - No Fingerprint application found for specified secret key
+         *  * `SubscriptionNotActive` - Fingerprint application is not active
+         *  * `WrongRegion` - server and application region differ
+         *  * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application
          *
          * @example TokenRequired
          * @enum {string}
@@ -230,7 +217,7 @@ export interface components {
       error?: {
         /**
          * @description Error code:
-         *      * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
+         *  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
          *
          * @example RequestNotFound
          * @enum {string}
@@ -309,6 +296,9 @@ export interface components {
       highActivity?: components['schemas']['HighActivityResult']
       locationSpoofing?: components['schemas']['LocationSpoofingResult']
       suspectScore?: components['schemas']['SuspectScoreResult']
+      remoteControl?: components['schemas']['RemoteControlResult']
+      velocity?: components['schemas']['VelocityResult']
+      developerTools?: components['schemas']['DeveloperToolsResult']
       /**
        * @description Unique identifier of the user's identification request.
        * @example 1654815516083.OX6kx8
@@ -478,9 +468,9 @@ export interface components {
     /**
      * SeenAt
      * @example {
-     *       "global": "2022-05-05T18:28:54.535Z",
-     *       "subscription": null
-     *     }
+     *   "global": "2022-05-05T18:28:54.535Z",
+     *   "subscription": null
+     * }
      */
     SeenAt: {
       /**
@@ -633,8 +623,8 @@ export interface components {
            * @description String of 20 characters that uniquely identifies the visitor's browser.
            *
            * @example [
-           *       "Ibk1527CUFmcnjLwIs4A"
-           *     ]
+           *   "Ibk1527CUFmcnjLwIs4A"
+           * ]
            */
           visitorId: string
         }
@@ -740,6 +730,21 @@ export interface components {
         data?: components['schemas']['RawDeviceAttributesResult']
         error?: components['schemas']['IdentificationError']
       }
+      /** SignalResponseRemoteControl */
+      remoteControl?: {
+        data?: components['schemas']['RemoteControlResult']
+        error?: components['schemas']['ProductError']
+      }
+      /** SignalResponseVelocity */
+      velocity?: {
+        data?: components['schemas']['VelocityResult']
+        error?: components['schemas']['ProductError']
+      }
+      /** SignalResponseDeveloperTools */
+      developerTools?: {
+        data?: components['schemas']['DeveloperToolsResult']
+        error?: components['schemas']['ProductError']
+      }
     }
     /** @description Contains results from all activated products - Fingerprint Pro, Bot Detection, and others. */
     EventResponse: {
@@ -749,8 +754,8 @@ export interface components {
     IdentificationError: {
       /**
        * @description Error code:
-       *      * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded
-       *      * `Failed` - internal server error
+       *  * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded
+       *  * `Failed` - internal server error
        *
        * @example 429 Too Many Requests
        * @enum {string}
@@ -791,9 +796,9 @@ export interface components {
     BotdDetectionResult: {
       /**
        * @description Bot detection result:
-       *      * `notDetected` - the visitor is not a bot
-       *      * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
-       *      * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
+       *  * `notDetected` - the visitor is not a bot
+       *  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
+       *  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
        *
        * @example bad
        * @enum {string}
@@ -923,36 +928,49 @@ export interface components {
        */
       result: number
     }
-    /** @description It includes 35+ raw browser identification attributes to provide Fingerprint users with even more information than our standard visitor ID provides. This enables Fingerprint users to not have to run our open-source product in conjunction with Fingerprint Pro Plus and Enterprise to get those additional attributes.
-     *     Warning: The raw signals data can change at any moment as we improve the product. We cannot guarantee the internal shape of raw device attributes to be stable, so typical semantic versioning rules do not apply here. Use this data with caution without assuming a specific structure beyond the generic type provided here.
-     *      */
+    /**
+     * @description Sums key data points for a specific `visitorId` at three distinct time intervals: 5 minutes, 1 hour, and 24 hours as follows:
+     * - Number of identification events attributed to the visitor ID - Number of distinct IP addresses associated to the visitor ID. - Number of distinct countries associated with the visitor ID. - Number of distinct `linkedId`s associated with the visitor ID.
+     * The `24h` interval of `distinctIp`, `distinctLinkedId`, and `distinctCountry` will be omitted if the number of `events` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
+     */
+    VelocityResult: {
+      distinctIp: components['schemas']['VelocityIntervals']
+      distinctLinkedId: components['schemas']['VelocityIntervals']
+      distinctCountry: components['schemas']['VelocityIntervals']
+      events: components['schemas']['VelocityIntervals']
+    }
+    /**
+     * @description It includes 35+ raw browser identification attributes to provide Fingerprint users with even more information than our standard visitor ID provides. This enables Fingerprint users to not have to run our open-source product in conjunction with Fingerprint Pro Plus and Enterprise to get those additional attributes.
+     * Warning: The raw signals data can change at any moment as we improve the product. We cannot guarantee the internal shape of raw device attributes to be stable, so typical semantic versioning rules do not apply here. Use this data with caution without assuming a specific structure beyond the generic type provided here.
+     */
     RawDeviceAttributesResult: {
-      [key: string]:
-        | {
-            /** error */
-            error?: {
-              /** error.name */
-              name: string
-              /** error.message */
-              message: string
-            }
-            /** value */
-            value?: unknown
-          }
-        | undefined
+      [key: string]: {
+        /** error */
+        error?: {
+          /** error.name */
+          name: string
+          /** error.message */
+          message: string
+        }
+        /** value */
+        value?: unknown
+      }
     }
     FactoryResetResult: {
       /**
-       * Time
        * Format: date-time
-       * @description Time in UTC when the most recent factory reset of the Android or iOS device was done.  If there is no sign of factory reset or the client is not a mobile device, the field will contain the epoch time (1 January 1970) in UTC.
+       * @description Indicates the time (in UTC) of the most recent factory reset that happened on the **mobile device**.
+       * When a factory reset cannot be detected on the mobile device or when the request is initiated from a browser, this field will correspond to the *epoch* time (i.e 1 Jan 1970 UTC).
+       * See [Factory Reset Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection) to learn more about this Smart Signal.
        *
        * @example 2022-06-09T22:58:36Z
        */
       time: string
       /**
        * Format: int64
-       * @description Same value as it's in the `time` field but represented in timestamp format.
+       * @description This field is just another representation of the value in the `time` field.
+       * The time of the most recent factory reset that happened on the **mobile device** is expressed as Unix epoch time.
+       *
        * @example 1654815517198
        */
       timestamp: number
@@ -1040,8 +1058,8 @@ export interface components {
     ProductError: {
       /**
        * @description Error code:
-       *      * `TooManyRequests` - the limit on secret API key requests per second has been exceeded
-       *      * `Failed` - internal server error
+       *  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded
+       *  * `Failed` - internal server error
        *
        * @example TooManyRequests
        * @enum {string}
@@ -1049,6 +1067,38 @@ export interface components {
       code: 'TooManyRequests' | 'Failed'
       /** @example too many requests */
       message: string
+    }
+    RemoteControlResult: {
+      /**
+       * @description `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    DeveloperToolsResult: {
+      /**
+       * @description `true` if the browser is Chrome with DevTools open or Firefox with Developer Tools open, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    VelocityIntervals: {
+      intervals?: components['schemas']['VelocityIntervalResult']
+    }
+    /** @description Is absent if the velocity data could not be generated for the visitor ID. */
+    VelocityIntervalResult: {
+      /** @example 1 */
+      '5m': number
+      /** @example 1 */
+      '1h': number
+      /**
+       * @description The `24h` interval of `distinctIp`, `distinctLinkedId`, and `distinctCountry` will be omitted if the number of `events`` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
+       *
+       * @example 1
+       */
+      '24h'?: number
     }
   }
   responses: never
