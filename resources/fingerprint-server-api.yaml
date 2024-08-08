@@ -264,7 +264,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVisitsDelete400Response'
+                $ref: '#/components/schemas/ErrorVisitor400Response'
         '403':
           description: Forbidden. Access to this API is denied.
           content:
@@ -278,7 +278,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVisitsDelete404Response'
+                $ref: '#/components/schemas/ErrorVisitor404Response'
         '429':
           description: Too Many Requests. The request is throttled.
           content:
@@ -611,8 +611,8 @@ components:
               - time
               - timestamp
               - url
-              - tag
               - visitorFound
+              - tag
         lastTimestamp:
           description: >
             ⚠️ Deprecated paging attribute, please use `paginationKey` instead.
@@ -729,14 +729,14 @@ components:
           example: request throttled
       required:
         - error
-    ErrorVisitsDelete404Response:
+    ErrorVisitor404Response:
       type: object
       additionalProperties: false
       properties:
         error:
           type: object
           additionalProperties: false
-          title: ErrorVisitsDelete404ResponseError
+          title: ErrorVisitor404ResponseError
           properties:
             code:
               type: string
@@ -752,7 +752,7 @@ components:
           required:
             - code
             - message
-    ErrorVisitsDelete400Response:
+    ErrorVisitor400Response:
       type: object
       additionalProperties: false
       properties:
@@ -939,7 +939,6 @@ components:
         - time
         - timestamp
         - url
-        - tag
         - visitorFound
     Visit:
       type: object
@@ -1050,7 +1049,6 @@ components:
         - time
         - timestamp
         - url
-        - tag
         - visitorFound
       title: Visit
     BrowserDetails:
@@ -1370,9 +1368,9 @@ components:
                 - time
                 - timestamp
                 - url
-                - tag
                 - visitorFound
                 - visitorId
+                - tag
             error:
               $ref: '#/components/schemas/IdentificationError'
         botd:

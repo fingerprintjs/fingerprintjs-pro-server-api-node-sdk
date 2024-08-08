@@ -16,77 +16,41 @@ export interface paths {
     get: operations['getEvent']
   }
   '/visitors/{visitor_id}': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
     /**
      * Get visits by visitor ID
      * @description Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
-     *     Only information from the _Identification_ product is returned.
+     * Only information from the _Identification_ product is returned.
      *
-     *     #### Headers
+     * #### Headers
      *
-     *     * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
-     *
+     * * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
      */
     get: operations['getVisits']
-    put?: never
-    post?: never
     /**
      * Delete data by visitor ID
      * @description Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
-     *     All delete requests are queued:
+     * All delete requests are queued:
      *
-     *     * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
-     *     * Data from older (11 days or more) identification events  will be deleted after 90 days.
+     * * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
+     * * Data from older (11 days or more) identification events  will be deleted after 90 days.
      *
-     *     If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to activate it for you. Otherwise, you will receive a 403.
-     *
+     * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
      */
     delete: operations['deleteVisitorData']
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
   }
   '/webhook': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
     /** @description Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
     trace: {
-      parameters: {
-        query?: never
-        header?: never
-        path?: never
-        cookie?: never
-      }
-      requestBody?: never
       responses: {
         /** @description Dummy for the schema */
         default: {
-          headers: {
-            [name: string]: unknown
-          }
-          content?: never
+          content: never
         }
       }
     }
   }
 }
+
 export type webhooks = Record<string, never>
 
 export interface components {
@@ -241,8 +205,8 @@ export interface components {
        */
       error: string
     }
-    ErrorVisitsDelete404Response: {
-      /** ErrorVisitsDelete404ResponseError */
+    ErrorVisitor404Response: {
+      /** ErrorVisitor404ResponseError */
       error?: {
         /**
          * @description Error code: * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.
@@ -255,7 +219,7 @@ export interface components {
         message: string
       }
     }
-    ErrorVisitsDelete400Response: {
+    ErrorVisitor400Response: {
       error?: {
         /**
          * @description Error code: * `RequestCannotBeParsed` - The visitor ID parameter is missing or in the wrong format.
@@ -352,7 +316,7 @@ export interface components {
        */
       url: string
       /** @description A customer-provided value or an object that was sent with identification request. */
-      tag: {
+      tag?: {
         [key: string]: unknown
       }
       /**
@@ -423,7 +387,7 @@ export interface components {
        */
       url: string
       /** @description A customer-provided value or an object that was sent with identification request. */
-      tag: {
+      tag?: {
         [key: string]: unknown
       }
       /**
@@ -1107,83 +1071,93 @@ export interface components {
   headers: never
   pathItems: never
 }
+
 export type $defs = Record<string, never>
+
+export type external = Record<string, never>
+
 export interface operations {
+  /**
+   * Get event by request ID
+   * @description Get a detailed analysis of an individual identification event, including Smart Signals.
+   * Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform.
+   * It is highly recommended that you **ignore** the mobile signals for such requests.
+   *
+   * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
+   */
   getEvent: {
     parameters: {
-      query?: never
-      header?: never
       path: {
         /** @description The unique [identifier](https://dev.fingerprint.com/docs/js-agent#requestid) of each identification request. */
         request_id: string
       }
-      cookie?: never
     }
-    requestBody?: never
     responses: {
       /** @description OK */
       200: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
           'application/json': components['schemas']['EventResponse']
         }
       }
       /** @description Forbidden */
       403: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
           'application/json': components['schemas']['ErrorCommon403Response']
         }
       }
       /** @description Not found */
       404: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
           'application/json': components['schemas']['ErrorEvent404Response']
         }
       }
     }
   }
+  /**
+   * Get visits by visitor ID
+   * @description Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
+   * Only information from the _Identification_ product is returned.
+   *
+   * #### Headers
+   *
+   * * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
+   */
   getVisits: {
     parameters: {
       query?: {
-        /** @description Filter visits by `requestId`.
+        /**
+         * @description Filter visits by `requestId`.
          *
-         *     Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
-         *      */
+         * Every identification request has a unique identifier associated with it called `requestId`. This identifier is returned to the client in the identification [result](https://dev.fingerprint.com/docs/js-agent#requestid). When you filter visits by `requestId`, only one visit will be returned.
+         */
         request_id?: string
-        /** @description Filter visits by your custom identifier.
+        /**
+         * @description Filter visits by your custom identifier.
          *
-         *     You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
-         *      */
+         * You can use [`linkedId`](https://dev.fingerprint.com/docs/js-agent#linkedid) to associate identification requests with your own identifier, for example: session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+         */
         linked_id?: string
-        /** @description Limit scanned results.
+        /**
+         * @description Limit scanned results.
          *
-         *     For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first).
-         *     By default, the most recent 100 visits are scanned, the maximum is 500.
-         *      */
+         * For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first).
+         * By default, the most recent 100 visits are scanned, the maximum is 500.
+         */
         limit?: number
-        /** @description Use `paginationKey` to get the next page of results.
+        /**
+         * @description Use `paginationKey` to get the next page of results.
          *
-         *     When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
+         * When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
          *
-         *     1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
-         *     2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
+         * 1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
+         * 2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
          *
-         *     Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
-         *      */
+         * Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
+         */
         paginationKey?: string
-        /** @description ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
-         *      */
+        /** @description ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results. */
         before?: number
       }
-      header?: never
       path: {
         /**
          * @description Unique [visitor identifier](https://dev.fingerprint.com/docs/js-agent#visitorid) issued by Fingerprint Pro.
@@ -1191,24 +1165,16 @@ export interface operations {
          */
         visitor_id: string
       }
-      cookie?: never
     }
-    requestBody?: never
     responses: {
       /** @description OK */
       200: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
           'application/json': components['schemas']['Response']
         }
       }
       /** @description Forbidden. The API Key is probably missing or incorrect. */
       403: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
           'application/json': components['schemas']['ErrorVisits403']
         }
@@ -1218,7 +1184,6 @@ export interface operations {
         headers: {
           /** @description Indicates how many seconds you should wait before attempting the next request. */
           'Retry-After'?: number
-          [name: string]: unknown
         }
         content: {
           'application/json': components['schemas']['TooManyRequestsResponse']
@@ -1226,57 +1191,48 @@ export interface operations {
       }
     }
   }
+  /**
+   * Delete data by visitor ID
+   * @description Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
+   * All delete requests are queued:
+   *
+   * * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
+   * * Data from older (11 days or more) identification events  will be deleted after 90 days.
+   *
+   * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
+   */
   deleteVisitorData: {
     parameters: {
-      query?: never
-      header?: never
       path: {
         /** @description The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete. */
         visitor_id: string
       }
-      cookie?: never
     }
-    requestBody?: never
     responses: {
       /** @description OK. The visitor ID is scheduled for deletion. */
       200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content?: never
+        content: never
       }
       /** @description Bad request. The visitor ID parameter is missing or in the wrong format. */
       400: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
-          'application/json': components['schemas']['ErrorVisitsDelete400Response']
+          'application/json': components['schemas']['ErrorVisitor400Response']
         }
       }
       /** @description Forbidden. Access to this API is denied. */
       403: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
           'application/json': components['schemas']['ErrorCommon403Response']
         }
       }
       /** @description Not found. The visitor ID cannot be found in this application's data. */
       404: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
-          'application/json': components['schemas']['ErrorVisitsDelete404Response']
+          'application/json': components['schemas']['ErrorVisitor404Response']
         }
       }
       /** @description Too Many Requests. The request is throttled. */
       429: {
-        headers: {
-          [name: string]: unknown
-        }
         content: {
           'application/json': components['schemas']['ErrorCommon429Response']
         }
