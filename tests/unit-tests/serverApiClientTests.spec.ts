@@ -16,17 +16,13 @@ describe('ServerApiClient', () => {
   })
 
   it('errors should return response that supports body related methods', async () => {
-    const mockFetch = jest.fn().mockResolvedValue(
-      new Response(
-        JSON.stringify({
-          error: {
-            code: 'FeatureNotEnabled',
-            message: 'feature not enabled',
-          },
-        }),
-        { status: 403 }
-      )
-    )
+    const responseBody = {
+      error: {
+        code: 'FeatureNotEnabled',
+        message: 'feature not enabled',
+      },
+    }
+    const mockFetch = jest.fn().mockResolvedValue(new Response(JSON.stringify(responseBody), { status: 403 }))
 
     const client = new FingerprintJsServerApiClient({
       fetch: mockFetch,
@@ -39,6 +35,7 @@ describe('ServerApiClient', () => {
     } catch (e) {
       if (isEventError(e)) {
         expect(e.response.status).toBe(403)
+        expect(e.responseBody).toEqual(responseBody)
 
         await expect(e.response.json()).resolves.not.toThrow()
 

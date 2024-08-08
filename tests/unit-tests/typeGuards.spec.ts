@@ -1,48 +1,63 @@
-import { isEventError, isVisitorsError } from '../../src/types'
 import getEventError403 from '../mocked-responses-tests/mocked-responses-data/external/get_event_403_error.json'
 import getEventError404 from '../mocked-responses-tests/mocked-responses-data/external/get_event_404_error.json'
+import {
+  EventError403,
+  EventError404,
+  EventResponse403,
+  EventResponse404,
+  isEventError,
+  isVisitorsError,
+  VisitorsError403,
+  VisitorsError429,
+} from '../../src'
 
 describe('getEvent type guard', () => {
   test('error 403 TokenRequired', () => {
-    const response = { ...getEventError403, status: 403 }
+    const response = new EventError403(getEventError403 as EventResponse403, new Response())
     expect(isEventError(response)).toBe(true)
   })
 
   test('error 403 TokenNotFound', () => {
-    const response = {
-      status: 403,
-      error: {
-        code: 'TokenNotFound',
-        message: 'Some random message TokenNotFound',
+    const response = new EventError403(
+      {
+        error: {
+          code: 'TokenNotFound',
+          message: 'Some random message TokenNotFound',
+        },
       },
-    }
+      new Response()
+    )
     expect(isEventError(response)).toBe(true)
   })
 
   test('error 403 SubscriptionNotActive', () => {
-    const response = {
-      status: 403,
-      error: {
-        code: 'SubscriptionNotActive',
-        message: 'Some random message SubscriptionNotActive',
+    const response = new EventError403(
+      {
+        error: {
+          code: 'SubscriptionNotActive',
+          message: 'Some random message SubscriptionNotActive',
+        },
       },
-    }
+      new Response()
+    )
     expect(isEventError(response)).toBe(true)
   })
 
   test('error 403 WrongRegion', () => {
-    const response = {
-      status: 403,
-      error: {
-        code: 'WrongRegion',
-        message: 'Some random message WrongRegion',
+    const response = new EventError403(
+      {
+        error: {
+          code: 'WrongRegion',
+          message: 'Some random message WrongRegion',
+        },
       },
-    }
+      new Response()
+    )
     expect(isEventError(response)).toBe(true)
   })
 
   test('error 404 RequestNotFound', () => {
-    const response = { ...getEventError404, status: 404 }
+    const response = new EventError404(getEventError404 as EventResponse404, new Response())
     expect(isEventError(response)).toBe(true)
   })
 
@@ -58,17 +73,6 @@ describe('getEvent type guard', () => {
 
   test('undefined', () => {
     const response = undefined
-    expect(isEventError(response)).toBe(false)
-  })
-
-  test('wrong code', () => {
-    const response = {
-      status: -100,
-      error: {
-        code: 'WrongRegion',
-        message: 'Some random message WrongRegion',
-      },
-    }
     expect(isEventError(response)).toBe(false)
   })
 
@@ -98,19 +102,25 @@ describe('getEvent type guard', () => {
 
 describe('getVisitorHistory type guard', () => {
   test('error 403', () => {
-    const response = {
-      status: 403,
-      error: '403 Forbidden',
-    }
+    const response = new VisitorsError403(
+      {
+        error: '403 Forbidden',
+        status: 403,
+      },
+      new Response()
+    )
     expect(isVisitorsError(response)).toBe(true)
   })
 
   test('error 429', () => {
-    const response = {
-      status: 429,
-      retryAfter: 10,
-      error: 'Too Many Requests',
-    }
+    const httpResponse = new Response()
+    httpResponse.headers.set('Retry-After', '10')
+    const response = new VisitorsError429(
+      {
+        error: 'Too Many Requests',
+      },
+      httpResponse
+    )
     expect(isVisitorsError(response)).toBe(true)
   })
 
@@ -126,14 +136,6 @@ describe('getVisitorHistory type guard', () => {
 
   test('undefined', () => {
     const response = undefined
-    expect(isVisitorsError(response)).toBe(false)
-  })
-
-  test('wrong code', () => {
-    const response = {
-      status: -100,
-      error: 'Some text',
-    }
     expect(isVisitorsError(response)).toBe(false)
   })
 

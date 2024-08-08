@@ -1,21 +1,17 @@
 import { getDeleteVisitorDataUrl, getEventUrl, getVisitorsUrl } from './urlUtils'
-import {
-  AuthenticationMode,
-  CommonError429,
-  DeleteVisitorError,
-  EventError,
-  EventResponse,
-  isDeleteVisitorError,
-  isEventError,
-  isVisitorsError,
-  Options,
-  Region,
-  VisitorHistoryFilter,
-  VisitorsError,
-  VisitorsError429,
-  VisitorsResponse,
-} from './types'
+import { AuthenticationMode, EventResponse, Options, Region, VisitorHistoryFilter, VisitorsResponse } from './types'
 import { copyResponseJson } from './responseUtils'
+import {
+  ApiError,
+  CommonError429,
+  DeleteVisit400Error,
+  DeleteVisit403Error,
+  DeleteVisit404Error,
+  EventError403,
+  EventError404,
+  VisitorsError403,
+  VisitorsError429,
+} from './errors/apiErrors'
 
 export class FingerprintJsServerApiClient {
   public readonly region: Region
@@ -60,7 +56,7 @@ export class FingerprintJsServerApiClient {
    *    if (isEventError(err)) {
    *      // You can also access the raw response
    *      console.log(err.response)
-   *      console.log(`error ${err.status}: `, err.error?.message)
+   *      console.log(`error ${err.statusCode}: `, err.message)
    *    } else {
    *      console.log('unknown error: ', err)
    *    }
@@ -79,28 +75,27 @@ export class FingerprintJsServerApiClient {
 
     const headers = this.getHeaders()
 
-    return this.fetch(url, {
+    const response = await this.fetch(url, {
       method: 'GET',
       headers,
     })
-      .then(async (response) => {
-        const jsonResponse = await copyResponseJson(response)
 
-        if (response.status !== 200) {
-          throw { ...jsonResponse, response, status: response.status } as EventError
-        }
-        return jsonResponse as EventResponse
-      })
-      .catch((err: Error) => {
-        if (isEventError(err)) {
-          throw err
-        }
+    const jsonResponse = await copyResponseJson(response)
 
-        throw {
-          status: 0,
-          error: err,
-        }
-      })
+    if (response.status === 200) {
+      return jsonResponse as EventResponse
+    }
+
+    switch (response.status) {
+      case 403:
+        throw new EventError403(jsonResponse, response)
+
+      case 404:
+        throw new EventError404(jsonResponse, response)
+
+      default:
+        throw ApiError.unknown(response)
+    }
   }
 
   /**
@@ -122,7 +117,7 @@ export class FingerprintJsServerApiClient {
    *   })
    *   .catch((error) => {
    *     if (isDeleteVisitorError(error)) {
-   *       console.log(error.status, error.error)
+   *       console.log(error.statusCode, error.message)
    *     }
    *   })
    * ```
@@ -139,37 +134,33 @@ export class FingerprintJsServerApiClient {
 
     const headers = this.getHeaders()
 
-    await this.fetch(url, {
+    const response = await this.fetch(url, {
       method: 'DELETE',
       headers,
     })
-      .then(async (response) => {
-        if (response.status === 200) {
-          return
-        }
 
-        const jsonResponse = await copyResponseJson(response)
+    if (response.status === 200) {
+      return
+    }
 
-        if (response.status === 429) {
-          const retryAfter = this.getRetryAfter(response)
+    const jsonResponse = await copyResponseJson(response)
 
-          ;(jsonResponse as CommonError429).retryAfter = retryAfter
-            ? parseInt(retryAfter)
-            : FingerprintJsServerApiClient.DEFAULT_RETRY_AFTER
-        }
+    switch (response.status) {
+      case 429:
+        throw new CommonError429(jsonResponse, response)
 
-        throw { ...(jsonResponse as DeleteVisitorError), response, status: response.status } as DeleteVisitorError
-      })
-      .catch((err) => {
-        if (isDeleteVisitorError(err)) {
-          throw err
-        }
+      case 404:
+        throw new DeleteVisit404Error(jsonResponse, response)
 
-        throw {
-          status: 0,
-          error: err,
-        }
-      })
+      case 403:
+        throw new DeleteVisit403Error(jsonResponse, response)
+
+      case 400:
+        throw new DeleteVisit400Error(jsonResponse, response)
+
+      default:
+        throw ApiError.unknown(response)
+    }
   }
 
   /**
@@ -195,7 +186,7 @@ export class FingerprintJsServerApiClient {
    *   })
    *   .catch((error) => {
    *     if (isVisitorsError(error)) {
-   *       console.log(error.status, error.error)
+   *       console.log(error.statusCode, error.message)
    *       if (error.status === 429) {
    *         retryLater(error.retryAfter) // Needs to be implemented on your side
    *       }
@@ -214,40 +205,30 @@ export class FingerprintJsServerApiClient {
         : getVisitorsUrl(this.region, visitorId, filter)
     const headers = this.getHeaders()
 
-    return this.fetch(url, {
+    const response = await this.fetch(url, {
       method: 'GET',
       headers,
     })
-      .then(async (response) => {
-        const jsonResponse = await copyResponseJson(response)
 
-        if (response.status === 200) {
-          return jsonResponse as VisitorsResponse
-        }
-        if (response.status === 429) {
-          const retryAfter = this.getRetryAfter(response)
-          ;(jsonResponse as VisitorsError429).retryAfter = retryAfter
-            ? parseInt(retryAfter)
-            : FingerprintJsServerApiClient.DEFAULT_RETRY_AFTER
-        }
-        throw { ...(jsonResponse as VisitorsError), response, status: response.status } as VisitorsError
-      })
-      .catch((err) => {
-        if (isVisitorsError(err)) {
-          throw err
-        }
-        throw {
-          status: 0,
-          error: err,
-        }
-      })
+    const jsonResponse = await copyResponseJson(response)
+
+    if (response.status === 200) {
+      return jsonResponse as VisitorsResponse
+    }
+
+    switch (response.status) {
+      case 403:
+        throw new VisitorsError403(jsonResponse, response)
+
+      case 429:
+        throw new VisitorsError429(jsonResponse, response)
+
+      default:
+        throw ApiError.unknown(response)
+    }
   }
 
   private getHeaders() {
     return this.authenticationMode === AuthenticationMode.AuthHeader ? { 'Auth-API-Key': this.apiKey } : undefined
-  }
-
-  private getRetryAfter(response: Response) {
-    return response.headers.get('retry-after')
   }
 }

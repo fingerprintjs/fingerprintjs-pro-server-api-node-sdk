@@ -30,7 +30,7 @@ try {
   console.log(JSON.stringify(visitorHistory, null, 2))
 } catch (error) {
   if (isVisitorsError(error)) {
-    console.log(error.status, error.error)
+    console.log(error.statusCode, error.message)
     if (error.status === 429) {
       retryLater(error.retryAfter) // Needs to be implemented on your side
     }

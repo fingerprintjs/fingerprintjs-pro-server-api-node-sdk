@@ -30,7 +30,7 @@ try {
   console.log(JSON.stringify(event, null, 2))
 } catch (error) {
   if (isEventError(error)) {
-    console.log(`error ${error.status}: `, error.error?.message)
+    console.log(`error ${error.statusCode}: `, error.message)
     // You can also access the raw response
     console.log(error.response.statusText)
   } else {

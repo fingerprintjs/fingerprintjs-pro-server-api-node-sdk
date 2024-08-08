@@ -30,7 +30,7 @@ try {
   console.log(`All data associated with visitor ${visitorId} is scheduled to be deleted.`)
 } catch (error) {
   if (isDeleteVisitorError(error)) {
-    console.log(error.status, error.error)
+    console.log(error.statusCode, error.message)
   } else {
     console.error('unknown error: ', error)
   }

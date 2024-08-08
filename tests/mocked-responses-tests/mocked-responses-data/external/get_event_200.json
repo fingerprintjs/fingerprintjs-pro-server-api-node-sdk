@@ -272,6 +272,42 @@
       "data": {
         "result": false
       }
+    },
+    "remoteControl": {
+      "data": {
+        "result": false
+      }
+    },
+    "velocity": {
+      "data": {
+        "distinctIp": {
+          "intervals": {
+            "5m": 1,
+            "1h": 1,
+            "24h": 1
+          }
+        },
+        "distinctLinkedId": {},
+        "distinctCountry": {
+          "intervals": {
+            "5m": 1,
+            "1h": 2,
+            "24h": 2
+          }
+        },
+        "events": {
+          "intervals": {
+            "5m": 1,
+            "1h": 5,
+            "24h": 5
+          }
+        }
+      }
+    },
+    "developerTools": {
+      "data": {
+        "result": false
+      }
     }
   }
 }

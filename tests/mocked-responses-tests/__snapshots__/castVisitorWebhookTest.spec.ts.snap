@@ -22,6 +22,9 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
   "confidence": {
     "score": 0.97,
   },
+  "developerTools": {
+    "result": false,
+  },
   "emulator": {
     "result": false,
   },
@@ -154,6 +157,9 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
       "value": true,
     },
   },
+  "remoteControl": {
+    "result": false,
+  },
   "requestId": "Px6VxbRC6WBkA39yeNH3",
   "rootApps": {
     "result": false,
@@ -176,6 +182,30 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
   },
   "url": "https://banking.example.com/signup",
   "userAgent": "(Macintosh; Intel Mac OS X 10_14_3) Chrome/73.0.3683.86",
+  "velocity": {
+    "distinctCountry": {
+      "intervals": {
+        "1h": 2,
+        "24h": 2,
+        "5m": 1,
+      },
+    },
+    "distinctIp": {
+      "intervals": {
+        "1h": 1,
+        "24h": 1,
+        "5m": 1,
+      },
+    },
+    "distinctLinkedId": {},
+    "events": {
+      "intervals": {
+        "1h": 5,
+        "24h": 5,
+        "5m": 1,
+      },
+    },
+  },
   "virtualMachine": {
     "result": false,
   },

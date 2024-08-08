@@ -118,8 +118,9 @@ try {
   console.log(JSON.stringify(event, null, 2))
 } catch (error) {
   if (isEventError(error)) {
+    console.log(error.responseBody) // Access parsed response body
     console.log(error.response) // You can also access the raw response
-    console.log(`error ${error.status}: `, error.error?.message)
+    console.log(`error ${error.statusCode}: `, error.message)
   } else {
     console.log('unknown error: ', error)
   }
@@ -140,6 +141,54 @@ try {
   } else {
     console.error('unknown error: ', error)
   }
+
+  // You can also check for specific error instance
+  // if(error instanceof VisitorsError403) {
+  //    Handle 403 error...
+  // }
+}
+```
+
+You can also check for specific error instance:
+
+```typescript
+import {
+  isVisitorsError,
+  isEventError,
+  FingerprintJsServerApiClient,
+  VisitorsError429,
+} from '@fingerprintjs/fingerprintjs-pro-server-api'
+
+const client = new FingerprintJsServerApiClient({
+  apiKey: '<SECRET_API_KEY>',
+  region: Region.Global,
+})
+
+// Handling getEvent errors
+try {
+  const event = await client.getEvent(requestId)
+  console.log(JSON.stringify(event, null, 2))
+} catch (error) {
+  if (isEventError(error)) {
+    console.log(error.responseBody) // Access parsed response body
+    console.log(error.response) // You can also access the raw response
+    console.log(`error ${error.statusCode}: `, error.message)
+  } else {
+    console.log('unknown error: ', error)
+  }
+}
+
+try {
+  const visitorHistory = await client.getVisitorHistory(visitorId, {
+    limit: 10,
+  })
+  console.log(JSON.stringify(visitorHistory, null, 2))
+} catch (error) {
+  if (error instanceof VisitorsError429) {
+    retryLater(error.retryAfter) // Needs to be implemented on your side
+  }
+
+  throw error
 }
 ```
 

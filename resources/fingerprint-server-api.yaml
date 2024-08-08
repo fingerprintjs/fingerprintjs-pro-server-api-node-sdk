@@ -41,9 +41,8 @@ paths:
         Get a detailed analysis of an individual identification event, including
         Smart Signals. 
 
-        **Only for Enterprise customers:** Please note that the response
-        includes mobile signals (e.g. `rootApps`) even if the request originated
-        from a non-mobile platform.
+        Please note that the response includes mobile signals (e.g. `rootApps`)
+        even if the request originated from a non-mobile platform.
 
         It is highly recommended that you **ignore** the mobile signals for such
         requests. 
@@ -243,8 +242,8 @@ paths:
 
 
         If you are interested in using this API, please [contact our support
-        team](https://fingerprint.com/support/) to activate it for you.
-        Otherwise, you will receive a 403.
+        team](https://fingerprint.com/support/) to enable it for you. Otherwise,
+        you will receive a 403.
       parameters:
         - name: visitor_id
           in: path
@@ -265,7 +264,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVisitsDelete400Response'
+                $ref: '#/components/schemas/ErrorVisitor400Response'
         '403':
           description: Forbidden. Access to this API is denied.
           content:
@@ -279,7 +278,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorVisitsDelete404Response'
+                $ref: '#/components/schemas/ErrorVisitor404Response'
         '429':
           description: Too Many Requests. The request is throttled.
           content:
@@ -455,6 +454,27 @@ paths:
                           result: true
                         suspectScore:
                           result: 0
+                        remoteControl:
+                          result: false
+                        velocity:
+                          distinctIp:
+                            intervals:
+                              5m: 1
+                              1h: 1
+                              24h: 1
+                          distinctLinkedId: {}
+                          distinctCountry:
+                            intervals:
+                              5m: 1
+                              1h: 2
+                              24h: 2
+                          events:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
+                        developerTools:
+                          result: false
               responses:
                 default:
                   description: The server doesn't validate the answer.
@@ -591,8 +611,8 @@ components:
               - time
               - timestamp
               - url
-              - tag
               - visitorFound
+              - tag
         lastTimestamp:
           description: >
             ⚠️ Deprecated paging attribute, please use `paginationKey` instead.
@@ -709,14 +729,14 @@ components:
           example: request throttled
       required:
         - error
-    ErrorVisitsDelete404Response:
+    ErrorVisitor404Response:
       type: object
       additionalProperties: false
       properties:
         error:
           type: object
           additionalProperties: false
-          title: ErrorVisitsDelete404ResponseError
+          title: ErrorVisitor404ResponseError
           properties:
             code:
               type: string
@@ -732,7 +752,7 @@ components:
           required:
             - code
             - message
-    ErrorVisitsDelete400Response:
+    ErrorVisitor400Response:
       type: object
       additionalProperties: false
       properties:
@@ -809,6 +829,12 @@ components:
           $ref: '#/components/schemas/LocationSpoofingResult'
         suspectScore:
           $ref: '#/components/schemas/SuspectScoreResult'
+        remoteControl:
+          $ref: '#/components/schemas/RemoteControlResult'
+        velocity:
+          $ref: '#/components/schemas/VelocityResult'
+        developerTools:
+          $ref: '#/components/schemas/DeveloperToolsResult'
         requestId:
           description: Unique identifier of the user's identification request.
           type: string
@@ -913,7 +939,6 @@ components:
         - time
         - timestamp
         - url
-        - tag
         - visitorFound
     Visit:
       type: object
@@ -1024,7 +1049,6 @@ components:
         - time
         - timestamp
         - url
-        - tag
         - visitorFound
       title: Visit
     BrowserDetails:
@@ -1344,9 +1368,9 @@ components:
                 - time
                 - timestamp
                 - url
-                - tag
                 - visitorFound
                 - visitorId
+                - tag
             error:
               $ref: '#/components/schemas/IdentificationError'
         botd:
@@ -1529,6 +1553,33 @@ components:
               $ref: '#/components/schemas/RawDeviceAttributesResult'
             error:
               $ref: '#/components/schemas/IdentificationError'
+        remoteControl:
+          title: SignalResponseRemoteControl
+          type: object
+          additionalProperties: false
+          properties:
+            data:
+              $ref: '#/components/schemas/RemoteControlResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        velocity:
+          title: SignalResponseVelocity
+          type: object
+          additionalProperties: false
+          properties:
+            data:
+              $ref: '#/components/schemas/VelocityResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
+        developerTools:
+          title: SignalResponseDeveloperTools
+          type: object
+          additionalProperties: false
+          properties:
+            data:
+              $ref: '#/components/schemas/DeveloperToolsResult'
+            error:
+              $ref: '#/components/schemas/ProductError'
     EventResponse:
       description: >-
         Contains results from all activated products - Fingerprint Pro, Bot
@@ -1820,6 +1871,36 @@ components:
           example: 0
       required:
         - result
+    VelocityResult:
+      type: object
+      description: >
+        Sums key data points for a specific `visitorId` at three distinct time
+        intervals: 5 minutes, 1 hour, and 24 hours as follows: 
+
+        - Number of identification events attributed to the visitor ID - Number
+        of distinct IP addresses associated to the visitor ID. - Number of
+        distinct countries associated with the visitor ID. - Number of distinct
+        `linkedId`s associated with the visitor ID.
+
+        The `24h` interval of `distinctIp`, `distinctLinkedId`, and
+        `distinctCountry` will be omitted if the number of `events` for the
+        visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher
+        than 20.000.
+      additionalProperties: false
+      properties:
+        distinctIp:
+          $ref: '#/components/schemas/VelocityIntervals'
+        distinctLinkedId:
+          $ref: '#/components/schemas/VelocityIntervals'
+        distinctCountry:
+          $ref: '#/components/schemas/VelocityIntervals'
+        events:
+          $ref: '#/components/schemas/VelocityIntervals'
+      required:
+        - distinctIp
+        - distinctLinkedId
+        - distinctCountry
+        - events
     RawDeviceAttributesResult:
       type: object
       description: >
@@ -1857,19 +1938,27 @@ components:
       additionalProperties: false
       properties:
         time:
-          title: Time
           description: >
-            Time in UTC when the most recent factory reset of the Android or iOS
-            device was done.  If there is no sign of factory reset or the client
-            is not a mobile device, the field will contain the epoch time (1
-            January 1970) in UTC.
+            Indicates the time (in UTC) of the most recent factory reset that
+            happened on the **mobile device**. 
+
+            When a factory reset cannot be detected on the mobile device or when
+            the request is initiated from a browser, this field will correspond
+            to the *epoch* time (i.e 1 Jan 1970 UTC).
+
+            See [Factory Reset
+            Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection)
+            to learn more about this Smart Signal.
           type: string
           format: date-time
           example: '2022-06-09T22:58:36Z'
         timestamp:
-          description: >-
-            Same value as it's in the `time` field but represented in timestamp
-            format.
+          description: >
+            This field is just another representation of the value in the `time`
+            field.
+
+            The time of the most recent factory reset that happened on the
+            **mobile device** is expressed as Unix epoch time.
           type: integer
           format: int64
           example: 1654815517198
@@ -2025,3 +2114,57 @@ components:
       required:
         - code
         - message
+    RemoteControlResult:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the request came from a machine being remotely controlled
+            (e.g. TeamViewer), `false` otherwise.
+          example: false
+      required:
+        - result
+    DeveloperToolsResult:
+      type: object
+      additionalProperties: false
+      properties:
+        result:
+          type: boolean
+          description: >
+            `true` if the browser is Chrome with DevTools open or Firefox with
+            Developer Tools open, `false` otherwise.
+          example: false
+      required:
+        - result
+    VelocityIntervals:
+      type: object
+      additionalProperties: false
+      properties:
+        intervals:
+          $ref: '#/components/schemas/VelocityIntervalResult'
+    VelocityIntervalResult:
+      type: object
+      description: >
+        Is absent if the velocity data could not be generated for the visitor
+        ID.
+      additionalProperties: false
+      properties:
+        5m:
+          type: integer
+          example: 1
+        1h:
+          type: integer
+          example: 1
+        24h:
+          type: integer
+          description: >
+            The `24h` interval of `distinctIp`, `distinctLinkedId`, and
+            `distinctCountry` will be omitted if the number of `events`` for the
+            visitor ID in the last 24 hours (`events.intervals.['24h']`) is
+            higher than 20.000.
+          example: 1
+      required:
+        - 5m
+        - 1h
