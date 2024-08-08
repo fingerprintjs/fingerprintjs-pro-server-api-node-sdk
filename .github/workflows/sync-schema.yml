@@ -1,0 +1,17 @@
+name: Sync schema
+on:
+  repository_dispatch:
+    types: [schema-released]
+
+jobs:
+  release:
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/update-server-side-sdk-schema.yml@v1
+    with:
+      tag: ${{ github.event.client_payload.version }}
+      language: golang
+      language-version: 1.22
+      generate-command: 'go run generate.go'
+      schema-path: resources/fingerprint-server-api.yaml
+      examples-path: tests/mocked-responses-tests/mocked-responses-data
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
