@@ -113,7 +113,7 @@ jobs:
         working-directory: dx-team-toolkit
 
       - name: Update schema
-        run: node ${{github.workspace}}/dx-team-toolkit/scripts/update-schema.mjs ${{ inputs.schema-path }} ${{ inputs.examples-path }} ${{ inputs.generate-command }} ${{ inputs.tag }} ${{ secrets.GH_TOKEN }}
+        run: node dx-team-toolkit/scripts/update-schema/update-schema.mjs ${{ inputs.schema-path }} ${{ inputs.examples-path }} ${{ inputs.generate-command }} ${{ inputs.tag }} ${{ secrets.GH_TOKEN }}
 
       - name: Push changes
         run: |
