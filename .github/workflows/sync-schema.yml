@@ -10,7 +10,6 @@ jobs:
       tag: ${{ github.event.client_payload.version }}
       language: node
       language-version: 21
-      java-version: 11
       generate-command: 'pnpm generateTypes'
       schema-path: resources/fingerprint-server-api.yaml
       examples-path: tests/mocked-responses-tests/mocked-responses-data
