@@ -1,8 +1,5 @@
 name: 'Update server-side SDK schema'
 on:
-  repository_dispatch:
-    types: [schema-released]
-
   workflow_call:
     inputs:
       language:
