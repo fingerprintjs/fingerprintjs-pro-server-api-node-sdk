@@ -5,7 +5,7 @@ on:
 
 jobs:
   release:
-    uses: ./.github/workflows/update-server-side-sdk-schema.yml
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/update-server-side-sdk-schema.yml@feature/changesets-action
     with:
       tag: ${{ github.event.client_payload.version }}
       language: node
