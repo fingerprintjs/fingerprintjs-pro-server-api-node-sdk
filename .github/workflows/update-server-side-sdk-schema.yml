@@ -52,6 +52,8 @@ jobs:
           repository: 'fingerprintjs/dx-team-toolkit'
           path: 'dx-team-toolkit'
           token: ${{ secrets.GH_TOKEN }}
+          # TODO Remove
+          ref: feature/changesets-action
 
       - name: 'Install Java'
         uses: actions/setup-java@v4
