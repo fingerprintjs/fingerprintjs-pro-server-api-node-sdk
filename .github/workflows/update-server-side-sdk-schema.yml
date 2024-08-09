@@ -1,0 +1,130 @@
+name: 'Update server-side SDK schema'
+on:
+  repository_dispatch:
+    types: [schema-released]
+
+  workflow_call:
+    inputs:
+      language:
+        description: 'Programming language for the project. Supported values are "java", "dotnet", "python", "golang", "flutter" and "php".'
+        required: true
+        type: string
+      language-version:
+        description: 'Version of the programming language to setup.'
+        required: true
+        type: string
+      java-version:
+        description: 'Version of Java to setup.'
+        required: false
+        type: string
+        default: '11'
+      prepare-command:
+        description: 'Command to run for project preparation (e.g., installing dependencies).'
+        required: false
+        type: string
+      generate-command:
+        description: 'Command for generating code from OpenAPI schema'
+        required: true
+        type: string
+      tag:
+        description: 'Tag for the OpenAPI release.'
+        required: true
+        type: string
+      schema-path:
+        description: 'Path to the OpenAPI schema.'
+        required: true
+        type: string
+      examples-path:
+        description: 'Path to the OpenAPI examples.'
+        required: true
+        type: string
+    secrets:
+      GH_TOKEN:
+        description: 'GitHub token with permissions to create releases and perform other necessary operations.'
+        required: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+
+      - name: 'Checkout DX toolkit repository'
+        uses: actions/checkout@v4
+        with:
+          repository: 'fingerprintjs/dx-team-toolkit'
+          path: 'dx-team-toolkit'
+          token: ${{ secrets.GH_TOKEN }}
+
+      - name: 'Install Java'
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: ${{ inputs.java-version }}
+          cache: ${{ inputs.language == 'java' && 'gradle' || '' }}
+
+      - name: 'Install DotNET'
+        if: ${{ inputs.language == 'dotnet' }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ inputs.language-version }}
+
+      - name: 'Install Python'
+        if: ${{ inputs.language == 'python' }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ inputs.language-version }}
+
+      - name: 'Install Golang'
+        if: ${{ inputs.language == 'golang' }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ inputs.language-version }}
+
+      - name: 'Install PHP'
+        if: ${{ inputs.language == 'php' }}
+        uses: shivammathur/setup-php@6d7209f44a25a59e904b1ee9f3b0c33ab2cd888d
+        with:
+          php-version: ${{ inputs.language-version }}
+          coverage: none
+          tools: composer:v2
+
+      - name: 'Install Node'
+        if: ${{ inputs.language == 'node' }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.language-version }}
+          cache: 'pnpm'
+
+      - name: 'Setup pnpm'
+        if: ${{ inputs.language == 'node' }}
+        uses: pnpm/action-setup@129abb77bf5884e578fcaf1f37628e41622cc371
+        with:
+          version: 9
+
+      - name: Install Dependencies for Node SDK
+        if: ${{ inputs.language == 'node' }}
+        run: pnpm install
+        env:
+          CI: true
+
+      - name: 'Create branch'
+        run: |
+          git checkout -b feat/open-api-${{ inputs.tag }}
+
+      - name: 'Install dependencies'
+        run: pnpm install
+        working-directory: dx-team-toolkit
+
+      - name: Update schema
+        run: node dx-team-toolkit/scripts/update-schema.mjs ${{ inputs.schema-path }} ${{ inputs.examples-path }} ${{ inputs.generate-command }} ${{ inputs.tag }} ${{ secrets.GH_TOKEN }}
+
+      - name: Push changes
+        run: |
+          git push origin feat/open-api-${{ inputs.tag }}
+
+      - name: Open PR
+        run: |
+          gh pr create --base main --head feat/open-api-${{ inputs.tag }} --fill
+          
+          

@@ -5,7 +5,7 @@ on:
 
 jobs:
   release:
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/update-server-side-sdk-schema.yml@v1
+    uses: .github/workflows/update-server-side-sdk-schema.yml
     with:
       tag: ${{ github.event.client_payload.version }}
       language: node
@@ -14,4 +14,4 @@ jobs:
       schema-path: resources/fingerprint-server-api.yaml
       examples-path: tests/mocked-responses-tests/mocked-responses-data
     secrets:
-      GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
