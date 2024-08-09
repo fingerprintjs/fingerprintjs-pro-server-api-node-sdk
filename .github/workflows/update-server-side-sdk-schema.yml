@@ -91,7 +91,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ inputs.language-version }}
-          cache: 'pnpm'
 
       - name: 'Setup pnpm'
         if: ${{ inputs.language == 'node' }}
