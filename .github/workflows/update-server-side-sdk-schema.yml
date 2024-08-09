@@ -116,6 +116,10 @@ jobs:
 
       - name: Update schema
         run: node dx-team-toolkit/scripts/update-schema/update-schema.mjs "${{ inputs.schema-path }}" "${{ inputs.examples-path }}" "${{ inputs.generate-command }}" ${{ inputs.tag }} ${{ secrets.GH_TOKEN }}
+        env:
+          # TODO Remove
+          GITHUB_OWNER: TheUnderScorer
+          GITHUB_REPO: fingerprint-pro-server-api-openapi
 
       - name: Push changes
         run: |
