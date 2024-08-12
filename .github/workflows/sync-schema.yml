@@ -4,8 +4,9 @@ on:
     types: [schema-released]
 
 jobs:
-  release:
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/update-server-side-sdk-schema.yml@feature/changesets-action
+  sync:
+    name: 'Sync schema'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/update-server-side-sdk-schema.yml@v1
     with:
       tag: ${{ github.event.client_payload.version }}
       language: node
@@ -13,5 +14,7 @@ jobs:
       generate-command: 'pnpm generateTypes'
       schema-path: resources/fingerprint-server-api.yaml
       examples-path: tests/mocked-responses-tests/mocked-responses-data
+      appId: ${{ vars.APP_ID }}
     secrets:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
