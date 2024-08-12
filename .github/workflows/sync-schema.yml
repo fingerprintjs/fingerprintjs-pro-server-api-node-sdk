@@ -2,7 +2,9 @@ name: Sync schema
 on:
   repository_dispatch:
     types: [schema-released]
-
+permissions:
+  pull-requests: write
+  contents: write
 jobs:
   sync:
     name: 'Sync schema'
@@ -14,7 +16,5 @@ jobs:
       generate-command: 'pnpm generateTypes'
       schema-path: resources/fingerprint-server-api.yaml
       examples-path: tests/mocked-responses-tests/mocked-responses-data
-      appId: ${{ vars.APP_ID }}
     secrets:
-      GH_TOKEN: ${{ secrets.GH_TOKEN }}
-      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
