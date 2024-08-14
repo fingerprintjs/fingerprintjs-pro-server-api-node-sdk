@@ -79,6 +79,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorEvent404Response'
+    put:
+      tags:
+        - Fingerprint
+      operationId: updateEvent
+      summary: Update an event with a given request ID
+      description: >
+        Change information in existing events specified by `requestId` or *flag
+        suspicious events*.
+
+
+        When an event is created, it is assigned `linkedId` and `tag` submitted
+        through the JS agent parameters. This information might not be available
+        on the client so the Server API allows for updating the attributes after
+        the fact.
+
+
+        **Warning** It's not possible to update events older than 10 days.
+      parameters:
+        - name: request_id
+          in: path
+          description: >-
+            The unique event
+            [identifier](https://dev.fingerprint.com/docs/js-agent#requestid).
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdateRequest'
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUpdateEvent400Response'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCommon403Response'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorEvent404Response'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorUpdateEvent409Response'
   /visitors/{visitor_id}:
     get:
       tags:
@@ -222,69 +281,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TooManyRequestsResponse'
-    delete:
-      tags:
-        - Fingerprint
-      operationId: deleteVisitorData
-      summary: Delete data by visitor ID
-      description: >
-        Request deleting all data associated with the specified visitor ID. This
-        API is useful for compliance with privacy regulations.
-
-        All delete requests are queued: 
-
-
-        * Recent data (10 days or newer) belonging to the specified visitor will
-        be deleted within 24 hours.
-
-        * Data from older (11 days or more) identification events  will be
-        deleted after 90 days.
-
-
-        If you are interested in using this API, please [contact our support
-        team](https://fingerprint.com/support/) to enable it for you. Otherwise,
-        you will receive a 403.
-      parameters:
-        - name: visitor_id
-          in: path
-          description: >-
-            The [visitor
-            ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to
-            delete.
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK. The visitor ID is scheduled for deletion.
-        '400':
-          description: >-
-            Bad request. The visitor ID parameter is missing or in the wrong
-            format.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorVisitor400Response'
-        '403':
-          description: Forbidden. Access to this API is denied.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorCommon403Response'
-        '404':
-          description: >-
-            Not found. The visitor ID cannot be found in this application's
-            data.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorVisitor404Response'
-        '429':
-          description: Too Many Requests. The request is throttled.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorCommon429Response'
   /webhook:
     trace:
       tags:
@@ -611,8 +607,8 @@ components:
               - time
               - timestamp
               - url
-              - visitorFound
               - tag
+              - visitorFound
         lastTimestamp:
           description: >
             ⚠️ Deprecated paging attribute, please use `paginationKey` instead.
@@ -939,6 +935,7 @@ components:
         - time
         - timestamp
         - url
+        - tag
         - visitorFound
     Visit:
       type: object
@@ -1049,6 +1046,7 @@ components:
         - time
         - timestamp
         - url
+        - tag
         - visitorFound
       title: Visit
     BrowserDetails:
@@ -1368,9 +1366,9 @@ components:
                 - time
                 - timestamp
                 - url
+                - tag
                 - visitorFound
                 - visitorId
-                - tag
             error:
               $ref: '#/components/schemas/IdentificationError'
         botd:
@@ -1958,7 +1956,7 @@ components:
             field.
 
             The time of the most recent factory reset that happened on the
-            **mobile device** is expressed as Unix epoch time.
+            **mobile device** is expressed as Unix epoch time.       
           type: integer
           format: int64
           example: 1654815517198
@@ -2138,6 +2136,75 @@ components:
           example: false
       required:
         - result
+    EventUpdateRequest:
+      type: object
+      properties:
+        linkedId:
+          type: string
+          description: LinkedID value to assign to the existing event
+        tag:
+          type: object
+          description: >-
+            Full `tag` value to be set to the existing event. Replaces any
+            existing `tag` payload completely.
+        suspect:
+          type: boolean
+          description: Suspect flag indicating observed suspicious or fraudulent event
+    ErrorUpdateEvent400Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorUpdateEvent400ResponseError
+          properties:
+            code:
+              type: string
+              description: >
+                Error code: * `RequestCannotBeParsed` - the JSON content of the
+                request contains some errors that prevented us from parsing it
+                (wrong type/surpassed limits) * `Failed` - the event is more
+                than 10 days old and cannot be updated
+              enum:
+                - RequestCannotBeParsed
+                - Failed
+              example: RequestCannotBeParsed
+            message:
+              type: string
+              description: Details about the underlying issue with the input payload
+              example: suspect flag must be a boolean
+          required:
+            - code
+            - message
+    ErrorUpdateEvent409Response:
+      type: object
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          additionalProperties: false
+          title: ErrorUpdateEvent409ResponseError
+          properties:
+            code:
+              type: string
+              description: >
+                Error code: * `StateNotReady` - The event specified with request
+                id is not ready for updates yet. Try again.
+
+                This error happens in rare cases when update API is called
+                immediately after receiving the request id on the client. In
+                case you need to send information right away, we recommend using
+                the JS agent API instead.
+              enum:
+                - StateNotReady
+              example: StateNotReady
+            message:
+              type: string
+              example: resource is not mutable yet, try again
+          required:
+            - code
+            - message
     VelocityIntervals:
       type: object
       additionalProperties: false
