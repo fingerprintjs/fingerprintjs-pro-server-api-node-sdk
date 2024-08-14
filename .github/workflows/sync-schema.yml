@@ -16,5 +16,6 @@ jobs:
       generate-command: 'pnpm generateTypes'
       schema-path: resources/fingerprint-server-api.yaml
       examples-path: tests/mocked-responses-tests/mocked-responses-data
+      app-id: ${{ vars.APP_ID }}
     secrets:
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
