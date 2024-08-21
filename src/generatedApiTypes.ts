@@ -14,6 +14,15 @@ export interface paths {
      * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
      */
     get: operations['getEvent']
+    /**
+     * Update an event with a given request ID
+     * @description Change information in existing events specified by `requestId` or *flag suspicious events*.
+     *
+     * When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.
+     *
+     * **Warning** It's not possible to update events older than 10 days.
+     */
+    put: operations['updateEvent']
   }
   '/visitors/{visitor_id}': {
     /**
@@ -26,17 +35,6 @@ export interface paths {
      * * `Retry-After` — Present in case of `429 Too many requests`. Indicates how long you should wait before making a follow-up request. The value is non-negative decimal integer indicating the seconds to delay after the response is received.
      */
     get: operations['getVisits']
-    /**
-     * Delete data by visitor ID
-     * @description Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
-     * All delete requests are queued:
-     *
-     * * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
-     * * Data from older (11 days or more) identification events  will be deleted after 90 days.
-     *
-     * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
-     */
-    delete: operations['deleteVisitorData']
   }
   '/webhook': {
     /** @description Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
@@ -316,7 +314,7 @@ export interface components {
        */
       url: string
       /** @description A customer-provided value or an object that was sent with identification request. */
-      tag?: {
+      tag: {
         [key: string]: unknown
       }
       /**
@@ -387,7 +385,7 @@ export interface components {
        */
       url: string
       /** @description A customer-provided value or an object that was sent with identification request. */
-      tag?: {
+      tag: {
         [key: string]: unknown
       }
       /**
@@ -1048,6 +1046,46 @@ export interface components {
        */
       result: boolean
     }
+    EventUpdateRequest: {
+      /** @description LinkedID value to assign to the existing event */
+      linkedId?: string
+      /** @description Full `tag` value to be set to the existing event. Replaces any existing `tag` payload completely. */
+      tag?: Record<string, never>
+      /** @description Suspect flag indicating observed suspicious or fraudulent event */
+      suspect?: boolean
+    }
+    ErrorUpdateEvent400Response: {
+      /** ErrorUpdateEvent400ResponseError */
+      error?: {
+        /**
+         * @description Error code: * `RequestCannotBeParsed` - the JSON content of the request contains some errors that prevented us from parsing it (wrong type/surpassed limits) * `Failed` - the event is more than 10 days old and cannot be updated
+         *
+         * @example RequestCannotBeParsed
+         * @enum {string}
+         */
+        code: 'RequestCannotBeParsed' | 'Failed'
+        /**
+         * @description Details about the underlying issue with the input payload
+         * @example suspect flag must be a boolean
+         */
+        message: string
+      }
+    }
+    ErrorUpdateEvent409Response: {
+      /** ErrorUpdateEvent409ResponseError */
+      error?: {
+        /**
+         * @description Error code: * `StateNotReady` - The event specified with request id is not ready for updates yet. Try again.
+         * This error happens in rare cases when update API is called immediately after receiving the request id on the client. In case you need to send information right away, we recommend using the JS agent API instead.
+         *
+         * @example StateNotReady
+         * @enum {string}
+         */
+        code: 'StateNotReady'
+        /** @example resource is not mutable yet, try again */
+        message: string
+      }
+    }
     VelocityIntervals: {
       intervals?: components['schemas']['VelocityIntervalResult']
     }
@@ -1109,6 +1147,57 @@ export interface operations {
       404: {
         content: {
           'application/json': components['schemas']['ErrorEvent404Response']
+        }
+      }
+    }
+  }
+  /**
+   * Update an event with a given request ID
+   * @description Change information in existing events specified by `requestId` or *flag suspicious events*.
+   *
+   * When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.
+   *
+   * **Warning** It's not possible to update events older than 10 days.
+   */
+  updateEvent: {
+    parameters: {
+      path: {
+        /** @description The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid). */
+        request_id: string
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['EventUpdateRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        content: never
+      }
+      /** @description Bad request */
+      400: {
+        content: {
+          'application/json': components['schemas']['ErrorUpdateEvent400Response']
+        }
+      }
+      /** @description Forbidden */
+      403: {
+        content: {
+          'application/json': components['schemas']['ErrorCommon403Response']
+        }
+      }
+      /** @description Not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['ErrorEvent404Response']
+        }
+      }
+      /** @description Conflict */
+      409: {
+        content: {
+          'application/json': components['schemas']['ErrorUpdateEvent409Response']
         }
       }
     }
@@ -1187,54 +1276,6 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['TooManyRequestsResponse']
-        }
-      }
-    }
-  }
-  /**
-   * Delete data by visitor ID
-   * @description Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
-   * All delete requests are queued:
-   *
-   * * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
-   * * Data from older (11 days or more) identification events  will be deleted after 90 days.
-   *
-   * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
-   */
-  deleteVisitorData: {
-    parameters: {
-      path: {
-        /** @description The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete. */
-        visitor_id: string
-      }
-    }
-    responses: {
-      /** @description OK. The visitor ID is scheduled for deletion. */
-      200: {
-        content: never
-      }
-      /** @description Bad request. The visitor ID parameter is missing or in the wrong format. */
-      400: {
-        content: {
-          'application/json': components['schemas']['ErrorVisitor400Response']
-        }
-      }
-      /** @description Forbidden. Access to this API is denied. */
-      403: {
-        content: {
-          'application/json': components['schemas']['ErrorCommon403Response']
-        }
-      }
-      /** @description Not found. The visitor ID cannot be found in this application's data. */
-      404: {
-        content: {
-          'application/json': components['schemas']['ErrorVisitor404Response']
-        }
-      }
-      /** @description Too Many Requests. The request is throttled. */
-      429: {
-        content: {
-          'application/json': components['schemas']['ErrorCommon429Response']
         }
       }
     }
