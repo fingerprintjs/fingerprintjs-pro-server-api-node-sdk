@@ -1,6 +1,0 @@
-{
-  "error": {
-    "code": "TooManyRequests",
-    "message": "too many requests"
-  }
-}
