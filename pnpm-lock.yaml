@@ -11,6 +11,9 @@ importers:
       '@commitlint/cli':
         specifier: ^19.2.1
         version: 19.2.1(@types/node@20.11.30)(typescript@5.4.2)
+      '@fingerprintjs/changesets-changelog-format':
+        specifier: ^0.2.0
+        version: 0.2.0
       '@fingerprintjs/commit-lint-dx-team':
         specifier: ^0.1.0
         version: 0.1.0
@@ -363,6 +366,9 @@ packages:
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
+
+  '@fingerprintjs/changesets-changelog-format@0.2.0':
+    resolution: {integrity: sha512-1jI+J1r8OKUtjlFfQW4bmQ8u4E1097zPaKw5fUCgAcahLPgwW4Ae+Keoc253CSyyaKgTu2v/wniUGchmPaXAsg==}
 
   '@fingerprintjs/commit-lint-dx-team@0.1.0':
     resolution: {integrity: sha512-MSYn4bRt9Iyob8hB3Oc/IXz3O8DA2E3ccqlG46pYYhdF090W6u9BNa9uCaVg611FUzqMU41+vs8ztXLkICbKkw==}
@@ -2902,6 +2908,10 @@ snapshots:
   '@eslint/js@8.56.0': {}
 
   '@fastify/busboy@2.1.1': {}
+
+  '@fingerprintjs/changesets-changelog-format@0.2.0':
+    dependencies:
+      '@changesets/types': 6.0.0
 
   '@fingerprintjs/commit-lint-dx-team@0.1.0':
     dependencies:
