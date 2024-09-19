@@ -8,9 +8,7 @@ on:
 jobs:
   build-and-release:
     name: 'Build project, run CI checks and publish new release'
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-typescript-project.yml@v1
-    with:
-      appId: ${{ vars.APP_ID }}
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/release-sdk-changesets.yml@v1
     secrets:
-      APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
+      GH_RELEASE_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
