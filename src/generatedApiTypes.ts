@@ -14,6 +14,15 @@ export interface paths {
      * Use `requestId` as the URL path parameter. This API method is scoped to a request, i.e. all returned information is by `requestId`.
      */
     get: operations['getEvent']
+    /**
+     * Update an event with a given request ID
+     * @description Change information in existing events specified by `requestId` or *flag suspicious events*.
+     *
+     * When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.
+     *
+     * **Warning** It's not possible to update events older than 10 days.
+     */
+    put: operations['updateEvent']
   }
   '/visitors/{visitor_id}': {
     /**
@@ -29,12 +38,28 @@ export interface paths {
     /**
      * Delete data by visitor ID
      * @description Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
-     * All delete requests are queued:
+     * ### Which data is deleted?
+     * - Browser (or device) properties
+     * - Identification requests made from this browser (or device)
      *
-     * * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
-     * * Data from older (11 days or more) identification events  will be deleted after 90 days.
+     * #### Browser (or device) properties
+     * - Represents the data that Fingerprint collected from this specific browser (or device) and everything inferred and derived from it.
+     * - Upon request to delete, this data is deleted asynchronously (typically within a few minutes) and it will no longer be used to identify this browser (or device) for your [Fingerprint Application](https://dev.fingerprint.com/docs/glossary#fingerprint-application).
      *
-     * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
+     * #### Identification requests made from this browser (or device)
+     * - Fingerprint stores the identification requests made from a browser (or device) for up to 30 (or 90) days depending on your plan. To learn more, see [Data Retention](https://dev.fingerprint.com/docs/regions#data-retention).
+     * - Upon request to delete, the identification requests that were made by this browser
+     *   - Within the past 10 days are deleted within 24 hrs.
+     *   - Outside of 10 days are allowed to purge as per your data retention period.
+     *
+     * ### Corollary
+     * After requesting to delete a visitor ID,
+     * - If the same browser (or device) requests to identify, it will receive a different visitor ID.
+     * - If you request [`/events` API](https://dev.fingerprint.com/reference/getevent) with a `request_id` that was made outside of the 10 days, you will still receive a valid response.
+     * - If you request [`/visitors` API](https://dev.fingerprint.com/reference/getvisits) for the deleted visitor ID, the response will include identification requests that were made outside of those 10 days.
+     *
+     * ### Interested?
+     * Please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
      */
     delete: operations['deleteVisitorData']
   }
@@ -55,352 +80,6 @@ export type webhooks = Record<string, never>
 
 export interface components {
   schemas: {
-    /**
-     * PaginatedResponse
-     * @description Fields `lastTimestamp` and `paginationKey` added when `limit` or `before` parameter provided and there is more data to show
-     */
-    Response: {
-      visitorId: string
-      visits: {
-        /**
-         * @description Unique identifier of the user's identification request.
-         * @example 1654815516083.OX6kx8
-         */
-        requestId: string
-        browserDetails: components['schemas']['BrowserDetails']
-        /** @description Flag if user used incognito session. */
-        incognito: boolean
-        /**
-         * Format: ipv4
-         * @example 8.8.8.8
-         */
-        ip: string
-        /**
-         * DeprecatedIPLocation
-         * @deprecated
-         * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
-         */
-        ipLocation?: {
-          /** @description The IP address is likely to be within this radius (in km) of the specified location. */
-          accuracyRadius?: number
-          /** Format: double */
-          latitude?: number
-          /** Format: double */
-          longitude?: number
-          postalCode?: string
-          /** Format: timezone */
-          timezone?: string
-          /** DeprecatedIPLocationCity */
-          city?: {
-            name?: string
-          }
-          country?: components['schemas']['Location']
-          continent?: components['schemas']['Location']
-          subdivisions?: components['schemas']['Subdivision'][]
-        }
-        /**
-         * Format: int64
-         * @description Timestamp of the event with millisecond precision in Unix time.
-         * @example 1654815516086
-         */
-        timestamp: number
-        /**
-         * Time
-         * Format: date-time
-         * @description Time expressed according to ISO 8601 in UTC format.
-         * @example 2022-06-09T22:58:36Z
-         */
-        time: string
-        /**
-         * @description Page URL from which the identification request was sent.
-         * @example https://some.website/path?query=params
-         */
-        url: string
-        /** @description A customer-provided value or an object that was sent with identification request. */
-        tag: {
-          [key: string]: unknown
-        }
-        /**
-         * @description A customer-provided id that was sent with identification request.
-         * @example someID
-         */
-        linkedId?: string
-        confidence?: components['schemas']['Confidence']
-        /** @description Attribute represents if a visitor had been identified before. */
-        visitorFound: boolean
-        firstSeenAt: components['schemas']['SeenAt']
-        lastSeenAt: components['schemas']['SeenAt']
-      }[]
-      /**
-       * Format: int64
-       * @description ⚠️ Deprecated paging attribute, please use `paginationKey` instead. Timestamp of the last visit in the current page of results.
-       *
-       * @example 1654815517198
-       */
-      lastTimestamp?: number
-      /**
-       * @description Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results.
-       * @example 1654815517198.azN4IZ
-       */
-      paginationKey?: string
-    }
-    ErrorCommon403Response: {
-      /** Common403ErrorResponse */
-      error?: {
-        /**
-         * @description Error code:
-         *  * `TokenRequired` - `Auth-API-Key` header is missing or empty
-         *  * `TokenNotFound` - No Fingerprint application found for specified secret key
-         *  * `SubscriptionNotActive` - Fingerprint application is not active
-         *  * `WrongRegion` - server and application region differ
-         *  * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application
-         *
-         * @example TokenRequired
-         * @enum {string}
-         */
-        code: 'TokenRequired' | 'TokenNotFound' | 'SubscriptionNotActive' | 'WrongRegion' | 'FeatureNotEnabled'
-        /** @example secret key is required */
-        message: string
-      }
-    }
-    ErrorCommon429Response: {
-      error?: {
-        /**
-         * @description Error code: * `TooManyRequests` - The request is throttled.
-         *
-         * @example TooManyRequests
-         * @enum {string}
-         */
-        code: 'TooManyRequests'
-        /** @example request throttled */
-        message: string
-      }
-    }
-    ErrorEvent404Response: {
-      /** ErrorEvent404ResponseError */
-      error?: {
-        /**
-         * @description Error code:
-         *  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
-         *
-         * @example RequestNotFound
-         * @enum {string}
-         */
-        code: 'RequestNotFound'
-        /** @example request id is not found */
-        message: string
-      }
-    }
-    ErrorVisits403: {
-      /**
-       * @description Error text.
-       * @example Forbidden (HTTP 403)
-       */
-      error: string
-    }
-    TooManyRequestsResponse: {
-      /**
-       * @description Error text.
-       * @example request throttled
-       */
-      error: string
-    }
-    ErrorVisitor404Response: {
-      /** ErrorVisitor404ResponseError */
-      error?: {
-        /**
-         * @description Error code: * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.
-         *
-         * @example VisitorNotFound
-         * @enum {string}
-         */
-        code: 'VisitorNotFound'
-        /** @example visitor not found */
-        message: string
-      }
-    }
-    ErrorVisitor400Response: {
-      error?: {
-        /**
-         * @description Error code: * `RequestCannotBeParsed` - The visitor ID parameter is missing or in the wrong format.
-         *
-         * @example RequestCannotBeParsed
-         * @enum {string}
-         */
-        code: 'RequestCannotBeParsed'
-        /** @example invalid visitor id */
-        message: string
-      }
-    }
-    WebhookVisit: {
-      /** @example 3HNey93AkBW6CRbxV6xP */
-      visitorId: string
-      /** @example https://google.com?search=banking+services */
-      clientReferrer?: string
-      /** @example Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 */
-      userAgent?: string
-      bot?: components['schemas']['BotdDetectionResult']
-      ipInfo?: components['schemas']['IpInfoResult']
-      /** @description Flag if user used incognito session. */
-      incognito: boolean
-      rootApps?: components['schemas']['RootAppsResult']
-      emulator?: components['schemas']['EmulatorResult']
-      clonedApp?: components['schemas']['ClonedAppResult']
-      factoryReset?: components['schemas']['FactoryResetResult']
-      jailbroken?: components['schemas']['JailbrokenResult']
-      frida?: components['schemas']['FridaResult']
-      ipBlocklist?: components['schemas']['IpBlockListResult']
-      tor?: components['schemas']['TorResult']
-      privacySettings?: components['schemas']['PrivacySettingsResult']
-      virtualMachine?: components['schemas']['VirtualMachineResult']
-      vpn?: components['schemas']['VpnResult']
-      proxy?: components['schemas']['ProxyResult']
-      tampering?: components['schemas']['TamperingResult']
-      rawDeviceAttributes?: components['schemas']['RawDeviceAttributesResult']
-      highActivity?: components['schemas']['HighActivityResult']
-      locationSpoofing?: components['schemas']['LocationSpoofingResult']
-      suspectScore?: components['schemas']['SuspectScoreResult']
-      remoteControl?: components['schemas']['RemoteControlResult']
-      velocity?: components['schemas']['VelocityResult']
-      developerTools?: components['schemas']['DeveloperToolsResult']
-      /**
-       * @description Unique identifier of the user's identification request.
-       * @example 1654815516083.OX6kx8
-       */
-      requestId: string
-      browserDetails: components['schemas']['BrowserDetails']
-      /**
-       * Format: ipv4
-       * @example 8.8.8.8
-       */
-      ip: string
-      /**
-       * DeprecatedIPLocation
-       * @deprecated
-       * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
-       */
-      ipLocation?: {
-        /** @description The IP address is likely to be within this radius (in km) of the specified location. */
-        accuracyRadius?: number
-        /** Format: double */
-        latitude?: number
-        /** Format: double */
-        longitude?: number
-        postalCode?: string
-        /** Format: timezone */
-        timezone?: string
-        /** DeprecatedIPLocationCity */
-        city?: {
-          name?: string
-        }
-        country?: components['schemas']['Location']
-        continent?: components['schemas']['Location']
-        subdivisions?: components['schemas']['Subdivision'][]
-      }
-      /**
-       * Format: int64
-       * @description Timestamp of the event with millisecond precision in Unix time.
-       * @example 1654815516086
-       */
-      timestamp: number
-      /**
-       * Time
-       * Format: date-time
-       * @description Time expressed according to ISO 8601 in UTC format.
-       * @example 2022-06-09T22:58:36Z
-       */
-      time: string
-      /**
-       * @description Page URL from which the identification request was sent.
-       * @example https://some.website/path?query=params
-       */
-      url: string
-      /** @description A customer-provided value or an object that was sent with identification request. */
-      tag?: {
-        [key: string]: unknown
-      }
-      /**
-       * @description A customer-provided id that was sent with identification request.
-       * @example someID
-       */
-      linkedId?: string
-      confidence?: components['schemas']['Confidence']
-      /** @description Attribute represents if a visitor had been identified before. */
-      visitorFound: boolean
-      firstSeenAt: components['schemas']['SeenAt']
-      lastSeenAt: components['schemas']['SeenAt']
-    }
-    /** Visit */
-    Visit: {
-      /**
-       * @description Unique identifier of the user's identification request.
-       * @example 1654815516083.OX6kx8
-       */
-      requestId: string
-      browserDetails: components['schemas']['BrowserDetails']
-      /** @description Flag if user used incognito session. */
-      incognito: boolean
-      /**
-       * Format: ipv4
-       * @example 8.8.8.8
-       */
-      ip: string
-      /**
-       * DeprecatedIPLocation
-       * @deprecated
-       * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
-       */
-      ipLocation?: {
-        /** @description The IP address is likely to be within this radius (in km) of the specified location. */
-        accuracyRadius?: number
-        /** Format: double */
-        latitude?: number
-        /** Format: double */
-        longitude?: number
-        postalCode?: string
-        /** Format: timezone */
-        timezone?: string
-        /** DeprecatedIPLocationCity */
-        city?: {
-          name?: string
-        }
-        country?: components['schemas']['Location']
-        continent?: components['schemas']['Location']
-        subdivisions?: components['schemas']['Subdivision'][]
-      }
-      /**
-       * Format: int64
-       * @description Timestamp of the event with millisecond precision in Unix time.
-       * @example 1654815516086
-       */
-      timestamp: number
-      /**
-       * Time
-       * Format: date-time
-       * @description Time expressed according to ISO 8601 in UTC format.
-       * @example 2022-06-09T22:58:36Z
-       */
-      time: string
-      /**
-       * @description Page URL from which the identification request was sent.
-       * @example https://some.website/path?query=params
-       */
-      url: string
-      /** @description A customer-provided value or an object that was sent with identification request. */
-      tag?: {
-        [key: string]: unknown
-      }
-      /**
-       * @description A customer-provided id that was sent with identification request.
-       * @example someID
-       */
-      linkedId?: string
-      confidence?: components['schemas']['Confidence']
-      /** @description Attribute represents if a visitor had been identified before. */
-      visitorFound: boolean
-      firstSeenAt: components['schemas']['SeenAt']
-      lastSeenAt: components['schemas']['SeenAt']
-    }
     /** BrowserDetails */
     BrowserDetails: {
       /** @example Chrome */
@@ -418,6 +97,19 @@ export interface components {
       /** @example Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.41 Safari/537.36 */
       userAgent: string
       botProbability?: number
+    }
+    /** Location */
+    Location: {
+      /** @example US */
+      code: string
+      /** @example United States */
+      name: string
+    }
+    Subdivision: {
+      /** @example 10 */
+      isoCode?: string
+      /** @example Hlavni mesto Praha */
+      name?: string
     }
     /** Confidence */
     Confidence: {
@@ -448,20 +140,74 @@ export interface components {
        */
       subscription: string | null
     }
-    /** ASN */
-    ASN: {
-      /** @example 7922 */
-      asn: string
-      /** @example 73.136.0.0/13 */
-      network: string
-      /** @example COMCAST-7922 */
-      name?: string
+    IdentificationError: {
+      /**
+       * @description Error code:
+       *  * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded
+       *  * `Failed` - internal server error
+       *
+       * @example 429 Too Many Requests
+       * @enum {string}
+       */
+      code: '429 Too Many Requests' | 'Failed'
+      /** @example too many requests */
+      message: string
     }
-    /** DataCenter */
-    DataCenter: {
-      result: boolean
-      /** @example DediPath */
-      name?: string
+    /** @description Stores bot detection result */
+    BotdDetectionResult: {
+      /**
+       * @description Bot detection result:
+       *  * `notDetected` - the visitor is not a bot
+       *  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
+       *  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
+       *
+       * @example bad
+       * @enum {string}
+       */
+      result: 'notDetected' | 'good' | 'bad'
+      /** @example selenium */
+      type?: string
+    }
+    /** @description Contains all the information from Bot Detection product */
+    BotdResult: {
+      /**
+       * Format: ipv4
+       * @description IP address of the requesting browser or bot.
+       * @example 8.8.8.8
+       */
+      ip: string
+      /**
+       * Time
+       * Format: date-time
+       * @description Time in UTC when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible
+       * @example 2022-06-09T22:58:36Z
+       */
+      time: string
+      /**
+       * @description Page URL from which identification request was sent.
+       * @example https://example.com/login
+       */
+      url: string
+      /** @example Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 */
+      userAgent: string
+      /** @example 1681392853693.lRiBBD */
+      requestId: string
+      /** @example Automatic tests bot */
+      linkedId?: string
+      bot: components['schemas']['BotdDetectionResult']
+    }
+    ProductError: {
+      /**
+       * @description Error code:
+       *  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded
+       *  * `Failed` - internal server error
+       *
+       * @example TooManyRequests
+       * @enum {string}
+       */
+      code: 'TooManyRequests' | 'Failed'
+      /** @example too many requests */
+      message: string
     }
     /** IPLocation */
     IPLocation: {
@@ -496,18 +242,300 @@ export interface components {
       continent?: components['schemas']['Location']
       subdivisions?: components['schemas']['Subdivision'][]
     }
-    /** Location */
-    Location: {
-      /** @example US */
-      code: string
-      /** @example United States */
-      name: string
-    }
-    Subdivision: {
-      /** @example 10 */
-      isoCode?: string
-      /** @example Hlavni mesto Praha */
+    /** ASN */
+    ASN: {
+      /** @example 7922 */
+      asn: string
+      /** @example 73.136.0.0/13 */
+      network: string
+      /** @example COMCAST-7922 */
       name?: string
+    }
+    /** DataCenter */
+    DataCenter: {
+      result: boolean
+      /** @example DediPath */
+      name?: string
+    }
+    /** @description Details about the request IP address. Has separate fields for v4 and v6 IP address versions. */
+    IpInfoResult: {
+      v4?: {
+        /**
+         * Format: ipv4
+         * @example 94.142.239.124
+         */
+        address: string
+        geolocation: components['schemas']['IPLocation']
+        asn?: components['schemas']['ASN']
+        datacenter?: components['schemas']['DataCenter']
+      }
+      v6?: {
+        /**
+         * Format: ipv6
+         * @example 2001:0db8:85a3:0000:0000:8a2e:0370:7334
+         */
+        address: string
+        geolocation: components['schemas']['IPLocation']
+        asn?: components['schemas']['ASN']
+        datacenter?: components['schemas']['DataCenter']
+      }
+    }
+    IncognitoResult: {
+      /**
+       * @description `true` if we detected incognito mode used in the browser, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    RootAppsResult: {
+      /**
+       * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    EmulatorResult: {
+      /**
+       * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client is not Android.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    ClonedAppResult: {
+      /**
+       * @description Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    FactoryResetResult: {
+      /**
+       * Format: date-time
+       * @description Indicates the time (in UTC) of the most recent factory reset that happened on the **mobile device**.
+       * When a factory reset cannot be detected on the mobile device or when the request is initiated from a browser, this field will correspond to the *epoch* time (i.e 1 Jan 1970 UTC).
+       * See [Factory Reset Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection) to learn more about this Smart Signal.
+       *
+       * @example 2022-06-09T22:58:36Z
+       */
+      time: string
+      /**
+       * Format: int64
+       * @description This field is just another representation of the value in the `time` field.
+       * The time of the most recent factory reset that happened on the **mobile device** is expressed as Unix epoch time.
+       *
+       * @example 1654815517198
+       */
+      timestamp: number
+    }
+    JailbrokenResult: {
+      /**
+       * @description iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    FridaResult: {
+      /**
+       * @description [Frida](https://frida.re/docs/) detection for Android and iOS devices. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not a mobile device.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    IpBlockListResult: {
+      /**
+       * @description `true` if request IP address is part of any database that we use to search for known malicious actors, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
+      details: {
+        /**
+         * @description IP address was part of a known email spam attack (SMTP).
+         * @example false
+         */
+        emailSpam: boolean
+        /**
+         * @description IP address was part of a known network attack (SSH/HTTPS).
+         * @example false
+         */
+        attackSource: boolean
+      }
+    }
+    TorResult: {
+      /**
+       * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    PrivacySettingsResult: {
+      /**
+       * @description `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    VirtualMachineResult: {
+      /**
+       * @description `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    VpnResult: {
+      /**
+       * @description VPN or other anonymizing service has been used when sending the request.
+       * @example false
+       */
+      result: boolean
+      /**
+       * @description Local timezone which is used in timezoneMismatch method.
+       * @example Europe/Berlin
+       */
+      originTimezone: string
+      /**
+       * @description Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
+       * @example unknown
+       */
+      originCountry?: string
+      methods: {
+        /**
+         * @description The browser timezone doesn't match the timezone inferred from the request IP address.
+         * @example false
+         */
+        timezoneMismatch: boolean
+        /**
+         * @description Request IP address is owned and used by a public VPN service provider.
+         * @example false
+         */
+        publicVPN: boolean
+        /**
+         * @description This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
+         * @example false
+         */
+        auxiliaryMobile: boolean
+        /**
+         * @description The browser runs on a different operating system than the operating system inferred from the  request network signature.
+         * @example false
+         */
+        osMismatch: boolean
+      }
+    }
+    ProxyResult: {
+      /**
+       * @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    TamperingResult: {
+      /**
+       * @description Flag indicating whether browser tampering was detected according to our internal thresholds.
+       * @example false
+       */
+      result: boolean
+      /**
+       * @description Confidence score (`0.0 - 1.0`) for the tampering detection. Values above `0.5` suggest that we're reasonably sure there was a tampering attempt. Values below `0.5` are genuine browsers.
+       * @example 0
+       */
+      anomalyScore: number
+    }
+    HighActivityResult: {
+      /**
+       * @description Flag indicating whether the request came from a high activity visitor.
+       * @example false
+       */
+      result: boolean
+      /**
+       * @description Number of requests from the same visitor in the previous day.
+       * @example 10
+       */
+      dailyRequests?: number
+    }
+    LocationSpoofingResult: {
+      /**
+       * @description Flag indicating whether the request came from a mobile device with location spoofing enabled.
+       * @example false
+       */
+      result: boolean
+    }
+    SuspectScoreResult: {
+      /**
+       * @description Suspect Score is an easy way to integrate Smart Signals into your fraud protection work flow.  It is a weighted representation of all Smart Signals present in the payload that helps identify suspicious activity. The value range is [0; S] where S is sum of all Smart Signals weights.  See more details here: https://dev.fingerprint.com/docs/suspect-score
+       *
+       * @example 0
+       */
+      result: number
+    }
+    /**
+     * @description It includes 35+ raw browser identification attributes to provide Fingerprint users with even more information than our standard visitor ID provides. This enables Fingerprint users to not have to run our open-source product in conjunction with Fingerprint Pro Plus and Enterprise to get those additional attributes.
+     * Warning: The raw signals data can change at any moment as we improve the product. We cannot guarantee the internal shape of raw device attributes to be stable, so typical semantic versioning rules do not apply here. Use this data with caution without assuming a specific structure beyond the generic type provided here.
+     */
+    RawDeviceAttributesResult: {
+      [key: string]: {
+        /** error */
+        error?: {
+          /** error.name */
+          name: string
+          /** error.message */
+          message: string
+        }
+        /** value */
+        value?: unknown
+      }
+    }
+    RemoteControlResult: {
+      /**
+       * @description `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
+    }
+    /** @description Is absent if the velocity data could not be generated for the visitor ID. */
+    VelocityIntervalResult: {
+      /** @example 1 */
+      '5m': number
+      /** @example 1 */
+      '1h': number
+      /**
+       * @description The `24h` interval of `distinctIp`, `distinctLinkedId`, and `distinctCountry` will be omitted if the number of `events`` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
+       *
+       * @example 1
+       */
+      '24h'?: number
+    }
+    VelocityIntervals: {
+      intervals?: components['schemas']['VelocityIntervalResult']
+    }
+    /**
+     * @description Sums key data points for a specific `visitorId` at three distinct time intervals: 5 minutes, 1 hour, and 24 hours as follows:
+     * - Number of identification events attributed to the visitor ID - Number of distinct IP addresses associated to the visitor ID. - Number of distinct countries associated with the visitor ID. - Number of distinct `linkedId`s associated with the visitor ID.
+     * The `24h` interval of `distinctIp`, `distinctLinkedId`, and `distinctCountry` will be omitted if the number of `events` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
+     */
+    VelocityResult: {
+      distinctIp: components['schemas']['VelocityIntervals']
+      distinctLinkedId: components['schemas']['VelocityIntervals']
+      distinctCountry: components['schemas']['VelocityIntervals']
+      events: components['schemas']['VelocityIntervals']
+    }
+    DeveloperToolsResult: {
+      /**
+       * @description `true` if the browser is Chrome with DevTools open or Firefox with Developer Tools open, `false` otherwise.
+       *
+       * @example false
+       */
+      result: boolean
     }
     /** @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise) */
     ProductsResponse: {
@@ -715,354 +743,320 @@ export interface components {
       products: components['schemas']['ProductsResponse']
       error?: components['schemas']['ProductError']
     }
-    IdentificationError: {
-      /**
-       * @description Error code:
-       *  * `429 Too Many Requests` - the limit on secret API key requests per second has been exceeded
-       *  * `Failed` - internal server error
-       *
-       * @example 429 Too Many Requests
-       * @enum {string}
-       */
-      code: '429 Too Many Requests' | 'Failed'
-      /** @example too many requests */
-      message: string
+    ErrorCommon403Response: {
+      /** Common403ErrorResponse */
+      error?: {
+        /**
+         * @description Error code:
+         *  * `TokenRequired` - `Auth-API-Key` header is missing or empty
+         *  * `TokenNotFound` - No Fingerprint application found for specified secret key
+         *  * `SubscriptionNotActive` - Fingerprint application is not active
+         *  * `WrongRegion` - server and application region differ
+         *  * `FeatureNotEnabled` - this feature (for example, Delete API) is not enabled for your application
+         *
+         * @example TokenRequired
+         * @enum {string}
+         */
+        code: 'TokenRequired' | 'TokenNotFound' | 'SubscriptionNotActive' | 'WrongRegion' | 'FeatureNotEnabled'
+        /** @example secret key is required */
+        message: string
+      }
     }
-    /** @description Contains all the information from Bot Detection product */
-    BotdResult: {
+    ErrorEvent404Response: {
+      /** ErrorEvent404ResponseError */
+      error?: {
+        /**
+         * @description Error code:
+         *  * `RequestNotFound` - The specified request ID was not found. It never existed, expired, or it has been deleted.
+         *
+         * @example RequestNotFound
+         * @enum {string}
+         */
+        code: 'RequestNotFound'
+        /** @example request id is not found */
+        message: string
+      }
+    }
+    EventUpdateRequest: {
+      /** @description LinkedID value to assign to the existing event */
+      linkedId?: string
+      /** @description Full `tag` value to be set to the existing event. Replaces any existing `tag` payload completely. */
+      tag?: Record<string, never>
+      /** @description Suspect flag indicating observed suspicious or fraudulent event */
+      suspect?: boolean
+    }
+    ErrorUpdateEvent400Response: {
+      /** ErrorUpdateEvent400ResponseError */
+      error?: {
+        /**
+         * @description Error code: * `RequestCannotBeParsed` - the JSON content of the request contains some errors that prevented us from parsing it (wrong type/surpassed limits) * `Failed` - the event is more than 10 days old and cannot be updated
+         *
+         * @example RequestCannotBeParsed
+         * @enum {string}
+         */
+        code: 'RequestCannotBeParsed' | 'Failed'
+        /**
+         * @description Details about the underlying issue with the input payload
+         * @example suspect flag must be a boolean
+         */
+        message: string
+      }
+    }
+    ErrorUpdateEvent409Response: {
+      /** ErrorUpdateEvent409ResponseError */
+      error?: {
+        /**
+         * @description Error code: * `StateNotReady` - The event specified with request id is not ready for updates yet. Try again.
+         * This error happens in rare cases when update API is called immediately after receiving the request id on the client. In case you need to send information right away, we recommend using the JS agent API instead.
+         *
+         * @example StateNotReady
+         * @enum {string}
+         */
+        code: 'StateNotReady'
+        /** @example resource is not mutable yet, try again */
+        message: string
+      }
+    }
+    /**
+     * PaginatedResponse
+     * @description Fields `lastTimestamp` and `paginationKey` added when `limit` or `before` parameter provided and there is more data to show
+     */
+    Response: {
+      visitorId: string
+      visits: {
+        /**
+         * @description Unique identifier of the user's identification request.
+         * @example 1654815516083.OX6kx8
+         */
+        requestId: string
+        browserDetails: components['schemas']['BrowserDetails']
+        /** @description Flag if user used incognito session. */
+        incognito: boolean
+        /**
+         * Format: ipv4
+         * @example 8.8.8.8
+         */
+        ip: string
+        /**
+         * DeprecatedIPLocation
+         * @deprecated
+         * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
+         */
+        ipLocation?: {
+          /** @description The IP address is likely to be within this radius (in km) of the specified location. */
+          accuracyRadius?: number
+          /** Format: double */
+          latitude?: number
+          /** Format: double */
+          longitude?: number
+          postalCode?: string
+          /** Format: timezone */
+          timezone?: string
+          /** DeprecatedIPLocationCity */
+          city?: {
+            name?: string
+          }
+          country?: components['schemas']['Location']
+          continent?: components['schemas']['Location']
+          subdivisions?: components['schemas']['Subdivision'][]
+        }
+        /**
+         * Format: int64
+         * @description Timestamp of the event with millisecond precision in Unix time.
+         * @example 1654815516086
+         */
+        timestamp: number
+        /**
+         * Time
+         * Format: date-time
+         * @description Time expressed according to ISO 8601 in UTC format.
+         * @example 2022-06-09T22:58:36Z
+         */
+        time: string
+        /**
+         * @description Page URL from which the identification request was sent.
+         * @example https://some.website/path?query=params
+         */
+        url: string
+        /** @description A customer-provided value or an object that was sent with identification request. */
+        tag: {
+          [key: string]: unknown
+        }
+        /**
+         * @description A customer-provided id that was sent with identification request.
+         * @example someID
+         */
+        linkedId?: string
+        confidence?: components['schemas']['Confidence']
+        /** @description Attribute represents if a visitor had been identified before. */
+        visitorFound: boolean
+        firstSeenAt: components['schemas']['SeenAt']
+        lastSeenAt: components['schemas']['SeenAt']
+      }[]
+      /**
+       * Format: int64
+       * @description ⚠️ Deprecated paging attribute, please use `paginationKey` instead. Timestamp of the last visit in the current page of results.
+       *
+       * @example 1654815517198
+       */
+      lastTimestamp?: number
+      /**
+       * @description Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results.
+       * @example 1654815517198.azN4IZ
+       */
+      paginationKey?: string
+    }
+    ErrorVisits403: {
+      /**
+       * @description Error text.
+       * @example Forbidden (HTTP 403)
+       */
+      error: string
+    }
+    TooManyRequestsResponse: {
+      /**
+       * @description Error text.
+       * @example request throttled
+       */
+      error: string
+    }
+    ErrorVisitor400Response: {
+      error?: {
+        /**
+         * @description Error code: * `RequestCannotBeParsed` - The visitor ID parameter is missing or in the wrong format.
+         *
+         * @example RequestCannotBeParsed
+         * @enum {string}
+         */
+        code: 'RequestCannotBeParsed'
+        /** @example invalid visitor id */
+        message: string
+      }
+    }
+    ErrorVisitor404Response: {
+      /** ErrorVisitor404ResponseError */
+      error?: {
+        /**
+         * @description Error code: * `VisitorNotFound` - The specified visitor ID was not found. It never existed or it may have already been deleted.
+         *
+         * @example VisitorNotFound
+         * @enum {string}
+         */
+        code: 'VisitorNotFound'
+        /** @example visitor not found */
+        message: string
+      }
+    }
+    ErrorCommon429Response: {
+      error?: {
+        /**
+         * @description Error code: * `TooManyRequests` - The request is throttled.
+         *
+         * @example TooManyRequests
+         * @enum {string}
+         */
+        code: 'TooManyRequests'
+        /** @example request throttled */
+        message: string
+      }
+    }
+    WebhookVisit: {
+      /** @example 3HNey93AkBW6CRbxV6xP */
+      visitorId: string
+      /** @example https://google.com?search=banking+services */
+      clientReferrer?: string
+      /** @example Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 */
+      userAgent?: string
+      bot?: components['schemas']['BotdDetectionResult']
+      ipInfo?: components['schemas']['IpInfoResult']
+      /** @description Flag if user used incognito session. */
+      incognito: boolean
+      rootApps?: components['schemas']['RootAppsResult']
+      emulator?: components['schemas']['EmulatorResult']
+      clonedApp?: components['schemas']['ClonedAppResult']
+      factoryReset?: components['schemas']['FactoryResetResult']
+      jailbroken?: components['schemas']['JailbrokenResult']
+      frida?: components['schemas']['FridaResult']
+      ipBlocklist?: components['schemas']['IpBlockListResult']
+      tor?: components['schemas']['TorResult']
+      privacySettings?: components['schemas']['PrivacySettingsResult']
+      virtualMachine?: components['schemas']['VirtualMachineResult']
+      vpn?: components['schemas']['VpnResult']
+      proxy?: components['schemas']['ProxyResult']
+      tampering?: components['schemas']['TamperingResult']
+      rawDeviceAttributes?: components['schemas']['RawDeviceAttributesResult']
+      highActivity?: components['schemas']['HighActivityResult']
+      locationSpoofing?: components['schemas']['LocationSpoofingResult']
+      suspectScore?: components['schemas']['SuspectScoreResult']
+      remoteControl?: components['schemas']['RemoteControlResult']
+      velocity?: components['schemas']['VelocityResult']
+      developerTools?: components['schemas']['DeveloperToolsResult']
+      /**
+       * @description Unique identifier of the user's identification request.
+       * @example 1654815516083.OX6kx8
+       */
+      requestId: string
+      browserDetails: components['schemas']['BrowserDetails']
       /**
        * Format: ipv4
-       * @description IP address of the requesting browser or bot.
        * @example 8.8.8.8
        */
       ip: string
       /**
-       * Time
-       * Format: date-time
-       * @description Time in UTC when the request from the JS agent was made. We recommend to treat requests that are older than 2 minutes as malicious. Otherwise, request replay attacks are possible
-       * @example 2022-06-09T22:58:36Z
+       * DeprecatedIPLocation
+       * @deprecated
+       * @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**. Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information.
        */
-      time: string
-      /**
-       * @description Page URL from which identification request was sent.
-       * @example https://example.com/login
-       */
-      url: string
-      /** @example Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36 */
-      userAgent: string
-      /** @example 1681392853693.lRiBBD */
-      requestId: string
-      /** @example Automatic tests bot */
-      linkedId?: string
-      bot: components['schemas']['BotdDetectionResult']
-    }
-    /** @description Stores bot detection result */
-    BotdDetectionResult: {
-      /**
-       * @description Bot detection result:
-       *  * `notDetected` - the visitor is not a bot
-       *  * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
-       *  * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
-       *
-       * @example bad
-       * @enum {string}
-       */
-      result: 'notDetected' | 'good' | 'bad'
-      /** @example selenium */
-      type?: string
-    }
-    /** @description Details about the request IP address. Has separate fields for v4 and v6 IP address versions. */
-    IpInfoResult: {
-      v4?: {
-        /**
-         * Format: ipv4
-         * @example 94.142.239.124
-         */
-        address: string
-        geolocation: components['schemas']['IPLocation']
-        asn?: components['schemas']['ASN']
-        datacenter?: components['schemas']['DataCenter']
-      }
-      v6?: {
-        /**
-         * Format: ipv6
-         * @example 2001:0db8:85a3:0000:0000:8a2e:0370:7334
-         */
-        address: string
-        geolocation: components['schemas']['IPLocation']
-        asn?: components['schemas']['ASN']
-        datacenter?: components['schemas']['DataCenter']
-      }
-    }
-    IpBlockListResult: {
-      /**
-       * @description `true` if request IP address is part of any database that we use to search for known malicious actors, `false` otherwise.
-       *
-       * @example false
-       */
-      result: boolean
-      details: {
-        /**
-         * @description IP address was part of a known email spam attack (SMTP).
-         * @example false
-         */
-        emailSpam: boolean
-        /**
-         * @description IP address was part of a known network attack (SSH/HTTPS).
-         * @example false
-         */
-        attackSource: boolean
-      }
-    }
-    VpnResult: {
-      /**
-       * @description VPN or other anonymizing service has been used when sending the request.
-       * @example false
-       */
-      result: boolean
-      /**
-       * @description Local timezone which is used in timezoneMismatch method.
-       * @example Europe/Berlin
-       */
-      originTimezone: string
-      /**
-       * @description Country of the request (only for Android SDK version >= 2.4.0, ISO 3166 format or unknown).
-       * @example unknown
-       */
-      originCountry?: string
-      methods: {
-        /**
-         * @description The browser timezone doesn't match the timezone inferred from the request IP address.
-         * @example false
-         */
-        timezoneMismatch: boolean
-        /**
-         * @description Request IP address is owned and used by a public VPN service provider.
-         * @example false
-         */
-        publicVPN: boolean
-        /**
-         * @description This method applies to mobile devices only. Indicates the result of additional methods used to detect a VPN in mobile devices.
-         * @example false
-         */
-        auxiliaryMobile: boolean
-        /**
-         * @description The browser runs on a different operating system than the operating system inferred from the  request network signature.
-         * @example false
-         */
-        osMismatch: boolean
-      }
-    }
-    TamperingResult: {
-      /**
-       * @description Flag indicating whether browser tampering was detected according to our internal thresholds.
-       * @example false
-       */
-      result: boolean
-      /**
-       * @description Confidence score (`0.0 - 1.0`) for the tampering detection. Values above `0.5` suggest that we're reasonably sure there was a tampering attempt. Values below `0.5` are genuine browsers.
-       * @example 0
-       */
-      anomalyScore: number
-    }
-    HighActivityResult: {
-      /**
-       * @description Flag indicating whether the request came from a high activity visitor.
-       * @example false
-       */
-      result: boolean
-      /**
-       * @description Number of requests from the same visitor in the previous day.
-       * @example 10
-       */
-      dailyRequests?: number
-    }
-    LocationSpoofingResult: {
-      /**
-       * @description Flag indicating whether the request came from a mobile device with location spoofing enabled.
-       * @example false
-       */
-      result: boolean
-    }
-    SuspectScoreResult: {
-      /**
-       * @description Suspect Score is an easy way to integrate Smart Signals into your fraud protection work flow.  It is a weighted representation of all Smart Signals present in the payload that helps identify suspicious activity. The value range is [0; S] where S is sum of all Smart Signals weights.  See more details here: https://dev.fingerprint.com/docs/suspect-score
-       *
-       * @example 0
-       */
-      result: number
-    }
-    /**
-     * @description Sums key data points for a specific `visitorId` at three distinct time intervals: 5 minutes, 1 hour, and 24 hours as follows:
-     * - Number of identification events attributed to the visitor ID - Number of distinct IP addresses associated to the visitor ID. - Number of distinct countries associated with the visitor ID. - Number of distinct `linkedId`s associated with the visitor ID.
-     * The `24h` interval of `distinctIp`, `distinctLinkedId`, and `distinctCountry` will be omitted if the number of `events` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
-     */
-    VelocityResult: {
-      distinctIp: components['schemas']['VelocityIntervals']
-      distinctLinkedId: components['schemas']['VelocityIntervals']
-      distinctCountry: components['schemas']['VelocityIntervals']
-      events: components['schemas']['VelocityIntervals']
-    }
-    /**
-     * @description It includes 35+ raw browser identification attributes to provide Fingerprint users with even more information than our standard visitor ID provides. This enables Fingerprint users to not have to run our open-source product in conjunction with Fingerprint Pro Plus and Enterprise to get those additional attributes.
-     * Warning: The raw signals data can change at any moment as we improve the product. We cannot guarantee the internal shape of raw device attributes to be stable, so typical semantic versioning rules do not apply here. Use this data with caution without assuming a specific structure beyond the generic type provided here.
-     */
-    RawDeviceAttributesResult: {
-      [key: string]: {
-        /** error */
-        error?: {
-          /** error.name */
-          name: string
-          /** error.message */
-          message: string
+      ipLocation?: {
+        /** @description The IP address is likely to be within this radius (in km) of the specified location. */
+        accuracyRadius?: number
+        /** Format: double */
+        latitude?: number
+        /** Format: double */
+        longitude?: number
+        postalCode?: string
+        /** Format: timezone */
+        timezone?: string
+        /** DeprecatedIPLocationCity */
+        city?: {
+          name?: string
         }
-        /** value */
-        value?: unknown
+        country?: components['schemas']['Location']
+        continent?: components['schemas']['Location']
+        subdivisions?: components['schemas']['Subdivision'][]
       }
-    }
-    FactoryResetResult: {
-      /**
-       * Format: date-time
-       * @description Indicates the time (in UTC) of the most recent factory reset that happened on the **mobile device**.
-       * When a factory reset cannot be detected on the mobile device or when the request is initiated from a browser, this field will correspond to the *epoch* time (i.e 1 Jan 1970 UTC).
-       * See [Factory Reset Detection](https://dev.fingerprint.com/docs/smart-signals-overview#factory-reset-detection) to learn more about this Smart Signal.
-       *
-       * @example 2022-06-09T22:58:36Z
-       */
-      time: string
       /**
        * Format: int64
-       * @description This field is just another representation of the value in the `time` field.
-       * The time of the most recent factory reset that happened on the **mobile device** is expressed as Unix epoch time.
-       *
-       * @example 1654815517198
+       * @description Timestamp of the event with millisecond precision in Unix time.
+       * @example 1654815516086
        */
       timestamp: number
-    }
-    ClonedAppResult: {
       /**
-       * @description Android specific cloned application detection. There are 2 values: • `true` - Presence of app cloners work detected (e.g. fully cloned application found or launch of it inside of a not main working profile detected). • `false` - No signs of cloned application detected or the client is not Android.
-       *
-       * @example false
+       * Time
+       * Format: date-time
+       * @description Time expressed according to ISO 8601 in UTC format.
+       * @example 2022-06-09T22:58:36Z
        */
-      result: boolean
-    }
-    EmulatorResult: {
+      time: string
       /**
-       * @description Android specific emulator detection. There are 2 values: • `true` - Emulated environment detected (e.g. launch inside of AVD) • `false` - No signs of emulated environment detected or the client is not Android.
-       *
-       * @example false
+       * @description Page URL from which the identification request was sent.
+       * @example https://some.website/path?query=params
        */
-      result: boolean
-    }
-    RootAppsResult: {
+      url: string
+      /** @description A customer-provided value or an object that was sent with identification request. */
+      tag?: {
+        [key: string]: unknown
+      }
       /**
-       * @description Android specific root management apps detection. There are 2 values: • `true` - Root Management Apps detected (e.g. Magisk) • `false` - No Root Management Apps detected or the client isn't Android.
-       *
-       * @example false
+       * @description A customer-provided id that was sent with identification request.
+       * @example someID
        */
-      result: boolean
-    }
-    IncognitoResult: {
-      /**
-       * @description `true` if we detected incognito mode used in the browser, `false` otherwise.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    JailbrokenResult: {
-      /**
-       * @description iOS specific jailbreak detection. There are 2 values: • `true` - Jailbreak detected • `false` - No signs of jailbreak or the client is not iOS.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    FridaResult: {
-      /**
-       * @description [Frida](https://frida.re/docs/) detection for Android and iOS devices. There are 2 values: • `true` - Frida detected • `false` - No signs of Frida or the client is not a mobile device.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    TorResult: {
-      /**
-       * @description `true` if the request IP address is a known tor exit node, `false` otherwise.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    PrivacySettingsResult: {
-      /**
-       * @description `true` if the request is from a privacy aware browser (e.g. Tor) or from a browser in which fingerprinting is blocked. Otherwise `false`.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    VirtualMachineResult: {
-      /**
-       * @description `true` if the request came from a browser running inside a virtual machine (e.g. VMWare), `false` otherwise.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    ProxyResult: {
-      /**
-       * @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    ProductError: {
-      /**
-       * @description Error code:
-       *  * `TooManyRequests` - the limit on secret API key requests per second has been exceeded
-       *  * `Failed` - internal server error
-       *
-       * @example TooManyRequests
-       * @enum {string}
-       */
-      code: 'TooManyRequests' | 'Failed'
-      /** @example too many requests */
-      message: string
-    }
-    RemoteControlResult: {
-      /**
-       * @description `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    DeveloperToolsResult: {
-      /**
-       * @description `true` if the browser is Chrome with DevTools open or Firefox with Developer Tools open, `false` otherwise.
-       *
-       * @example false
-       */
-      result: boolean
-    }
-    VelocityIntervals: {
-      intervals?: components['schemas']['VelocityIntervalResult']
-    }
-    /** @description Is absent if the velocity data could not be generated for the visitor ID. */
-    VelocityIntervalResult: {
-      /** @example 1 */
-      '5m': number
-      /** @example 1 */
-      '1h': number
-      /**
-       * @description The `24h` interval of `distinctIp`, `distinctLinkedId`, and `distinctCountry` will be omitted if the number of `events`` for the visitor ID in the last 24 hours (`events.intervals.['24h']`) is higher than 20.000.
-       *
-       * @example 1
-       */
-      '24h'?: number
+      linkedId?: string
+      confidence?: components['schemas']['Confidence']
+      /** @description Attribute represents if a visitor had been identified before. */
+      visitorFound: boolean
+      firstSeenAt: components['schemas']['SeenAt']
+      lastSeenAt: components['schemas']['SeenAt']
     }
   }
   responses: never
@@ -1109,6 +1103,57 @@ export interface operations {
       404: {
         content: {
           'application/json': components['schemas']['ErrorEvent404Response']
+        }
+      }
+    }
+  }
+  /**
+   * Update an event with a given request ID
+   * @description Change information in existing events specified by `requestId` or *flag suspicious events*.
+   *
+   * When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.
+   *
+   * **Warning** It's not possible to update events older than 10 days.
+   */
+  updateEvent: {
+    parameters: {
+      path: {
+        /** @description The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid). */
+        request_id: string
+      }
+    }
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['EventUpdateRequest']
+      }
+    }
+    responses: {
+      /** @description OK */
+      200: {
+        content: never
+      }
+      /** @description Bad request */
+      400: {
+        content: {
+          'application/json': components['schemas']['ErrorUpdateEvent400Response']
+        }
+      }
+      /** @description Forbidden */
+      403: {
+        content: {
+          'application/json': components['schemas']['ErrorCommon403Response']
+        }
+      }
+      /** @description Not found */
+      404: {
+        content: {
+          'application/json': components['schemas']['ErrorEvent404Response']
+        }
+      }
+      /** @description Conflict */
+      409: {
+        content: {
+          'application/json': components['schemas']['ErrorUpdateEvent409Response']
         }
       }
     }
@@ -1194,12 +1239,28 @@ export interface operations {
   /**
    * Delete data by visitor ID
    * @description Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
-   * All delete requests are queued:
+   * ### Which data is deleted?
+   * - Browser (or device) properties
+   * - Identification requests made from this browser (or device)
    *
-   * * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours.
-   * * Data from older (11 days or more) identification events  will be deleted after 90 days.
+   * #### Browser (or device) properties
+   * - Represents the data that Fingerprint collected from this specific browser (or device) and everything inferred and derived from it.
+   * - Upon request to delete, this data is deleted asynchronously (typically within a few minutes) and it will no longer be used to identify this browser (or device) for your [Fingerprint Application](https://dev.fingerprint.com/docs/glossary#fingerprint-application).
    *
-   * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
+   * #### Identification requests made from this browser (or device)
+   * - Fingerprint stores the identification requests made from a browser (or device) for up to 30 (or 90) days depending on your plan. To learn more, see [Data Retention](https://dev.fingerprint.com/docs/regions#data-retention).
+   * - Upon request to delete, the identification requests that were made by this browser
+   *   - Within the past 10 days are deleted within 24 hrs.
+   *   - Outside of 10 days are allowed to purge as per your data retention period.
+   *
+   * ### Corollary
+   * After requesting to delete a visitor ID,
+   * - If the same browser (or device) requests to identify, it will receive a different visitor ID.
+   * - If you request [`/events` API](https://dev.fingerprint.com/reference/getevent) with a `request_id` that was made outside of the 10 days, you will still receive a valid response.
+   * - If you request [`/visitors` API](https://dev.fingerprint.com/reference/getvisits) for the deleted visitor ID, the response will include identification requests that were made outside of those 10 days.
+   *
+   * ### Interested?
+   * Please [contact our support team](https://fingerprint.com/support/) to enable it for you. Otherwise, you will receive a 403.
    */
   deleteVisitorData: {
     parameters: {
