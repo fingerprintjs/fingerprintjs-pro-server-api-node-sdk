@@ -1,5 +1,5 @@
-import getEventError403 from '../mocked-responses-tests/mocked-responses-data/external/get_event_403_error.json'
-import getEventError404 from '../mocked-responses-tests/mocked-responses-data/external/get_event_404_error.json'
+import getEventError403 from '../mocked-responses-tests/mocked-responses-data/get_event_403_error.json'
+import getEventError404 from '../mocked-responses-tests/mocked-responses-data/get_event_404_error.json'
 import {
   EventError403,
   EventError404,

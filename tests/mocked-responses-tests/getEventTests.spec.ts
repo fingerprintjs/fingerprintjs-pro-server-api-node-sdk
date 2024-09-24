@@ -1,8 +1,8 @@
 import { EventResponse403, EventResponse404, Region } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
-import getEventResponse from './mocked-responses-data/external/get_event_200.json'
-import getEventWithExtraFieldsResponse from './mocked-responses-data/external/get_event_200_extra_fields.json'
-import getEventAllErrorsResponse from './mocked-responses-data/external/get_event_200_all_errors.json'
+import getEventResponse from './mocked-responses-data/get_event_200.json'
+import getEventWithExtraFieldsResponse from './mocked-responses-data/get_event_200_extra_fields.json'
+import getEventAllErrorsResponse from './mocked-responses-data/get_event_200_all_errors.json'
 import { EventError403, EventError404, SdkError } from '../../src/errors/apiErrors'
 
 jest.spyOn(global, 'fetch')

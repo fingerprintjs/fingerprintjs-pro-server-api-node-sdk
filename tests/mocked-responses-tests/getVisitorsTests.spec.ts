@@ -1,10 +1,6 @@
 import { VisitorHistoryFilter, Region, VisitorsResponse403, VisitorsResponse429 } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
-import visitorsWithoutFilterResponse from './mocked-responses-data/visitors-without-filter-response.json'
-import visitorsResponseWithRequestId from './mocked-responses-data/visitors-with-request-id.json'
-import visitorsResponseWithRequestIdLinkedId from './mocked-responses-data/visitors-with-request-id-linked-id.json'
-import visitorsResponseWithLinkedIdLimit from './mocked-responses-data/visitors-with-linked-id-limit.json'
-import visitorsWithLimitBefore from './mocked-responses-data/visitors-with-limit-before.json'
+import getVisits from './mocked-responses-data/get_visits_200_limit_1.json'
 import { SdkError, VisitorsError403, VisitorsError429 } from '../../src/errors/apiErrors'
 
 jest.spyOn(global, 'fetch')
@@ -20,14 +16,14 @@ describe('[Mocked response] Get Visitors', () => {
   const client = new FingerprintJsServerApiClient({ region: Region.EU, apiKey: apiKey })
 
   test('without filter', async () => {
-    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(visitorsWithoutFilterResponse))))
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const response = await client.getVisitorHistory(existingVisitorId)
     expect(response).toMatchSnapshot()
   })
 
   test('with request_id filter', async () => {
-    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(visitorsResponseWithRequestId))))
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const filter: VisitorHistoryFilter = { request_id: existingRequestId }
     const response = await client.getVisitorHistory(existingVisitorId, filter)
@@ -35,7 +31,7 @@ describe('[Mocked response] Get Visitors', () => {
   })
 
   test('with request_id and linked_id filter', async () => {
-    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(visitorsResponseWithRequestIdLinkedId))))
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const filter: VisitorHistoryFilter = {
       request_id: existingRequestId,
@@ -46,7 +42,7 @@ describe('[Mocked response] Get Visitors', () => {
   })
 
   test('with linked_id and limit filter', async () => {
-    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(visitorsResponseWithLinkedIdLimit))))
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const filter: VisitorHistoryFilter = { linked_id: existingLinkedId, limit: 5 }
     const response = await client.getVisitorHistory(existingVisitorId, filter)
@@ -54,7 +50,7 @@ describe('[Mocked response] Get Visitors', () => {
   })
 
   test('with limit and before', async () => {
-    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(visitorsWithLimitBefore))))
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const filter: VisitorHistoryFilter = { limit: 4, before: 1626538505244 }
     const response = await client.getVisitorHistory(existingVisitorId, filter)
