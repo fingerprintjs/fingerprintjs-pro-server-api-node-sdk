@@ -5,5 +5,7 @@
     "@fingerprintjs/fingerprintjs-pro-server-api": "5.0.0",
     "fingerprintjs-pro-server-api-node-sdk-example": "1.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "wild-oranges-feel"
+  ]
 }
