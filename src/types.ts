@@ -78,6 +78,15 @@ export type EventResponse = paths['/events/{request_id}']['get']['responses']['2
 export type EventResponse403 = paths['/events/{request_id}']['get']['responses']['403']['content']['application/json']
 export type EventResponse404 = paths['/events/{request_id}']['get']['responses']['404']['content']['application/json']
 
+export type UpdateEventResponse400 =
+  paths['/events/{request_id}']['put']['responses']['400']['content']['application/json']
+export type UpdateEventResponse403 =
+  paths['/events/{request_id}']['put']['responses']['403']['content']['application/json']
+export type UpdateEventResponse404 =
+  paths['/events/{request_id}']['put']['responses']['404']['content']['application/json']
+export type UpdateEventResponse409 =
+  paths['/events/{request_id}']['put']['responses']['409']['content']['application/json']
+
 type WithResponse<T> = T & {
   response: Response
 }
@@ -86,3 +95,5 @@ type WithResponse<T> = T & {
  * More info: https://dev.fingerprintjs.com/docs/webhooks#identification-webhook-object-format
  */
 export type VisitWebhook = components['schemas']['WebhookVisit']
+
+export type EventUpdateRequest = components['schemas']['EventUpdateRequest']

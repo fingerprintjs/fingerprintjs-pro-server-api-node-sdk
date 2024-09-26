@@ -1,5 +1,13 @@
 import { getDeleteVisitorDataUrl, getEventUrl, getVisitorsUrl } from './urlUtils'
-import { AuthenticationMode, EventResponse, Options, Region, VisitorHistoryFilter, VisitorsResponse } from './types'
+import {
+  AuthenticationMode,
+  EventResponse,
+  EventUpdateRequest,
+  Options,
+  Region,
+  VisitorHistoryFilter,
+  VisitorsResponse,
+} from './types'
 import { copyResponseJson } from './responseUtils'
 import {
   ApiError,
@@ -9,6 +17,10 @@ import {
   DeleteVisit404Error,
   EventError403,
   EventError404,
+  UpdateEventError400,
+  UpdateEventError403,
+  UpdateEventError404,
+  UpdateEventError409,
   VisitorsError403,
   VisitorsError429,
 } from './errors/apiErrors'
@@ -92,6 +104,84 @@ export class FingerprintJsServerApiClient {
 
       case 404:
         throw new EventError404(jsonResponse, response)
+
+      default:
+        throw ApiError.unknown(response)
+    }
+  }
+
+  /**
+   * Update an event with a given request ID
+   * @description Change information in existing events specified by `requestId` or *flag suspicious events*.
+   *
+   * When an event is created, it is assigned `linkedId` and `tag` submitted through the JS agent parameters. This information might not be available on the client so the Server API allows for updating the attributes after the fact.
+   *
+   * **Warning** It's not possible to update events older than 10 days.
+   *
+   * @param body - Data to update the event with.
+   * @param requestId The unique event [identifier](https://dev.fingerprint.com/docs/js-agent#requestid).
+   *
+   * @return {Promise<void>}
+   *
+   * @example
+   * ```javascript
+   * const body = {
+   *  linkedId: 'linked_id',
+   *  suspect: false,
+   * }
+   *
+   * client
+   *   .updateEvent(body, '<requestId>')
+   *   .then(() => {
+   *     // Event was successfully updated
+   *   })
+   *   .catch((error) => {
+   *     if (isUpdateEventError(error)) {
+   *       console.log(error.statusCode, error.message)
+   *     }
+   *   })
+   * ```
+   */
+  public async updateEvent(body: EventUpdateRequest, requestId: string): Promise<void> {
+    if (!body) {
+      throw new TypeError('body is not set')
+    }
+
+    if (!requestId) {
+      throw new TypeError('requestId is not set')
+    }
+
+    const url =
+      this.authenticationMode === AuthenticationMode.QueryParameter
+        ? getEventUrl(requestId, this.region, this.apiKey)
+        : getEventUrl(requestId, this.region)
+
+    const headers = this.getHeaders()
+
+    const response = await this.fetch(url, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify(body),
+    })
+
+    if (response.status === 200) {
+      return
+    }
+
+    const jsonResponse = await copyResponseJson(response)
+
+    switch (response.status) {
+      case 400:
+        throw new UpdateEventError400(jsonResponse, response)
+
+      case 403:
+        throw new UpdateEventError403(jsonResponse, response)
+
+      case 404:
+        throw new UpdateEventError404(jsonResponse, response)
+
+      case 409:
+        throw new UpdateEventError409(jsonResponse, response)
 
       default:
         throw ApiError.unknown(response)

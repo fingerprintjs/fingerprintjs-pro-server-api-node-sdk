@@ -5,6 +5,10 @@ import {
   DeleteVisit404Response,
   EventResponse403,
   EventResponse404,
+  UpdateEventResponse400,
+  UpdateEventResponse403,
+  UpdateEventResponse404,
+  UpdateEventResponse409,
   VisitorsResponse403,
   VisitorsResponse429,
 } from '../types'
@@ -101,6 +105,30 @@ export class EventError404 extends ApiError<404, EventResponse404> {
   }
 }
 
+export class UpdateEventError400 extends ApiError<400, UpdateEventResponse400> {
+  constructor(body: UpdateEventResponse400, response: Response) {
+    super(body.error?.message ?? 'Bad request', body, 400, body.error?.code ?? 'BadRequest', response)
+  }
+}
+
+export class UpdateEventError403 extends ApiError<403, UpdateEventResponse403> {
+  constructor(body: UpdateEventResponse403, response: Response) {
+    super(body.error?.message ?? 'Forbidden', body, 403, body.error?.code ?? 'Forbidden', response)
+  }
+}
+
+export class UpdateEventError404 extends ApiError<404, UpdateEventResponse404> {
+  constructor(body: UpdateEventResponse404, response: Response) {
+    super(body.error?.message ?? 'Request id is not found', body, 404, body.error?.code ?? 'RequestNotFound', response)
+  }
+}
+
+export class UpdateEventError409 extends ApiError<409, UpdateEventResponse409> {
+  constructor(body: UpdateEventResponse409, response: Response) {
+    super(body.error?.message ?? 'Conflict', body, 409, body.error?.code ?? 'Conflict', response)
+  }
+}
+
 export const DELETE_VISITS_ERRORS = [
   DeleteVisit404Error,
   DeleteVisit403Error,
@@ -119,6 +147,11 @@ export function isVisitorsError(error: unknown): error is (typeof VISITOR_ERRORS
 export const EVENT_ERRORS = [EventError403, EventError404] as const
 export function isEventError(error: unknown): error is (typeof EVENT_ERRORS)[number]['prototype'] {
   return EVENT_ERRORS.some((errorConstructor) => error instanceof errorConstructor)
+}
+
+export const UPDATE_EVENT_ERRORS = [UpdateEventError400, UpdateEventError403, UpdateEventError404, UpdateEventError409]
+export function isUpdateEventError(error: unknown): error is (typeof UPDATE_EVENT_ERRORS)[number]['prototype'] {
+  return UPDATE_EVENT_ERRORS.some((errorConstructor) => error instanceof errorConstructor)
 }
 
 function getRetryAfter(response: Response) {
