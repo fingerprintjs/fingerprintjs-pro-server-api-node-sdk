@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 5.1.0
+
+### Minor Changes
+
+- **events**: Introduce `PUT` endpoint for `/events` API ([009c8f4](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/009c8f445a7c2d7bdacdbed97af8a0f418440e2c))
+
 ## 5.1.0-test.0
 
 ### Minor Changes
