@@ -1,4 +1,4 @@
-import { ExtractQueryParams, Region, VisitorHistoryFilter } from './types'
+import { ExtractQueryParams, Region } from './types'
 import { version } from '../package.json'
 import { paths } from './generatedApiTypes'
 
@@ -15,73 +15,10 @@ export function getIntegrationInfo() {
   return `fingerprint-pro-server-node-sdk/${version}`
 }
 
-/**
- * @private
- * */
-export function getEventUrl(requestId: string, region: Region, apiKey?: string) {
-  const params: QueryStringParameters = {
-    ii: getIntegrationInfo(),
-  }
-
-  if (apiKey) {
-    params.api_key = apiKey
-  }
-
-  return `${getServerApiUrl(region)}events/${requestId}?${serializeQueryStringParams(params)}`
-}
-
-/**
- * @private
- * */
-export function getDeleteVisitorDataUrl(region: Region, visitorId: string, apiKey?: string): string {
-  const queryStringParameters: QueryStringParameters = {
-    ii: getIntegrationInfo(),
-  }
-
-  if (apiKey) {
-    queryStringParameters.api_key = apiKey
-  }
-
-  const serverApiPath = getVisitorsPath(region, visitorId)
-  const queryString = serializeQueryStringParams(queryStringParameters)
-
-  return `${serverApiPath}?${queryString}`
-}
-
-/**
- * @private
- * */
-export function getVisitorsUrl(
-  region: Region,
-  visitorId: string,
-  filter?: VisitorHistoryFilter,
-  apiKey?: string
-): string {
-  const queryStringParameters: QueryStringParameters = {
-    ...filter,
-    ii: getIntegrationInfo(),
-  }
-
-  if (apiKey) {
-    queryStringParameters.api_key = apiKey
-  }
-
-  const serverApiPath = getVisitorsPath(region, visitorId)
-  const queryString = serializeQueryStringParams(queryStringParameters)
-
-  return `${serverApiPath}?${queryString}`
-}
-
 function serializeQueryStringParams(params: QueryStringParameters): string {
   const urlSearchParams = new URLSearchParams(Object.entries(params) as Array<[string, string]>)
 
   return urlSearchParams.toString()
-}
-
-function getVisitorsPath(region: Region, visitorId: string): string {
-  const serverApiUrl = getServerApiUrl(region)
-  const serverApiPath = `${serverApiUrl}visitors/${visitorId}`
-  return serverApiPath
 }
 
 function getServerApiUrl(region: Region): string {
@@ -115,22 +52,41 @@ type QueryParams<Path extends keyof paths, Method extends keyof paths[Path]> =
         queryParams?: ExtractQueryParams<paths[Path][Method]>
       }
 
-// GetRequestPathOptions type definition
 type GetRequestPathOptions<Path extends keyof paths, Method extends keyof paths[Path]> = {
   path: Path
   method: Method
-  // Only passed if should be included in query string
   apiKey?: string
   region: Region
 } & PathParams<Path> &
   QueryParams<Path, Method>
 
+/**
+ * Formats a URL for the FingerprintJS server API by replacing placeholders and
+ * appending query string parameters.
+ *
+ * @internal
+ *
+ * @param {GetRequestPathOptions<Path, Method>} options
+ * @param {Path} options.path - The path of the API endpoint
+ * @param {string[]} [options.pathParams] - Path parameters to be replaced in the path
+ * @param {string} [options.apiKey] - API key to be included in the query string
+ * @param {QueryParams<Path, Method>["queryParams"]} [options.queryParams] - Query string
+ *   parameters to be appended to the URL
+ * @param {Region} options.region - The region of the API endpoint
+ * @param {Method} options.method - The method of the API endpoint
+ *
+ * @returns {string} The formatted URL with parameters replaced and query string
+ *   parameters appended
+ */
 export function getRequestPath<Path extends keyof paths, Method extends keyof paths[Path]>({
   path,
   pathParams,
   apiKey,
   queryParams,
   region,
+  // method mention here so that it can be referenced in JSDoc
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  method: _,
 }: GetRequestPathOptions<Path, Method>): string {
   // Step 1: Extract the path parameters (placeholders) from the path
   const placeholders = Array.from(path.matchAll(/{(.*?)}/g)).map((match) => match[1])
@@ -138,7 +94,7 @@ export function getRequestPath<Path extends keyof paths, Method extends keyof pa
   // Step 2: Replace the placeholders with provided pathParams
   let formattedPath: string = path
   placeholders.forEach((placeholder, index) => {
-    if (pathParams && pathParams[index]) {
+    if (pathParams?.[index]) {
       formattedPath = formattedPath.replace(`{${placeholder}}`, pathParams[index])
     } else {
       throw new Error(`Missing path parameter for ${placeholder}`)
@@ -157,6 +113,5 @@ export function getRequestPath<Path extends keyof paths, Method extends keyof pa
   url.pathname = formattedPath
   url.search = serializeQueryStringParams(queryStringParameters)
 
-  // Return the formatted path with parameters replaced
   return url.toString()
 }
