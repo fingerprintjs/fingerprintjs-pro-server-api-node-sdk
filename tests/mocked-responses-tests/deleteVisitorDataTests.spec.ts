@@ -4,6 +4,7 @@ import {
   DeleteVisit403Response,
   DeleteVisit404Response,
   FingerprintJsServerApiClient,
+  getIntegrationInfo,
   Region,
 } from '../../src'
 import Error404 from './mocked-responses-data/shared/404_error_visitor_not_found.json'
@@ -35,6 +36,13 @@ describe('[Mocked response] Delete visitor data', () => {
     const response = await client.deleteVisitorData(existingVisitorId)
 
     expect(response).toBeUndefined()
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://eu.api.fpjs.io/visitors/${existingVisitorId}?ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': 'dummy_api_key' },
+        method: 'DELETE',
+      }
+    )
   })
 
   test('404 error', async () => {

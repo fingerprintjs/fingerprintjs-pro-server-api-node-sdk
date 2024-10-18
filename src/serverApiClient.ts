@@ -1,4 +1,4 @@
-import { getDeleteVisitorDataUrl, getEventUrl, getVisitorsUrl } from './urlUtils'
+import { getRequestPath } from './urlUtils'
 import {
   AuthenticationMode,
   EventResponse,
@@ -6,6 +6,7 @@ import {
   FingerprintApi,
   Options,
   Region,
+  RelatedVisitorsResponse,
   VisitorHistoryFilter,
   VisitorsResponse,
 } from './types'
@@ -81,10 +82,13 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       throw new TypeError('requestId is not set')
     }
 
-    const url =
-      this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getEventUrl(requestId, this.region, this.apiKey)
-        : getEventUrl(requestId, this.region)
+    const url = getRequestPath({
+      path: '/events/{request_id}',
+      region: this.region,
+      apiKey: this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined,
+      pathParams: [requestId],
+      method: 'get',
+    })
 
     const headers = this.getHeaders()
 
@@ -152,11 +156,13 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       throw new TypeError('requestId is not set')
     }
 
-    const url =
-      this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getEventUrl(requestId, this.region, this.apiKey)
-        : getEventUrl(requestId, this.region)
-
+    const url = getRequestPath({
+      path: '/events/{request_id}',
+      region: this.region,
+      apiKey: this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined,
+      pathParams: [requestId],
+      method: 'put',
+    })
     const headers = this.getHeaders()
 
     const response = await this.fetch(url, {
@@ -218,10 +224,13 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       throw TypeError('VisitorId is not set')
     }
 
-    const url =
-      this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getDeleteVisitorDataUrl(this.region, visitorId, this.apiKey)
-        : getDeleteVisitorDataUrl(this.region, visitorId)
+    const url = getRequestPath({
+      path: '/visitors/{visitor_id}',
+      region: this.region,
+      apiKey: this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined,
+      pathParams: [visitorId],
+      method: 'delete',
+    })
 
     const headers = this.getHeaders()
 
@@ -262,10 +271,14 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       throw TypeError('VisitorId is not set')
     }
 
-    const url =
-      this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getVisitorsUrl(this.region, visitorId, filter, this.apiKey)
-        : getVisitorsUrl(this.region, visitorId, filter)
+    const url = getRequestPath({
+      path: '/visitors/{visitor_id}',
+      region: this.region,
+      apiKey: this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined,
+      pathParams: [visitorId],
+      method: 'get',
+      queryParams: filter,
+    })
     const headers = this.getHeaders()
 
     const response = await this.fetch(url, {
@@ -324,6 +337,10 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    */
   public async getVisits(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
     return this.getVisitorHistory(visitorId, filter)
+  }
+
+  async getRelatedVisitors(): Promise<RelatedVisitorsResponse> {
+    throw new Error('Not implemented')
   }
 
   private getHeaders() {

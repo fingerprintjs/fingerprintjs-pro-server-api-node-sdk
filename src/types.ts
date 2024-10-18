@@ -87,6 +87,9 @@ export type UpdateEventResponse404 =
 export type UpdateEventResponse409 =
   paths['/events/{request_id}']['put']['responses']['409']['content']['application/json']
 
+export type RelatedVisitorsResponse =
+  paths['/related-visitors']['get']['responses']['200']['content']['application/json']
+
 type WithResponse<T> = T & {
   response: Response
 }
@@ -106,7 +109,7 @@ type ExtractPathParamStrings<Path> = Path extends { parameters: { path: infer P 
   : []
 
 // Utility type to extract query parameters from an operation
-type ExtractQueryParams<Path> = Path extends { parameters: { query: infer Q } } ? Q : {}
+export type ExtractQueryParams<Path> = Path extends { parameters: { query?: infer Q } } ? Q : never
 
 // Utility type to extract request body from an operation (for POST, PUT, etc.)
 type ExtractRequestBody<Path> = Path extends { requestBody: { content: { 'application/json': infer B } } } ? B : never
