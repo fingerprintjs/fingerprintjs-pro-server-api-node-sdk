@@ -85,7 +85,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
     const url = getRequestPath({
       path: '/events/{request_id}',
       region: this.region,
-      apiKey: this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined,
+      apiKey: this.getQueryApiKey(),
       pathParams: [requestId],
       method: 'get',
     })
@@ -159,7 +159,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
     const url = getRequestPath({
       path: '/events/{request_id}',
       region: this.region,
-      apiKey: this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined,
+      apiKey: this.getQueryApiKey(),
       pathParams: [requestId],
       method: 'put',
     })
@@ -227,7 +227,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
     const url = getRequestPath({
       path: '/visitors/{visitor_id}',
       region: this.region,
-      apiKey: this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined,
+      apiKey: this.getQueryApiKey(),
       pathParams: [visitorId],
       method: 'delete',
     })
@@ -267,41 +267,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    * @deprecated Please use {@link FingerprintJsServerApiClient.getVisits} instead
    * */
   public async getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
-    if (!visitorId) {
-      throw TypeError('VisitorId is not set')
-    }
-
-    const url = getRequestPath({
-      path: '/visitors/{visitor_id}',
-      region: this.region,
-      apiKey: this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined,
-      pathParams: [visitorId],
-      method: 'get',
-      queryParams: filter,
-    })
-    const headers = this.getHeaders()
-
-    const response = await this.fetch(url, {
-      method: 'GET',
-      headers,
-    })
-
-    const jsonResponse = await copyResponseJson(response)
-
-    if (response.status === 200) {
-      return jsonResponse as VisitorsResponse
-    }
-
-    switch (response.status) {
-      case 403:
-        throw new VisitorsError403(jsonResponse, response)
-
-      case 429:
-        throw new VisitorsError429(jsonResponse, response)
-
-      default:
-        throw ApiError.unknown(response)
-    }
+    return this.getVisits(visitorId, filter)
   }
 
   /**
@@ -336,7 +302,41 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    * ```
    */
   public async getVisits(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
-    return this.getVisitorHistory(visitorId, filter)
+    if (!visitorId) {
+      throw TypeError('VisitorId is not set')
+    }
+
+    const url = getRequestPath({
+      path: '/visitors/{visitor_id}',
+      region: this.region,
+      apiKey: this.getQueryApiKey(),
+      pathParams: [visitorId],
+      method: 'get',
+      queryParams: filter,
+    })
+    const headers = this.getHeaders()
+
+    const response = await this.fetch(url, {
+      method: 'GET',
+      headers,
+    })
+
+    const jsonResponse = await copyResponseJson(response)
+
+    if (response.status === 200) {
+      return jsonResponse as VisitorsResponse
+    }
+
+    switch (response.status) {
+      case 403:
+        throw new VisitorsError403(jsonResponse, response)
+
+      case 429:
+        throw new VisitorsError429(jsonResponse, response)
+
+      default:
+        throw ApiError.unknown(response)
+    }
   }
 
   async getRelatedVisitors(): Promise<RelatedVisitorsResponse> {
@@ -345,5 +345,9 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
 
   private getHeaders() {
     return this.authenticationMode === AuthenticationMode.AuthHeader ? { 'Auth-API-Key': this.apiKey } : undefined
+  }
+
+  private getQueryApiKey() {
+    return this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined
   }
 }
