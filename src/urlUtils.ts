@@ -47,9 +47,9 @@ type PathParams<Path extends keyof paths> =
 
 type QueryParams<Path extends keyof paths, Method extends keyof paths[Path]> =
   ExtractQueryParams<paths[Path][Method]> extends never
-    ? { queryParams?: never }
+    ? { queryParams?: any } // No query params
     : {
-        queryParams?: ExtractQueryParams<paths[Path][Method]>
+        queryParams?: ExtractQueryParams<paths[Path][Method]> // Optional query params
       }
 
 type GetRequestPathOptions<Path extends keyof paths, Method extends keyof paths[Path]> = {

@@ -11,13 +11,9 @@ import Error404 from './mocked-responses-data/shared/404_error_visitor_not_found
 import Error403 from './mocked-responses-data/shared/403_error_feature_not_enabled.json'
 import Error400 from './mocked-responses-data/shared/400_error_incorrect_visitor_id.json'
 import Error429 from './mocked-responses-data/shared/429_error_too_many_requests.json'
-import {
-  CommonError429,
-  DeleteVisit400Error,
-  DeleteVisit403Error,
-  DeleteVisit404Error,
-  SdkError,
-} from '../../src/errors/apiErrors'
+import { SdkError } from '../../src/errors/apiErrors'
+import { DeleteVisit400Error, DeleteVisit403Error, DeleteVisit404Error } from '../../src/errors/visitErrors'
+import { CommonError429 } from '../../src/errors/commonErrors'
 
 jest.spyOn(global, 'fetch')
 

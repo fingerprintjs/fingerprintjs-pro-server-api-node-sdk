@@ -1,8 +1,9 @@
 import { VisitorHistoryFilter, Region, VisitorsResponse403, VisitorsResponse429 } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getVisits from './mocked-responses-data/get_visits_200_limit_1.json'
-import { SdkError, VisitorsError403, VisitorsError429 } from '../../src/errors/apiErrors'
+import { SdkError } from '../../src/errors/apiErrors'
 import { getIntegrationInfo } from '../../src'
+import { VisitorsError403, VisitorsError429 } from '../../src/errors/visitErrors'
 
 jest.spyOn(global, 'fetch')
 

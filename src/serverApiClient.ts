@@ -6,26 +6,29 @@ import {
   FingerprintApi,
   Options,
   Region,
+  RelatedVisitorsFilter,
   RelatedVisitorsResponse,
   VisitorHistoryFilter,
   VisitorsResponse,
 } from './types'
 import { copyResponseJson } from './responseUtils'
+import { ApiError } from './errors/apiErrors'
 import {
-  ApiError,
-  CommonError429,
   DeleteVisit400Error,
   DeleteVisit403Error,
   DeleteVisit404Error,
+  VisitorsError403,
+  VisitorsError429,
+} from './errors/visitErrors'
+import { CommonError429 } from './errors/commonErrors'
+import {
   EventError403,
   EventError404,
   UpdateEventError400,
   UpdateEventError403,
   UpdateEventError404,
   UpdateEventError409,
-  VisitorsError403,
-  VisitorsError429,
-} from './errors/apiErrors'
+} from './errors/eventErrors'
 
 export class FingerprintJsServerApiClient implements FingerprintApi {
   public readonly region: Region
@@ -339,8 +342,37 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
     }
   }
 
-  async getRelatedVisitors(): Promise<RelatedVisitorsResponse> {
-    throw new Error('Not implemented')
+  /**
+   * This API will enable you to find if one or more web and in-app browser sessions originated from the same mobile device.
+   * When requested, this API will search identification events within the past 6 months to find the visitor IDs that belong to the same mobile device as the given visitor ID.
+   * Please visit the [Overview](https://dev.fingerprint.com/reference/related-visitors-api) page to learn more about this API.
+   *
+   * @param {RelatedVisitorsFilter} filter - Related visitors filter
+   * @param {string} filter.visitorId - The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device.
+   */
+  async getRelatedVisitors(filter: RelatedVisitorsFilter): Promise<RelatedVisitorsResponse> {
+    const url = getRequestPath({
+      path: '/related-visitors',
+      region: this.region,
+      apiKey: this.getQueryApiKey(),
+      method: 'get',
+      queryParams: filter,
+    })
+    const headers = this.getHeaders()
+
+    const response = await this.fetch(url, {
+      method: 'GET',
+      headers,
+    })
+
+    const jsonResponse = await copyResponseJson(response)
+
+    if (response.status === 200) {
+      return jsonResponse as RelatedVisitorsResponse
+    }
+
+    // TODO Status mapping
+    throw new Error()
   }
 
   private getHeaders() {
