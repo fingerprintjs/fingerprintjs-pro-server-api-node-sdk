@@ -1,4 +1,4 @@
-import { components, paths } from './generatedApiTypes'
+import { components, operations, paths } from './generatedApiTypes'
 
 export enum Region {
   EU = 'EU',
@@ -97,3 +97,35 @@ type WithResponse<T> = T & {
 export type VisitWebhook = components['schemas']['WebhookVisit']
 
 export type EventUpdateRequest = components['schemas']['EventUpdateRequest']
+
+// Extract just the `path` parameters as a tuple of strings
+type ExtractPathParamStrings<Path> = Path extends { parameters: { path: infer P } }
+  ? P extends Record<string, any>
+    ? [P[keyof P]] // We extract the path parameter values as a tuple of strings
+    : []
+  : []
+
+// Utility type to extract query parameters from an operation
+type ExtractQueryParams<Path> = Path extends { parameters: { query: infer Q } } ? Q : {}
+
+// Utility type to extract request body from an operation (for POST, PUT, etc.)
+type ExtractRequestBody<Path> = Path extends { requestBody: { content: { 'application/json': infer B } } } ? B : never
+
+// Utility type to extract the response type for 200 status code
+type ExtractResponse<Path> = Path extends { responses: { 200: { content: { 'application/json': infer R } } } }
+  ? R
+  : never
+
+type ApiMethodArgs<Path extends keyof operations> = [
+  ...(ExtractRequestBody<operations[Path]> extends never ? [] : [body: ExtractRequestBody<operations[Path]>]),
+  ...ExtractPathParamStrings<operations[Path]>,
+  ...(ExtractQueryParams<operations[Path]> extends never ? [] : [params?: ExtractQueryParams<operations[Path]>]),
+]
+
+type ApiMethod<Path extends keyof operations> = (
+  ...args: ApiMethodArgs<Path>
+) => Promise<ExtractResponse<operations[Path]>>
+
+export type FingerprintApi = {
+  [Path in keyof operations]: ApiMethod<Path>
+}
