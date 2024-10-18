@@ -3,6 +3,7 @@ import {
   AuthenticationMode,
   EventResponse,
   EventUpdateRequest,
+  FingerprintApi,
   Options,
   Region,
   VisitorHistoryFilter,
@@ -25,7 +26,7 @@ import {
   VisitorsError429,
 } from './errors/apiErrors'
 
-export class FingerprintJsServerApiClient {
+export class FingerprintJsServerApiClient implements FingerprintApi {
   public readonly region: Region
 
   public readonly apiKey: string
@@ -254,36 +255,8 @@ export class FingerprintJsServerApiClient {
   }
 
   /**
-   * Retrieves event history for the specific visitor using the given filter, returns a promise with visitor history response.
-   *
-   * @param {string} visitorId - Identifier of the visitor
-   * @param {VisitorHistoryFilter} filter - Visitor history filter
-   * @param {string} filter.limit - limit scanned results
-   * @param {string} filter.request_id - filter visits by `requestId`.
-   * @param {string} filter.linked_id - filter visits by your custom identifier.
-   * @param {string} filter.paginationKey - use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
-   *
-   *   1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
-   *   2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
-   *
-   *   Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
-   * @example
-   * ```javascript
-   * client
-   *   .getVisitorHistory('<visitorId>', { limit: 1 })
-   *   .then((visitorHistory) => {
-   *     console.log(visitorHistory)
-   *   })
-   *   .catch((error) => {
-   *     if (isVisitorsError(error)) {
-   *       console.log(error.statusCode, error.message)
-   *       if (error.status === 429) {
-   *         retryLater(error.retryAfter) // Needs to be implemented on your side
-   *       }
-   *     }
-   *   })
-   * ```
-   */
+   * @deprecated Please use {@link FingerprintJsServerApiClient.getVisits} instead
+   * */
   public async getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
     if (!visitorId) {
       throw TypeError('VisitorId is not set')
@@ -316,6 +289,41 @@ export class FingerprintJsServerApiClient {
       default:
         throw ApiError.unknown(response)
     }
+  }
+
+  /**
+   * Retrieves event history for the specific visitor using the given filter, returns a promise with visitor history response.
+   *
+   * @param {string} visitorId - Identifier of the visitor
+   * @param {VisitorHistoryFilter} filter - Visitor history filter
+   * @param {string} filter.limit - limit scanned results
+   * @param {string} filter.request_id - filter visits by `requestId`.
+   * @param {string} filter.linked_id - filter visits by your custom identifier.
+   * @param {string} filter.paginationKey - use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
+   *
+   *   1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
+   *   2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
+   *
+   *   Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
+   * @example
+   * ```javascript
+   * client
+   *   .getVisits('<visitorId>', { limit: 1 })
+   *   .then((visitorHistory) => {
+   *     console.log(visitorHistory)
+   *   })
+   *   .catch((error) => {
+   *     if (isVisitorsError(error)) {
+   *       console.log(error.statusCode, error.message)
+   *       if (error.status === 429) {
+   *         retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       }
+   *     }
+   *   })
+   * ```
+   */
+  public async getVisits(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
+    return this.getVisitorHistory(visitorId, filter)
   }
 
   private getHeaders() {
