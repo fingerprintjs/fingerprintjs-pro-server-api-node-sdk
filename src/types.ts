@@ -58,6 +58,8 @@ export type VisitorsResponse403 =
   }
 export type VisitorsResponse429 =
   paths['/visitors/{visitor_id}']['get']['responses']['429']['content']['application/json']
+export type VisitorResponse400 = components['schemas']['ErrorVisitor400Response']
+export type VisitorResponse404 = components['schemas']['ErrorVisitor404Response']
 
 export type DeleteVisit404Response =
   paths['/visitors/{visitor_id}']['delete']['responses']['404']['content']['application/json']
@@ -71,6 +73,7 @@ export type DeleteVisit400Response =
   }
 
 export type CommonResponse429 = components['schemas']['ErrorCommon429Response']
+export type CommonResponse403 = components['schemas']['ErrorCommon403Response']
 
 export type VisitorsError = WithResponse<VisitorsResponse403 | VisitorsResponse429>
 
@@ -89,6 +92,7 @@ export type UpdateEventResponse409 =
 
 export type RelatedVisitorsResponse =
   paths['/related-visitors']['get']['responses']['200']['content']['application/json']
+export type RelatedVisitorsFilter = paths['/related-visitors']['get']['parameters']['query']
 
 type WithResponse<T> = T & {
   response: Response
@@ -108,8 +112,12 @@ type ExtractPathParamStrings<Path> = Path extends { parameters: { path: infer P 
     : []
   : []
 
-// Utility type to extract query parameters from an operation
-export type ExtractQueryParams<Path> = Path extends { parameters: { query?: infer Q } } ? Q : never
+// Utility type to extract query parameters from an operation and differentiate required/optional
+export type ExtractQueryParams<Path> = Path extends { parameters: { query?: infer Q } }
+  ? undefined extends Q // Check if Q can be undefined (meaning it's optional)
+    ? Q | undefined // If so, it's optional
+    : Q // Otherwise, it's required
+  : never // If no query parameters, return never
 
 // Utility type to extract request body from an operation (for POST, PUT, etc.)
 type ExtractRequestBody<Path> = Path extends { requestBody: { content: { 'application/json': infer B } } } ? B : never
@@ -122,7 +130,7 @@ type ExtractResponse<Path> = Path extends { responses: { 200: { content: { 'appl
 type ApiMethodArgs<Path extends keyof operations> = [
   ...(ExtractRequestBody<operations[Path]> extends never ? [] : [body: ExtractRequestBody<operations[Path]>]),
   ...ExtractPathParamStrings<operations[Path]>,
-  ...(ExtractQueryParams<operations[Path]> extends never ? [] : [params?: ExtractQueryParams<operations[Path]>]),
+  ...(ExtractQueryParams<operations[Path]> extends never ? [] : [params: ExtractQueryParams<operations[Path]>]),
 ]
 
 type ApiMethod<Path extends keyof operations> = (

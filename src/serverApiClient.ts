@@ -17,7 +17,9 @@ import {
   DeleteVisit400Error,
   DeleteVisit403Error,
   DeleteVisit404Error,
+  VisitorsError400,
   VisitorsError403,
+  VisitorsError404,
   VisitorsError429,
 } from './errors/visitErrors'
 import { CommonError429 } from './errors/commonErrors'
@@ -343,12 +345,31 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
   }
 
   /**
-   * This API will enable you to find if one or more web and in-app browser sessions originated from the same mobile device.
-   * When requested, this API will search identification events within the past 6 months to find the visitor IDs that belong to the same mobile device as the given visitor ID.
-   * Please visit the [Overview](https://dev.fingerprint.com/reference/related-visitors-api) page to learn more about this API.
+   * Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device.
+   * It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.
+   * ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️
+   * If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support).
+   * To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api).
    *
    * @param {RelatedVisitorsFilter} filter - Related visitors filter
    * @param {string} filter.visitorId - The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device.
+   *
+   * @example
+   * ```javascript
+   * client
+   *   .getRelatedVisitors({ visitor_id: '<visitorId>' })
+   *   .then((relatedVisits) => {
+   *     console.log(relatedVisits)
+   *   })
+   *   .catch((error) => {
+   *     if (isRelatedVisitorsError(error)) {
+   *       console.log(error.statusCode, error.message)
+   *       if (error.status === 429) {
+   *         retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       }
+   *     }
+   *   })
+   * ```
    */
   async getRelatedVisitors(filter: RelatedVisitorsFilter): Promise<RelatedVisitorsResponse> {
     const url = getRequestPath({
@@ -371,8 +392,22 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       return jsonResponse as RelatedVisitorsResponse
     }
 
-    // TODO Status mapping
-    throw new Error()
+    switch (response.status) {
+      case 400:
+        throw new VisitorsError400(jsonResponse, response)
+
+      case 403:
+        throw new VisitorsError403(jsonResponse, response)
+
+      case 404:
+        throw new VisitorsError404(jsonResponse, response)
+
+      case 429:
+        throw new VisitorsError429(jsonResponse, response)
+
+      default:
+        throw ApiError.unknown(response)
+    }
   }
 
   private getHeaders() {

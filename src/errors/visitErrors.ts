@@ -2,6 +2,8 @@ import {
   DeleteVisit400Response,
   DeleteVisit403Response,
   DeleteVisit404Response,
+  VisitorResponse400,
+  VisitorResponse404,
   VisitorsResponse403,
   VisitorsResponse429,
 } from '../types'
@@ -27,6 +29,12 @@ export class DeleteVisit400Error extends ApiError<400, DeleteVisit400Response> {
   }
 }
 
+export class VisitorsError404 extends ApiError<404, VisitorResponse404> {
+  constructor(body: VisitorResponse404, response: Response) {
+    super(body.error?.message ?? 'Visitor not found', body, 404, body.error?.code ?? 'VisitorNotFound', response)
+  }
+}
+
 export class VisitorsError429 extends ApiError<429, VisitorsResponse429> {
   readonly retryAfter: number = 0
 
@@ -39,6 +47,12 @@ export class VisitorsError429 extends ApiError<429, VisitorsResponse429> {
 export class VisitorsError403 extends ApiError<403, VisitorsResponse403> {
   constructor(body: VisitorsResponse403, response: Response) {
     super(body.error, body, 403, 'Forbidden', response)
+  }
+}
+
+export class VisitorsError400 extends ApiError<400, VisitorResponse400> {
+  constructor(body: VisitorResponse400, response: Response) {
+    super(body.error?.message ?? 'Request cannot be parsed', body, 400, 'RequestCannotBeParsed', response)
   }
 }
 
@@ -57,4 +71,9 @@ export const VISITOR_ERRORS = [VisitorsError403, VisitorsError429] as const
 
 export function isVisitorsError(error: unknown): error is (typeof VISITOR_ERRORS)[number]['prototype'] {
   return VISITOR_ERRORS.some((errorConstructor) => error instanceof errorConstructor)
+}
+
+export const RELATED_VISITORS_ERRORS = [VisitorsError400, VisitorsError403, VisitorsError404, VisitorsError429] as const
+export function isRelatedVisitorsError(error: unknown): error is (typeof RELATED_VISITORS_ERRORS)[number]['prototype'] {
+  return RELATED_VISITORS_ERRORS.some((errorConstructor) => error instanceof errorConstructor)
 }
