@@ -74,6 +74,15 @@ export interface paths {
       }
     }
   }
+  '/related-visitors': {
+    /**
+     * Get Related Visitors
+     * @description This API will enable you to find if one or more web and in-app browser sessions originated from the same mobile device.
+     * When requested, this API will search identification events within the past 6 months to find the visitor IDs that belong to the same mobile device as the given visitor ID.
+     * Please visit the [Overview](https://dev.fingerprint.com/reference/related-visitors-api) page to learn more about this API.
+     */
+    get: operations['getRelatedVisitors']
+  }
 }
 
 export type webhooks = Record<string, never>
@@ -429,6 +438,12 @@ export interface components {
          */
         osMismatch: boolean
       }
+      /**
+       * @description A confidence rating for the VPN detection result — "low", "medium", or "high". Depends on the combination of results returned from all VPN detection methods.
+       * @example low
+       * @enum {string}
+       */
+      confidence: 'low' | 'medium' | 'high'
     }
     ProxyResult: {
       /**
@@ -440,15 +455,22 @@ export interface components {
     }
     TamperingResult: {
       /**
-       * @description Flag indicating whether browser tampering was detected according to our internal thresholds.
+       * @description Flag indicating browser tampering was detected. This happens when either of these conditions is true:
+       *   * There are inconsistencies in the browser configuration that cross our internal tampering thresholds (indicated by `anomalyScore`).
+       *   * The browser signature resembles one of "anti-detect" browsers specifically designed to evade identification and fingerprinting, for example, Incognition (indicated by `antiDetectBrowser`).
        * @example false
        */
       result: boolean
       /**
-       * @description Confidence score (`0.0 - 1.0`) for the tampering detection. Values above `0.5` suggest that we're reasonably sure there was a tampering attempt. Values below `0.5` are genuine browsers.
+       * @description Confidence score (`0.0 - 1.0`) for tampering detection. Values above `0.5` indicate that there was a tampering attempt. Values below `0.5` indicate genuine browsers.
        * @example 0
        */
       anomalyScore: number
+      /**
+       * @description Is `true` if the identified browser resembles one of "anti-detect" browsers, for example, Incognition. Anti-detect browsers try to evade identification by masking or manipulating their fingerprint to imitate legitimate browser configurations.
+       * @example false
+       */
+      antiDetectBrowser: boolean
     }
     HighActivityResult: {
       /**
@@ -1058,6 +1080,16 @@ export interface components {
       firstSeenAt: components['schemas']['SeenAt']
       lastSeenAt: components['schemas']['SeenAt']
     }
+    RelatedVisitor: {
+      /**
+       * @description Visitor ID of a browser that originates from the same mobile device as the input visitor ID.
+       * @example Ibk1527CUFmcnjLwIs4A
+       */
+      visitorId: string
+    }
+    RelatedVisitorsResponse: {
+      relatedVisitors: components['schemas']['RelatedVisitor'][]
+    }
   }
   responses: never
   parameters: never
@@ -1273,6 +1305,52 @@ export interface operations {
       /** @description OK. The visitor ID is scheduled for deletion. */
       200: {
         content: never
+      }
+      /** @description Bad request. The visitor ID parameter is missing or in the wrong format. */
+      400: {
+        content: {
+          'application/json': components['schemas']['ErrorVisitor400Response']
+        }
+      }
+      /** @description Forbidden. Access to this API is denied. */
+      403: {
+        content: {
+          'application/json': components['schemas']['ErrorCommon403Response']
+        }
+      }
+      /** @description Not found. The visitor ID cannot be found in this application's data. */
+      404: {
+        content: {
+          'application/json': components['schemas']['ErrorVisitor404Response']
+        }
+      }
+      /** @description Too Many Requests. The request is throttled. */
+      429: {
+        content: {
+          'application/json': components['schemas']['ErrorCommon429Response']
+        }
+      }
+    }
+  }
+  /**
+   * Get Related Visitors
+   * @description This API will enable you to find if one or more web and in-app browser sessions originated from the same mobile device.
+   * When requested, this API will search identification events within the past 6 months to find the visitor IDs that belong to the same mobile device as the given visitor ID.
+   * Please visit the [Overview](https://dev.fingerprint.com/reference/related-visitors-api) page to learn more about this API.
+   */
+  getRelatedVisitors: {
+    parameters: {
+      query: {
+        /** @description The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device. */
+        visitor_id: string
+      }
+    }
+    responses: {
+      /** @description OK. */
+      200: {
+        content: {
+          'application/json': components['schemas']['RelatedVisitorsResponse']
+        }
       }
       /** @description Bad request. The visitor ID parameter is missing or in the wrong format. */
       400: {

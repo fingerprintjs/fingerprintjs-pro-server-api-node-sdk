@@ -510,11 +510,13 @@ paths:
                             publicVPN: false
                             auxiliaryMobile: false
                             osMismatch: false
+                          confidence: high
                         proxy:
                           result: false
                         tampering:
                           result: false
                           anomalyScore: 0
+                          antiDetectBrowser: false
                         clonedApp:
                           result: false
                         factoryReset:
@@ -576,6 +578,69 @@ paths:
               responses:
                 default:
                   description: The server doesn't validate the answer.
+  /related-visitors:
+    get:
+      tags:
+        - Fingerprint
+      operationId: getRelatedVisitors
+      summary: Get Related Visitors
+      description: >
+        This API will enable you to find if one or more web and in-app browser
+        sessions originated from the same mobile device.
+
+        When requested, this API will search identification events within the
+        past 6 months to find the visitor IDs that belong to the same mobile
+        device as the given visitor ID.
+
+        Please visit the
+        [Overview](https://dev.fingerprint.com/reference/related-visitors-api)
+        page to learn more about this API.
+      parameters:
+        - name: visitor_id
+          description: >-
+            The [visitor
+            ID](https://dev.fingerprint.com/docs/js-agent#visitorid) for which
+            you want to find the other visitor IDs that originated from the same
+            mobile device.
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RelatedVisitorsResponse'
+        '400':
+          description: >-
+            Bad request. The visitor ID parameter is missing or in the wrong
+            format.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVisitor400Response'
+        '403':
+          description: Forbidden. Access to this API is denied.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCommon403Response'
+        '404':
+          description: >-
+            Not found. The visitor ID cannot be found in this application's
+            data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorVisitor404Response'
+        '429':
+          description: Too Many Requests. The request is throttled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorCommon429Response'
 components:
   securitySchemes:
     ApiKeyHeader:
@@ -1145,10 +1210,22 @@ components:
             - publicVPN
             - auxiliaryMobile
             - osMismatch
+        confidence:
+          type: string
+          enum:
+            - low
+            - medium
+            - high
+          description: >-
+            A confidence rating for the VPN detection result — "low", "medium",
+            or "high". Depends on the combination of results returned from all
+            VPN detection methods.
+          example: low
       required:
         - result
         - originTimezone
         - methods
+        - confidence
     ProxyResult:
       type: object
       additionalProperties: false
@@ -1168,21 +1245,32 @@ components:
         result:
           type: boolean
           description: >-
-            Flag indicating whether browser tampering was detected according to
-            our internal thresholds.
+            Flag indicating browser tampering was detected. This happens when
+            either of these conditions is true:
+              * There are inconsistencies in the browser configuration that cross our internal tampering thresholds (indicated by `anomalyScore`).
+              * The browser signature resembles one of "anti-detect" browsers specifically designed to evade identification and fingerprinting, for example, Incognition (indicated by `antiDetectBrowser`).
           example: false
         anomalyScore:
           type: number
           description: >-
-            Confidence score (`0.0 - 1.0`) for the tampering detection. Values
-            above `0.5` suggest that we're reasonably sure there was a tampering
-            attempt. Values below `0.5` are genuine browsers.
+            Confidence score (`0.0 - 1.0`) for tampering detection. Values above
+            `0.5` indicate that there was a tampering attempt. Values below
+            `0.5` indicate genuine browsers.
           example: 0
           minimum: 0
           maximum: 1
+        antiDetectBrowser:
+          type: boolean
+          description: >-
+            Is `true` if the identified browser resembles one of "anti-detect"
+            browsers, for example, Incognition. Anti-detect browsers try to
+            evade identification by masking or manipulating their fingerprint to
+            imitate legitimate browser configurations.
+          example: false
       required:
         - result
         - anomalyScore
+        - antiDetectBrowser
     HighActivityResult:
       type: object
       additionalProperties: false
@@ -2224,3 +2312,25 @@ components:
         - timestamp
         - url
         - visitorFound
+    RelatedVisitor:
+      type: object
+      additionalProperties: false
+      properties:
+        visitorId:
+          description: >-
+            Visitor ID of a browser that originates from the same mobile device
+            as the input visitor ID.
+          type: string
+          example: Ibk1527CUFmcnjLwIs4A
+      required:
+        - visitorId
+    RelatedVisitorsResponse:
+      type: object
+      additionalProperties: false
+      properties:
+        relatedVisitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/RelatedVisitor'
+      required:
+        - relatedVisitors

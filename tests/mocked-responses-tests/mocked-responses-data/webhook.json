@@ -125,14 +125,16 @@
       "publicVPN": false,
       "auxiliaryMobile": false,
       "osMismatch": false
-    }
+    },
+    "confidence": "high"
   },
   "proxy": {
     "result": false
   },
   "tampering": {
     "result": false,
-    "anomalyScore": 0
+    "anomalyScore": 0,
+    "antiDetectBrowser": false
   },
   "clonedApp": {
     "result": false

@@ -519,6 +519,7 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
     "tampering": {
       "data": {
         "anomalyScore": 0.1955,
+        "antiDetectBrowser": false,
         "result": false,
       },
     },
@@ -560,6 +561,7 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
     },
     "vpn": {
       "data": {
+        "confidence": "high",
         "methods": {
           "auxiliaryMobile": false,
           "osMismatch": false,

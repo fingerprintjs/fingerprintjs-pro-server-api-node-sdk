@@ -1,5 +1,6 @@
 import {
   FingerprintJsServerApiClient,
+  getIntegrationInfo,
   Region,
   UpdateEventError400,
   UpdateEventError403,
@@ -41,6 +42,15 @@ describe('[Mocked response] Update event', () => {
     const call = mockFetch.mock.calls[0]
     const bodyFromCall = call[1]?.body
     expect(JSON.parse(bodyFromCall)).toEqual(body)
+
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://eu.api.fpjs.io/events/${existingVisitorId}?ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': 'dummy_api_key' },
+        method: 'PUT',
+        body: JSON.stringify(body),
+      }
+    )
   })
 
   test('404 error', async () => {
