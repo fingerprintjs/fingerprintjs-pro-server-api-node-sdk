@@ -34,6 +34,10 @@ function getServerApiUrl(region: Region): string {
   }
 }
 
+/**
+ * Extracts parameter placeholders into a literal union type.
+ * For example `extractPathParams<'/users/{userId}/posts/{postId}'>` resolves to `"userId" | "postId"
+ */
 type ExtractPathParams<T extends string> = T extends `${string}{${infer Param}}${infer Rest}`
   ? Param | ExtractPathParams<Rest>
   : never

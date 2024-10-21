@@ -11,7 +11,7 @@ const visitorId = process.env.VISITOR_ID
 const envRegion = process.env.REGION
 
 if (!visitorId) {
-  console.error('Request ID not defined')
+  console.error('Visitor ID not defined')
   process.exit(1)
 }
 

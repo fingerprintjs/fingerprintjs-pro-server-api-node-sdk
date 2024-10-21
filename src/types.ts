@@ -127,9 +127,13 @@ type ExtractResponse<Path> = Path extends { responses: { 200: { content: { 'appl
   ? R
   : never
 
+// Extracts args to given API method
 type ApiMethodArgs<Path extends keyof operations> = [
+  // If method has body, extract it as first parameter
   ...(ExtractRequestBody<operations[Path]> extends never ? [] : [body: ExtractRequestBody<operations[Path]>]),
+  // Next are path params, e.g. for path "/events/{request_id}" it will be one string parameter,
   ...ExtractPathParamStrings<operations[Path]>,
+  // Last parameter will be the query params, if any
   ...(ExtractQueryParams<operations[Path]> extends never ? [] : [params: ExtractQueryParams<operations[Path]>]),
 ]
 
