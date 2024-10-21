@@ -2,8 +2,8 @@ import {
   DeleteVisit400Response,
   DeleteVisit403Response,
   DeleteVisit404Response,
-  VisitorResponse400,
-  VisitorResponse404,
+  VisitorsResponse400,
+  VisitorsResponse404,
   VisitorsResponse403,
   VisitorsResponse429,
 } from '../types'
@@ -29,8 +29,8 @@ export class DeleteVisit400Error extends ApiError<400, DeleteVisit400Response> {
   }
 }
 
-export class VisitorsError404 extends ApiError<404, VisitorResponse404> {
-  constructor(body: VisitorResponse404, response: Response) {
+export class VisitorsError404 extends ApiError<404, VisitorsResponse404> {
+  constructor(body: VisitorsResponse404, response: Response) {
     super(body.error?.message ?? 'Visitor not found', body, 404, body.error?.code ?? 'VisitorNotFound', response)
   }
 }
@@ -50,8 +50,8 @@ export class VisitorsError403 extends ApiError<403, VisitorsResponse403> {
   }
 }
 
-export class VisitorsError400 extends ApiError<400, VisitorResponse400> {
-  constructor(body: VisitorResponse400, response: Response) {
+export class VisitorsError400 extends ApiError<400, VisitorsResponse400> {
+  constructor(body: VisitorsResponse400, response: Response) {
     super(body.error?.message ?? 'Request cannot be parsed', body, 400, 'RequestCannotBeParsed', response)
   }
 }

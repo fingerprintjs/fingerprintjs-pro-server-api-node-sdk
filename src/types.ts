@@ -58,8 +58,8 @@ export type VisitorsResponse403 =
   }
 export type VisitorsResponse429 =
   paths['/visitors/{visitor_id}']['get']['responses']['429']['content']['application/json']
-export type VisitorResponse400 = components['schemas']['ErrorVisitor400Response']
-export type VisitorResponse404 = components['schemas']['ErrorVisitor404Response']
+export type VisitorsResponse400 = components['schemas']['ErrorVisitor400Response']
+export type VisitorsResponse404 = components['schemas']['ErrorVisitor404Response']
 
 export type DeleteVisit404Response =
   paths['/visitors/{visitor_id}']['delete']['responses']['404']['content']['application/json']
