@@ -1,31 +1,38 @@
-import { getDeleteVisitorDataUrl, getEventUrl, getVisitorsUrl } from './urlUtils'
+import { getRequestPath } from './urlUtils'
 import {
   AuthenticationMode,
   EventResponse,
   EventUpdateRequest,
+  FingerprintApi,
   Options,
   Region,
+  RelatedVisitorsFilter,
+  RelatedVisitorsResponse,
   VisitorHistoryFilter,
   VisitorsResponse,
 } from './types'
 import { copyResponseJson } from './responseUtils'
+import { ApiError } from './errors/apiErrors'
 import {
-  ApiError,
-  CommonError429,
   DeleteVisit400Error,
   DeleteVisit403Error,
   DeleteVisit404Error,
+  VisitorsError400,
+  VisitorsError403,
+  VisitorsError404,
+  VisitorsError429,
+} from './errors/visitErrors'
+import { CommonError429 } from './errors/commonErrors'
+import {
   EventError403,
   EventError404,
   UpdateEventError400,
   UpdateEventError403,
   UpdateEventError404,
   UpdateEventError409,
-  VisitorsError403,
-  VisitorsError429,
-} from './errors/apiErrors'
+} from './errors/eventErrors'
 
-export class FingerprintJsServerApiClient {
+export class FingerprintJsServerApiClient implements FingerprintApi {
   public readonly region: Region
 
   public readonly apiKey: string
@@ -80,10 +87,13 @@ export class FingerprintJsServerApiClient {
       throw new TypeError('requestId is not set')
     }
 
-    const url =
-      this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getEventUrl(requestId, this.region, this.apiKey)
-        : getEventUrl(requestId, this.region)
+    const url = getRequestPath({
+      path: '/events/{request_id}',
+      region: this.region,
+      apiKey: this.getQueryApiKey(),
+      pathParams: [requestId],
+      method: 'get',
+    })
 
     const headers = this.getHeaders()
 
@@ -151,11 +161,13 @@ export class FingerprintJsServerApiClient {
       throw new TypeError('requestId is not set')
     }
 
-    const url =
-      this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getEventUrl(requestId, this.region, this.apiKey)
-        : getEventUrl(requestId, this.region)
-
+    const url = getRequestPath({
+      path: '/events/{request_id}',
+      region: this.region,
+      apiKey: this.getQueryApiKey(),
+      pathParams: [requestId],
+      method: 'put',
+    })
     const headers = this.getHeaders()
 
     const response = await this.fetch(url, {
@@ -217,10 +229,13 @@ export class FingerprintJsServerApiClient {
       throw TypeError('VisitorId is not set')
     }
 
-    const url =
-      this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getDeleteVisitorDataUrl(this.region, visitorId, this.apiKey)
-        : getDeleteVisitorDataUrl(this.region, visitorId)
+    const url = getRequestPath({
+      path: '/visitors/{visitor_id}',
+      region: this.region,
+      apiKey: this.getQueryApiKey(),
+      pathParams: [visitorId],
+      method: 'delete',
+    })
 
     const headers = this.getHeaders()
 
@@ -254,6 +269,13 @@ export class FingerprintJsServerApiClient {
   }
 
   /**
+   * @deprecated Please use {@link FingerprintJsServerApiClient.getVisits} instead
+   * */
+  public async getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
+    return this.getVisits(visitorId, filter)
+  }
+
+  /**
    * Retrieves event history for the specific visitor using the given filter, returns a promise with visitor history response.
    *
    * @param {string} visitorId - Identifier of the visitor
@@ -270,7 +292,7 @@ export class FingerprintJsServerApiClient {
    * @example
    * ```javascript
    * client
-   *   .getVisitorHistory('<visitorId>', { limit: 1 })
+   *   .getVisits('<visitorId>', { limit: 1 })
    *   .then((visitorHistory) => {
    *     console.log(visitorHistory)
    *   })
@@ -284,15 +306,19 @@ export class FingerprintJsServerApiClient {
    *   })
    * ```
    */
-  public async getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
+  public async getVisits(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
     if (!visitorId) {
       throw TypeError('VisitorId is not set')
     }
 
-    const url =
-      this.authenticationMode === AuthenticationMode.QueryParameter
-        ? getVisitorsUrl(this.region, visitorId, filter, this.apiKey)
-        : getVisitorsUrl(this.region, visitorId, filter)
+    const url = getRequestPath({
+      path: '/visitors/{visitor_id}',
+      region: this.region,
+      apiKey: this.getQueryApiKey(),
+      pathParams: [visitorId],
+      method: 'get',
+      queryParams: filter,
+    })
     const headers = this.getHeaders()
 
     const response = await this.fetch(url, {
@@ -318,7 +344,77 @@ export class FingerprintJsServerApiClient {
     }
   }
 
+  /**
+   * Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device.
+   * It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.
+   * ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️
+   * If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support).
+   * To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api).
+   *
+   * @param {RelatedVisitorsFilter} filter - Related visitors filter
+   * @param {string} filter.visitorId - The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device.
+   *
+   * @example
+   * ```javascript
+   * client
+   *   .getRelatedVisitors({ visitor_id: '<visitorId>' })
+   *   .then((relatedVisits) => {
+   *     console.log(relatedVisits)
+   *   })
+   *   .catch((error) => {
+   *     if (isRelatedVisitorsError(error)) {
+   *       console.log(error.statusCode, error.message)
+   *       if (error.status === 429) {
+   *         retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       }
+   *     }
+   *   })
+   * ```
+   */
+  async getRelatedVisitors(filter: RelatedVisitorsFilter): Promise<RelatedVisitorsResponse> {
+    const url = getRequestPath({
+      path: '/related-visitors',
+      region: this.region,
+      apiKey: this.getQueryApiKey(),
+      method: 'get',
+      queryParams: filter,
+    })
+    const headers = this.getHeaders()
+
+    const response = await this.fetch(url, {
+      method: 'GET',
+      headers,
+    })
+
+    const jsonResponse = await copyResponseJson(response)
+
+    if (response.status === 200) {
+      return jsonResponse as RelatedVisitorsResponse
+    }
+
+    switch (response.status) {
+      case 400:
+        throw new VisitorsError400(jsonResponse, response)
+
+      case 403:
+        throw new VisitorsError403(jsonResponse, response)
+
+      case 404:
+        throw new VisitorsError404(jsonResponse, response)
+
+      case 429:
+        throw new VisitorsError429(jsonResponse, response)
+
+      default:
+        throw ApiError.unknown(response)
+    }
+  }
+
   private getHeaders() {
     return this.authenticationMode === AuthenticationMode.AuthHeader ? { 'Auth-API-Key': this.apiKey } : undefined
+  }
+
+  private getQueryApiKey() {
+    return this.authenticationMode === AuthenticationMode.QueryParameter ? this.apiKey : undefined
   }
 }

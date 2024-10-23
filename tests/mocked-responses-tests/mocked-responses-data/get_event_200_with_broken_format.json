@@ -5,7 +5,9 @@
         "visitorId": "Ibk1527CUFmcnjLwIs4A9",
         "requestId": "1708102555327.NLOjmg",
         "incognito": true,
-        "linkedId": "somelinkedId",
+        "linkedId": {
+          "broken": "format"
+        },
         "tag": {},
         "time": "2019-05-21T16:40:13Z",
         "timestamp": 1582299576512,
@@ -178,10 +180,8 @@
         "methods": {
           "timezoneMismatch": false,
           "publicVPN": false,
-          "auxiliaryMobile": false,
-          "osMismatch": false
-        },
-        "confidence": "high"
+          "auxiliaryMobile": false
+        }
       }
     },
     "proxy": {
@@ -197,8 +197,7 @@
     "tampering": {
       "data": {
         "result": false,
-        "anomalyScore": 0.1955,
-        "antiDetectBrowser": false
+        "anomalyScore": 0.1955
       }
     },
     "clonedApp": {
@@ -261,7 +260,12 @@
         },
         "cpuClass": {},
         "fonts": {
-          "value": ["Arial Unicode MS", "Gill Sans", "Helvetica Neue", "Menlo"]
+          "value": [
+            "Arial Unicode MS",
+            "Gill Sans",
+            "Helvetica Neue",
+            "Menlo"
+          ]
         }
       }
     },
@@ -271,42 +275,6 @@
       }
     },
     "locationSpoofing": {
-      "data": {
-        "result": false
-      }
-    },
-    "remoteControl": {
-      "data": {
-        "result": false
-      }
-    },
-    "velocity": {
-      "data": {
-        "distinctIp": {
-          "intervals": {
-            "5m": 1,
-            "1h": 1,
-            "24h": 1
-          }
-        },
-        "distinctLinkedId": {},
-        "distinctCountry": {
-          "intervals": {
-            "5m": 1,
-            "1h": 2,
-            "24h": 2
-          }
-        },
-        "events": {
-          "intervals": {
-            "5m": 1,
-            "1h": 5,
-            "24h": 5
-          }
-        }
-      }
-    },
-    "developerTools": {
       "data": {
         "result": false
       }

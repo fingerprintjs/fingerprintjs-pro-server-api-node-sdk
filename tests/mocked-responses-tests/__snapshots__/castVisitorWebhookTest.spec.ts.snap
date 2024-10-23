@@ -173,6 +173,7 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
   },
   "tampering": {
     "anomalyScore": 0,
+    "antiDetectBrowser": false,
     "result": false,
   },
   "time": "2019-10-12T07:20:50.52Z",
@@ -212,6 +213,7 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
   "visitorFound": true,
   "visitorId": "3HNey93AkBW6CRbxV6xP",
   "vpn": {
+    "confidence": "high",
     "methods": {
       "auxiliaryMobile": false,
       "osMismatch": false,

@@ -1,7 +1,9 @@
 import { VisitorHistoryFilter, Region, VisitorsResponse403, VisitorsResponse429 } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getVisits from './mocked-responses-data/get_visits_200_limit_1.json'
-import { SdkError, VisitorsError403, VisitorsError429 } from '../../src/errors/apiErrors'
+import { SdkError } from '../../src/errors/apiErrors'
+import { getIntegrationInfo } from '../../src'
+import { VisitorsError403, VisitorsError429 } from '../../src/errors/visitErrors'
 
 jest.spyOn(global, 'fetch')
 
@@ -18,15 +20,22 @@ describe('[Mocked response] Get Visitors', () => {
   test('without filter', async () => {
     mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
-    const response = await client.getVisitorHistory(existingVisitorId)
+    const response = await client.getVisits(existingVisitorId)
     expect(response).toMatchSnapshot()
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://eu.api.fpjs.io/visitors/${existingVisitorId}?ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': 'dummy_api_key' },
+        method: 'GET',
+      }
+    )
   })
 
   test('with request_id filter', async () => {
     mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const filter: VisitorHistoryFilter = { request_id: existingRequestId }
-    const response = await client.getVisitorHistory(existingVisitorId, filter)
+    const response = await client.getVisits(existingVisitorId, filter)
     expect(response).toMatchSnapshot()
   })
 
@@ -37,7 +46,7 @@ describe('[Mocked response] Get Visitors', () => {
       request_id: existingRequestId,
       linked_id: existingLinkedId,
     }
-    const response = await client.getVisitorHistory(existingVisitorId, filter)
+    const response = await client.getVisits(existingVisitorId, filter)
     expect(response).toMatchSnapshot()
   })
 
@@ -45,7 +54,7 @@ describe('[Mocked response] Get Visitors', () => {
     mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const filter: VisitorHistoryFilter = { linked_id: existingLinkedId, limit: 5 }
-    const response = await client.getVisitorHistory(existingVisitorId, filter)
+    const response = await client.getVisits(existingVisitorId, filter)
     expect(response).toMatchSnapshot()
   })
 
@@ -53,7 +62,7 @@ describe('[Mocked response] Get Visitors', () => {
     mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const filter: VisitorHistoryFilter = { limit: 4, before: 1626538505244 }
-    const response = await client.getVisitorHistory(existingVisitorId, filter)
+    const response = await client.getVisits(existingVisitorId, filter)
     expect(response).toMatchSnapshot()
   })
 
@@ -65,7 +74,7 @@ describe('[Mocked response] Get Visitors', () => {
       status: 403,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toThrow(
+    await expect(client.getVisits(existingVisitorId)).rejects.toThrow(
       new VisitorsError403(error as VisitorsResponse403, mockResponse)
     )
   })
@@ -81,7 +90,7 @@ describe('[Mocked response] Get Visitors', () => {
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
     const expectedError = new VisitorsError429(error as VisitorsResponse429, mockResponse)
-    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toThrow(expectedError)
+    await expect(client.getVisits(existingVisitorId)).rejects.toThrow(expectedError)
     expect(expectedError.retryAfter).toEqual(10)
   })
 
@@ -94,7 +103,7 @@ describe('[Mocked response] Get Visitors', () => {
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
     const expectedError = new VisitorsError429(error as VisitorsResponse429, mockResponse)
-    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toThrow(expectedError)
+    await expect(client.getVisits(existingVisitorId)).rejects.toThrow(expectedError)
     expect(expectedError.retryAfter).toEqual(0)
   })
 
@@ -103,7 +112,7 @@ describe('[Mocked response] Get Visitors', () => {
       status: 404,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getVisitorHistory(existingVisitorId)).rejects.toMatchObject(
+    await expect(client.getVisits(existingVisitorId)).rejects.toMatchObject(
       new SdkError(
         'Failed to parse JSON response',
         mockResponse,

@@ -3,7 +3,9 @@ import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getEventResponse from './mocked-responses-data/get_event_200.json'
 import getEventWithExtraFieldsResponse from './mocked-responses-data/get_event_200_extra_fields.json'
 import getEventAllErrorsResponse from './mocked-responses-data/get_event_200_all_errors.json'
-import { EventError403, EventError404, SdkError } from '../../src/errors/apiErrors'
+import { SdkError } from '../../src/errors/apiErrors'
+import { getIntegrationInfo } from '../../src'
+import { EventError403, EventError404 } from '../../src/errors/eventErrors'
 
 jest.spyOn(global, 'fetch')
 
@@ -19,6 +21,13 @@ describe('[Mocked response] Get Event', () => {
 
     const response = await client.getEvent(existingRequestId)
 
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://eu.api.fpjs.io/events/${existingRequestId}?ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': 'dummy_api_key' },
+        method: 'GET',
+      }
+    )
     expect(response).toMatchSnapshot()
   })
 
