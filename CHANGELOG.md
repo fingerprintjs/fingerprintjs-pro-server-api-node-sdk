@@ -1,5 +1,14 @@
 # Fingerprint Server API Node.js SDK
 
+## 5.2.0-test.0
+
+### Minor Changes
+
+- **related-visitors**: Add GET `/related-visitors` endpoint ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+- **visitors**: Add the confidence field to the VPN Detection Smart Signal ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+- Deprecate `getVisitorHistory` method. Use `getVisits` instead. ([f28ba9d](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/f28ba9d337d251f783be63ce76dd6e9b4e9d96cb))
+- **events**: Add `antiDetectBrowser` detection method to the `tampering` Smart Signal. ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+
 ## 5.1.0
 
 ### Minor Changes
