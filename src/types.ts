@@ -69,7 +69,7 @@ export type RelatedVisitorsFilter = paths['/related-visitors']['get']['parameter
 /**
  * More info: https://dev.fingerprintjs.com/docs/webhooks#identification-webhook-object-format
  */
-export type VisitWebhook = components['schemas']['Webhook']
+export type Webhook = components['schemas']['Webhook']
 
 export type EventUpdateRequest = components['schemas']['EventsUpdateRequest']
 
