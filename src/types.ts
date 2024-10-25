@@ -71,7 +71,7 @@ export type RelatedVisitorsFilter = paths['/related-visitors']['get']['parameter
  */
 export type Webhook = components['schemas']['Webhook']
 
-export type EventUpdateRequest = components['schemas']['EventsUpdateRequest']
+export type EventsUpdateRequest = components['schemas']['EventsUpdateRequest']
 
 // Extract just the `path` parameters as a tuple of strings
 type ExtractPathParamStrings<Path> = Path extends { parameters: { path: infer P } }

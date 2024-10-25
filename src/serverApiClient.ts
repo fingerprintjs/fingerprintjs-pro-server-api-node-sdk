@@ -2,7 +2,7 @@ import { getRequestPath } from './urlUtils'
 import {
   AuthenticationMode,
   EventResponse,
-  EventUpdateRequest,
+  EventsUpdateRequest,
   FingerprintApi,
   Options,
   Region,
@@ -133,7 +133,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *   })
    * ```
    */
-  public async updateEvent(body: EventUpdateRequest, requestId: string): Promise<void> {
+  public async updateEvent(body: EventsUpdateRequest, requestId: string): Promise<void> {
     if (!body) {
       throw new TypeError('body is not set')
     }
