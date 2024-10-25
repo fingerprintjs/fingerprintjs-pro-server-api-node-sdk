@@ -10,8 +10,7 @@
         "os": "Mac OS X",
         "osVersion": "10.15.7",
         "device": "Other",
-        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36",
-        "botProbability": 0
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.61 Safari/537.36"
       },
       "incognito": false,
       "ip": "82.118.30.68",
