@@ -12,25 +12,7 @@ import {
   VisitorsResponse,
 } from './types'
 import { copyResponseJson } from './responseUtils'
-import { ApiError } from './errors/apiErrors'
-import {
-  DeleteVisit400Error,
-  DeleteVisit403Error,
-  DeleteVisit404Error,
-  VisitorsError400,
-  VisitorsError403,
-  VisitorsError404,
-  VisitorsError429,
-} from './errors/visitErrors'
-import { CommonError429 } from './errors/commonErrors'
-import {
-  EventError403,
-  EventError404,
-  UpdateEventError400,
-  UpdateEventError403,
-  UpdateEventError404,
-  UpdateEventError409,
-} from './errors/eventErrors'
+import { handleErrorResponse } from './errors/handleErrorResponse'
 
 export class FingerprintJsServerApiClient implements FingerprintApi {
   public readonly region: Region
@@ -71,15 +53,17 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    * client
    *  .getEvent('<requestId>')
    *  .then((result) => console.log(result))
-   *  .catch((err) => {
-   *    if (isEventError(err)) {
-   *      // You can also access the raw response
-   *      console.log(err.response)
-   *      console.log(`error ${err.statusCode}: `, err.message)
-   *    } else {
-   *      console.log('unknown error: ', err)
-   *    }
-   *  })
+   *  .catch((error) => {
+   *    if (error instanceof BaseApiError) {
+   *       console.log(error.statusCode, error.message)
+   *       // Access raw response in error
+   *       console.log(error.response)
+   *
+   *       if(error instanceof TooManyRequestsError) {
+   *          retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       }
+   *     }
+   *   })
    * ```
    * */
   public async getEvent(requestId: string): Promise<EventResponse> {
@@ -108,16 +92,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       return jsonResponse as EventResponse
     }
 
-    switch (response.status) {
-      case 403:
-        throw new EventError403(jsonResponse, response)
-
-      case 404:
-        throw new EventError404(jsonResponse, response)
-
-      default:
-        throw ApiError.unknown(response)
-    }
+    handleErrorResponse(jsonResponse, response)
   }
 
   /**
@@ -145,9 +120,15 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *   .then(() => {
    *     // Event was successfully updated
    *   })
-   *   .catch((error) => {
-   *     if (isUpdateEventError(error)) {
+   *  .catch((error) => {
+   *    if (error instanceof BaseApiError) {
    *       console.log(error.statusCode, error.message)
+   *       // Access raw response in error
+   *       console.log(error.response)
+   *
+   *       if(error instanceof TooManyRequestsError) {
+   *          retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       }
    *     }
    *   })
    * ```
@@ -182,22 +163,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
 
     const jsonResponse = await copyResponseJson(response)
 
-    switch (response.status) {
-      case 400:
-        throw new UpdateEventError400(jsonResponse, response)
-
-      case 403:
-        throw new UpdateEventError403(jsonResponse, response)
-
-      case 404:
-        throw new UpdateEventError404(jsonResponse, response)
-
-      case 409:
-        throw new UpdateEventError409(jsonResponse, response)
-
-      default:
-        throw ApiError.unknown(response)
-    }
+    handleErrorResponse(jsonResponse, response)
   }
 
   /**
@@ -217,9 +183,15 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *   .then(() => {
    *     // Data deletion request was successfully queued
    *   })
-   *   .catch((error) => {
-   *     if (isDeleteVisitorError(error)) {
+   *  .catch((error) => {
+   *    if (error instanceof BaseApiError) {
    *       console.log(error.statusCode, error.message)
+   *       // Access raw response in error
+   *       console.log(error.response)
+   *
+   *       if(error instanceof TooManyRequestsError) {
+   *          retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       }
    *     }
    *   })
    * ```
@@ -250,22 +222,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
 
     const jsonResponse = await copyResponseJson(response)
 
-    switch (response.status) {
-      case 429:
-        throw new CommonError429(jsonResponse, response)
-
-      case 404:
-        throw new DeleteVisit404Error(jsonResponse, response)
-
-      case 403:
-        throw new DeleteVisit403Error(jsonResponse, response)
-
-      case 400:
-        throw new DeleteVisit400Error(jsonResponse, response)
-
-      default:
-        throw ApiError.unknown(response)
-    }
+    handleErrorResponse(jsonResponse, response)
   }
 
   /**
@@ -297,10 +254,13 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *     console.log(visitorHistory)
    *   })
    *   .catch((error) => {
-   *     if (isVisitorsError(error)) {
+   *    if (error instanceof BaseApiError) {
    *       console.log(error.statusCode, error.message)
-   *       if (error.status === 429) {
-   *         retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       // Access raw response in error
+   *       console.log(error.response)
+   *
+   *       if(error instanceof TooManyRequestsError) {
+   *          retryLater(error.retryAfter) // Needs to be implemented on your side
    *       }
    *     }
    *   })
@@ -332,16 +292,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       return jsonResponse as VisitorsResponse
     }
 
-    switch (response.status) {
-      case 403:
-        throw new VisitorsError403(jsonResponse, response)
-
-      case 429:
-        throw new VisitorsError429(jsonResponse, response)
-
-      default:
-        throw ApiError.unknown(response)
-    }
+    handleErrorResponse(jsonResponse, response)
   }
 
   /**
@@ -361,11 +312,14 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *   .then((relatedVisits) => {
    *     console.log(relatedVisits)
    *   })
-   *   .catch((error) => {
-   *     if (isRelatedVisitorsError(error)) {
+   *  .catch((error) => {
+   *    if (error instanceof BaseApiError) {
    *       console.log(error.statusCode, error.message)
-   *       if (error.status === 429) {
-   *         retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       // Access raw response in error
+   *       console.log(error.response)
+   *
+   *       if(error instanceof TooManyRequestsError) {
+   *          retryLater(error.retryAfter) // Needs to be implemented on your side
    *       }
    *     }
    *   })
@@ -392,22 +346,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       return jsonResponse as RelatedVisitorsResponse
     }
 
-    switch (response.status) {
-      case 400:
-        throw new VisitorsError400(jsonResponse, response)
-
-      case 403:
-        throw new VisitorsError403(jsonResponse, response)
-
-      case 404:
-        throw new VisitorsError404(jsonResponse, response)
-
-      case 429:
-        throw new VisitorsError429(jsonResponse, response)
-
-      default:
-        throw ApiError.unknown(response)
-    }
+    handleErrorResponse(jsonResponse, response)
   }
 
   private getHeaders() {

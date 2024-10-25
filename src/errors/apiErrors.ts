@@ -1,3 +1,6 @@
+import { ErrorPlainResponse, ErrorResponse } from '../types'
+import { getRetryAfter } from './getRetryAfter'
+
 export class SdkError extends Error {
   constructor(
     message: string,
@@ -9,7 +12,7 @@ export class SdkError extends Error {
   }
 }
 
-export class ApiError<Code extends number = number, Body = unknown> extends SdkError {
+export class BaseApiError<Code extends number = number, Body = unknown> extends SdkError {
   // HTTP Status code
   readonly statusCode: Code
 
@@ -22,7 +25,7 @@ export class ApiError<Code extends number = number, Body = unknown> extends SdkE
   // Raw HTTP response
   override readonly response: Response
 
-  constructor(message: string, body: Body, statusCode: Code, errorCode: string, response: Response) {
+  protected constructor(message: string, body: Body, statusCode: Code, errorCode: string, response: Response) {
     super(message, response)
     this.responseBody = body
     this.response = response
@@ -31,6 +34,45 @@ export class ApiError<Code extends number = number, Body = unknown> extends SdkE
   }
 
   static unknown(response: Response) {
-    return new ApiError('Unknown error', undefined, response.status, response.statusText, response)
+    return new BaseApiError('Unknown error', undefined, response.status, response.statusText, response)
+  }
+}
+
+/**
+ * Error model for `ErrorPlainResponse`
+ *
+ * @see {ErrorPlainResponse}
+ * */
+export class PlainApiError extends BaseApiError {
+  constructor(body: ErrorPlainResponse, response: Response) {
+    super(body.error, body, response.status, response.statusText, response)
+  }
+}
+
+/**
+ * Error model for `ErrorResponse`
+ *
+ * @see {ErrorResponse}
+ * */
+export class ApiError extends BaseApiError<number, ErrorResponse> {
+  constructor(body: ErrorResponse, response: Response) {
+    super(body.error.message, body, response.status, body.error.code, response)
+  }
+}
+
+/**
+ * Error that indicate that the request was throttled.
+ * */
+export class TooManyRequestsError extends BaseApiError<429, ErrorResponse> {
+  /**
+   * Number of seconds to wait before retrying the request.
+   * @remarks
+   * The value is parsed from the `Retry-After` header of the response.
+   */
+  readonly retryAfter: number = 0
+
+  constructor(body: ErrorResponse, response: Response) {
+    super(body.error.message, body, 429, body.error.code, response)
+    this.retryAfter = getRetryAfter(response)
   }
 }
