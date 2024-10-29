@@ -54,7 +54,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *  .getEvent('<requestId>')
    *  .then((result) => console.log(result))
    *  .catch((error) => {
-   *    if (error instanceof BaseApiError) {
+   *    if (error instanceof RequestError) {
    *       console.log(error.statusCode, error.message)
    *       // Access raw response in error
    *       console.log(error.response)
@@ -121,7 +121,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *     // Event was successfully updated
    *   })
    *  .catch((error) => {
-   *    if (error instanceof BaseApiError) {
+   *    if (error instanceof RequestError) {
    *       console.log(error.statusCode, error.message)
    *       // Access raw response in error
    *       console.log(error.response)
@@ -184,7 +184,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *     // Data deletion request was successfully queued
    *   })
    *  .catch((error) => {
-   *    if (error instanceof BaseApiError) {
+   *    if (error instanceof RequestError) {
    *       console.log(error.statusCode, error.message)
    *       // Access raw response in error
    *       console.log(error.response)
@@ -254,7 +254,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *     console.log(visitorHistory)
    *   })
    *   .catch((error) => {
-   *    if (error instanceof BaseApiError) {
+   *    if (error instanceof RequestError) {
    *       console.log(error.statusCode, error.message)
    *       // Access raw response in error
    *       console.log(error.response)
@@ -313,7 +313,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *     console.log(relatedVisits)
    *   })
    *  .catch((error) => {
-   *    if (error instanceof BaseApiError) {
+   *    if (error instanceof RequestError) {
    *       console.log(error.statusCode, error.message)
    *       // Access raw response in error
    *       console.log(error.response)

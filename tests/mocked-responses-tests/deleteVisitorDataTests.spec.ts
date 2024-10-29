@@ -6,7 +6,7 @@ import {
   Region,
   TooManyRequestsError,
   SdkError,
-  BaseApiError,
+  RequestError,
 } from '../../src'
 import Error404 from './mocked-responses-data/errors/404_request_not_found.json'
 import Error403 from './mocked-responses-data/errors/403_feature_not_enabled.json'
@@ -114,7 +114,7 @@ describe('[Mocked response] Delete visitor data', () => {
 
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(BaseApiError as any)
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(RequestError as any)
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow('Unknown error')
   })
 })

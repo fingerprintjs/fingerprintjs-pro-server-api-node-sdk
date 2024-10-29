@@ -12,7 +12,7 @@ export class SdkError extends Error {
   }
 }
 
-export class BaseApiError<Code extends number = number, Body = unknown> extends SdkError {
+export class RequestError<Code extends number = number, Body = unknown> extends SdkError {
   // HTTP Status code
   readonly statusCode: Code
 
@@ -34,7 +34,7 @@ export class BaseApiError<Code extends number = number, Body = unknown> extends 
   }
 
   static unknown(response: Response) {
-    return new BaseApiError('Unknown error', undefined, response.status, response.statusText, response)
+    return new RequestError('Unknown error', undefined, response.status, response.statusText, response)
   }
 }
 
@@ -43,7 +43,7 @@ export class BaseApiError<Code extends number = number, Body = unknown> extends 
  *
  * @see {ErrorPlainResponse}
  * */
-export class PlainApiError extends BaseApiError {
+export class PlainApiError extends RequestError {
   constructor(body: ErrorPlainResponse, response: Response) {
     super(body.error, body, response.status, response.statusText, response)
   }
@@ -54,7 +54,7 @@ export class PlainApiError extends BaseApiError {
  *
  * @see {ErrorResponse}
  * */
-export class ApiError extends BaseApiError<number, ErrorResponse> {
+export class ApiError extends RequestError<number, ErrorResponse> {
   constructor(body: ErrorResponse, response: Response) {
     super(body.error.message, body, response.status, body.error.code, response)
   }
@@ -63,7 +63,7 @@ export class ApiError extends BaseApiError<number, ErrorResponse> {
 /**
  * Error that indicate that the request was throttled.
  * */
-export class TooManyRequestsError extends BaseApiError<429, ErrorResponse> {
+export class TooManyRequestsError extends RequestError<429, ErrorResponse> {
   /**
    * Number of seconds to wait before retrying the request.
    * @remarks

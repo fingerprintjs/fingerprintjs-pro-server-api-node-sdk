@@ -1,4 +1,4 @@
-import { BaseApiError, FingerprintJsServerApiClient, Region } from '../../src'
+import { RequestError, FingerprintJsServerApiClient, Region } from '../../src'
 
 describe('ServerApiClient', () => {
   it('should support passing custom fetch implementation', async () => {
@@ -33,7 +33,7 @@ describe('ServerApiClient', () => {
     try {
       await client.getEvent('test')
     } catch (e) {
-      if (e instanceof BaseApiError) {
+      if (e instanceof RequestError) {
         expect(e.response.status).toBe(403)
         expect(e.responseBody).toEqual(responseBody)
 
