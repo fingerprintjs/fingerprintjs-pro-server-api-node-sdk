@@ -1,9 +1,8 @@
-import { VisitorHistoryFilter, Region, VisitorsResponse403, VisitorsResponse429 } from '../../src/types'
+import { ErrorPlainResponse, Region, VisitorHistoryFilter } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
-import getVisits from './mocked-responses-data/get_visits_200_limit_1.json'
-import { SdkError } from '../../src/errors/apiErrors'
+import getVisits from './mocked-responses-data/get_visitors_200_limit_1.json'
+import { PlainApiError, SdkError, TooManyRequestsError } from '../../src/errors/apiErrors'
 import { getIntegrationInfo } from '../../src'
-import { VisitorsError403, VisitorsError429 } from '../../src/errors/visitErrors'
 
 jest.spyOn(global, 'fetch')
 
@@ -69,14 +68,12 @@ describe('[Mocked response] Get Visitors', () => {
   test('403 error', async () => {
     const error = {
       error: 'Forbidden',
-    }
+    } as ErrorPlainResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 403,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getVisits(existingVisitorId)).rejects.toThrow(
-      new VisitorsError403(error as VisitorsResponse403, mockResponse)
-    )
+    await expect(client.getVisits(existingVisitorId)).rejects.toThrow(new PlainApiError(error, mockResponse))
   })
 
   test('429 error', async () => {
@@ -89,7 +86,7 @@ describe('[Mocked response] Get Visitors', () => {
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
-    const expectedError = new VisitorsError429(error as VisitorsResponse429, mockResponse)
+    const expectedError = TooManyRequestsError.fromPlainError(error, mockResponse)
     await expect(client.getVisits(existingVisitorId)).rejects.toThrow(expectedError)
     expect(expectedError.retryAfter).toEqual(10)
   })
@@ -97,12 +94,12 @@ describe('[Mocked response] Get Visitors', () => {
   test('429 error with empty retry-after header', async () => {
     const error = {
       error: 'Too Many Requests',
-    }
+    } as ErrorPlainResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 429,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    const expectedError = new VisitorsError429(error as VisitorsResponse429, mockResponse)
+    const expectedError = TooManyRequestsError.fromPlainError(error, mockResponse)
     await expect(client.getVisits(existingVisitorId)).rejects.toThrow(expectedError)
     expect(expectedError.retryAfter).toEqual(0)
   })

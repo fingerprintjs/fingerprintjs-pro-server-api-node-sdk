@@ -1,11 +1,10 @@
-import { EventResponse403, EventResponse404, Region } from '../../src/types'
+import { ErrorResponse, Region } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getEventResponse from './mocked-responses-data/get_event_200.json'
 import getEventWithExtraFieldsResponse from './mocked-responses-data/get_event_200_extra_fields.json'
 import getEventAllErrorsResponse from './mocked-responses-data/get_event_200_all_errors.json'
-import { SdkError } from '../../src/errors/apiErrors'
+import { ApiError, PlainApiError, SdkError } from '../../src/errors/apiErrors'
 import { getIntegrationInfo } from '../../src'
-import { EventError403, EventError404 } from '../../src/errors/eventErrors'
 
 jest.spyOn(global, 'fetch')
 
@@ -52,14 +51,12 @@ describe('[Mocked response] Get Event', () => {
         code: 'TokenRequired',
         message: 'secret key is required',
       },
-    }
+    } as ErrorResponse
     const mockResponse = new Response(JSON.stringify(errorInfo), {
       status: 403,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getEvent(existingRequestId)).rejects.toThrow(
-      new EventError403(errorInfo as EventResponse403, mockResponse)
-    )
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(new ApiError(errorInfo, mockResponse))
   })
 
   test('404 error', async () => {
@@ -68,18 +65,16 @@ describe('[Mocked response] Get Event', () => {
         code: 'RequestNotFound',
         message: 'request id is not found',
       },
-    }
+    } as ErrorResponse
     const mockResponse = new Response(JSON.stringify(errorInfo), {
       status: 404,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getEvent(existingRequestId)).rejects.toThrow(
-      new EventError404(errorInfo as EventResponse404, mockResponse)
-    )
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(new ApiError(errorInfo, mockResponse))
   })
 
   test('Error with bad shape', async () => {
-    const errorInfo = 'Some text instead og shaped object'
+    const errorInfo = 'Some text instead of shaped object'
     const mockResponse = new Response(
       JSON.stringify({
         error: errorInfo,
@@ -89,8 +84,8 @@ describe('[Mocked response] Get Event', () => {
       }
     )
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getEvent(existingRequestId)).rejects.toThrow(EventError404)
-    await expect(client.getEvent(existingRequestId)).rejects.toThrow('request id is not found')
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(PlainApiError)
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow('Some text instead of shaped object')
   })
 
   test('Error with bad JSON', async () => {

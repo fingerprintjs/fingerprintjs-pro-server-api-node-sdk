@@ -1,15 +1,8 @@
-import {
-  Region,
-  VisitorsResponse400,
-  VisitorsResponse403,
-  VisitorsResponse404,
-  VisitorsResponse429,
-} from '../../src/types'
+import { ErrorResponse, Region } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getRelatedVisitors from './mocked-responses-data/related-visitors/get_related_visitors_200.json'
-import { SdkError } from '../../src/errors/apiErrors'
+import { ApiError, SdkError, TooManyRequestsError } from '../../src/errors/apiErrors'
 import { getIntegrationInfo } from '../../src'
-import { VisitorsError400, VisitorsError403, VisitorsError404, VisitorsError429 } from '../../src/errors/visitErrors'
 
 jest.spyOn(global, 'fetch')
 
@@ -41,8 +34,9 @@ describe('[Mocked response] Get related Visitors', () => {
     const error = {
       error: {
         message: 'Forbidden',
+        code: 'RequestCannotBeParsed',
       },
-    }
+    } as ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 400,
     })
@@ -51,13 +45,16 @@ describe('[Mocked response] Get related Visitors', () => {
       client.getRelatedVisitors({
         visitor_id: existingVisitorId,
       })
-    ).rejects.toThrow(new VisitorsError400(error as VisitorsResponse400, mockResponse))
+    ).rejects.toThrow(new ApiError(error, mockResponse))
   })
 
   test('403 error', async () => {
     const error = {
-      error: 'Forbidden',
-    }
+      error: {
+        message: 'secret key is required',
+        code: 'TokenRequired',
+      },
+    } as ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 403,
     })
@@ -66,15 +63,16 @@ describe('[Mocked response] Get related Visitors', () => {
       client.getRelatedVisitors({
         visitor_id: existingVisitorId,
       })
-    ).rejects.toThrow(new VisitorsError403(error as VisitorsResponse403, mockResponse))
+    ).rejects.toThrow(new ApiError(error, mockResponse))
   })
 
   test('404 error', async () => {
     const error = {
       error: {
-        message: 'Forbidden',
+        message: 'request id is not found',
+        code: 'RequestNotFound',
       },
-    }
+    } as ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 404,
     })
@@ -83,20 +81,23 @@ describe('[Mocked response] Get related Visitors', () => {
       client.getRelatedVisitors({
         visitor_id: existingVisitorId,
       })
-    ).rejects.toThrow(new VisitorsError404(error as VisitorsResponse404, mockResponse))
+    ).rejects.toThrow(new ApiError(error, mockResponse))
   })
 
   test('429 error', async () => {
     const error = {
-      error: 'Too Many Requests',
-    }
+      error: {
+        message: 'Too Many Requests',
+        code: 'TooManyRequests',
+      },
+    } as ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 429,
       headers: { 'Retry-after': '10' },
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
-    const expectedError = new VisitorsError429(error as VisitorsResponse429, mockResponse)
+    const expectedError = new TooManyRequestsError(error, mockResponse)
     await expect(
       client.getRelatedVisitors({
         visitor_id: existingVisitorId,
@@ -107,13 +108,16 @@ describe('[Mocked response] Get related Visitors', () => {
 
   test('429 error with empty retry-after header', async () => {
     const error = {
-      error: 'Too Many Requests',
-    }
+      error: {
+        message: 'Too Many Requests',
+        code: 'TooManyRequests',
+      },
+    } as ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 429,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    const expectedError = new VisitorsError429(error as VisitorsResponse429, mockResponse)
+    const expectedError = new TooManyRequestsError(error, mockResponse)
     await expect(
       client.getRelatedVisitors({
         visitor_id: existingVisitorId,

@@ -75,4 +75,16 @@ export class TooManyRequestsError extends BaseApiError<429, ErrorResponse> {
     super(body.error.message, body, 429, body.error.code, response)
     this.retryAfter = getRetryAfter(response)
   }
+
+  static fromPlainError(error: ErrorPlainResponse, response: Response) {
+    return new TooManyRequestsError(
+      {
+        error: {
+          message: error.error,
+          code: 'TooManyRequests',
+        },
+      },
+      response
+    )
+  }
 }

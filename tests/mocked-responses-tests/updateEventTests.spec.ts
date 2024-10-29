@@ -1,20 +1,15 @@
 import {
+  ApiError,
+  ErrorResponse,
   FingerprintJsServerApiClient,
   getIntegrationInfo,
+  PlainApiError,
   Region,
-  UpdateEventError400,
-  UpdateEventError403,
-  UpdateEventError404,
-  UpdateEventError409,
-  UpdateEventResponse400,
-  UpdateEventResponse403,
-  UpdateEventResponse404,
-  UpdateEventResponse409,
 } from '../../src'
-import Error404 from './mocked-responses-data/update_event_404_error.json'
-import Error403 from './mocked-responses-data/update_event_403_error.json'
-import Error400 from './mocked-responses-data/update_event_400_error.json'
-import Error409 from './mocked-responses-data/update_event_409_error.json'
+import Error404 from './mocked-responses-data/errors/404_request_not_found.json'
+import Error403 from './mocked-responses-data/errors/403_feature_not_enabled.json'
+import Error400 from './mocked-responses-data/errors/400_request_body_invalid.json'
+import Error409 from './mocked-responses-data/errors/409_state_not_ready.json'
 import { SdkError } from '../../src/errors/apiErrors'
 
 jest.spyOn(global, 'fetch')
@@ -64,7 +59,7 @@ describe('[Mocked response] Update event', () => {
       suspect: true,
     }
     await expect(client.updateEvent(body, existingVisitorId)).rejects.toThrow(
-      new UpdateEventError404(Error404 as UpdateEventResponse404, mockResponse)
+      new ApiError(Error404 as ErrorResponse, mockResponse)
     )
   })
 
@@ -79,7 +74,7 @@ describe('[Mocked response] Update event', () => {
       suspect: true,
     }
     await expect(client.updateEvent(body, existingVisitorId)).rejects.toThrow(
-      new UpdateEventError403(Error403 as UpdateEventResponse403, mockResponse)
+      new ApiError(Error403 as ErrorResponse, mockResponse)
     )
   })
 
@@ -94,7 +89,7 @@ describe('[Mocked response] Update event', () => {
       suspect: true,
     }
     await expect(client.updateEvent(body, existingVisitorId)).rejects.toThrow(
-      new UpdateEventError400(Error400 as UpdateEventResponse400, mockResponse)
+      new ApiError(Error400 as ErrorResponse, mockResponse)
     )
   })
 
@@ -109,7 +104,7 @@ describe('[Mocked response] Update event', () => {
       suspect: true,
     }
     await expect(client.updateEvent(body, existingVisitorId)).rejects.toThrow(
-      new UpdateEventError409(Error409 as UpdateEventResponse409, mockResponse)
+      new ApiError(Error409 as ErrorResponse, mockResponse)
     )
   })
 
@@ -149,7 +144,7 @@ describe('[Mocked response] Update event', () => {
       linkedId: 'linked_id',
       suspect: true,
     }
-    await expect(client.updateEvent(body, existingVisitorId)).rejects.toThrow(UpdateEventError404)
-    await expect(client.updateEvent(body, existingVisitorId)).rejects.toThrow('Request id is not found')
+    await expect(client.updateEvent(body, existingVisitorId)).rejects.toThrow(PlainApiError)
+    await expect(client.updateEvent(body, existingVisitorId)).rejects.toThrow('Some text instead of shaped object')
   })
 })

@@ -1,4 +1,4 @@
-import { FingerprintJsServerApiClient, isEventError, Region } from '../../src'
+import { BaseApiError, FingerprintJsServerApiClient, Region } from '../../src'
 
 describe('ServerApiClient', () => {
   it('should support passing custom fetch implementation', async () => {
@@ -10,7 +10,7 @@ describe('ServerApiClient', () => {
       region: Region.Global,
     })
 
-    await client.getVisitorHistory('visitorId')
+    await client.getVisits('visitorId')
 
     expect(mockFetch).toHaveBeenCalledTimes(1)
   })
@@ -33,7 +33,7 @@ describe('ServerApiClient', () => {
     try {
       await client.getEvent('test')
     } catch (e) {
-      if (isEventError(e)) {
+      if (e instanceof BaseApiError) {
         expect(e.response.status).toBe(403)
         expect(e.responseBody).toEqual(responseBody)
 

@@ -40,14 +40,6 @@ export interface Options {
  */
 export type VisitorHistoryFilter = paths['/visitors/{visitor_id}']['get']['parameters']['query']
 
-export type TooManyRequestsError = {
-  status: 429
-  /**
-   * How many seconds to wait before retrying
-   */
-  retryAfter: number
-}
-
 export type ErrorPlainResponse = components['schemas']['ErrorPlainResponse']
 export type ErrorResponse = components['schemas']['ErrorResponse']
 
@@ -55,10 +47,6 @@ export type ErrorResponse = components['schemas']['ErrorResponse']
  * More info: https://dev.fingerprintjs.com/docs/server-api#response
  */
 export type VisitorsResponse = paths['/visitors/{visitor_id}']['get']['responses']['200']['content']['application/json']
-export type VisitorsResponse403 =
-  paths['/visitors/{visitor_id}']['get']['responses']['403']['content']['application/json'] & {
-    status: 403
-  }
 
 export type EventResponse = paths['/events/{request_id}']['get']['responses']['200']['content']['application/json']
 
