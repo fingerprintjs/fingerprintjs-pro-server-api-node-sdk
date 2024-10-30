@@ -97,14 +97,14 @@ See the [Examples](https://github.com/fingerprintjs/fingerprintjs-pro-server-api
 
 ### Error handling
 
-The Server API methods like `getEvent` and `getVisitorHistory` can throw `EventError` and `VisitorsError`.
-You can use the provided `isVisitorsError` and `isEventError` type guards to narrow down error types:
+The Server API methods like `getEvent` and `getVisitorHistory` can throw `PlainApiError`, .
+When handling error, you can check for our `RequestError` errors:
 
 ```typescript
 import {
-  isVisitorsError,
-  isEventError,
+  RequestError,
   FingerprintJsServerApiClient,
+  TooManyRequestsError,
 } from '@fingerprintjs/fingerprintjs-pro-server-api'
 
 const client = new FingerprintJsServerApiClient({
@@ -117,7 +117,7 @@ try {
   const event = await client.getEvent(requestId)
   console.log(JSON.stringify(event, null, 2))
 } catch (error) {
-  if (isEventError(error)) {
+  if (error instanceof RequestError) {
     console.log(error.responseBody) // Access parsed response body
     console.log(error.response) // You can also access the raw response
     console.log(`error ${error.statusCode}: `, error.message)
@@ -133,9 +133,9 @@ try {
   })
   console.log(JSON.stringify(visitorHistory, null, 2))
 } catch (error) {
-  if (isVisitorsError(error)) {
+  if (error instanceof RequestError) {
     console.log(error.status, error.error)
-    if (error.status === 429) {
+    if (error instanceof TooManyRequestsError) {
       retryLater(error.retryAfter) // Needs to be implemented on your side
     }
   } else {
@@ -146,49 +146,6 @@ try {
   // if(error instanceof VisitorsError403) {
   //    Handle 403 error...
   // }
-}
-```
-
-You can also check for specific error instance:
-
-```typescript
-import {
-  isVisitorsError,
-  isEventError,
-  FingerprintJsServerApiClient,
-  VisitorsError429,
-} from '@fingerprintjs/fingerprintjs-pro-server-api'
-
-const client = new FingerprintJsServerApiClient({
-  apiKey: '<SECRET_API_KEY>',
-  region: Region.Global,
-})
-
-// Handling getEvent errors
-try {
-  const event = await client.getEvent(requestId)
-  console.log(JSON.stringify(event, null, 2))
-} catch (error) {
-  if (isEventError(error)) {
-    console.log(error.responseBody) // Access parsed response body
-    console.log(error.response) // You can also access the raw response
-    console.log(`error ${error.statusCode}: `, error.message)
-  } else {
-    console.log('unknown error: ', error)
-  }
-}
-
-try {
-  const visitorHistory = await client.getVisitorHistory(visitorId, {
-    limit: 10,
-  })
-  console.log(JSON.stringify(visitorHistory, null, 2))
-} catch (error) {
-  if (error instanceof VisitorsError429) {
-    retryLater(error.retryAfter) // Needs to be implemented on your side
-  }
-
-  throw error
 }
 ```
 
