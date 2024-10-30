@@ -1,4 +1,9 @@
-import { FingerprintJsServerApiClient, Region, isVisitorsError } from '@fingerprintjs/fingerprintjs-pro-server-api'
+import {
+  FingerprintJsServerApiClient,
+  Region,
+  RequestError,
+  TooManyRequestsError,
+} from '@fingerprintjs/fingerprintjs-pro-server-api'
 import { config } from 'dotenv'
 config()
 
@@ -29,9 +34,9 @@ try {
   const visitorHistory = await client.getVisitorHistory(visitorId, { limit: 10 })
   console.log(JSON.stringify(visitorHistory, null, 2))
 } catch (error) {
-  if (isVisitorsError(error)) {
+  if (error instanceof RequestError) {
     console.log(error.statusCode, error.message)
-    if (error.status === 429) {
+    if (error instanceof TooManyRequestsError) {
       retryLater(error.retryAfter) // Needs to be implemented on your side
     }
   } else {
