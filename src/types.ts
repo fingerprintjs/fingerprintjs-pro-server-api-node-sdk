@@ -81,7 +81,7 @@ type ExtractRequestBody<Path> = Path extends { requestBody: { content: { 'applic
 // Utility type to extract the response type for 200 status code
 type ExtractResponse<Path> = Path extends { responses: { 200: { content: { 'application/json': infer R } } } }
   ? R
-  : never
+  : void
 
 // Extracts args to given API method
 type ApiMethodArgs<Path extends keyof operations> = [
