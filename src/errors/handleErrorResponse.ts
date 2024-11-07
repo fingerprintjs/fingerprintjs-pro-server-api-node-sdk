@@ -1,20 +1,20 @@
 import { ErrorPlainResponse, ErrorResponse } from '../types'
 import { RequestError, TooManyRequestsError } from './apiErrors'
 
-function isErrorResponse(v: any): v is ErrorResponse {
+function isErrorResponse(value: unknown): value is ErrorResponse {
   return Boolean(
-    v &&
-      typeof v === 'object' &&
-      'error' in v &&
-      typeof v.error === 'object' &&
-      v.error &&
-      'code' in v.error &&
-      'message' in v.error
+    value &&
+      typeof value === 'object' &&
+      'error' in value &&
+      typeof value.error === 'object' &&
+      value.error &&
+      'code' in value.error &&
+      'message' in value.error
   )
 }
 
-function isPlainErrorResponse(v: any): v is ErrorPlainResponse {
-  return Boolean(v && typeof v === 'object' && 'error' in v && typeof v.error === 'string')
+function isPlainErrorResponse(value: unknown): value is ErrorPlainResponse {
+  return Boolean(value && typeof value === 'object' && 'error' in value && typeof value.error === 'string')
 }
 
 export function handleErrorResponse(json: any, response: Response): never {
