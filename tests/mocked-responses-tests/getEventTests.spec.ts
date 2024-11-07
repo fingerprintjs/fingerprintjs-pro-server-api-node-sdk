@@ -3,7 +3,7 @@ import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getEventResponse from './mocked-responses-data/get_event_200.json'
 import getEventWithExtraFieldsResponse from './mocked-responses-data/get_event_200_extra_fields.json'
 import getEventAllErrorsResponse from './mocked-responses-data/get_event_200_all_errors.json'
-import { ApiError, PlainApiError, SdkError } from '../../src/errors/apiErrors'
+import { RequestError, SdkError } from '../../src/errors/apiErrors'
 import { getIntegrationInfo } from '../../src'
 
 jest.spyOn(global, 'fetch')
@@ -56,7 +56,9 @@ describe('[Mocked response] Get Event', () => {
       status: 403,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getEvent(existingRequestId)).rejects.toThrow(new ApiError(errorInfo, mockResponse))
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(
+      RequestError.fromErrorResponse(errorInfo, mockResponse)
+    )
   })
 
   test('404 error', async () => {
@@ -70,7 +72,9 @@ describe('[Mocked response] Get Event', () => {
       status: 404,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getEvent(existingRequestId)).rejects.toThrow(new ApiError(errorInfo, mockResponse))
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(
+      RequestError.fromErrorResponse(errorInfo, mockResponse)
+    )
   })
 
   test('Error with bad shape', async () => {
@@ -84,7 +88,7 @@ describe('[Mocked response] Get Event', () => {
       }
     )
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getEvent(existingRequestId)).rejects.toThrow(PlainApiError)
+    await expect(client.getEvent(existingRequestId)).rejects.toThrow(RequestError)
     await expect(client.getEvent(existingRequestId)).rejects.toThrow('Some text instead of shaped object')
   })
 

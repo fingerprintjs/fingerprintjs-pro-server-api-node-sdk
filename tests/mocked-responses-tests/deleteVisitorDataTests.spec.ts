@@ -1,12 +1,11 @@
 import {
-  ApiError,
   ErrorResponse,
   FingerprintJsServerApiClient,
   getIntegrationInfo,
   Region,
-  TooManyRequestsError,
-  SdkError,
   RequestError,
+  SdkError,
+  TooManyRequestsError,
 } from '../../src'
 import Error404 from './mocked-responses-data/errors/404_request_not_found.json'
 import Error403 from './mocked-responses-data/errors/403_feature_not_enabled.json'
@@ -46,7 +45,7 @@ describe('[Mocked response] Delete visitor data', () => {
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
-      new ApiError(Error404 as ErrorResponse, mockResponse)
+      RequestError.fromErrorResponse(Error404 as ErrorResponse, mockResponse)
     )
   })
 
@@ -57,7 +56,7 @@ describe('[Mocked response] Delete visitor data', () => {
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
-      new ApiError(Error403 as ErrorResponse, mockResponse)
+      RequestError.fromErrorResponse(Error403 as ErrorResponse, mockResponse)
     )
   })
 
@@ -68,7 +67,7 @@ describe('[Mocked response] Delete visitor data', () => {
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
-      new ApiError(Error400 as ErrorResponse, mockResponse)
+      RequestError.fromErrorResponse(Error400 as ErrorResponse, mockResponse)
     )
   })
 

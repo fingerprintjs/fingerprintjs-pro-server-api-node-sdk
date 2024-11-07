@@ -97,8 +97,8 @@ See the [Examples](https://github.com/fingerprintjs/fingerprintjs-pro-server-api
 
 ### Error handling
 
-The Server API methods like `getEvent` and `getVisitorHistory` can throw `PlainApiError`, .
-When handling error, you can check for our `RequestError` errors:
+The Server API methods can throw `RequestError`.
+When handling errors, you can check for it like this:
 
 ```typescript
 import {

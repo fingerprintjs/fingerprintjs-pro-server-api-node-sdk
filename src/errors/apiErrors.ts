@@ -25,7 +25,7 @@ export class RequestError<Code extends number = number, Body = unknown> extends 
   // Raw HTTP response
   override readonly response: Response
 
-  protected constructor(message: string, body: Body, statusCode: Code, errorCode: string, response: Response) {
+  constructor(message: string, body: Body, statusCode: Code, errorCode: string, response: Response) {
     super(message, response)
     this.responseBody = body
     this.response = response
@@ -36,27 +36,13 @@ export class RequestError<Code extends number = number, Body = unknown> extends 
   static unknown(response: Response) {
     return new RequestError('Unknown error', undefined, response.status, response.statusText, response)
   }
-}
 
-/**
- * Error model for `ErrorPlainResponse`
- *
- * @see {ErrorPlainResponse}
- * */
-export class PlainApiError extends RequestError {
-  constructor(body: ErrorPlainResponse, response: Response) {
-    super(body.error, body, response.status, response.statusText, response)
+  static fromPlainError(body: ErrorPlainResponse, response: Response) {
+    return new RequestError(body.error, body, response.status, response.statusText, response)
   }
-}
 
-/**
- * Error model for `ErrorResponse`
- *
- * @see {ErrorResponse}
- * */
-export class ApiError extends RequestError<number, ErrorResponse> {
-  constructor(body: ErrorResponse, response: Response) {
-    super(body.error.message, body, response.status, body.error.code, response)
+  static fromErrorResponse(body: ErrorResponse, response: Response) {
+    return new RequestError(body.error.message, body, response.status, body.error.code, response)
   }
 }
 
@@ -76,7 +62,7 @@ export class TooManyRequestsError extends RequestError<429, ErrorResponse> {
     this.retryAfter = getRetryAfter(response)
   }
 
-  static fromPlainError(error: ErrorPlainResponse, response: Response) {
+  static fromPlain(error: ErrorPlainResponse, response: Response) {
     return new TooManyRequestsError(
       {
         error: {

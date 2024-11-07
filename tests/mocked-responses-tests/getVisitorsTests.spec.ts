@@ -1,7 +1,7 @@
 import { ErrorPlainResponse, Region, VisitorHistoryFilter } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getVisits from './mocked-responses-data/get_visitors_200_limit_1.json'
-import { PlainApiError, SdkError, TooManyRequestsError } from '../../src/errors/apiErrors'
+import { RequestError, SdkError, TooManyRequestsError } from '../../src/errors/apiErrors'
 import { getIntegrationInfo } from '../../src'
 
 jest.spyOn(global, 'fetch')
@@ -73,7 +73,7 @@ describe('[Mocked response] Get Visitors', () => {
       status: 403,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    await expect(client.getVisits(existingVisitorId)).rejects.toThrow(new PlainApiError(error, mockResponse))
+    await expect(client.getVisits(existingVisitorId)).rejects.toThrow(RequestError.fromPlainError(error, mockResponse))
   })
 
   test('429 error', async () => {
@@ -86,7 +86,7 @@ describe('[Mocked response] Get Visitors', () => {
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
-    const expectedError = TooManyRequestsError.fromPlainError(error, mockResponse)
+    const expectedError = TooManyRequestsError.fromPlain(error, mockResponse)
     await expect(client.getVisits(existingVisitorId)).rejects.toThrow(expectedError)
     expect(expectedError.retryAfter).toEqual(10)
   })
@@ -99,7 +99,7 @@ describe('[Mocked response] Get Visitors', () => {
       status: 429,
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
-    const expectedError = TooManyRequestsError.fromPlainError(error, mockResponse)
+    const expectedError = TooManyRequestsError.fromPlain(error, mockResponse)
     await expect(client.getVisits(existingVisitorId)).rejects.toThrow(expectedError)
     expect(expectedError.retryAfter).toEqual(0)
   })

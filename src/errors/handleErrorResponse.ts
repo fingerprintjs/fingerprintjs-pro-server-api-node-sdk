@@ -1,5 +1,5 @@
 import { ErrorPlainResponse, ErrorResponse } from '../types'
-import { ApiError, PlainApiError, TooManyRequestsError } from './apiErrors'
+import { RequestError, TooManyRequestsError } from './apiErrors'
 
 function isErrorResponse(v: any): v is ErrorResponse {
   return Boolean(
@@ -23,16 +23,16 @@ export function handleErrorResponse(json: any, response: Response): never {
       throw new TooManyRequestsError(json, response)
     }
 
-    throw new ApiError(json, response)
+    throw RequestError.fromErrorResponse(json, response)
   }
 
   if (isPlainErrorResponse(json)) {
     if (response.status === 429) {
-      throw TooManyRequestsError.fromPlainError(json, response)
+      throw TooManyRequestsError.fromPlain(json, response)
     }
 
-    throw new PlainApiError(json, response)
+    throw RequestError.fromPlainError(json, response)
   }
 
-  throw ApiError.unknown(response)
+  throw RequestError.unknown(response)
 }

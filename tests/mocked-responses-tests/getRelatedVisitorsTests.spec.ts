@@ -1,7 +1,7 @@
 import { ErrorResponse, Region } from '../../src/types'
 import { FingerprintJsServerApiClient } from '../../src/serverApiClient'
 import getRelatedVisitors from './mocked-responses-data/related-visitors/get_related_visitors_200.json'
-import { ApiError, SdkError, TooManyRequestsError } from '../../src/errors/apiErrors'
+import { RequestError, SdkError, TooManyRequestsError } from '../../src/errors/apiErrors'
 import { getIntegrationInfo } from '../../src'
 
 jest.spyOn(global, 'fetch')
@@ -45,7 +45,7 @@ describe('[Mocked response] Get related Visitors', () => {
       client.getRelatedVisitors({
         visitor_id: existingVisitorId,
       })
-    ).rejects.toThrow(new ApiError(error, mockResponse))
+    ).rejects.toThrow(RequestError.fromErrorResponse(error, mockResponse))
   })
 
   test('403 error', async () => {
@@ -63,7 +63,7 @@ describe('[Mocked response] Get related Visitors', () => {
       client.getRelatedVisitors({
         visitor_id: existingVisitorId,
       })
-    ).rejects.toThrow(new ApiError(error, mockResponse))
+    ).rejects.toThrow(RequestError.fromErrorResponse(error, mockResponse))
   })
 
   test('404 error', async () => {
@@ -81,7 +81,7 @@ describe('[Mocked response] Get related Visitors', () => {
       client.getRelatedVisitors({
         visitor_id: existingVisitorId,
       })
-    ).rejects.toThrow(new ApiError(error, mockResponse))
+    ).rejects.toThrow(RequestError.fromErrorResponse(error, mockResponse))
   })
 
   test('429 error', async () => {
