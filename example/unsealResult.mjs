@@ -1,4 +1,6 @@
 import { unsealEventsResponse, DecryptionAlgorithm } from '@fingerprintjs/fingerprintjs-pro-server-api'
+import { config } from 'dotenv'
+config()
 
 const sealedData = process.env.BASE64_SEALED_RESULT
 const decryptionKey = process.env.BASE64_KEY
