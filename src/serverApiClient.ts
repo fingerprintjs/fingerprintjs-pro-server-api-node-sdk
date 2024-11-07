@@ -126,8 +126,8 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *       // Access raw response in error
    *       console.log(error.response)
    *
-   *       if(error instanceof TooManyRequestsError) {
-   *          retryLater(error.retryAfter) // Needs to be implemented on your side
+   *       if(error.statusCode === 409) {
+   *          // Event is not mutable yet, wait a couple of seconds and retry the update.
    *       }
    *     }
    *   })
