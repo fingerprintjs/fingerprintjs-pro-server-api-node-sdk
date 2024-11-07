@@ -25,7 +25,7 @@ function isEventResponse(data: unknown): data is EventResponse {
 /**
  * @private
  * */
-export function parseEventsResponse(unsealed: string) {
+export function parseEventsResponse(unsealed: string): EventResponse {
   const json = JSON.parse(unsealed)
 
   if (!isEventResponse(json)) {
@@ -40,7 +40,10 @@ export function parseEventsResponse(unsealed: string) {
  * The SDK will try to decrypt the result with each key until it succeeds.
  * To learn more about sealed results visit: https://dev.fingerprint.com/docs/sealed-client-results
  */
-export async function unsealEventsResponse(sealedData: Buffer, decryptionKeys: DecryptionKey[]) {
+export async function unsealEventsResponse(
+  sealedData: Buffer,
+  decryptionKeys: DecryptionKey[]
+): Promise<EventResponse> {
   const unsealed = await unseal(sealedData, decryptionKeys)
 
   return parseEventsResponse(unsealed)
