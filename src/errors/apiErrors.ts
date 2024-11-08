@@ -46,8 +46,6 @@ export class RequestError<Code extends number = number, Body = unknown> extends 
   }
 }
 
-// TODO Restore plain and api error
-
 /**
  * Error that indicate that the request was throttled.
  * */
