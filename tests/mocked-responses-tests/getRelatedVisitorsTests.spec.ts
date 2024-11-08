@@ -36,7 +36,7 @@ describe('[Mocked response] Get related Visitors', () => {
         message: 'Forbidden',
         code: 'RequestCannotBeParsed',
       },
-    } as ErrorResponse
+    } satisfies ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 400,
     })
@@ -54,7 +54,7 @@ describe('[Mocked response] Get related Visitors', () => {
         message: 'secret key is required',
         code: 'TokenRequired',
       },
-    } as ErrorResponse
+    } satisfies ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 403,
     })
@@ -72,7 +72,7 @@ describe('[Mocked response] Get related Visitors', () => {
         message: 'request id is not found',
         code: 'RequestNotFound',
       },
-    } as ErrorResponse
+    } satisfies ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 404,
     })
@@ -90,7 +90,7 @@ describe('[Mocked response] Get related Visitors', () => {
         message: 'Too Many Requests',
         code: 'TooManyRequests',
       },
-    } as ErrorResponse
+    } satisfies ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 429,
       headers: { 'Retry-after': '10' },
@@ -112,7 +112,7 @@ describe('[Mocked response] Get related Visitors', () => {
         message: 'Too Many Requests',
         code: 'TooManyRequests',
       },
-    } as ErrorResponse
+    } satisfies ErrorResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 429,
     })

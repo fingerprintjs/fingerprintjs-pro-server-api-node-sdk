@@ -68,7 +68,7 @@ describe('[Mocked response] Get Visitors', () => {
   test('403 error', async () => {
     const error = {
       error: 'Forbidden',
-    } as ErrorPlainResponse
+    } satisfies ErrorPlainResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 403,
     })
@@ -94,7 +94,7 @@ describe('[Mocked response] Get Visitors', () => {
   test('429 error with empty retry-after header', async () => {
     const error = {
       error: 'Too Many Requests',
-    } as ErrorPlainResponse
+    } satisfies ErrorPlainResponse
     const mockResponse = new Response(JSON.stringify(error), {
       status: 429,
     })

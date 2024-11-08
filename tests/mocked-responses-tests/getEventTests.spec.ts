@@ -51,7 +51,7 @@ describe('[Mocked response] Get Event', () => {
         code: 'TokenRequired',
         message: 'secret key is required',
       },
-    } as ErrorResponse
+    } satisfies ErrorResponse
     const mockResponse = new Response(JSON.stringify(errorInfo), {
       status: 403,
     })
@@ -67,7 +67,7 @@ describe('[Mocked response] Get Event', () => {
         code: 'RequestNotFound',
         message: 'request id is not found',
       },
-    } as ErrorResponse
+    } satisfies ErrorResponse
     const mockResponse = new Response(JSON.stringify(errorInfo), {
       status: 404,
     })
