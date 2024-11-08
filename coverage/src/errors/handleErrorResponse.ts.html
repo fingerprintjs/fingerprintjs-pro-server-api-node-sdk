@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/errors/unsealError.ts</title>
+    <title>Code coverage report for src/errors/handleErrorResponse.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/errors</a> unsealError.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">src/errors</a> handleErrorResponse.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -95,69 +95,87 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { DecryptionKey } from '../sealedResults'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { ErrorPlainResponse, ErrorResponse } from '../types'
+import { RequestError, TooManyRequestsError } from './apiErrors'
 &nbsp;
-export class UnsealError extends Error {
-  constructor(
-    readonly key: DecryptionKey,
-    readonly error?: Error
-  ) {
-    let msg = `Unable to decrypt sealed data`
-&nbsp;
-    if (error) {
-      msg = msg.concat(`: ${error.message}`)
-    }
-&nbsp;
-    super(msg)
-    this.name = 'UnsealError'
-  }
+function isErrorResponse(value: unknown): value is ErrorResponse {
+  return Boolean(
+    value &amp;&amp;
+      typeof value === 'object' &amp;&amp;
+      'error' in value &amp;&amp;
+      typeof value.error === 'object' &amp;&amp;
+      value.error &amp;&amp;
+      'code' in value.error &amp;&amp;
+      'message' in value.error
+  )
 }
 &nbsp;
-export class UnsealAggregateError extends Error {
-  constructor(readonly errors: UnsealError[]) {
-    super('Unable to decrypt sealed data')
-    this.name = 'UnsealAggregateError'
+function isPlainErrorResponse(value: unknown): value is ErrorPlainResponse {
+  return Boolean(value &amp;&amp; typeof value === 'object' &amp;&amp; 'error' in value &amp;&amp; typeof value.error === 'string')
+}
+&nbsp;
+export function handleErrorResponse(json: any, response: Response): never {
+  if (isErrorResponse(json)) {
+    if (response.status === 429) {
+      throw new TooManyRequestsError(json, response)
+    }
+&nbsp;
+    throw RequestError.fromErrorResponse(json, response)
   }
 &nbsp;
-  addError(error: UnsealError) {
-    this.errors.push(error)
+  if (isPlainErrorResponse(json)) {
+    if (response.status === 429) {
+      throw TooManyRequestsError.fromPlain(json, response)
+    }
+&nbsp;
+    throw RequestError.fromPlainError(json, response)
   }
 &nbsp;
-  toString() {
-    return this.errors.map((e) =&gt; e.toString()).join('\n')
-  }
+  throw RequestError.unknown(response)
 }
 &nbsp;</pre></td></tr></table></pre>
 
