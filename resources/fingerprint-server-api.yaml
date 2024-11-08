@@ -912,7 +912,6 @@ components:
           type: boolean
         ip:
           type: string
-          format: ipv4
           description: IP address of the requesting browser or bot.
         ipLocation:
           $ref: '#/components/schemas/DeprecatedGeolocation'
@@ -1046,7 +1045,6 @@ components:
           description: Page URL from which the request was sent.
         ip:
           type: string
-          format: ipv4
           description: IP address of the requesting browser or bot.
         time:
           type: string
@@ -1877,7 +1875,6 @@ components:
           description: Flag if user used incognito session.
         ip:
           type: string
-          format: ipv4
           description: IP address of the requesting browser or bot.
         ipLocation:
           $ref: '#/components/schemas/DeprecatedGeolocation'
@@ -2274,7 +2271,6 @@ components:
           description: Page URL from which the request was sent.
         ip:
           type: string
-          format: ipv4
           description: IP address of the requesting browser or bot.
         tag:
           $ref: '#/components/schemas/Tag'

@@ -242,10 +242,7 @@ export interface components {
       browserDetails: components['schemas']['BrowserDetails']
       /** @description Flag if user used incognito session. */
       incognito: boolean
-      /**
-       * Format: ipv4
-       * @description IP address of the requesting browser or bot.
-       */
+      /** @description IP address of the requesting browser or bot. */
       ip: string
       /** @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**.  Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information. */
       ipLocation?: components['schemas']['DeprecatedGeolocation']
@@ -366,10 +363,7 @@ export interface components {
       linkedId?: string
       /** @description Page URL from which the request was sent. */
       url: string
-      /**
-       * Format: ipv4
-       * @description IP address of the requesting browser or bot.
-       */
+      /** @description IP address of the requesting browser or bot. */
       ip: string
       /**
        * Format: date-time
@@ -784,10 +778,7 @@ export interface components {
       browserDetails: components['schemas']['BrowserDetails']
       /** @description Flag if user used incognito session. */
       incognito: boolean
-      /**
-       * Format: ipv4
-       * @description IP address of the requesting browser or bot.
-       */
+      /** @description IP address of the requesting browser or bot. */
       ip: string
       /** @description This field is **deprecated** and will not return a result for **applications created after January 23rd, 2024**.  Please use the [IP Geolocation Smart signal](https://dev.fingerprint.com/docs/smart-signals-overview#ip-geolocation) for geolocation information. */
       ipLocation?: components['schemas']['DeprecatedGeolocation']
@@ -1009,10 +1000,7 @@ export interface components {
       requestId: string
       /** @description Page URL from which the request was sent. */
       url: string
-      /**
-       * Format: ipv4
-       * @description IP address of the requesting browser or bot.
-       */
+      /** @description IP address of the requesting browser or bot. */
       ip: string
       /** @description A customer-provided value or an object that was sent with identification request. */
       tag?: components['schemas']['Tag']

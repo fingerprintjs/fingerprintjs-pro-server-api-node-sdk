@@ -1,6 +1,6 @@
 {
   "error": {
-    "code": "FeatureNotEnabled",
-    "message": "feature not enabled"
+    "code": "SubscriptionNotActive",
+    "message": "forbidden"
   }
 }
