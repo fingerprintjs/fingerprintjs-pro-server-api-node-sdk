@@ -58,10 +58,6 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *       console.log(error.statusCode, error.message)
    *       // Access raw response in error
    *       console.log(error.response)
-   *
-   *       if(error instanceof TooManyRequestsError) {
-   *          retryLater(error.retryAfter) // Needs to be implemented on your side
-   *       }
    *     }
    *   })
    * ```
