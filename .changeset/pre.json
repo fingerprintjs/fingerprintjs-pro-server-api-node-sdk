@@ -5,5 +5,16 @@
     "@fingerprintjs/fingerprintjs-pro-server-api": "5.2.0",
     "fingerprintjs-pro-server-api-node-sdk-example": "1.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "eighty-trees-spend",
+    "fuzzy-apes-talk",
+    "great-ligers-smile",
+    "khaki-results-help",
+    "large-lights-push",
+    "quiet-parrots-stick",
+    "real-elephants-appear",
+    "shy-worms-wish",
+    "sweet-pumas-divide",
+    "wet-games-sneeze"
+  ]
 }
