@@ -198,8 +198,29 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
         "5m": 1,
       },
     },
+    "distinctIpByLinkedId": {
+      "intervals": {
+        "1h": 5,
+        "24h": 5,
+        "5m": 1,
+      },
+    },
     "distinctLinkedId": {},
+    "distinctVisitorIdByLinkedId": {
+      "intervals": {
+        "1h": 5,
+        "24h": 5,
+        "5m": 1,
+      },
+    },
     "events": {
+      "intervals": {
+        "1h": 5,
+        "24h": 5,
+        "5m": 1,
+      },
+    },
+    "ipEvents": {
       "intervals": {
         "1h": 5,
         "24h": 5,

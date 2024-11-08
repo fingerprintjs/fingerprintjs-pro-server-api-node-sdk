@@ -1,4 +1,4 @@
-import { FingerprintJsServerApiClient, Region, isDeleteVisitorError } from '@fingerprintjs/fingerprintjs-pro-server-api'
+import { FingerprintJsServerApiClient, Region, RequestError } from '@fingerprintjs/fingerprintjs-pro-server-api'
 import { config } from 'dotenv'
 config()
 
@@ -29,7 +29,7 @@ try {
   await client.deleteVisitorData(visitorId)
   console.log(`All data associated with visitor ${visitorId} is scheduled to be deleted.`)
 } catch (error) {
-  if (isDeleteVisitorError(error)) {
+  if (error instanceof RequestError) {
     console.log(error.statusCode, error.message)
   } else {
     console.error('unknown error: ', error)

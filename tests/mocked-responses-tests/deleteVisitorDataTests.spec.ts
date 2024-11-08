@@ -1,19 +1,16 @@
 import {
-  CommonResponse429,
-  DeleteVisit400Response,
-  DeleteVisit403Response,
-  DeleteVisit404Response,
+  ErrorResponse,
   FingerprintJsServerApiClient,
   getIntegrationInfo,
   Region,
+  RequestError,
+  SdkError,
+  TooManyRequestsError,
 } from '../../src'
-import Error404 from './mocked-responses-data/shared/404_error_visitor_not_found.json'
-import Error403 from './mocked-responses-data/shared/403_error_feature_not_enabled.json'
-import Error400 from './mocked-responses-data/shared/400_error_incorrect_visitor_id.json'
-import Error429 from './mocked-responses-data/shared/429_error_too_many_requests.json'
-import { SdkError } from '../../src/errors/apiErrors'
-import { DeleteVisit400Error, DeleteVisit403Error, DeleteVisit404Error } from '../../src/errors/visitErrors'
-import { CommonError429 } from '../../src/errors/commonErrors'
+import Error404 from './mocked-responses-data/errors/404_request_not_found.json'
+import Error403 from './mocked-responses-data/errors/403_feature_not_enabled.json'
+import Error400 from './mocked-responses-data/errors/400_visitor_id_invalid.json'
+import Error429 from './mocked-responses-data/errors/429_too_many_requests.json'
 
 jest.spyOn(global, 'fetch')
 
@@ -48,7 +45,7 @@ describe('[Mocked response] Delete visitor data', () => {
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
-      new DeleteVisit404Error(Error404 as DeleteVisit404Response, mockResponse)
+      RequestError.fromErrorResponse(Error404 as ErrorResponse, mockResponse)
     )
   })
 
@@ -59,7 +56,7 @@ describe('[Mocked response] Delete visitor data', () => {
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
-      new DeleteVisit403Error(Error403 as DeleteVisit403Response, mockResponse)
+      RequestError.fromErrorResponse(Error403 as ErrorResponse, mockResponse)
     )
   })
 
@@ -70,7 +67,7 @@ describe('[Mocked response] Delete visitor data', () => {
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(
-      new DeleteVisit400Error(Error400 as DeleteVisit400Response, mockResponse)
+      RequestError.fromErrorResponse(Error400 as ErrorResponse, mockResponse)
     )
   })
 
@@ -83,7 +80,7 @@ describe('[Mocked response] Delete visitor data', () => {
     })
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
-    const expectedError = new CommonError429(Error429 as CommonResponse429, mockResponse)
+    const expectedError = new TooManyRequestsError(Error429 as ErrorResponse, mockResponse)
     await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(expectedError)
     expect(expectedError.retryAfter).toEqual(5)
   })
@@ -107,7 +104,7 @@ describe('[Mocked response] Delete visitor data', () => {
     const errorInfo = 'Some text instead of shaped object'
     const mockResponse = new Response(
       JSON.stringify({
-        error: errorInfo,
+        _error: errorInfo,
       }),
       {
         status: 404,
@@ -116,7 +113,7 @@ describe('[Mocked response] Delete visitor data', () => {
 
     mockFetch.mockReturnValue(Promise.resolve(mockResponse))
 
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(DeleteVisit404Error)
-    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow('Visit not found')
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow(RequestError as any)
+    await expect(client.deleteVisitorData(existingVisitorId)).rejects.toThrow('Unknown error')
   })
 })

@@ -1,8 +1,4 @@
-import {
-  FingerprintJsServerApiClient,
-  Region,
-  isRelatedVisitorsError,
-} from '@fingerprintjs/fingerprintjs-pro-server-api'
+import { FingerprintJsServerApiClient, Region, RequestError } from '@fingerprintjs/fingerprintjs-pro-server-api'
 import { config } from 'dotenv'
 config()
 
@@ -36,7 +32,7 @@ try {
 
   console.log(JSON.stringify(relatedVisitors, null, 2))
 } catch (error) {
-  if (isRelatedVisitorsError(error)) {
+  if (error instanceof RequestError) {
     console.log(`error ${error.statusCode}: `, error.message)
     // You can also access the raw response
     console.log(error.response.statusText)

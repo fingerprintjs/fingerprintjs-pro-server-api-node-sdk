@@ -1,0 +1,9 @@
+{
+  "mode": "pre",
+  "tag": "test",
+  "initialVersions": {
+    "@fingerprintjs/fingerprintjs-pro-server-api": "5.2.0",
+    "fingerprintjs-pro-server-api-node-sdk-example": "1.0.0"
+  },
+  "changesets": []
+}
