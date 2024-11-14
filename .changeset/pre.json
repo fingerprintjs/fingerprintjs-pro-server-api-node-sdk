@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "test",
   "initialVersions": {
     "@fingerprintjs/fingerprintjs-pro-server-api": "5.2.0",
