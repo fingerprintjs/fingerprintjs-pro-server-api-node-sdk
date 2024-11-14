@@ -48,7 +48,7 @@ export type ErrorResponse = components['schemas']['ErrorResponse']
  */
 export type VisitorsResponse = paths['/visitors/{visitor_id}']['get']['responses']['200']['content']['application/json']
 
-export type EventResponse = paths['/events/{request_id}']['get']['responses']['200']['content']['application/json']
+export type EventsGetResponse = paths['/events/{request_id}']['get']['responses']['200']['content']['application/json']
 
 export type RelatedVisitorsResponse =
   paths['/related-visitors']['get']['responses']['200']['content']['application/json']

@@ -1,7 +1,7 @@
 import { createDecipheriv } from 'crypto'
 import { inflateRaw } from 'zlib'
 import { promisify } from 'util'
-import { EventResponse } from './types'
+import { EventsGetResponse } from './types'
 import { UnsealAggregateError, UnsealError } from './errors/unsealError'
 import { Buffer } from 'buffer'
 
@@ -18,14 +18,14 @@ export interface DecryptionKey {
 
 const SEALED_HEADER = Buffer.from([0x9e, 0x85, 0xdc, 0xed])
 
-function isEventResponse(data: unknown): data is EventResponse {
+function isEventResponse(data: unknown): data is EventsGetResponse {
   return Boolean(data && typeof data === 'object' && 'products' in data)
 }
 
 /**
  * @private
  * */
-export function parseEventsResponse(unsealed: string): EventResponse {
+export function parseEventsResponse(unsealed: string): EventsGetResponse {
   const json = JSON.parse(unsealed)
 
   if (!isEventResponse(json)) {
@@ -43,7 +43,7 @@ export function parseEventsResponse(unsealed: string): EventResponse {
 export async function unsealEventsResponse(
   sealedData: Buffer,
   decryptionKeys: DecryptionKey[]
-): Promise<EventResponse> {
+): Promise<EventsGetResponse> {
   const unsealed = await unseal(sealedData, decryptionKeys)
 
   return parseEventsResponse(unsealed)
