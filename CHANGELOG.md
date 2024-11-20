@@ -4,6 +4,8 @@
 
 ### Major Changes
 
+The underlying Server API hasn’t changed, but we made SDK type and class generation more precise, resulting in small breaking changes for the SDK itself. This change should make the SDK API a lot more stable going forward
+
 - Rename `EventUpdateRequest` type to `EventsUpdateRequest` ([54b92b2](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/54b92b2afa0efeacb2e510f98df74e133ef58aac))
 - - Remove the `BrowserDetails` field `botProbability`.
   - Update the `IdentificationConfidence` field `score` type format: `float` -> `double`.
