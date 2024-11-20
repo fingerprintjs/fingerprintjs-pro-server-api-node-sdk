@@ -1,5 +1,124 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.0.0
+
+### Major Changes
+
+- Rename `EventUpdateRequest` type to `EventsUpdateRequest` ([54b92b2](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/54b92b2afa0efeacb2e510f98df74e133ef58aac))
+- - Remove the `BrowserDetails` field `botProbability`.
+  - Update the `IdentificationConfidence` field `score` type format: `float` -> `double`.
+  - Make the `RawDeviceAttributeError` field `name` **optional** .
+  - Make the `RawDeviceAttributeError` field `message` **optional** .
+  - **events**: Remove the `EventsResponse` field `error`.
+    - [note]: The errors are represented by `ErrorResponse` model.
+  - **events**: Update the `HighActivity` field `dailyRequests` type format: `number` -> `int64`.
+  - **events**: Specify the `Tampering` field `anomalyScore` type format: `double`.
+  - **webhook**: Make the `Webhook` fields **optional**: `visitorId`, `visitorFound`, `firstSeenAt`, `lastSeenAt`, `browserDetails`, `incognito`.
+  - **webhook**: Make the `WebhookClonedApp` field `result` **optional**.
+  - **webhook**: Make the `WebhookDeveloperTools` field `result` **optional**.
+  - **webhook**: Make the `WebhookEmulator` field `result` **optional**.
+  - **webhook**: Make the `WebhookFactoryReset` fields `time` and `timestamp` **optional**.
+  - **webhook**: Make the `WebhookFrida` field `result` **optional**.
+  - **webhook**: Update the `WebhookHighActivity` field `dailyRequests` type format: `number` -> `int64`.
+  - **webhook**: Make the `WebhookIPBlocklist` fields `result` and `details` **optional**.
+  - **webhook**: Make the `WebhookJailbroken` field `result` **optional**.
+  - **webhook**: Make the `WebhookLocationSpoofing` field `result` **optional**.
+  - **webhook**: Make the `WebhookPrivacySettings` field `result` **optional**.
+  - **webhook**: Make the `WebhookProxy` field `result` **optional**.
+  - **webhook**: Make the `WebhookRemoteControl` field `result` **optional**.
+  - **webhook**: Make the `WebhookRootApps` field `result` **optional**.
+  - **webhook**: Make the `WebhookSuspectScore` field `result` **optional**.
+  - **webhook**: Make the `WebhookTampering` fields `result`, `anomalyScore` and `antiDetectBrowser` **optional**.
+  - **webhook**: Specify the `WebhookTampering` field `anomalyScore` type format: `double`.
+  - **webhook**: Make the `WebhookTor` field `result` **optional**.
+  - **webhook**: Make the `WebhookVelocity` fields **optional**: `distinctIp`, `distinctLinkedId`, `distinctCountry`, `events`, `ipEvents`, `distinctIpByLinkedId`, `distinctVisitorIdByLinkedId`.
+  - **webhook**: Make the `WebhookVirtualMachine` field `result` **optional**.
+  - **webhook**: Make the `WebhookVPN` fields **optional**: `result`, `confidence`, `originTimezone`, `methods`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- - Rename `BotdResult` -> `Botd`.
+  - Rename `BotdDetectionResult` -> `BotdBot`:
+    - Extract `result` type as `BotdBotResult`.
+  - Rename `ClonedAppResult` -> `ClonedApp`.
+  - Rename `DeveloperToolsResult` -> `DeveloperTools`.
+  - Rename `EmulatorResult` -> `Emulator`.
+  - Refactor error models:
+    - Remove `ErrorCommon403Response`, `ErrorCommon429Response`, `ErrorEvent404Response`, `TooManyRequestsResponse`, `ErrorVisits403`, `ErrorUpdateEvent400Response`, `ErrorUpdateEvent409Response`, `ErrorVisitor400Response`, `ErrorVisitor404Response`, `IdentificationError`, `ProductError`.
+    - Introduce `ErrorResponse` and `ErrorPlainResponse`.
+      - [note]: `ErrorPlainResponse` has a different format `{ "error": string }` and it is used only in `GET /visitors`.
+    - Extract `error` type as `Error`.
+    - Extract `error.code` type as `ErrorCode`.
+  - Rename `EventResponse` -> `EventsGetResponse`.
+  - Rename `EventUpdateRequest` -> `EventsUpdateRequest`.
+  - Rename `FactoryResetResult` -> `FactoryReset`.
+  - Rename `FridaResult` -> `Frida`.
+  - Rename `IPLocation` -> `Geolocation`:
+    - Rename `IPLocationCity` -> `GeolocationCity`.
+    - Extract `subdivisions` type as `GeolocationSubdivisions`.
+    - Rename `Location` -> `GeolocationContinent`:
+    - Introduce a dedicated type `GeolocationCountry`.
+    - Rename `Subdivision` -> `GeolocationSubdivision`.
+  - Rename `HighActivityResult` -> `HighActivity`.
+  - Rename `Confidence` -> `IdentificationConfidence`.
+  - Rename `SeenAt` -> `IdentificationSeenAt`.
+  - Rename `IncognitoResult` -> `Incognito`.
+  - Rename `IpBlockListResult` -> `IPBlocklist`:
+    - Extract `details` type as `IPBlocklistDetails`.
+  - Rename `IpInfoResult` -> `IPInfo`:
+    - Rename `IpInfoResultV4` -> `IPInfoV4`.
+    - Rename `IpInfoResultV6` -> `IPInfoV6`.
+    - Rename `ASN` -> `IPInfoASN`.
+    - Rename `DataCenter` -> `IPInfoDataCenter`.
+  - Rename `JailbrokenResult` -> `Jailbroken`.
+  - Rename `LocationSpoofingResult` -> `LocationSpoofing`.
+  - Rename `PrivacySettingsResult` -> `PrivacySettings`.
+  - Rename `ProductsResponse` -> `Products`:
+    - Rename inner types: `ProductsResponseIdentification` -> `ProductIdentification`, `ProductsResponseIdentificationData` -> `Identification`, `ProductsResponseBotd` -> `ProductBotd`, `SignalResponseRootApps` -> `ProductRootApps`, `SignalResponseEmulator` -> `ProductEmulator`, `SignalResponseIpInfo` -> `ProductIPInfo`, `SignalResponseIpBlocklist` -> `ProductIPBlocklist`, `SignalResponseTor` -> `ProductTor`, `SignalResponseVpn` -> `ProductVPN`, `SignalResponseProxy` -> `ProductProxy`, `ProxyResult` -> `Proxy`, `SignalResponseIncognito` -> `ProductIncognito`, `SignalResponseTampering` -> `ProductTampering`, `SignalResponseClonedApp` -> `ProductClonedApp`, `SignalResponseFactoryReset` -> `ProductFactoryReset`, `SignalResponseJailbroken` -> `ProductJailbroken`, `SignalResponseFrida` -> `ProductFrida`, `SignalResponsePrivacySettings` -> `ProductPrivacySettings`, `SignalResponseVirtualMachine` -> `ProductVirtualMachine`, `SignalResponseRawDeviceAttributes` -> `ProductRawDeviceAttributes`, `RawDeviceAttributesResultValue` -> `RawDeviceAttributes`, `SignalResponseHighActivity` -> `ProductHighActivity`, `SignalResponseLocationSpoofing` -> `ProductLocationSpoofing`, `SignalResponseSuspectScore` -> `ProductSuspectScore`, `SignalResponseRemoteControl` -> `ProductRemoteControl`, `SignalResponseVelocity` -> `ProductVelocity`, `SignalResponseDeveloperTools` -> `ProductDeveloperTools`.
+    - Extract `identification.data` type as `Identification`.
+  - Rename `RawDeviceAttributesResult` -> `RawDeviceAttributes`:
+    - Extract item type as `RawDeviceAttribute`.
+    - Extract `error` type as `RawDeviceAttributeError`.
+  - Rename `RemoteControlResult` -> `RemoteControl`.
+  - Rename `RootAppsResult` -> `RootApps`.
+  - Rename `SuspectScoreResult` -> `SuspectScore`.
+  - Extract new model `Tag`.
+  - Rename `TamperingResult` -> `Tampering`.
+  - Rename `TorResult` -> `Tor`.
+  - Rename `VelocityResult` -> `Velocity`:
+    - Rename `VelocityIntervals` -> `VelocityData`.
+    - Rename `VelocityIntervalResult` -> `VelocityIntervals`.
+  - Rename `VirtualMachineResult` -> `VirtualMachine`.
+  - Rename the `Visit` field `ipLocation` type `DeprecatedIPLocation` -> `DeprecatedGeolocation`.
+    - Instead of `DeprecatedIPLocationCity` use common `GeolocationCity`
+  - Rename `Response` -> `VisitorsGetResponse`.
+    - Omit extra inner type `ResponseVisits`
+  - Rename `VpnResult` -> `VPN`.
+    - Extract `confidence` type as `VPNConfidence`.
+    - Extract `methods` type as `VPNMethods`.
+  - Rename `WebhookVisit` -> `Webhook`.
+    - Introduce new inner types: `WebhookRootApps`, `WebhookEmulator`, `WebhookIPInfo`, `WebhookIPBlocklist`, `WebhookTor`, `WebhookVPN`, `WebhookProxy`, `WebhookTampering`, `WebhookClonedApp`, `WebhookFactoryReset`, `WebhookJailbroken`, `WebhookFrida`, `WebhookPrivacySettings`, `WebhookVirtualMachine`, `WebhookRawDeviceAttributes`, `WebhookHighActivity`, `WebhookLocationSpoofing`, `WebhookSuspectScore`, `WebhookRemoteControl`, `WebhookVelocity`, `WebhookDeveloperTools`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- Remove utility functions for checking error type, such as `isEventError`, `isUpdateEventError`, etc. ([a17b73f](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/a17b73f720bf3fd34f004b93959aeb968a27fc24))
+- Reduce thrown errors to `TooManyRequestsError` and `RequestError` ([6f4076e](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/6f4076ec3ef5cfd212c292110be008c49fd516e5))
+- Rename `VisitWebhook` type to `Webhook` ([980bab0](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/980bab0e6c80e9763f07505a1273919b3e283776))
+
+### Minor Changes
+
+- Added new `ipEvents`, `distinctIpByLinkedId`, and `distinctVisitorIdByLinkedId` fields to the `velocity` Smart Signal. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- - Make the `GeolocationCity` field `name` **required**.
+  - Make the `GeolocationSubdivision` field `isoCode` **required**.
+  - Make the `GeolocationSubdivision` field `name` **required**.
+  - Make the `IPInfoASN` field `name` **required** .
+  - Make the `IPInfoDataCenter` field `name` **required**.
+  - Add **optional** `IdentificationConfidence` field `comment`.
+  - **events**: Add **optional** `Botd` field `meta`.
+  - **events**: Add **optional** `Identification` field `components`.
+  - **events**: Make the `VPN` field `originCountry` **required**.
+  - **visitors**: Add **optional** `Visit` field `components`.
+  - **webhook**: Add **optional** `Webhook` field `components`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- Remove `ipv4` format from `ip` field in `Botd`, `Identification`, `Visit` and `Webhook` models. ([b707bfa](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/b707bfa957362165dfe7fba01b43772db89d9f00))
+
+### Patch Changes
+
+- **related-visitors**: Add mention that the API is billable ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+
 ## 6.0.0-test.0
 
 ### Major Changes
