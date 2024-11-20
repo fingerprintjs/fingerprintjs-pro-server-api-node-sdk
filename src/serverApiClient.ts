@@ -1,7 +1,7 @@
 import { getRequestPath } from './urlUtils'
 import {
   AuthenticationMode,
-  EventResponse,
+  EventsGetResponse,
   EventsUpdateRequest,
   FingerprintApi,
   Options,
@@ -46,7 +46,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *
    * @param requestId - identifier of the event
    *
-   * @returns {Promise<EventResponse>} - promise with event response. For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getevent).
+   * @returns {Promise<EventsGetResponse>} - promise with event response. For more information, see the [Server API documentation](https://dev.fingerprint.com/reference/getevent).
    *
    * @example
    * ```javascript
@@ -62,7 +62,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    *   })
    * ```
    * */
-  public async getEvent(requestId: string): Promise<EventResponse> {
+  public async getEvent(requestId: string): Promise<EventsGetResponse> {
     if (!requestId) {
       throw new TypeError('requestId is not set')
     }
@@ -85,7 +85,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
     const jsonResponse = await copyResponseJson(response)
 
     if (response.status === 200) {
-      return jsonResponse as EventResponse
+      return jsonResponse as EventsGetResponse
     }
 
     handleErrorResponse(jsonResponse, response)
