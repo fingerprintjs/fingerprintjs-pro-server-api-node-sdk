@@ -239,6 +239,7 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
       "auxiliaryMobile": false,
       "osMismatch": false,
       "publicVPN": false,
+      "relay": false,
       "timezoneMismatch": false,
     },
     "originCountry": "unknown",
