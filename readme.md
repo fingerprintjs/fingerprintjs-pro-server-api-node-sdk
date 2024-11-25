@@ -69,7 +69,7 @@ Install the package using your favorite package manager:
 
 ## Getting started
 
-Initialize the client instance and use it to make API requests. You need to specify your Fingerprint [Secret API key](https://dev.fingerprint.com/docs/quick-start-guide#server-api-and-smart-signals) and the region of your Fingerprint application.
+Initialize the client instance and use it to make API requests. You need to specify your Fingerprint [Secret API key](https://dev.fingerprint.com/docs/quick-start-guide#4-get-smart-signals-to-your-server) and the region of your Fingerprint application.
 
 ```ts
 import {
