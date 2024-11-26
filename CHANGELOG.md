@@ -1,5 +1,12 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.1.0
+
+### Minor Changes
+
+- Add `relay` detection method to the VPN Detection Smart Signal ([05a9257](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/05a9257ab099a7a7a551b7b6c943ed1b84ba65c7))
+- **events**: Add a `suspect` field to the `identification` product schema ([05a9257](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/05a9257ab099a7a7a551b7b6c943ed1b84ba65c7))
+
 ## 6.0.0
 
 ### Major Changes
