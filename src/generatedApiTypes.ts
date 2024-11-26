@@ -86,6 +86,33 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/related-visitors': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get Related Visitors
+     * @description Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device.
+     *     It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.
+     *
+     *     ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️
+     *
+     *     If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support).
+     *     To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api).
+     *
+     */
+    get: operations['getRelatedVisitors']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/webhook': {
     parameters: {
       query?: never
@@ -123,33 +150,6 @@ export interface paths {
         }
       }
     }
-  }
-  '/related-visitors': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /**
-     * Get Related Visitors
-     * @description Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device.
-     *     It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.
-     *
-     *     ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️
-     *
-     *     If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support).
-     *     To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api).
-     *
-     */
-    get: operations['getRelatedVisitors']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
   }
 }
 export type webhooks = Record<string, never>
@@ -248,6 +248,8 @@ export interface components {
       ipLocation?: components['schemas']['DeprecatedGeolocation']
       /** @description A customer-provided id that was sent with the request. */
       linkedId?: string
+      /** @description Field is `true` if you have previously set the `suspect` flag for this event using the [Server API Update event endpoint](https://dev.fingerprint.com/reference/updateevent). */
+      suspect?: boolean
       /**
        * Format: int64
        * @description Timestamp of the event with millisecond precision in Unix time.
@@ -488,6 +490,14 @@ export interface components {
       auxiliaryMobile: boolean
       /** @description The browser runs on a different operating system than the operating system inferred from the request network signature. */
       osMismatch: boolean
+      /** @description Request IP address belongs to a relay service provider, indicating the use of relay services like [Apple Private relay](https://support.apple.com/en-us/102602) or [Cloudflare Warp](https://developers.cloudflare.com/warp-client/).
+       *
+       *     * Like VPNs, relay services anonymize the visitor's true IP address.
+       *     * Unlike traditional VPNs, relay services don't let visitors spoof their location by choosing an exit node in a different country.
+       *
+       *     This field allows you to differentiate VPN users and relay service users in your fraud prevention logic.
+       *      */
+      relay: boolean
     }
     VPN: {
       /** @description VPN or other anonymizing service has been used when sending the request. */
@@ -825,6 +835,13 @@ export interface components {
     ErrorPlainResponse: {
       error: string
     }
+    RelatedVisitor: {
+      /** @description Visitor ID of a browser that originates from the same mobile device as the input visitor ID. */
+      visitorId: string
+    }
+    RelatedVisitorsResponse: {
+      relatedVisitors: components['schemas']['RelatedVisitor'][]
+    }
     WebhookRootApps: {
       /** @description Android specific root management apps detection. There are 2 values:
        *       * `true` - Root Management Apps detected (e.g. Magisk).
@@ -1077,13 +1094,6 @@ export interface components {
        *      */
       velocity?: components['schemas']['WebhookVelocity']
       developerTools?: components['schemas']['WebhookDeveloperTools']
-    }
-    RelatedVisitor: {
-      /** @description Visitor ID of a browser that originates from the same mobile device as the input visitor ID. */
-      visitorId: string
-    }
-    RelatedVisitorsResponse: {
-      relatedVisitors: components['schemas']['RelatedVisitor'][]
     }
   }
   responses: never
