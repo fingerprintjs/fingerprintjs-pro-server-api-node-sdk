@@ -4,8 +4,8 @@
 
 ### Minor Changes
 
-- Add `relay` detection method to the VPN Detection Smart Signal ([05a9257](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/05a9257ab099a7a7a551b7b6c943ed1b84ba65c7))
-- **events**: Add a `suspect` field to the `identification` product schema ([05a9257](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/05a9257ab099a7a7a551b7b6c943ed1b84ba65c7))
+- Add `relay` detection method to the VPN Detection Smart Signal ([05a9257](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/05a9257ab099a7a7a551b7b6c943ed1b84ba65c7))
+- **events**: Add a `suspect` field to the `identification` product schema ([05a9257](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/05a9257ab099a7a7a551b7b6c943ed1b84ba65c7))
 
 ## 6.0.0
 
@@ -13,7 +13,7 @@
 
 The underlying Server API hasn’t changed, but we made SDK type and class generation more precise, resulting in small breaking changes for the SDK itself. This change should make the SDK API a lot more stable going forward
 
-- Rename `EventUpdateRequest` type to `EventsUpdateRequest` ([54b92b2](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/54b92b2afa0efeacb2e510f98df74e133ef58aac))
+- Rename `EventUpdateRequest` type to `EventsUpdateRequest` ([54b92b2](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/54b92b2afa0efeacb2e510f98df74e133ef58aac))
 - - Remove the `BrowserDetails` field `botProbability`.
   - Update the `IdentificationConfidence` field `score` type format: `float` -> `double`.
   - Make the `RawDeviceAttributeError` field `name` **optional** .
@@ -42,7 +42,7 @@ The underlying Server API hasn’t changed, but we made SDK type and class gener
   - **webhook**: Make the `WebhookTor` field `result` **optional**.
   - **webhook**: Make the `WebhookVelocity` fields **optional**: `distinctIp`, `distinctLinkedId`, `distinctCountry`, `events`, `ipEvents`, `distinctIpByLinkedId`, `distinctVisitorIdByLinkedId`.
   - **webhook**: Make the `WebhookVirtualMachine` field `result` **optional**.
-  - **webhook**: Make the `WebhookVPN` fields **optional**: `result`, `confidence`, `originTimezone`, `methods`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+  - **webhook**: Make the `WebhookVPN` fields **optional**: `result`, `confidence`, `originTimezone`, `methods`. ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
 - - Rename `BotdResult` -> `Botd`.
   - Rename `BotdDetectionResult` -> `BotdBot`:
     - Extract `result` type as `BotdBotResult`.
@@ -103,14 +103,14 @@ The underlying Server API hasn’t changed, but we made SDK type and class gener
     - Extract `confidence` type as `VPNConfidence`.
     - Extract `methods` type as `VPNMethods`.
   - Rename `WebhookVisit` -> `Webhook`.
-    - Introduce new inner types: `WebhookRootApps`, `WebhookEmulator`, `WebhookIPInfo`, `WebhookIPBlocklist`, `WebhookTor`, `WebhookVPN`, `WebhookProxy`, `WebhookTampering`, `WebhookClonedApp`, `WebhookFactoryReset`, `WebhookJailbroken`, `WebhookFrida`, `WebhookPrivacySettings`, `WebhookVirtualMachine`, `WebhookRawDeviceAttributes`, `WebhookHighActivity`, `WebhookLocationSpoofing`, `WebhookSuspectScore`, `WebhookRemoteControl`, `WebhookVelocity`, `WebhookDeveloperTools`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
-- Remove utility functions for checking error type, such as `isEventError`, `isUpdateEventError`, etc. ([a17b73f](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/a17b73f720bf3fd34f004b93959aeb968a27fc24))
-- Reduce thrown errors to `TooManyRequestsError` and `RequestError` ([6f4076e](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/6f4076ec3ef5cfd212c292110be008c49fd516e5))
-- Rename `VisitWebhook` type to `Webhook` ([980bab0](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/980bab0e6c80e9763f07505a1273919b3e283776))
+    - Introduce new inner types: `WebhookRootApps`, `WebhookEmulator`, `WebhookIPInfo`, `WebhookIPBlocklist`, `WebhookTor`, `WebhookVPN`, `WebhookProxy`, `WebhookTampering`, `WebhookClonedApp`, `WebhookFactoryReset`, `WebhookJailbroken`, `WebhookFrida`, `WebhookPrivacySettings`, `WebhookVirtualMachine`, `WebhookRawDeviceAttributes`, `WebhookHighActivity`, `WebhookLocationSpoofing`, `WebhookSuspectScore`, `WebhookRemoteControl`, `WebhookVelocity`, `WebhookDeveloperTools`. ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- Remove utility functions for checking error type, such as `isEventError`, `isUpdateEventError`, etc. ([a17b73f](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/a17b73f720bf3fd34f004b93959aeb968a27fc24))
+- Reduce thrown errors to `TooManyRequestsError` and `RequestError` ([6f4076e](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/6f4076ec3ef5cfd212c292110be008c49fd516e5))
+- Rename `VisitWebhook` type to `Webhook` ([980bab0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/980bab0e6c80e9763f07505a1273919b3e283776))
 
 ### Minor Changes
 
-- Added new `ipEvents`, `distinctIpByLinkedId`, and `distinctVisitorIdByLinkedId` fields to the `velocity` Smart Signal. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- Added new `ipEvents`, `distinctIpByLinkedId`, and `distinctVisitorIdByLinkedId` fields to the `velocity` Smart Signal. ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
 - - Make the `GeolocationCity` field `name` **required**.
   - Make the `GeolocationSubdivision` field `isoCode` **required**.
   - Make the `GeolocationSubdivision` field `name` **required**.
@@ -121,18 +121,18 @@ The underlying Server API hasn’t changed, but we made SDK type and class gener
   - **events**: Add **optional** `Identification` field `components`.
   - **events**: Make the `VPN` field `originCountry` **required**.
   - **visitors**: Add **optional** `Visit` field `components`.
-  - **webhook**: Add **optional** `Webhook` field `components`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
-- Remove `ipv4` format from `ip` field in `Botd`, `Identification`, `Visit` and `Webhook` models. ([b707bfa](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/b707bfa957362165dfe7fba01b43772db89d9f00))
+  - **webhook**: Add **optional** `Webhook` field `components`. ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- Remove `ipv4` format from `ip` field in `Botd`, `Identification`, `Visit` and `Webhook` models. ([b707bfa](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/b707bfa957362165dfe7fba01b43772db89d9f00))
 
 ### Patch Changes
 
-- **related-visitors**: Add mention that the API is billable ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- **related-visitors**: Add mention that the API is billable ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
 
 ## 6.0.0-test.0
 
 ### Major Changes
 
-- Rename `EventUpdateRequest` type to `EventsUpdateRequest` ([54b92b2](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/54b92b2afa0efeacb2e510f98df74e133ef58aac))
+- Rename `EventUpdateRequest` type to `EventsUpdateRequest` ([54b92b2](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/54b92b2afa0efeacb2e510f98df74e133ef58aac))
 - - Remove the `BrowserDetails` field `botProbability`.
   - Update the `IdentificationConfidence` field `score` type format: `float` -> `double`.
   - Make the `RawDeviceAttributeError` field `name` **optional** .
@@ -161,7 +161,7 @@ The underlying Server API hasn’t changed, but we made SDK type and class gener
   - **webhook**: Make the `WebhookTor` field `result` **optional**.
   - **webhook**: Make the `WebhookVelocity` fields **optional**: `distinctIp`, `distinctLinkedId`, `distinctCountry`, `events`, `ipEvents`, `distinctIpByLinkedId`, `distinctVisitorIdByLinkedId`.
   - **webhook**: Make the `WebhookVirtualMachine` field `result` **optional**.
-  - **webhook**: Make the `WebhookVPN` fields **optional**: `result`, `confidence`, `originTimezone`, `methods`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+  - **webhook**: Make the `WebhookVPN` fields **optional**: `result`, `confidence`, `originTimezone`, `methods`. ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
 - - Rename `BotdResult` -> `Botd`.
   - Rename `BotdDetectionResult` -> `BotdBot`:
     - Extract `result` type as `BotdBotResult`.
@@ -222,14 +222,14 @@ The underlying Server API hasn’t changed, but we made SDK type and class gener
     - Extract `confidence` type as `VPNConfidence`.
     - Extract `methods` type as `VPNMethods`.
   - Rename `WebhookVisit` -> `Webhook`.
-    - Introduce new inner types: `WebhookRootApps`, `WebhookEmulator`, `WebhookIPInfo`, `WebhookIPBlocklist`, `WebhookTor`, `WebhookVPN`, `WebhookProxy`, `WebhookTampering`, `WebhookClonedApp`, `WebhookFactoryReset`, `WebhookJailbroken`, `WebhookFrida`, `WebhookPrivacySettings`, `WebhookVirtualMachine`, `WebhookRawDeviceAttributes`, `WebhookHighActivity`, `WebhookLocationSpoofing`, `WebhookSuspectScore`, `WebhookRemoteControl`, `WebhookVelocity`, `WebhookDeveloperTools`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
-- Remove utility functions for checking error type, such as `isEventError`, `isUpdateEventError`, etc. ([a17b73f](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/a17b73f720bf3fd34f004b93959aeb968a27fc24))
-- Reduce thrown errors to `TooManyRequestsError` and `RequestError` ([6f4076e](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/6f4076ec3ef5cfd212c292110be008c49fd516e5))
-- Rename `VisitWebhook` type to `Webhook` ([980bab0](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/980bab0e6c80e9763f07505a1273919b3e283776))
+    - Introduce new inner types: `WebhookRootApps`, `WebhookEmulator`, `WebhookIPInfo`, `WebhookIPBlocklist`, `WebhookTor`, `WebhookVPN`, `WebhookProxy`, `WebhookTampering`, `WebhookClonedApp`, `WebhookFactoryReset`, `WebhookJailbroken`, `WebhookFrida`, `WebhookPrivacySettings`, `WebhookVirtualMachine`, `WebhookRawDeviceAttributes`, `WebhookHighActivity`, `WebhookLocationSpoofing`, `WebhookSuspectScore`, `WebhookRemoteControl`, `WebhookVelocity`, `WebhookDeveloperTools`. ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- Remove utility functions for checking error type, such as `isEventError`, `isUpdateEventError`, etc. ([a17b73f](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/a17b73f720bf3fd34f004b93959aeb968a27fc24))
+- Reduce thrown errors to `TooManyRequestsError` and `RequestError` ([6f4076e](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/6f4076ec3ef5cfd212c292110be008c49fd516e5))
+- Rename `VisitWebhook` type to `Webhook` ([980bab0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/980bab0e6c80e9763f07505a1273919b3e283776))
 
 ### Minor Changes
 
-- Added new `ipEvents`, `distinctIpByLinkedId`, and `distinctVisitorIdByLinkedId` fields to the `velocity` Smart Signal. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- Added new `ipEvents`, `distinctIpByLinkedId`, and `distinctVisitorIdByLinkedId` fields to the `velocity` Smart Signal. ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
 - - Make the `GeolocationCity` field `name` **required**.
   - Make the `GeolocationSubdivision` field `isoCode` **required**.
   - Make the `GeolocationSubdivision` field `name` **required**.
@@ -240,42 +240,42 @@ The underlying Server API hasn’t changed, but we made SDK type and class gener
   - **events**: Add **optional** `Identification` field `components`.
   - **events**: Make the `VPN` field `originCountry` **required**.
   - **visitors**: Add **optional** `Visit` field `components`.
-  - **webhook**: Add **optional** `Webhook` field `components`. ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
-- Remove `ipv4` format from `ip` field in `Botd`, `Identification`, `Visit` and `Webhook` models. ([b707bfa](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/b707bfa957362165dfe7fba01b43772db89d9f00))
+  - **webhook**: Add **optional** `Webhook` field `components`. ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- Remove `ipv4` format from `ip` field in `Botd`, `Identification`, `Visit` and `Webhook` models. ([b707bfa](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/b707bfa957362165dfe7fba01b43772db89d9f00))
 
 ### Patch Changes
 
-- **related-visitors**: Add mention that the API is billable ([68b89bf](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
+- **related-visitors**: Add mention that the API is billable ([68b89bf](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/68b89bfa8c0d269db3d613cacb59b9d41614a99f))
 
 ## 5.2.0
 
 ### Minor Changes
 
-- **related-visitors**: Add GET `/related-visitors` endpoint ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
-- **visitors**: Add the confidence field to the VPN Detection Smart Signal ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
-- Deprecate `getVisitorHistory` method. Use `getVisits` instead. ([f28ba9d](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/f28ba9d337d251f783be63ce76dd6e9b4e9d96cb))
-- **events**: Add `antiDetectBrowser` detection method to the `tampering` Smart Signal. ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+- **related-visitors**: Add GET `/related-visitors` endpoint ([4a28c16](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+- **visitors**: Add the confidence field to the VPN Detection Smart Signal ([4a28c16](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+- Deprecate `getVisitorHistory` method. Use `getVisits` instead. ([f28ba9d](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/f28ba9d337d251f783be63ce76dd6e9b4e9d96cb))
+- **events**: Add `antiDetectBrowser` detection method to the `tampering` Smart Signal. ([4a28c16](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
 
 ## 5.2.0-test.0
 
 ### Minor Changes
 
-- **related-visitors**: Add GET `/related-visitors` endpoint ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
-- **visitors**: Add the confidence field to the VPN Detection Smart Signal ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
-- Deprecate `getVisitorHistory` method. Use `getVisits` instead. ([f28ba9d](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/f28ba9d337d251f783be63ce76dd6e9b4e9d96cb))
-- **events**: Add `antiDetectBrowser` detection method to the `tampering` Smart Signal. ([4a28c16](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+- **related-visitors**: Add GET `/related-visitors` endpoint ([4a28c16](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+- **visitors**: Add the confidence field to the VPN Detection Smart Signal ([4a28c16](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
+- Deprecate `getVisitorHistory` method. Use `getVisits` instead. ([f28ba9d](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/f28ba9d337d251f783be63ce76dd6e9b4e9d96cb))
+- **events**: Add `antiDetectBrowser` detection method to the `tampering` Smart Signal. ([4a28c16](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/4a28c16f8b9b4df240c020897765ca0b5946b980))
 
 ## 5.1.0
 
 ### Minor Changes
 
-- **events**: Introduce `PUT` endpoint for `/events` API ([009c8f4](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/009c8f445a7c2d7bdacdbed97af8a0f418440e2c))
+- **events**: Introduce `PUT` endpoint for `/events` API ([009c8f4](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/009c8f445a7c2d7bdacdbed97af8a0f418440e2c))
 
 ## 5.1.0-test.0
 
 ### Minor Changes
 
-- **events**: Introduce `PUT` endpoint for `/events` API ([009c8f4](https://github.com/fingerprintjs/fingerprint-pro-server-api-node-sdk/commit/009c8f445a7c2d7bdacdbed97af8a0f418440e2c))
+- **events**: Introduce `PUT` endpoint for `/events` API ([009c8f4](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/009c8f445a7c2d7bdacdbed97af8a0f418440e2c))
 
 ## [5.0.0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/compare/v4.1.2...v5.0.0) (2024-08-12)
 
