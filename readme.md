@@ -83,7 +83,7 @@ const client = new FingerprintJsServerApiClient({
 })
 
 // Get visit history of a specific visitor
-client.getVisitorHistory('<visitorId>').then((visitorHistory) => {
+client.getVisits('<visitorId>').then((visitorHistory) => {
   console.log(visitorHistory)
 })
 
@@ -126,9 +126,9 @@ try {
   }
 }
 
-// Handling getVisitorHistory errors
+// Handling getVisits errors
 try {
-  const visitorHistory = await client.getVisitorHistory(visitorId, {
+  const visitorHistory = await client.getVisits(visitorId, {
     limit: 10,
   })
   console.log(JSON.stringify(visitorHistory, null, 2))
