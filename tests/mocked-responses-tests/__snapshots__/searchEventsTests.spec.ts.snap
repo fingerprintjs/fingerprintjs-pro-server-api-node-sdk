@@ -1,0 +1,1051 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Mocked response] Search Events with all possible filters 1`] = `
+{
+  "events": [
+    {
+      "products": {
+        "botd": {
+          "data": {
+            "bot": {
+              "result": "notDetected",
+            },
+            "ip": "61.127.217.15",
+            "requestId": "1708102555327.NLOjmg",
+            "time": "2019-05-21T16:40:13Z",
+            "url": "https://www.example.com/login?hope{this{works}[!",
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
+          },
+        },
+        "clonedApp": {
+          "data": {
+            "result": false,
+          },
+        },
+        "developerTools": {
+          "data": {
+            "result": false,
+          },
+        },
+        "emulator": {
+          "data": {
+            "result": false,
+          },
+        },
+        "factoryReset": {
+          "data": {
+            "time": "1970-01-01T00:00:00Z",
+            "timestamp": 0,
+          },
+        },
+        "frida": {
+          "data": {
+            "result": false,
+          },
+        },
+        "highActivity": {
+          "data": {
+            "result": false,
+          },
+        },
+        "identification": {
+          "data": {
+            "browserDetails": {
+              "browserFullVersion": "74.0.3729",
+              "browserMajorVersion": "74",
+              "browserName": "Chrome",
+              "device": "Other",
+              "os": "Windows",
+              "osVersion": "7",
+              "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+            },
+            "confidence": {
+              "score": 0.97,
+            },
+            "firstSeenAt": {
+              "global": "2022-03-16T11:26:45.362Z",
+              "subscription": "2022-03-16T11:31:01.101Z",
+            },
+            "incognito": true,
+            "ip": "61.127.217.15",
+            "ipLocation": {
+              "accuracyRadius": 10,
+              "city": {
+                "name": "Dusseldorf",
+              },
+              "continent": {
+                "code": "EU",
+                "name": "Europe",
+              },
+              "country": {
+                "code": "DE",
+                "name": "Germany",
+              },
+              "latitude": 49.982,
+              "longitude": 36.2566,
+              "postalCode": "61202",
+              "subdivisions": [
+                {
+                  "isoCode": "63",
+                  "name": "North Rhine-Westphalia",
+                },
+              ],
+              "timezone": "Europe/Dusseldorf",
+            },
+            "lastSeenAt": {
+              "global": null,
+              "subscription": null,
+            },
+            "linkedId": "somelinkedId",
+            "requestId": "1708102555327.NLOjmg",
+            "tag": {},
+            "time": "2019-05-21T16:40:13Z",
+            "timestamp": 1582299576512,
+            "url": "https://www.example.com/login?hope{this{works[!",
+            "visitorFound": false,
+            "visitorId": "Ibk1527CUFmcnjLwIs4A9",
+          },
+        },
+        "incognito": {
+          "data": {
+            "result": false,
+          },
+        },
+        "ipBlocklist": {
+          "data": {
+            "details": {
+              "attackSource": false,
+              "emailSpam": false,
+            },
+            "result": false,
+          },
+        },
+        "ipInfo": {
+          "data": {
+            "v4": {
+              "address": "94.142.239.124",
+              "asn": {
+                "asn": "7922",
+                "name": "COMCAST-7922",
+                "network": "73.136.0.0/13",
+              },
+              "datacenter": {
+                "name": "DediPath",
+                "result": true,
+              },
+              "geolocation": {
+                "accuracyRadius": 20,
+                "city": {
+                  "name": "Prague",
+                },
+                "continent": {
+                  "code": "EU",
+                  "name": "Europe",
+                },
+                "country": {
+                  "code": "CZ",
+                  "name": "Czechia",
+                },
+                "latitude": 50.05,
+                "longitude": 14.4,
+                "postalCode": "150 00",
+                "subdivisions": [
+                  {
+                    "isoCode": "10",
+                    "name": "Hlavni mesto Praha",
+                  },
+                ],
+                "timezone": "Europe/Prague",
+              },
+            },
+            "v6": {
+              "address": "2001:db8:3333:4444:5555:6666:7777:8888",
+              "asn": {
+                "asn": "6805",
+                "name": "Telefonica Germany",
+                "network": "2a02:3100::/24",
+              },
+              "datacenter": {
+                "name": "",
+                "result": false,
+              },
+              "geolocation": {
+                "accuracyRadius": 5,
+                "city": {
+                  "name": "Berlin",
+                },
+                "continent": {
+                  "code": "EU",
+                  "name": "Europe",
+                },
+                "country": {
+                  "code": "DE",
+                  "name": "Germany",
+                },
+                "latitude": 49.982,
+                "longitude": 36.2566,
+                "postalCode": "10112",
+                "subdivisions": [
+                  {
+                    "isoCode": "BE",
+                    "name": "Land Berlin",
+                  },
+                ],
+                "timezone": "Europe/Berlin",
+              },
+            },
+          },
+        },
+        "jailbroken": {
+          "data": {
+            "result": false,
+          },
+        },
+        "locationSpoofing": {
+          "data": {
+            "result": false,
+          },
+        },
+        "privacySettings": {
+          "data": {
+            "result": false,
+          },
+        },
+        "proxy": {
+          "data": {
+            "result": false,
+          },
+        },
+        "rawDeviceAttributes": {
+          "data": {
+            "architecture": {
+              "value": 127,
+            },
+            "audio": {
+              "value": 35.73832903057337,
+            },
+            "canvas": {
+              "value": {
+                "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+                "Text": "dd2474a56ff78c1de3e7a07070ba3b7d",
+                "Winding": true,
+              },
+            },
+            "colorDepth": {
+              "value": 30,
+            },
+            "colorGamut": {
+              "value": "p3",
+            },
+            "contrast": {
+              "value": 0,
+            },
+            "cookiesEnabled": {
+              "value": true,
+            },
+            "cpuClass": {},
+            "fonts": {
+              "value": [
+                "Arial Unicode MS",
+                "Gill Sans",
+                "Helvetica Neue",
+                "Menlo",
+              ],
+            },
+          },
+        },
+        "remoteControl": {
+          "data": {
+            "result": false,
+          },
+        },
+        "rootApps": {
+          "data": {
+            "result": false,
+          },
+        },
+        "tampering": {
+          "data": {
+            "anomalyScore": 0.1955,
+            "antiDetectBrowser": false,
+            "result": false,
+          },
+        },
+        "tor": {
+          "data": {
+            "result": false,
+          },
+        },
+        "velocity": {
+          "data": {
+            "distinctCountry": {
+              "intervals": {
+                "1h": 2,
+                "24h": 2,
+                "5m": 1,
+              },
+            },
+            "distinctIp": {
+              "intervals": {
+                "1h": 1,
+                "24h": 1,
+                "5m": 1,
+              },
+            },
+            "distinctIpByLinkedId": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "distinctLinkedId": {},
+            "distinctVisitorIdByLinkedId": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "events": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "ipEvents": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+          },
+        },
+        "virtualMachine": {
+          "data": {
+            "result": false,
+          },
+        },
+        "vpn": {
+          "data": {
+            "confidence": "high",
+            "methods": {
+              "auxiliaryMobile": false,
+              "osMismatch": false,
+              "publicVPN": false,
+              "relay": false,
+              "timezoneMismatch": false,
+            },
+            "originCountry": "unknown",
+            "originTimezone": "Europe/Berlin",
+            "result": false,
+          },
+        },
+      },
+    },
+  ],
+  "paginationKey": "1655373953086",
+}
+`;
+
+exports[`[Mocked response] Search Events with partial filter 1`] = `
+{
+  "events": [
+    {
+      "products": {
+        "botd": {
+          "data": {
+            "bot": {
+              "result": "notDetected",
+            },
+            "ip": "61.127.217.15",
+            "requestId": "1708102555327.NLOjmg",
+            "time": "2019-05-21T16:40:13Z",
+            "url": "https://www.example.com/login?hope{this{works}[!",
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
+          },
+        },
+        "clonedApp": {
+          "data": {
+            "result": false,
+          },
+        },
+        "developerTools": {
+          "data": {
+            "result": false,
+          },
+        },
+        "emulator": {
+          "data": {
+            "result": false,
+          },
+        },
+        "factoryReset": {
+          "data": {
+            "time": "1970-01-01T00:00:00Z",
+            "timestamp": 0,
+          },
+        },
+        "frida": {
+          "data": {
+            "result": false,
+          },
+        },
+        "highActivity": {
+          "data": {
+            "result": false,
+          },
+        },
+        "identification": {
+          "data": {
+            "browserDetails": {
+              "browserFullVersion": "74.0.3729",
+              "browserMajorVersion": "74",
+              "browserName": "Chrome",
+              "device": "Other",
+              "os": "Windows",
+              "osVersion": "7",
+              "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+            },
+            "confidence": {
+              "score": 0.97,
+            },
+            "firstSeenAt": {
+              "global": "2022-03-16T11:26:45.362Z",
+              "subscription": "2022-03-16T11:31:01.101Z",
+            },
+            "incognito": true,
+            "ip": "61.127.217.15",
+            "ipLocation": {
+              "accuracyRadius": 10,
+              "city": {
+                "name": "Dusseldorf",
+              },
+              "continent": {
+                "code": "EU",
+                "name": "Europe",
+              },
+              "country": {
+                "code": "DE",
+                "name": "Germany",
+              },
+              "latitude": 49.982,
+              "longitude": 36.2566,
+              "postalCode": "61202",
+              "subdivisions": [
+                {
+                  "isoCode": "63",
+                  "name": "North Rhine-Westphalia",
+                },
+              ],
+              "timezone": "Europe/Dusseldorf",
+            },
+            "lastSeenAt": {
+              "global": null,
+              "subscription": null,
+            },
+            "linkedId": "somelinkedId",
+            "requestId": "1708102555327.NLOjmg",
+            "tag": {},
+            "time": "2019-05-21T16:40:13Z",
+            "timestamp": 1582299576512,
+            "url": "https://www.example.com/login?hope{this{works[!",
+            "visitorFound": false,
+            "visitorId": "Ibk1527CUFmcnjLwIs4A9",
+          },
+        },
+        "incognito": {
+          "data": {
+            "result": false,
+          },
+        },
+        "ipBlocklist": {
+          "data": {
+            "details": {
+              "attackSource": false,
+              "emailSpam": false,
+            },
+            "result": false,
+          },
+        },
+        "ipInfo": {
+          "data": {
+            "v4": {
+              "address": "94.142.239.124",
+              "asn": {
+                "asn": "7922",
+                "name": "COMCAST-7922",
+                "network": "73.136.0.0/13",
+              },
+              "datacenter": {
+                "name": "DediPath",
+                "result": true,
+              },
+              "geolocation": {
+                "accuracyRadius": 20,
+                "city": {
+                  "name": "Prague",
+                },
+                "continent": {
+                  "code": "EU",
+                  "name": "Europe",
+                },
+                "country": {
+                  "code": "CZ",
+                  "name": "Czechia",
+                },
+                "latitude": 50.05,
+                "longitude": 14.4,
+                "postalCode": "150 00",
+                "subdivisions": [
+                  {
+                    "isoCode": "10",
+                    "name": "Hlavni mesto Praha",
+                  },
+                ],
+                "timezone": "Europe/Prague",
+              },
+            },
+            "v6": {
+              "address": "2001:db8:3333:4444:5555:6666:7777:8888",
+              "asn": {
+                "asn": "6805",
+                "name": "Telefonica Germany",
+                "network": "2a02:3100::/24",
+              },
+              "datacenter": {
+                "name": "",
+                "result": false,
+              },
+              "geolocation": {
+                "accuracyRadius": 5,
+                "city": {
+                  "name": "Berlin",
+                },
+                "continent": {
+                  "code": "EU",
+                  "name": "Europe",
+                },
+                "country": {
+                  "code": "DE",
+                  "name": "Germany",
+                },
+                "latitude": 49.982,
+                "longitude": 36.2566,
+                "postalCode": "10112",
+                "subdivisions": [
+                  {
+                    "isoCode": "BE",
+                    "name": "Land Berlin",
+                  },
+                ],
+                "timezone": "Europe/Berlin",
+              },
+            },
+          },
+        },
+        "jailbroken": {
+          "data": {
+            "result": false,
+          },
+        },
+        "locationSpoofing": {
+          "data": {
+            "result": false,
+          },
+        },
+        "privacySettings": {
+          "data": {
+            "result": false,
+          },
+        },
+        "proxy": {
+          "data": {
+            "result": false,
+          },
+        },
+        "rawDeviceAttributes": {
+          "data": {
+            "architecture": {
+              "value": 127,
+            },
+            "audio": {
+              "value": 35.73832903057337,
+            },
+            "canvas": {
+              "value": {
+                "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+                "Text": "dd2474a56ff78c1de3e7a07070ba3b7d",
+                "Winding": true,
+              },
+            },
+            "colorDepth": {
+              "value": 30,
+            },
+            "colorGamut": {
+              "value": "p3",
+            },
+            "contrast": {
+              "value": 0,
+            },
+            "cookiesEnabled": {
+              "value": true,
+            },
+            "cpuClass": {},
+            "fonts": {
+              "value": [
+                "Arial Unicode MS",
+                "Gill Sans",
+                "Helvetica Neue",
+                "Menlo",
+              ],
+            },
+          },
+        },
+        "remoteControl": {
+          "data": {
+            "result": false,
+          },
+        },
+        "rootApps": {
+          "data": {
+            "result": false,
+          },
+        },
+        "tampering": {
+          "data": {
+            "anomalyScore": 0.1955,
+            "antiDetectBrowser": false,
+            "result": false,
+          },
+        },
+        "tor": {
+          "data": {
+            "result": false,
+          },
+        },
+        "velocity": {
+          "data": {
+            "distinctCountry": {
+              "intervals": {
+                "1h": 2,
+                "24h": 2,
+                "5m": 1,
+              },
+            },
+            "distinctIp": {
+              "intervals": {
+                "1h": 1,
+                "24h": 1,
+                "5m": 1,
+              },
+            },
+            "distinctIpByLinkedId": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "distinctLinkedId": {},
+            "distinctVisitorIdByLinkedId": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "events": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "ipEvents": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+          },
+        },
+        "virtualMachine": {
+          "data": {
+            "result": false,
+          },
+        },
+        "vpn": {
+          "data": {
+            "confidence": "high",
+            "methods": {
+              "auxiliaryMobile": false,
+              "osMismatch": false,
+              "publicVPN": false,
+              "relay": false,
+              "timezoneMismatch": false,
+            },
+            "originCountry": "unknown",
+            "originTimezone": "Europe/Berlin",
+            "result": false,
+          },
+        },
+      },
+    },
+  ],
+  "paginationKey": "1655373953086",
+}
+`;
+
+exports[`[Mocked response] Search Events without filter 1`] = `
+{
+  "events": [
+    {
+      "products": {
+        "botd": {
+          "data": {
+            "bot": {
+              "result": "notDetected",
+            },
+            "ip": "61.127.217.15",
+            "requestId": "1708102555327.NLOjmg",
+            "time": "2019-05-21T16:40:13Z",
+            "url": "https://www.example.com/login?hope{this{works}[!",
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36",
+          },
+        },
+        "clonedApp": {
+          "data": {
+            "result": false,
+          },
+        },
+        "developerTools": {
+          "data": {
+            "result": false,
+          },
+        },
+        "emulator": {
+          "data": {
+            "result": false,
+          },
+        },
+        "factoryReset": {
+          "data": {
+            "time": "1970-01-01T00:00:00Z",
+            "timestamp": 0,
+          },
+        },
+        "frida": {
+          "data": {
+            "result": false,
+          },
+        },
+        "highActivity": {
+          "data": {
+            "result": false,
+          },
+        },
+        "identification": {
+          "data": {
+            "browserDetails": {
+              "browserFullVersion": "74.0.3729",
+              "browserMajorVersion": "74",
+              "browserName": "Chrome",
+              "device": "Other",
+              "os": "Windows",
+              "osVersion": "7",
+              "userAgent": "Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....",
+            },
+            "confidence": {
+              "score": 0.97,
+            },
+            "firstSeenAt": {
+              "global": "2022-03-16T11:26:45.362Z",
+              "subscription": "2022-03-16T11:31:01.101Z",
+            },
+            "incognito": true,
+            "ip": "61.127.217.15",
+            "ipLocation": {
+              "accuracyRadius": 10,
+              "city": {
+                "name": "Dusseldorf",
+              },
+              "continent": {
+                "code": "EU",
+                "name": "Europe",
+              },
+              "country": {
+                "code": "DE",
+                "name": "Germany",
+              },
+              "latitude": 49.982,
+              "longitude": 36.2566,
+              "postalCode": "61202",
+              "subdivisions": [
+                {
+                  "isoCode": "63",
+                  "name": "North Rhine-Westphalia",
+                },
+              ],
+              "timezone": "Europe/Dusseldorf",
+            },
+            "lastSeenAt": {
+              "global": null,
+              "subscription": null,
+            },
+            "linkedId": "somelinkedId",
+            "requestId": "1708102555327.NLOjmg",
+            "tag": {},
+            "time": "2019-05-21T16:40:13Z",
+            "timestamp": 1582299576512,
+            "url": "https://www.example.com/login?hope{this{works[!",
+            "visitorFound": false,
+            "visitorId": "Ibk1527CUFmcnjLwIs4A9",
+          },
+        },
+        "incognito": {
+          "data": {
+            "result": false,
+          },
+        },
+        "ipBlocklist": {
+          "data": {
+            "details": {
+              "attackSource": false,
+              "emailSpam": false,
+            },
+            "result": false,
+          },
+        },
+        "ipInfo": {
+          "data": {
+            "v4": {
+              "address": "94.142.239.124",
+              "asn": {
+                "asn": "7922",
+                "name": "COMCAST-7922",
+                "network": "73.136.0.0/13",
+              },
+              "datacenter": {
+                "name": "DediPath",
+                "result": true,
+              },
+              "geolocation": {
+                "accuracyRadius": 20,
+                "city": {
+                  "name": "Prague",
+                },
+                "continent": {
+                  "code": "EU",
+                  "name": "Europe",
+                },
+                "country": {
+                  "code": "CZ",
+                  "name": "Czechia",
+                },
+                "latitude": 50.05,
+                "longitude": 14.4,
+                "postalCode": "150 00",
+                "subdivisions": [
+                  {
+                    "isoCode": "10",
+                    "name": "Hlavni mesto Praha",
+                  },
+                ],
+                "timezone": "Europe/Prague",
+              },
+            },
+            "v6": {
+              "address": "2001:db8:3333:4444:5555:6666:7777:8888",
+              "asn": {
+                "asn": "6805",
+                "name": "Telefonica Germany",
+                "network": "2a02:3100::/24",
+              },
+              "datacenter": {
+                "name": "",
+                "result": false,
+              },
+              "geolocation": {
+                "accuracyRadius": 5,
+                "city": {
+                  "name": "Berlin",
+                },
+                "continent": {
+                  "code": "EU",
+                  "name": "Europe",
+                },
+                "country": {
+                  "code": "DE",
+                  "name": "Germany",
+                },
+                "latitude": 49.982,
+                "longitude": 36.2566,
+                "postalCode": "10112",
+                "subdivisions": [
+                  {
+                    "isoCode": "BE",
+                    "name": "Land Berlin",
+                  },
+                ],
+                "timezone": "Europe/Berlin",
+              },
+            },
+          },
+        },
+        "jailbroken": {
+          "data": {
+            "result": false,
+          },
+        },
+        "locationSpoofing": {
+          "data": {
+            "result": false,
+          },
+        },
+        "privacySettings": {
+          "data": {
+            "result": false,
+          },
+        },
+        "proxy": {
+          "data": {
+            "result": false,
+          },
+        },
+        "rawDeviceAttributes": {
+          "data": {
+            "architecture": {
+              "value": 127,
+            },
+            "audio": {
+              "value": 35.73832903057337,
+            },
+            "canvas": {
+              "value": {
+                "Geometry": "4dce9d6017c3e0c052a77252f29f2b1c",
+                "Text": "dd2474a56ff78c1de3e7a07070ba3b7d",
+                "Winding": true,
+              },
+            },
+            "colorDepth": {
+              "value": 30,
+            },
+            "colorGamut": {
+              "value": "p3",
+            },
+            "contrast": {
+              "value": 0,
+            },
+            "cookiesEnabled": {
+              "value": true,
+            },
+            "cpuClass": {},
+            "fonts": {
+              "value": [
+                "Arial Unicode MS",
+                "Gill Sans",
+                "Helvetica Neue",
+                "Menlo",
+              ],
+            },
+          },
+        },
+        "remoteControl": {
+          "data": {
+            "result": false,
+          },
+        },
+        "rootApps": {
+          "data": {
+            "result": false,
+          },
+        },
+        "tampering": {
+          "data": {
+            "anomalyScore": 0.1955,
+            "antiDetectBrowser": false,
+            "result": false,
+          },
+        },
+        "tor": {
+          "data": {
+            "result": false,
+          },
+        },
+        "velocity": {
+          "data": {
+            "distinctCountry": {
+              "intervals": {
+                "1h": 2,
+                "24h": 2,
+                "5m": 1,
+              },
+            },
+            "distinctIp": {
+              "intervals": {
+                "1h": 1,
+                "24h": 1,
+                "5m": 1,
+              },
+            },
+            "distinctIpByLinkedId": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "distinctLinkedId": {},
+            "distinctVisitorIdByLinkedId": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "events": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+            "ipEvents": {
+              "intervals": {
+                "1h": 5,
+                "24h": 5,
+                "5m": 1,
+              },
+            },
+          },
+        },
+        "virtualMachine": {
+          "data": {
+            "result": false,
+          },
+        },
+        "vpn": {
+          "data": {
+            "confidence": "high",
+            "methods": {
+              "auxiliaryMobile": false,
+              "osMismatch": false,
+              "publicVPN": false,
+              "relay": false,
+              "timezoneMismatch": false,
+            },
+            "originCountry": "unknown",
+            "originTimezone": "Europe/Berlin",
+            "result": false,
+          },
+        },
+      },
+    },
+  ],
+  "paginationKey": "1655373953086",
+}
+`;

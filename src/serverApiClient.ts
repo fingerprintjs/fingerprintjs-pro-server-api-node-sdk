@@ -8,6 +8,8 @@ import {
   Region,
   RelatedVisitorsFilter,
   RelatedVisitorsResponse,
+  SearchEventsFilter,
+  SearchEventsResponse,
   VisitorHistoryFilter,
   VisitorsResponse,
 } from './types'
@@ -226,6 +228,65 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    * */
   public async getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
     return this.getVisits(visitorId, filter)
+  }
+
+  /**
+   * Search for identification events, including Smart Signals, using
+   * multiple filtering criteria. If you don't provide `start` or `end`
+   * parameters, the default search range is the last 7 days.
+   *
+   * Please note that events include mobile signals (e.g. `rootApps`) even if
+   * the request originated from a non-mobile platform. We recommend you
+   * **ignore** mobile signals for such requests.
+   *
+   * @param {SearchEventsFilter} filter - Events filter
+   * @param {number} filter.limit - Limit the number of events returned. Must be greater than 0.
+   * @param {string|undefined} filter.visitorId - Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. Filter for events matching this `visitor_id`.
+   * @param {string|undefined} filter.bot -             Filter events by the bot detection result, specifically:
+   *               - events where any kind of bot was detected.
+   *               - events where a good bot was detected.
+   *               - events where a bad bot was detected.
+   *               - events where no bot was detected.
+   *
+   *                Allowed values: `all`, `good`, `bad`, `none`.
+   * @param {string|undefined} filter.ip_address - Filter events by IP address range. The range can be as specific as a
+   *             single IP (/32 for IPv4 or /128 for IPv6).
+   *             All ip_address filters must use CIDR notation, for example,
+   *             10.0.0.0/24, 192.168.0.1/32
+   * @param {string|undefined} filter.linked_id -             Filter events by your custom identifier.
+   *
+   *
+   *             You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to
+   *             associate identification requests with your own identifier, for
+   *             example, session ID, purchase ID, or transaction ID. You can then
+   *             use this `linked_id` parameter to retrieve all events associated
+   *             with your custom identifier.
+   * @param {number|undefined} filter.start - Filter events with a timestamp greater than the start time, in Unix time (milliseconds).
+   * @param {number|undefined} filter.end - Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).
+   * @param {boolean|undefined} filter.reverse - Sort events in reverse timestamp order.
+   * @param {boolean|undefined} filter.suspect - Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).
+   * */
+  async searchEvents(filter: SearchEventsFilter): Promise<SearchEventsResponse> {
+    const url = getRequestPath({
+      path: '/events/search',
+      region: this.region,
+      apiKey: this.getQueryApiKey(),
+      method: 'get',
+      queryParams: filter,
+    })
+    const headers = this.getHeaders()
+    const response = await this.fetch(url, {
+      method: 'GET',
+      headers,
+    })
+
+    const jsonResponse = await copyResponseJson(response)
+
+    if (response.status === 200) {
+      return jsonResponse as SearchEventsResponse
+    }
+
+    handleErrorResponse(jsonResponse, response)
   }
 
   /**
