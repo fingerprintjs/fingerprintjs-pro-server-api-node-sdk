@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.2.0-test.0
+
+### Minor Changes
+
+- **events-search**: Add a new `events/search` API endpoint. Allow users to search for identification events matching one or more search criteria, for example, visitor ID, IP address, bot detection result, etc. ([48918eb](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/48918eb6ba99cf2782dfe76777b591b4c99cc822))
+
 ## 6.1.0
 
 ### Minor Changes
