@@ -43,6 +43,9 @@ export type VisitorHistoryFilter = paths['/visitors/{visitor_id}']['get']['param
 export type ErrorPlainResponse = components['schemas']['ErrorPlainResponse']
 export type ErrorResponse = components['schemas']['ErrorResponse']
 
+export type SearchEventsFilter = paths['/events/search']['get']['parameters']['query']
+export type SearchEventsResponse = paths['/events/search']['get']['responses']['200']['content']['application/json']
+
 /**
  * More info: https://dev.fingerprintjs.com/docs/server-api#response
  */
