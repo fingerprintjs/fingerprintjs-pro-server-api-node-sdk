@@ -33,6 +33,29 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/events/search': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get events via search
+     * @description Search for identification events, including Smart Signals, using multiple filtering criteria. If you don't provide `start` or `end` parameters, the default search range is the last 7 days.
+     *
+     *     Please note that events include mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform. We recommend you **ignore** mobile signals for such requests.
+     *
+     */
+    get: operations['searchEvents']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/visitors/{visitor_id}': {
     parameters: {
       query?: never
@@ -782,6 +805,14 @@ export interface components {
       /** @description Suspect flag indicating observed suspicious or fraudulent event */
       suspect?: boolean
     }
+    /** @description Contains a list of all identification events matching the specified search criteria. */
+    SearchEventsResponse: {
+      events?: {
+        /** @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise) */
+        products: components['schemas']['Products']
+      }[]
+      paginationKey?: string
+    }
     Visit: {
       /** @description Unique identifier of the user's request. */
       requestId: string
@@ -1197,6 +1228,80 @@ export interface operations {
       }
       /** @description Conflict. The event is not mutable yet. */
       409: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+    }
+  }
+  searchEvents: {
+    parameters: {
+      query: {
+        /** @description Limit the number of events returned.
+         *      */
+        limit: number
+        /** @description Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro.
+         *     Filter for events matching this `visitor_id`.
+         *      */
+        visitor_id?: string
+        /** @description Filter events by the bot detection result, specifically:
+         *       - events where any kind of bot was detected.
+         *       - events where a good bot was detected.
+         *       - events where a bad bot was detected.
+         *       - events where no bot was detected.
+         *      */
+        bot?: 'all' | 'good' | 'bad' | 'none'
+        /** @description Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)
+         *     All ip_address filters must use CIDR notation, for example, 10.0.0.0/24, 192.168.0.1/32
+         *      */
+        ip_address?: string
+        /** @description Filter events by your custom identifier.
+         *
+         *     You can use [linked IDs](https://dev.fingerprint.com/reference/get-function#linkedid) to associate identification requests with your own identifier, for example, session ID, purchase ID, or transaction ID. You can then use this `linked_id` parameter to retrieve all events associated with your custom identifier.
+         *      */
+        linked_id?: string
+        /** @description Filter events with a timestamp greater than the start time, in Unix time (milliseconds).
+         *      */
+        start?: number
+        /** @description Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).
+         *      */
+        end?: number
+        /** @description Sort events in reverse timestamp order.
+         *      */
+        reverse?: boolean
+        /** @description Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).
+         *      */
+        suspect?: boolean
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Events matching the filter(s). */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['SearchEventsResponse']
+        }
+      }
+      /** @description Bad request. One or more supplied search parameters are invalid, or a required parameter is missing. */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Forbidden. Access to this API is denied. */
+      403: {
         headers: {
           [name: string]: unknown
         }
