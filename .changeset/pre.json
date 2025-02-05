@@ -5,5 +5,7 @@
     "@fingerprintjs/fingerprintjs-pro-server-api": "6.1.0",
     "fingerprintjs-pro-server-api-node-sdk-example": "1.0.0"
   },
-  "changesets": []
+  "changesets": [
+    "good-experts-watch"
+  ]
 }
