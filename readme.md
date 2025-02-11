@@ -91,6 +91,16 @@ client.getVisits('<visitorId>').then((visitorHistory) => {
 client.getEvent('<requestId>').then((event) => {
   console.log(event)
 })
+
+// Search for identification events
+client
+  .searchEvents({
+    limit: 10,
+    suspect: true,
+  })
+  .then((events) => {
+    console.log(events)
+  })
 ```
 
 See the [Examples](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/tree/main/example) folder for more detailed examples.
