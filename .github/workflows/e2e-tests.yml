@@ -20,9 +20,5 @@ jobs:
     uses: fingerprintjs/dx-team-orchestra/.github/workflows/server-sdk-e2e-tests.yml@ci/release-e2e-tests-status-report
     with:
       run-node-sdk-tests: true
-      run-dotnet-sdk-tests: false
-      run-go-sdk-tests: false
-      run-java-sdk-tests: false
-      run-php-sdk-tests: false
-      run-python-sdk-tests: false
       sdk-version: ${{ needs.read-version.outputs.version }}
+      is-workflow-call: true
