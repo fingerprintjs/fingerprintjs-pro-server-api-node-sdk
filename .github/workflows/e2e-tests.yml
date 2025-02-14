@@ -3,6 +3,10 @@ on:
   # TODO Remove
   pull_request:
   workflow_dispatch:
+  release:
+    types:
+      - published
+
 jobs:
   read-version:
     name: 'Read package version'
@@ -17,8 +21,12 @@ jobs:
   e2e-tests:
     name: 'Run E2E tests'
     needs: read-version
-    uses: fingerprintjs/dx-team-orchestra/.github/workflows/server-sdk-e2e-tests.yml@ci/release-e2e-tests-status-report
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/run-server-sdk-e2e-tests.yml@feature/INTER-1098-sdk-e2e-tests
     with:
-      run-node-sdk-tests: true
-      sdk-version: ${{ needs.read-version.outputs.version }}
-      is-workflow-call: true
+      sdk: node
+      sdkVersion: ${{ needs.read-version.outputs.version }}
+      appId: ${{ vars.RUNNER_APP_ID }}
+      commitSha: ${{ github.event.pull_request.head.sha || github.sha }}
+    secrets:
+      APP_PRIVATE_KEY: ${{ secrets.RUNNER_APP_PRIVATE_KEY }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
