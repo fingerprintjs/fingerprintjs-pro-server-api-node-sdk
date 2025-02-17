@@ -25,6 +25,24 @@ describe('[Mocked response] Search Events', () => {
     )
   })
 
+  test('with filter params passed as undefined', async () => {
+    mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getEventsSearch))))
+
+    const response = await client.searchEvents({
+      limit: 10,
+      ip_address: undefined,
+      visitor_id: undefined,
+    })
+    expect(response).toMatchSnapshot()
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://api.fpjs.io/events/search?limit=10&ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': apiKey },
+        method: 'GET',
+      }
+    )
+  })
+
   test('with partial filter', async () => {
     mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getEventsSearch))))
 
