@@ -21,7 +21,7 @@ jobs:
   e2e-tests:
     name: 'Run E2E tests'
     needs: read-version
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/run-server-sdk-e2e-tests.yml@feature/INTER-1098-sdk-e2e-tests
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/run-server-sdk-e2e-tests.yml@v1
     with:
       sdk: node
       sdkVersion: ${{ needs.read-version.outputs.version }}
