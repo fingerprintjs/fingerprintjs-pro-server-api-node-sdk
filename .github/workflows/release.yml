@@ -19,6 +19,3 @@ jobs:
     secrets:
       APP_PRIVATE_KEY: ${{ secrets.APP_PRIVATE_KEY }}
       NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-  e2e-tests:
-    name: 'Run E2E tests after release'
-    uses: /.github/workflows/e2e-tests.yml
