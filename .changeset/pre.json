@@ -6,6 +6,7 @@
     "fingerprintjs-pro-server-api-node-sdk-example": "1.0.0"
   },
   "changesets": [
+    "fast-cows-join",
     "good-experts-watch"
   ]
 }
