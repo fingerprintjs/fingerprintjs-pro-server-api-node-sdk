@@ -16,7 +16,11 @@ export function getIntegrationInfo() {
 }
 
 function serializeQueryStringParams(params: QueryStringParameters): string {
-  const urlSearchParams = new URLSearchParams(Object.entries(params) as Array<[string, string]>)
+  const filteredParams = Object.entries(params).filter(([, value]) => value !== undefined && value !== null)
+  if (!filteredParams.length) {
+    return ''
+  }
+  const urlSearchParams = new URLSearchParams(filteredParams as [string, string][])
 
   return urlSearchParams.toString()
 }
