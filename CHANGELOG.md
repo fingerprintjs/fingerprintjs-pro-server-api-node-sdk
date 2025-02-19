@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.2.0-test.1
+
+### Patch Changes
+
+- Filter out `undefined` or `null` query parameters before sending request ([62a0279](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/62a0279b835a32c527fa985a46939dc155301b3f))
+
 ## 6.2.0-test.0
 
 ### Minor Changes
