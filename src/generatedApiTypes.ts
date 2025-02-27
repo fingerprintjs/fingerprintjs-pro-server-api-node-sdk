@@ -1248,10 +1248,10 @@ export interface operations {
          *      */
         visitor_id?: string
         /** @description Filter events by the bot detection result, specifically:
-         *       - events where any kind of bot was detected.
-         *       - events where a good bot was detected.
-         *       - events where a bad bot was detected.
-         *       - events where no bot was detected.
+         *       `all` - events where any kind of bot was detected.
+         *       `good` - events where a good bot was detected.
+         *       `bad` - events where a bad bot was detected.
+         *       `none` - events where no bot was detected.
          *      */
         bot?: 'all' | 'good' | 'bad' | 'none'
         /** @description Filter events by IP address range. The range can be as specific as a single IP (/32 for IPv4 or /128 for IPv6)
@@ -1273,6 +1273,7 @@ export interface operations {
          *      */
         reverse?: boolean
         /** @description Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).
+         *     > Note: When using this parameter, only events with the `suspect` property explicitly set to `true` or `false` are returned. Events with undefined `suspect` property are left out of the response.
          *      */
         suspect?: boolean
       }
