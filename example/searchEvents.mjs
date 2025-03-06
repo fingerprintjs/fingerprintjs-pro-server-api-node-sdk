@@ -21,6 +21,7 @@ const client = new FingerprintJsServerApiClient({ region, apiKey })
 
 const filter = {
   limit: 10,
+  // pagination_key: '<pagination_key>',
   // bot: 'all',
   // visitor_id: 'TaDnMBz9XCpZNuSzFUqP',
   // ip_address: '192.168.0.1/32',
