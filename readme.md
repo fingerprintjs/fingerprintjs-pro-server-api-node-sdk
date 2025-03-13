@@ -96,6 +96,7 @@ client.getEvent('<requestId>').then((event) => {
 client
   .searchEvents({
     limit: 10,
+//    pagination_key: previousSearchResult.paginationKey,
     suspect: true,
   })
   .then((events) => {

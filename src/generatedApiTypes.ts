@@ -811,6 +811,7 @@ export interface components {
         /** @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise) */
         products: components['schemas']['Products']
       }[]
+      /** @description Use this value in the `pagination_key` parameter to request the next page of search results. */
       paginationKey?: string
     }
     Visit: {
@@ -1243,6 +1244,14 @@ export interface operations {
         /** @description Limit the number of events returned.
          *      */
         limit: number
+        /** @description Use `pagination_key` to get the next page of results.
+         *
+         *     When more results are available (e.g., you requested up to 200 results for your search using `limit`, but there are more than 200 events total matching your request), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `timestamp` of the last returned event. In the following request, use that value in the `pagination_key` parameter to get the next page of results:
+         *
+         *     1. First request, returning most recent 200 events: `GET api-base-url/events/search?limit=200`
+         *     2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/events/search?limit=200&pagination_key=1740815825085`
+         *      */
+        pagination_key?: string
         /** @description Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro.
          *     Filter for events matching this `visitor_id`.
          *      */
