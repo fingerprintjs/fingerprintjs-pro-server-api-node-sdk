@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.3.0
+
+### Minor Changes
+
+- **events-search**: Add `pagination_key` parameter ([97270e0](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/97270e0e6d16ade9fbdb924ef15fcdf8e4cf0cc6))
+
 ## 6.3.0-test.0
 
 ### Minor Changes
