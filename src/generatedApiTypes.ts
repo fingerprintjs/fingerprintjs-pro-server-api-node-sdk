@@ -1379,7 +1379,7 @@ export interface operations {
       }
       header?: never
       path: {
-        /** @description Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro.\ */
+        /** @description Unique [visitor identifier](https://dev.fingerprint.com/reference/get-function#visitorid) issued by Fingerprint Pro. */
         visitor_id: string
       }
       cookie?: never
