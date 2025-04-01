@@ -1,0 +1,16 @@
+{
+  "name": "fingerprintjs-pro-server-api-node-sdk-smoke-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.mjs",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fingerprintjs/fingerprintjs-pro-server-api": "workspace:*",
+    "dotenv": "^16.4.5"
+  }
+}
