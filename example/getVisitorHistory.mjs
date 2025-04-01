@@ -31,7 +31,7 @@ if (envRegion === 'eu') {
 const client = new FingerprintJsServerApiClient({ region, apiKey })
 
 try {
-  const visitorHistory = await client.getVisitorHistory(visitorId, { limit: 10 })
+  const visitorHistory = await client.getVisits(visitorId, { limit: 10 })
   console.log(JSON.stringify(visitorHistory, null, 2))
 } catch (error) {
   if (error instanceof RequestError) {
