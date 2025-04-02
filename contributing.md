@@ -60,6 +60,12 @@ To run tests you can use IDE instruments or just run:
 pnpm test
 ```
 
+The test might fail to due outdated snapshots. You can update snapshots by running: 
+
+```shell
+pnpm test -- --updateSnapshot
+```
+
 ### Testing the local source code of the SDK
 
 Use the `example` folder to make API requests using the local version of the SDK. The [example/package.json](./example/package.json) file reroutes the SDK import references to the project root folder.

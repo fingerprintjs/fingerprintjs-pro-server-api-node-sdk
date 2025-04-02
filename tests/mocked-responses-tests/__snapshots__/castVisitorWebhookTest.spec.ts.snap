@@ -124,6 +124,9 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
   "locationSpoofing": {
     "result": true,
   },
+  "mitmAttack": {
+    "result": false,
+  },
   "privacySettings": {
     "result": false,
   },

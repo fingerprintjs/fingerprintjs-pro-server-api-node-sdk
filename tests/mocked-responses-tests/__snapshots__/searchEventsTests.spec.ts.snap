@@ -206,6 +206,11 @@ exports[`[Mocked response] Search Events with all possible filters 1`] = `
             "result": false,
           },
         },
+        "mitmAttack": {
+          "data": {
+            "result": false,
+          },
+        },
         "privacySettings": {
           "data": {
             "result": false,
@@ -552,6 +557,11 @@ exports[`[Mocked response] Search Events with filter params passed as undefined 
           },
         },
         "locationSpoofing": {
+          "data": {
+            "result": false,
+          },
+        },
+        "mitmAttack": {
           "data": {
             "result": false,
           },
@@ -906,6 +916,11 @@ exports[`[Mocked response] Search Events with partial filter 1`] = `
             "result": false,
           },
         },
+        "mitmAttack": {
+          "data": {
+            "result": false,
+          },
+        },
         "privacySettings": {
           "data": {
             "result": false,
@@ -1252,6 +1267,11 @@ exports[`[Mocked response] Search Events without filter 1`] = `
           },
         },
         "locationSpoofing": {
+          "data": {
+            "result": false,
+          },
+        },
+        "mitmAttack": {
           "data": {
             "result": false,
           },

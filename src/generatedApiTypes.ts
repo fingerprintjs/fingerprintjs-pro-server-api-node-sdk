@@ -762,6 +762,17 @@ export interface components {
       data?: components['schemas']['DeveloperTools']
       error?: components['schemas']['Error']
     }
+    MitMAttack: {
+      /** @description * `true` - When requests made from your users' mobile devices to Fingerprint servers have been intercepted and potentially modified.
+       *     * `false` - Otherwise or when the request originated from a browser.
+       *     See [MitM Attack Detection](https://dev.fingerprint.com/docs/smart-signals-reference#mitm-attack-detection) to learn more about this Smart Signal.
+       *      */
+      result: boolean
+    }
+    ProductMitMAttack: {
+      data?: components['schemas']['MitMAttack']
+      error?: components['schemas']['Error']
+    }
     /** @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise) */
     Products: {
       identification?: components['schemas']['ProductIdentification']
@@ -788,6 +799,7 @@ export interface components {
       remoteControl?: components['schemas']['ProductRemoteControl']
       velocity?: components['schemas']['ProductVelocity']
       developerTools?: components['schemas']['ProductDeveloperTools']
+      mitmAttack?: components['schemas']['ProductMitMAttack']
     }
     /** @description Contains results from all activated products - Fingerprint Pro, Bot Detection, and others. */
     EventsGetResponse: {
@@ -1044,6 +1056,13 @@ export interface components {
        *      */
       result?: boolean
     }
+    WebhookMitMAttack: {
+      /** @description * `true` - When requests made from your users' mobile devices to Fingerprint servers have been intercepted and potentially modified.
+       *     * `false` - Otherwise or when the request originated from a browser.
+       *     See [MitM Attack Detection](https://dev.fingerprint.com/docs/smart-signals-overview#mitm-attack-detection) to learn more about this Smart Signal.
+       *      */
+      result?: boolean
+    }
     Webhook: {
       /** @description Unique identifier of the user's request. */
       requestId: string
@@ -1126,6 +1145,7 @@ export interface components {
        *      */
       velocity?: components['schemas']['WebhookVelocity']
       developerTools?: components['schemas']['WebhookDeveloperTools']
+      mitmAttack?: components['schemas']['WebhookMitMAttack']
     }
   }
   responses: never
