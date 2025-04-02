@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.4.0
+
+### Minor Changes
+
+- Add `mitmAttack` (man-in-the-middle attack) Smart Signal. ([8dd004d](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/8dd004d27d45dd3e3bb7632dabe1750144dc84fa))
+
 ## 6.3.0
 
 ### Minor Changes
