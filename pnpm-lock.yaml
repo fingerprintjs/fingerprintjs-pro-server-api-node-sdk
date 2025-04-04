@@ -105,6 +105,15 @@ importers:
         specifier: ^16.4.5
         version: 16.4.5
 
+  tests/functional-tests:
+    dependencies:
+      '@fingerprintjs/fingerprintjs-pro-server-api':
+        specifier: workspace:*
+        version: link:../..
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.4.5
+
 packages:
 
   '@aashutoshrathi/word-wrap@1.2.6':

@@ -21,7 +21,7 @@ jobs:
       max-parallel: 3
       fail-fast: false
       matrix:
-        node-version: [18, 19, 20, 21, 22]
+        node-version: [18, 19, 20, 21, 22, 23]
 
     steps:
       - if: ${{ github.event_name == 'pull_request_target' }}
@@ -56,13 +56,10 @@ jobs:
           CI: true
       - name: Run test
         run: |
-          node getEvent.mjs
-          node getVisitorHistory.mjs
-        working-directory: ./example
+          node smokeTests.mjs
+        working-directory: ./tests/functional-tests
         env:
           API_KEY: '${{ secrets.PRIVATE_KEY }}'
-          VISITOR_ID: '${{ secrets.VISITOR_ID }}'
-          REQUEST_ID: '${{ secrets.REQUEST_ID }}'
 
   report_status:
     needs: functional_tests
