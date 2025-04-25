@@ -1372,11 +1372,19 @@ export interface operations {
          *     `low` - events with low VPN Detection confidence.
          *     > Note: When using this parameter, only events with the `products.vpn.data.confidence` property set to a valid value are returned. Events without a `products.vpn` Smart Signal result are left out of the response.
          *      */
-        vpn_confidence?: 'high,' | 'medium' | 'low'
+        vpn_confidence?: 'high' | 'medium' | 'low'
         /** @description Filter events with Suspect Score result above a provided minimum threshold.
          *     > Note: When using this parameter, only events where the `products.suspectScore.data.result` property set to a value exceeding your threshold are returned. Events without a `products.suspectScore` Smart Signal result are left out of the response.
          *      */
         min_suspect_score?: number
+        /** @description Filter events by IP Blocklist Detection result.
+         *     > Note: When using this parameter, only events with the `products.ipBlocklist.data.result` property set to `true` or `false` are returned. Events without a `products.ipBlocklist` Smart Signal result are left out of the response.
+         *      */
+        ip_blocklist?: boolean
+        /** @description Filter events by Datacenter Detection result.
+         *     > Note: When using this parameter, only events with the `products.ipInfo.data.v4.datacenter.result` or `products.ipInfo.data.v6.datacenter.result` property set to `true` or `false` are returned. Events without a `products.ipInfo` Smart Signal result are left out of the response.
+         *      */
+        datacenter?: boolean
       }
       header?: never
       path?: never
