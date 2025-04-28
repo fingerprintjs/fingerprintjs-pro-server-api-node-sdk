@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.5.0-test.1
+
+### Minor Changes
+
+- **events-search**: Event search now supports two new filter parameters: `ip_blocklist`, `datacenter` ([96911d9](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/96911d9af1602646ff6119639a0df031d9267c35))
+
 ## 6.5.0-test.0
 
 ### Minor Changes
