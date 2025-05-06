@@ -1,5 +1,17 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.5.0
+
+### Minor Changes
+
+- **events-search**: Event search now supports a new set of filter parameters: `vpn`, `virtual_machine`, `tampering`, `anti_detect_browser`, `incognito`, `privacy_settings`, `jailbroken`, `frida`, `factory_reset`, `cloned_app`, `emulator`, `root_apps`, `vpn_confidence`, `min_suspect_score`. ([50be5ca](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/50be5caed0b7939c77ac55b6227edae3fa3ffe83))
+- **events-search**: Event search now supports two new filter parameters: `ip_blocklist`, `datacenter` ([96911d9](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/96911d9af1602646ff6119639a0df031d9267c35))
+
+### Patch Changes
+
+- **events**: Update Tampering descriptions to reflect Android support. ([50be5ca](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/50be5caed0b7939c77ac55b6227edae3fa3ffe83))
+- **webhook**: Add `environmentId` property ([50be5ca](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/50be5caed0b7939c77ac55b6227edae3fa3ffe83))
+
 ## 6.5.0-test.1
 
 ### Minor Changes
