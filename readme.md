@@ -17,7 +17,7 @@
 
 # Fingerprint Server API Node.js SDK
 
-[Fingerprint](https://fingerprint.com) is a device intelligence platform offering 99.5% accurate visitor identification.
+[Fingerprint](https://fingerprint.com) is a device intelligence platform offering industry-leading accuracy.
 
 The Fingerprint Server Node SDK is an easy way to interact with the Fingerprint [Server API](https://dev.fingerprint.com/reference/pro-server-api) from your Node application. You can retrieve visitor history or individual identification events.
 
