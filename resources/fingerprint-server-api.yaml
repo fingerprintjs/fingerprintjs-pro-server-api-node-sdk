@@ -1,9 +1,9 @@
 openapi: 3.0.3
 info:
-  title: Fingerprint Pro Server API
+  title: Fingerprint Server API
   description: >
-    Fingerprint Pro Server API allows you to get information about visitors and
-    about individual events in a server environment. It can be used for data
+    Fingerprint Server API allows you to search, update, and delete
+    identification events in a server environment. It can be used for data
     exports, decision-making, and data analysis scenarios.
 
     Server API is intended for server-side usage, it's not intended to be used
@@ -1857,7 +1857,7 @@ components:
             field.
 
             The time of the most recent factory reset that happened on the
-            **mobile device** is expressed as Unix epoch time.       
+            **mobile device** is expressed as Unix epoch time.
     ProductFactoryReset:
       type: object
       additionalProperties: false
@@ -2557,7 +2557,7 @@ components:
             field.
 
             The time of the most recent factory reset that happened on the
-            **mobile device** is expressed as Unix epoch time.       
+            **mobile device** is expressed as Unix epoch time.
     WebhookJailbroken:
       type: object
       additionalProperties: false
