@@ -476,6 +476,7 @@ exports[`[Mocked response] Get Event with request_id 1`] = `
     },
     "proxy": {
       "data": {
+        "confidence": "high",
         "result": false,
       },
     },

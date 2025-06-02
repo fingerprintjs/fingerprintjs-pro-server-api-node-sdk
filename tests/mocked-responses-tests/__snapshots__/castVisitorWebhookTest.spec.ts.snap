@@ -131,6 +131,7 @@ exports[`[Mocked body] Cast visitor webhook with sample request body 1`] = `
     "result": false,
   },
   "proxy": {
+    "confidence": "high",
     "result": false,
   },
   "rawDeviceAttributes": {
