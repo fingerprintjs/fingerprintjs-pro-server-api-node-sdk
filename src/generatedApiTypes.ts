@@ -537,10 +537,23 @@ export interface components {
       data?: components['schemas']['VPN']
       error?: components['schemas']['Error']
     }
+    /**
+     * @description Confidence level of the proxy detection.
+     *     If a proxy is not detected, confidence is "high".
+     *     If it's detected, can be "low", "medium", or "high".
+     *
+     * @enum {string}
+     */
+    ProxyConfidence: 'low' | 'medium' | 'high'
     Proxy: {
-      /** @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
+      /** @description IP address was used by a public proxy provider or belonged to a known recent residential proxy
        *      */
       result: boolean
+      /** @description Confidence level of the proxy detection.
+       *     If a proxy is not detected, confidence is "high".
+       *     If it's detected, can be "low", "medium", or "high".
+       *      */
+      confidence: components['schemas']['ProxyConfidence']
     }
     ProductProxy: {
       data?: components['schemas']['Proxy']
@@ -933,9 +946,14 @@ export interface components {
       methods?: components['schemas']['VPNMethods']
     }
     WebhookProxy: {
-      /** @description `true` if the request IP address is used by a public proxy provider, `false` otherwise.
+      /** @description IP address was used by a public proxy provider or belonged to a known recent residential proxy
        *      */
       result?: boolean
+      /** @description Confidence level of the proxy detection.
+       *     If a proxy is not detected, confidence is "high".
+       *     If it's detected, can be "low", "medium", or "high".
+       *      */
+      confidence?: components['schemas']['ProxyConfidence']
     }
     WebhookTampering: {
       /** @description Indicates if an identification request from a browser or an Android SDK has been tampered with. Not supported in the iOS SDK, is always `false` for iOS requests.
