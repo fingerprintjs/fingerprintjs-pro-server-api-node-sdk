@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.6.0
+
+### Minor Changes
+
+- Add `confidence` property to the Proxy detection Smart Signal, which now supports both residential and public web proxies. ([af62b15](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/af62b151e11f40a90ed95db34976c6bc2a70a15a))
+
 ## 6.5.0
 
 ### Minor Changes
