@@ -13,7 +13,7 @@ export enum DecryptionAlgorithm {
 
 export interface DecryptionKey {
   key: Buffer
-  algorithm: DecryptionAlgorithm
+  algorithm: DecryptionAlgorithm | `${DecryptionAlgorithm}`
 }
 
 const SEALED_HEADER = Buffer.from([0x9e, 0x85, 0xdc, 0xed])
