@@ -20,7 +20,7 @@ describe('[Mocked response] Get related Visitors', () => {
     const response = await client.getRelatedVisitors({
       visitor_id: existingVisitorId,
     })
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getRelatedVisitors)
     expect(mockFetch).toHaveBeenCalledWith(
       `https://eu.api.fpjs.io/related-visitors?visitor_id=${existingVisitorId}&ii=${encodeURIComponent(getIntegrationInfo())}`,
       {

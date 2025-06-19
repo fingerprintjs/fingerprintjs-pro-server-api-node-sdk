@@ -27,14 +27,14 @@ describe('[Mocked response] Get Event', () => {
         method: 'GET',
       }
     )
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getEventResponse)
   })
 
   test('with additional signals', async () => {
     mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getEventWithExtraFieldsResponse))))
 
     const response = await client.getEvent(existingRequestId)
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getEventWithExtraFieldsResponse)
   })
 
   test('with all signals with failed error', async () => {
@@ -42,7 +42,7 @@ describe('[Mocked response] Get Event', () => {
 
     const response = await client.getEvent(existingRequestId)
 
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getEventAllErrorsResponse)
   })
 
   test('403 error', async () => {
