@@ -5,6 +5,7 @@ describe('[Mocked body] Cast visitor webhook', () => {
   test('with sample request body', async () => {
     const visit = visitWebhookBody as Webhook
 
-    expect(visit).toMatchSnapshot()
+    // Assertion just to use the `visit` variable. The goal of this test is to assume that Typescript won't throw an error here.
+    expect(visit).toBeTruthy()
   })
 })

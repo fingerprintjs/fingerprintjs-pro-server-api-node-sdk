@@ -20,7 +20,7 @@ describe('[Mocked response] Get Visitors', () => {
     mockFetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(getVisits))))
 
     const response = await client.getVisits(existingVisitorId)
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getVisits)
     expect(mockFetch).toHaveBeenCalledWith(
       `https://eu.api.fpjs.io/visitors/${existingVisitorId}?ii=${encodeURIComponent(getIntegrationInfo())}`,
       {
@@ -35,7 +35,14 @@ describe('[Mocked response] Get Visitors', () => {
 
     const filter: VisitorHistoryFilter = { request_id: existingRequestId }
     const response = await client.getVisits(existingVisitorId, filter)
-    expect(response).toMatchSnapshot()
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://eu.api.fpjs.io/visitors/${existingVisitorId}?request_id=${existingRequestId}&ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': 'dummy_api_key' },
+        method: 'GET',
+      }
+    )
+    expect(response).toEqual(getVisits)
   })
 
   test('with request_id and linked_id filter', async () => {
@@ -46,7 +53,14 @@ describe('[Mocked response] Get Visitors', () => {
       linked_id: existingLinkedId,
     }
     const response = await client.getVisits(existingVisitorId, filter)
-    expect(response).toMatchSnapshot()
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://eu.api.fpjs.io/visitors/${existingVisitorId}?request_id=${existingRequestId}&linked_id=${existingLinkedId}&ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': 'dummy_api_key' },
+        method: 'GET',
+      }
+    )
+    expect(response).toEqual(getVisits)
   })
 
   test('with linked_id and limit filter', async () => {
@@ -54,7 +68,14 @@ describe('[Mocked response] Get Visitors', () => {
 
     const filter: VisitorHistoryFilter = { linked_id: existingLinkedId, limit: 5 }
     const response = await client.getVisits(existingVisitorId, filter)
-    expect(response).toMatchSnapshot()
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://eu.api.fpjs.io/visitors/${existingVisitorId}?linked_id=${existingLinkedId}&limit=5&ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': 'dummy_api_key' },
+        method: 'GET',
+      }
+    )
+    expect(response).toEqual(getVisits)
   })
 
   test('with limit and before', async () => {
@@ -62,7 +83,14 @@ describe('[Mocked response] Get Visitors', () => {
 
     const filter: VisitorHistoryFilter = { limit: 4, before: 1626538505244 }
     const response = await client.getVisits(existingVisitorId, filter)
-    expect(response).toMatchSnapshot()
+    expect(mockFetch).toHaveBeenCalledWith(
+      `https://eu.api.fpjs.io/visitors/${existingVisitorId}?limit=4&before=1626538505244&ii=${encodeURIComponent(getIntegrationInfo())}`,
+      {
+        headers: { 'Auth-API-Key': 'dummy_api_key' },
+        method: 'GET',
+      }
+    )
+    expect(response).toEqual(getVisits)
   })
 
   test('403 error', async () => {

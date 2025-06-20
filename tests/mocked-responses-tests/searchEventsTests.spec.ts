@@ -15,7 +15,7 @@ describe('[Mocked response] Search Events', () => {
     const response = await client.searchEvents({
       limit: 10,
     })
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getEventsSearch)
     expect(mockFetch).toHaveBeenCalledWith(
       `https://api.fpjs.io/events/search?limit=10&ii=${encodeURIComponent(getIntegrationInfo())}`,
       {
@@ -33,7 +33,7 @@ describe('[Mocked response] Search Events', () => {
       ip_address: undefined,
       visitor_id: undefined,
     })
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getEventsSearch)
     expect(mockFetch).toHaveBeenCalledWith(
       `https://api.fpjs.io/events/search?limit=10&ii=${encodeURIComponent(getIntegrationInfo())}`,
       {
@@ -51,7 +51,7 @@ describe('[Mocked response] Search Events', () => {
       bot: 'good',
       visitor_id: 'visitor_id',
     })
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getEventsSearch)
     expect(mockFetch).toHaveBeenCalledWith(
       `https://api.fpjs.io/events/search?limit=10&bot=good&visitor_id=visitor_id&ii=${encodeURIComponent(getIntegrationInfo())}`,
       {
@@ -92,7 +92,7 @@ describe('[Mocked response] Search Events', () => {
       datacenter: true,
     })
 
-    expect(response).toMatchSnapshot()
+    expect(response).toEqual(getEventsSearch)
 
     expect(mockFetch).toHaveBeenCalledWith(
       `https://api.fpjs.io/events/search?limit=10&bot=all&visitor_id=visitor_id&ip_address=${encodeURIComponent(
