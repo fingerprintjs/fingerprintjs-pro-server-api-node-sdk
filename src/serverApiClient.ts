@@ -37,9 +37,13 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       throw Error('Api key is not set')
     }
 
-    this.region = options.region ?? Region.Global
+    // These type assertions are safe because the Options type allows the
+    // region or authentication mode to be specified as a string or an enum value.
+    // The resulting JS from using the enum value or the string is identical.
+    this.region = (options.region as Region) ?? Region.Global
+    this.authenticationMode = (options.authenticationMode as AuthenticationMode) ?? AuthenticationMode.AuthHeader // Default auth mode is AuthHeader
+
     this.apiKey = options.apiKey
-    this.authenticationMode = options.authenticationMode ?? AuthenticationMode.AuthHeader // Default auth mode is AuthHeader
     this.fetch = options.fetch ?? fetch
   }
 
