@@ -9,9 +9,12 @@ jobs:
     name: 'Tag workflow results in DataDog'
     runs-on: ubuntu-latest
     steps:
+      - name: 'Install the DataDog CLI'
+        run: |
+          curl -L --fail "https://github.com/DataDog/datadog-ci/releases/latest/download/datadog-ci_linux-x64" --output "$RUNNER_TEMP/datadog-ci" && chmod +x "$RUNNER_TEMP/datadog-ci"
       - name: 'Tag pipeline in DataDog'
         run: |
-          npx @datadog/datadog-ci tag --no-fail --level pipeline --tags team:integrations
+          "$RUNNER_TEMP/datadog-ci" tag --no-fail --level pipeline --tags team:integrations
         env:
           DD_API_KEY: '${{ secrets.DD_API_KEY }}'
 
