@@ -7,6 +7,7 @@ on:
 jobs:
   datadog_tag_results:
     name: 'Tag workflow results in DataDog'
+    runs-on: ubuntu-latest
     steps:
       - name: 'Tag pipeline in DataDog'
         run: |
@@ -17,6 +18,7 @@ jobs:
   build:
     name: 'Build sdk'
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/build-typescript-project.yml@v1
+    needs: datadog_tag_results
     with:
       artifactName: node-sdk-artifact
       artifactPath: ./dist
