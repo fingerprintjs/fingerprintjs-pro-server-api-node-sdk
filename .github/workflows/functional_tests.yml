@@ -5,6 +5,15 @@ on:
   schedule:
     - cron: '0 5 * * *'
 jobs:
+  datadog_tag_results:
+    name: 'Tag workflow results in DataDog'
+    steps:
+      - name: 'Tag pipeline in DataDog'
+        run: |
+          npx @datadog/datadog-ci tag --no-fail --level pipeline --tags team:integrations
+        env:
+          DD_API_KEY: '${{ secrets.DD_API_KEY }}'
+
   build:
     name: 'Build sdk'
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/build-typescript-project.yml@v1
