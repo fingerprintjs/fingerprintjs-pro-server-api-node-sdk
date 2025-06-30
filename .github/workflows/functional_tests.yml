@@ -5,23 +5,16 @@ on:
   schedule:
     - cron: '0 5 * * *'
 jobs:
-  datadog_tag_results:
-    name: 'Tag workflow results in DataDog'
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Install the DataDog CLI'
-        run: |
-          curl -L --fail "https://github.com/DataDog/datadog-ci/releases/latest/download/datadog-ci_linux-x64" --output "$RUNNER_TEMP/datadog-ci" && chmod +x "$RUNNER_TEMP/datadog-ci"
-      - name: 'Tag pipeline in DataDog'
-        run: |
-          "$RUNNER_TEMP/datadog-ci" tag --no-fail --level pipeline --tags team:integrations
-        env:
-          DD_API_KEY: '${{ secrets.DD_API_KEY }}'
+  set_datadog_team:
+    name: 'Set DataDog team'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/set-datadog-team.yml@feat/INTER-1314-add-set-datadog-team
+    secrets:
+      DD_API_KEY: '${{ secrets.DD_API_KEY }}'
 
   build:
     name: 'Build sdk'
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/build-typescript-project.yml@v1
-    needs: datadog_tag_results
+    needs: set_datadog_team
     with:
       artifactName: node-sdk-artifact
       artifactPath: ./dist
