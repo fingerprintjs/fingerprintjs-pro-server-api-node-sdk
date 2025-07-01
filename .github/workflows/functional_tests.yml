@@ -9,7 +9,7 @@ jobs:
     name: 'Set DataDog team'
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/set-datadog-team.yml@feat/INTER-1314-add-set-datadog-team
     secrets:
-      DD_API_KEY: '${{ secrets.DD_API_KEY }}'
+      DD_API_KEY: '${{ secrets.INTEGRATIONS_DATADOG_API_KEY }}'
 
   build:
     name: 'Build sdk'
