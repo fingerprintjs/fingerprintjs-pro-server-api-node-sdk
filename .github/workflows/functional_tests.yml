@@ -5,6 +5,12 @@ on:
   schedule:
     - cron: '0 5 * * *'
 jobs:
+  set_datadog_team:
+    name: 'Set Datadog team'
+    uses: fingerprintjs/dx-team-toolkit/.github/workflows/set-datadog-team.yml@v1
+    secrets:
+      DD_API_KEY: ${{ secrets.INTEGRATIONS_DATADOG_API_KEY }}
+
   build:
     name: 'Build sdk'
     uses: fingerprintjs/dx-team-toolkit/.github/workflows/build-typescript-project.yml@v1
@@ -60,13 +66,3 @@ jobs:
         working-directory: ./tests/functional-tests
         env:
           API_KEY: '${{ secrets.PRIVATE_KEY }}'
-
-  report_status:
-    needs: functional_tests
-    if: always()
-    uses: fingerprintjs/dx-team-toolkit/.github/workflows/report-workflow-status.yml@v1
-    with:
-      notification_title: 'Node SDK Functional Tests has {status_message}'
-      job_status: ${{ needs.functional_tests.result }}
-    secrets:
-      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
