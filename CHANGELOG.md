@@ -1,5 +1,12 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.7.0
+
+### Minor Changes
+
+- add `replayed` field to `identification` in Events and Webhooks ([0874aec](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/0874aec6e49f6a0772a80a42723cc5ba7087a36b))
+- allow enum parameters to be specified as their string literal equivalents ([c4ff3c9](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/c4ff3c9e07a428d9389c75866ceb705b431aa08a))
+
 ## 6.6.0
 
 ### Minor Changes
