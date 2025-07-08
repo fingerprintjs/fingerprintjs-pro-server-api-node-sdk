@@ -150,7 +150,10 @@ export interface paths {
     options?: never
     head?: never
     patch?: never
-    /** @description Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks) */
+    /**
+     * Dummy path to describe webhook format.
+     * @description Fake path to describe webhook format. More information about webhooks can be found in the [documentation](https://dev.fingerprint.com/docs/webhooks)
+     */
     trace: {
       parameters: {
         query?: never
@@ -296,6 +299,9 @@ export interface components {
        *     Warning: The raw signals data can change at any moment as we improve the product. We cannot guarantee the internal shape of raw device attributes to be stable, so typical semantic versioning rules do not apply here. Use this data with caution without assuming a specific structure beyond the generic type provided here.
        *      */
       components?: components['schemas']['RawDeviceAttributes']
+      /** @description `true` if we determined that this payload was replayed, `false` otherwise.
+       *      */
+      replayed?: boolean
     }
     /**
      * @description Error code:
@@ -1176,6 +1182,9 @@ export interface components {
       velocity?: components['schemas']['WebhookVelocity']
       developerTools?: components['schemas']['WebhookDeveloperTools']
       mitmAttack?: components['schemas']['WebhookMitMAttack']
+      /** @description `true` if we determined that this payload was replayed, `false` otherwise.
+       *      */
+      replayed?: boolean
     }
   }
   responses: never
