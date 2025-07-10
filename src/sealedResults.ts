@@ -39,6 +39,8 @@ export function parseEventsResponse(unsealed: string): EventsGetResponse {
  * Decrypts the sealed response with the provided keys.
  * The SDK will try to decrypt the result with each key until it succeeds.
  * To learn more about sealed results visit: https://dev.fingerprint.com/docs/sealed-client-results
+ * @throws UnsealAggregateError
+ * @throws Error
  */
 export async function unsealEventsResponse(
   sealedData: Buffer,
