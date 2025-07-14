@@ -193,6 +193,12 @@ Customers on the Enterprise plan can [Delete all data associated with a specific
 
 See the full [API reference](https://fingerprintjs.github.io/fingerprintjs-pro-server-api-node-sdk/).
 
+## Semantic versioning
+
+* Changes to **types** in this repository are considered non-breaking and are usually released as PATCH or MINOR semver changes (otherwise every schema addition would be a major version upgrade).
+* It is highly recommended that you lock your package version to a specific PATCH release and upgrade with the expectation that types may be upgraded between any release.
+* The runtime (non-type-related) public API of the Node SDK still follows semver strictly.
+
 ## Support and feedback
 
 To report problems, ask questions, or provide feedback, please use [Issues](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/issues). If you need private support, you can email us at [oss-support@fingerprint.com](mailto:oss-support@fingerprint.com).
