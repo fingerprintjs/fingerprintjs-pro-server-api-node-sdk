@@ -260,6 +260,13 @@ export interface components {
     RawDeviceAttributes: {
       [key: string]: components['schemas']['RawDeviceAttribute']
     }
+    /** @description Contains information about the SDK used to perform the request. */
+    SDK: {
+      /** @description Platform of the SDK. */
+      platform: string
+      /** @description SDK version string. */
+      version: string
+    }
     Identification: {
       /** @description String of 20 characters that uniquely identifies the visitor's browser. */
       visitorId: string
@@ -301,7 +308,9 @@ export interface components {
       components?: components['schemas']['RawDeviceAttributes']
       /** @description `true` if we determined that this payload was replayed, `false` otherwise.
        *      */
-      replayed?: boolean
+      replayed: boolean
+      /** @description Contains information about the SDK used to perform the request. */
+      sdk?: components['schemas']['SDK']
     }
     /**
      * @description Error code:
@@ -709,12 +718,24 @@ export interface components {
       data?: components['schemas']['SuspectScore']
       error?: components['schemas']['Error']
     }
+    /**
+     * @deprecated
+     * @description This signal is deprecated.
+     *
+     */
     RemoteControl: {
       /** @description `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
        *      */
       result: boolean
     }
+    /**
+     * @deprecated
+     * @description This product is deprecated.
+     *
+     */
     ProductRemoteControl: {
+      /** @description This signal is deprecated.
+       *      */
       data?: components['schemas']['RemoteControl']
       error?: components['schemas']['Error']
     }
@@ -820,6 +841,8 @@ export interface components {
       highActivity?: components['schemas']['ProductHighActivity']
       locationSpoofing?: components['schemas']['ProductLocationSpoofing']
       suspectScore?: components['schemas']['ProductSuspectScore']
+      /** @description This product is deprecated.
+       *      */
       remoteControl?: components['schemas']['ProductRemoteControl']
       velocity?: components['schemas']['ProductVelocity']
       developerTools?: components['schemas']['ProductDeveloperTools']
@@ -1055,6 +1078,11 @@ export interface components {
        *      */
       result?: number
     }
+    /**
+     * @deprecated
+     * @description This signal is deprecated.
+     *
+     */
     WebhookRemoteControl: {
       /** @description `true` if the request came from a machine being remotely controlled (e.g. TeamViewer), `false` otherwise.
        *      */
@@ -1162,6 +1190,8 @@ export interface components {
       highActivity?: components['schemas']['WebhookHighActivity']
       locationSpoofing?: components['schemas']['WebhookLocationSpoofing']
       suspectScore?: components['schemas']['WebhookSuspectScore']
+      /** @description This signal is deprecated.
+       *      */
       remoteControl?: components['schemas']['WebhookRemoteControl']
       /** @description Sums key data points for a specific `visitorId`, `ipAddress` and `linkedId` at three distinct time
        *     intervals: 5 minutes, 1 hour, and 24 hours as follows:
@@ -1185,6 +1215,8 @@ export interface components {
       /** @description `true` if we determined that this payload was replayed, `false` otherwise.
        *      */
       replayed?: boolean
+      /** @description Contains information about the SDK used to perform the request. */
+      sdk: components['schemas']['SDK']
     }
   }
   responses: never
