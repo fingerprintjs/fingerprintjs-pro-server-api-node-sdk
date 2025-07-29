@@ -6,5 +6,9 @@
     "fingerprintjs-pro-server-api-node-sdk-example": "1.0.0",
     "fingerprintjs-pro-server-api-node-sdk-smoke-tests": "1.0.3"
   },
-  "changesets": []
+  "changesets": [
+    "dark-dogs-play",
+    "sharp-facts-boil",
+    "ten-plums-tickle"
+  ]
 }
