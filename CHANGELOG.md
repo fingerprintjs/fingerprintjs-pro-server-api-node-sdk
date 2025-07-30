@@ -1,5 +1,16 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.8.0
+
+### Minor Changes
+
+- Mark `replayed` field required in the `identification` product schema. This field will always be present. ([a30d9c8](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/a30d9c8a0753bb976c618ac9a7e462e0f8e9c97a))
+- Add `sdk` field with platform metadata to `identification` ([a30d9c8](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/a30d9c8a0753bb976c618ac9a7e462e0f8e9c97a))
+
+### Patch Changes
+
+- Deprecate the Remote Control Detection Smart Signal. This signal is no longer available. ([a30d9c8](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/a30d9c8a0753bb976c618ac9a7e462e0f8e9c97a))
+
 ## 6.8.0-test.0
 
 ### Minor Changes
