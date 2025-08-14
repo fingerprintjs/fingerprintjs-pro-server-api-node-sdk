@@ -22,12 +22,12 @@ export interface Options {
   /**
    * Region of the FingerprintJS service server
    */
-  region?: Region | `${Region}`
+  region?: Region
   /**
    * Authentication mode
    * Optional, default value is AuthHeader
    */
-  authenticationMode?: AuthenticationMode | `${AuthenticationMode}`
+  authenticationMode?: AuthenticationMode
 
   /**
    * Optional fetch implementation
@@ -35,34 +35,14 @@ export interface Options {
   fetch?: typeof fetch
 }
 
-/**
- * More info: https://dev.fingerprintjs.com/docs/server-api#query-parameters
- */
-export type VisitorHistoryFilter = paths['/visitors/{visitor_id}']['get']['parameters']['query']
-
-export type ErrorPlainResponse = components['schemas']['ErrorPlainResponse']
 export type ErrorResponse = components['schemas']['ErrorResponse']
 
-export type SearchEventsFilter = paths['/events/search']['get']['parameters']['query']
-export type SearchEventsResponse = paths['/events/search']['get']['responses']['200']['content']['application/json']
+export type SearchEventsFilter = paths['/events']['get']['parameters']['query']
+export type SearchEventsResponse = paths['/events']['get']['responses']['200']['content']['application/json']
 
-/**
- * More info: https://dev.fingerprintjs.com/docs/server-api#response
- */
-export type VisitorsResponse = paths['/visitors/{visitor_id}']['get']['responses']['200']['content']['application/json']
+export type EventsGetResponse = paths['/events/{event_id}']['get']['responses']['200']['content']['application/json']
 
-export type EventsGetResponse = paths['/events/{request_id}']['get']['responses']['200']['content']['application/json']
-
-export type RelatedVisitorsResponse =
-  paths['/related-visitors']['get']['responses']['200']['content']['application/json']
-export type RelatedVisitorsFilter = paths['/related-visitors']['get']['parameters']['query']
-
-/**
- * More info: https://dev.fingerprintjs.com/docs/webhooks#identification-webhook-object-format
- */
-export type Webhook = components['schemas']['Webhook']
-
-export type EventsUpdateRequest = components['schemas']['EventsUpdateRequest']
+export type EventsUpdateRequest = components['schemas']['EventUpdate']
 
 // Extract just the `path` parameters as a tuple of strings
 type ExtractPathParamStrings<Path> = Path extends { parameters: { path: infer P } }

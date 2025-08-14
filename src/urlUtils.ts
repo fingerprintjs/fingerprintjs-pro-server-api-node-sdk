@@ -2,9 +2,9 @@ import { ExtractQueryParams, Region } from './types'
 import { version } from '../package.json'
 import { paths } from './generatedApiTypes'
 
-const euRegionUrl = 'https://eu.api.fpjs.io/'
-const apRegionUrl = 'https://ap.api.fpjs.io/'
-const globalRegionUrl = 'https://api.fpjs.io/'
+const euRegionUrl = 'https://eu.api.fpjs.io/v4'
+const apRegionUrl = 'https://ap.api.fpjs.io/v4'
+const globalRegionUrl = 'https://api.fpjs.io/v4'
 
 type QueryStringParameters = Record<string, string | number> & {
   api_key?: string

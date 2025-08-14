@@ -6,12 +6,8 @@ import {
   FingerprintApi,
   Options,
   Region,
-  RelatedVisitorsFilter,
-  RelatedVisitorsResponse,
   SearchEventsFilter,
   SearchEventsResponse,
-  VisitorHistoryFilter,
-  VisitorsResponse,
 } from './types'
 import { copyResponseJson } from './responseUtils'
 import { handleErrorResponse } from './errors/handleErrorResponse'
@@ -37,13 +33,9 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
       throw Error('Api key is not set')
     }
 
-    // These type assertions are safe because the Options type allows the
-    // region or authentication mode to be specified as a string or an enum value.
-    // The resulting JS from using the enum value or the string is identical.
-    this.region = (options.region as Region) ?? Region.Global
-    this.authenticationMode = (options.authenticationMode as AuthenticationMode) ?? AuthenticationMode.AuthHeader // Default auth mode is AuthHeader
-
+    this.region = options.region ?? Region.Global
     this.apiKey = options.apiKey
+    this.authenticationMode = options.authenticationMode ?? AuthenticationMode.AuthHeader // Default auth mode is AuthHeader
     this.fetch = options.fetch ?? fetch
   }
 
@@ -74,7 +66,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
     }
 
     const url = getRequestPath({
-      path: '/events/{request_id}',
+      path: '/events/{event_id}',
       region: this.region,
       apiKey: this.getQueryApiKey(),
       pathParams: [requestId],
@@ -145,7 +137,7 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
     }
 
     const url = getRequestPath({
-      path: '/events/{request_id}',
+      path: '/events/{event_id}',
       region: this.region,
       apiKey: this.getQueryApiKey(),
       pathParams: [requestId],
@@ -166,72 +158,6 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
     const jsonResponse = await copyResponseJson(response)
 
     handleErrorResponse(jsonResponse, response)
-  }
-
-  /**
-   * Delete data by visitor ID
-   * Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations. All delete requests are queued:
-   * Recent data (10 days or newer) belonging to the specified visitor will be deleted within 24 hours. * Data from older (11 days or more) identification events  will be deleted after 90 days.
-   * If you are interested in using this API, please [contact our support team](https://fingerprint.com/support/) to activate it for you. Otherwise, you will receive a 403.
-   *
-   * @param visitorId The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) you want to delete.*
-   *
-   * @return {Promise<void>} Promise that resolves when the deletion request is successfully queued
-   *
-   * @example
-   * ```javascript
-   * client
-   *   .deleteVisitorData('<visitorId>')
-   *   .then(() => {
-   *     // Data deletion request was successfully queued
-   *   })
-   *  .catch((error) => {
-   *    if (error instanceof RequestError) {
-   *       console.log(error.statusCode, error.message)
-   *       // Access raw response in error
-   *       console.log(error.response)
-   *
-   *       if(error instanceof TooManyRequestsError) {
-   *          retryLater(error.retryAfter) // Needs to be implemented on your side
-   *       }
-   *     }
-   *   })
-   * ```
-   */
-  public async deleteVisitorData(visitorId: string): Promise<void> {
-    if (!visitorId) {
-      throw TypeError('VisitorId is not set')
-    }
-
-    const url = getRequestPath({
-      path: '/visitors/{visitor_id}',
-      region: this.region,
-      apiKey: this.getQueryApiKey(),
-      pathParams: [visitorId],
-      method: 'delete',
-    })
-
-    const headers = this.getHeaders()
-
-    const response = await this.fetch(url, {
-      method: 'DELETE',
-      headers,
-    })
-
-    if (response.status === 200) {
-      return
-    }
-
-    const jsonResponse = await copyResponseJson(response)
-
-    handleErrorResponse(jsonResponse, response)
-  }
-
-  /**
-   * @deprecated Please use {@link FingerprintJsServerApiClient.getVisits} instead
-   * */
-  public async getVisitorHistory(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
-    return this.getVisits(visitorId, filter)
   }
 
   /**
@@ -270,9 +196,9 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
    * @param {boolean|undefined} filter.reverse - Sort events in reverse timestamp order.
    * @param {boolean|undefined} filter.suspect - Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).
    * */
-  async searchEvents(filter: SearchEventsFilter): Promise<SearchEventsResponse> {
+  async getEvents(filter: SearchEventsFilter): Promise<SearchEventsResponse> {
     const url = getRequestPath({
-      path: '/events/search',
+      path: '/events',
       region: this.region,
       apiKey: this.getQueryApiKey(),
       method: 'get',
@@ -288,123 +214,6 @@ export class FingerprintJsServerApiClient implements FingerprintApi {
 
     if (response.status === 200) {
       return jsonResponse as SearchEventsResponse
-    }
-
-    handleErrorResponse(jsonResponse, response)
-  }
-
-  /**
-   * Retrieves event history for the specific visitor using the given filter, returns a promise with visitor history response.
-   *
-   * @param {string} visitorId - Identifier of the visitor
-   * @param {VisitorHistoryFilter} filter - Visitor history filter
-   * @param {string} filter.limit - limit scanned results
-   * @param {string} filter.request_id - filter visits by `requestId`.
-   * @param {string} filter.linked_id - filter visits by your custom identifier.
-   * @param {string} filter.paginationKey - use `paginationKey` to get the next page of results.   When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
-   *
-   *   1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
-   *   2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
-   *
-   *   Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
-   * @example
-   * ```javascript
-   * client
-   *   .getVisits('<visitorId>', { limit: 1 })
-   *   .then((visitorHistory) => {
-   *     console.log(visitorHistory)
-   *   })
-   *   .catch((error) => {
-   *    if (error instanceof RequestError) {
-   *       console.log(error.statusCode, error.message)
-   *       // Access raw response in error
-   *       console.log(error.response)
-   *
-   *       if(error instanceof TooManyRequestsError) {
-   *          retryLater(error.retryAfter) // Needs to be implemented on your side
-   *       }
-   *     }
-   *   })
-   * ```
-   */
-  public async getVisits(visitorId: string, filter?: VisitorHistoryFilter): Promise<VisitorsResponse> {
-    if (!visitorId) {
-      throw TypeError('VisitorId is not set')
-    }
-
-    const url = getRequestPath({
-      path: '/visitors/{visitor_id}',
-      region: this.region,
-      apiKey: this.getQueryApiKey(),
-      pathParams: [visitorId],
-      method: 'get',
-      queryParams: filter,
-    })
-    const headers = this.getHeaders()
-
-    const response = await this.fetch(url, {
-      method: 'GET',
-      headers,
-    })
-
-    const jsonResponse = await copyResponseJson(response)
-
-    if (response.status === 200) {
-      return jsonResponse as VisitorsResponse
-    }
-
-    handleErrorResponse(jsonResponse, response)
-  }
-
-  /**
-   * Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device.
-   * It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.
-   * ⚠️ Please note that this API is not enabled by default and is billable separately. ⚠️
-   * If you would like to use Related visitors API, please contact our [support team](https://fingerprint.com/support).
-   * To learn more, see [Related visitors API reference](https://dev.fingerprint.com/reference/related-visitors-api).
-   *
-   * @param {RelatedVisitorsFilter} filter - Related visitors filter
-   * @param {string} filter.visitorId - The [visitor ID](https://dev.fingerprint.com/docs/js-agent#visitorid) for which you want to find the other visitor IDs that originated from the same mobile device.
-   *
-   * @example
-   * ```javascript
-   * client
-   *   .getRelatedVisitors({ visitor_id: '<visitorId>' })
-   *   .then((relatedVisits) => {
-   *     console.log(relatedVisits)
-   *   })
-   *  .catch((error) => {
-   *    if (error instanceof RequestError) {
-   *       console.log(error.statusCode, error.message)
-   *       // Access raw response in error
-   *       console.log(error.response)
-   *
-   *       if(error instanceof TooManyRequestsError) {
-   *          retryLater(error.retryAfter) // Needs to be implemented on your side
-   *       }
-   *     }
-   *   })
-   * ```
-   */
-  async getRelatedVisitors(filter: RelatedVisitorsFilter): Promise<RelatedVisitorsResponse> {
-    const url = getRequestPath({
-      path: '/related-visitors',
-      region: this.region,
-      apiKey: this.getQueryApiKey(),
-      method: 'get',
-      queryParams: filter,
-    })
-    const headers = this.getHeaders()
-
-    const response = await this.fetch(url, {
-      method: 'GET',
-      headers,
-    })
-
-    const jsonResponse = await copyResponseJson(response)
-
-    if (response.status === 200) {
-      return jsonResponse as RelatedVisitorsResponse
     }
 
     handleErrorResponse(jsonResponse, response)
