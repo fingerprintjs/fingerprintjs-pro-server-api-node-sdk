@@ -81,5 +81,6 @@ type ApiMethod<Path extends keyof operations> = (
 ) => Promise<ExtractResponse<operations[Path]>>
 
 export type FingerprintApi = {
-  [Path in keyof operations]: ApiMethod<Path>
+  // postWebhook is not supported
+  [Path in keyof operations as Path extends 'postWebhook' ? never : Path]: ApiMethod<Path>
 }
