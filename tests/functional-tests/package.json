@@ -1,6 +1,6 @@
 {
   "name": "fingerprintjs-pro-server-api-node-sdk-smoke-tests",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "index.mjs",
   "private": true,
