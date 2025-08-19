@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.9.0
+
+### Minor Changes
+
+- Add `details` object to the `proxy` signal. This field includes the `type` of the detected proxy (`residential` or `data_center`) and the `lastSeenAt` timestamp of when an IP was last observed to show proxy-like behavior. ([5988f03](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/5988f03cf3a1e341a4dc28b0c1496600e5e24853))
+
 ## 6.8.0
 
 ### Minor Changes

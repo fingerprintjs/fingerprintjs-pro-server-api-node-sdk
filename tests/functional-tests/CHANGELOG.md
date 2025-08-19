@@ -1,5 +1,12 @@
 # fingerprintjs-pro-server-api-node-sdk-smoke-tests
 
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies [5988f03]
+  - @fingerprintjs/fingerprintjs-pro-server-api@6.9.0
+
 ## 1.0.4
 
 ### Patch Changes
