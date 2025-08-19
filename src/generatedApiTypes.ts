@@ -560,6 +560,23 @@ export interface components {
      * @enum {string}
      */
     ProxyConfidence: 'low' | 'medium' | 'high'
+    /** @description Proxy detection details (present if proxy is detected) */
+    ProxyDetails: {
+      /**
+       * @description Residential proxies use real user IP addresses to appear as legitimate traffic,
+       *     while data center proxies are public proxies hosted in data centers
+       *
+       * @enum {string}
+       */
+      proxyType: 'residential' | 'data_center'
+      /**
+       * Format: date-time
+       * @description ISO 8601 formatted timestamp in UTC with hourly resolution
+       *     of when this IP was last seen as a proxy when available.
+       *
+       */
+      lastSeenAt?: string
+    } | null
     Proxy: {
       /** @description IP address was used by a public proxy provider or belonged to a known recent residential proxy
        *      */
@@ -569,6 +586,8 @@ export interface components {
        *     If it's detected, can be "low", "medium", or "high".
        *      */
       confidence: components['schemas']['ProxyConfidence']
+      /** @description Proxy detection details (present if proxy is detected) */
+      details?: components['schemas']['ProxyDetails']
     }
     ProductProxy: {
       data?: components['schemas']['Proxy']
@@ -983,6 +1002,8 @@ export interface components {
        *     If it's detected, can be "low", "medium", or "high".
        *      */
       confidence?: components['schemas']['ProxyConfidence']
+      /** @description Proxy detection details (present if proxy is detected) */
+      details?: components['schemas']['ProxyDetails']
     }
     WebhookTampering: {
       /** @description Indicates if an identification request from a browser or an Android SDK has been tampered with. Not supported in the iOS SDK, is always `false` for iOS requests.
