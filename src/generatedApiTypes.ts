@@ -268,7 +268,7 @@ export interface components {
       version: string
     }
     Identification: {
-      /** @description String of 20 characters that uniquely identifies the visitor's browser. */
+      /** @description String of 20 characters that uniquely identifies the visitor's browser or mobile device. */
       visitorId: string
       /** @description Unique identifier of the user's request. */
       requestId: string
@@ -311,6 +311,8 @@ export interface components {
       replayed: boolean
       /** @description Contains information about the SDK used to perform the request. */
       sdk?: components['schemas']['SDK']
+      /** @description Environment ID associated with the event */
+      environmentId?: string
     }
     /**
      * @description Error code:
@@ -1146,6 +1148,20 @@ export interface components {
        *      */
       result?: boolean
     }
+    SupplementaryID: {
+      /** @description String of 20 characters that uniquely identifies the visitor's browser or mobile device. */
+      visitorId?: string
+      /** @description Attribute represents if a visitor had been identified before. */
+      visitorFound?: boolean
+      confidence?: components['schemas']['IdentificationConfidence']
+      firstSeenAt?: components['schemas']['IdentificationSeenAt']
+      lastSeenAt?: components['schemas']['IdentificationSeenAt']
+    }
+    /** @description Other identities that have been established for a given Visitor. */
+    WebhookSupplementaryIDs: {
+      standard: components['schemas']['SupplementaryID']
+      highRecall: components['schemas']['SupplementaryID']
+    }
     Webhook: {
       /** @description Unique identifier of the user's request. */
       requestId: string
@@ -1171,7 +1187,7 @@ export interface components {
       ipLocation?: components['schemas']['DeprecatedGeolocation']
       /** @description A customer-provided id that was sent with the request. */
       linkedId?: string
-      /** @description String of 20 characters that uniquely identifies the visitor's browser. */
+      /** @description String of 20 characters that uniquely identifies the visitor's browser or mobile device. */
       visitorId?: string
       /** @description Attribute represents if a visitor had been identified before. */
       visitorFound?: boolean
@@ -1238,6 +1254,8 @@ export interface components {
       replayed?: boolean
       /** @description Contains information about the SDK used to perform the request. */
       sdk: components['schemas']['SDK']
+      /** @description Other identities that have been established for a given Visitor. */
+      supplementaryIds?: components['schemas']['WebhookSupplementaryIDs']
     }
   }
   responses: never
@@ -1465,6 +1483,34 @@ export interface operations {
          *     > Note: When using this parameter, only events with the `products.ipInfo.data.v4.datacenter.result` or `products.ipInfo.data.v6.datacenter.result` property set to `true` or `false` are returned. Events without a `products.ipInfo` Smart Signal result are left out of the response.
          *      */
         datacenter?: boolean
+        /** @description Filter events by Developer Tools detection result.
+         *     > Note: When using this parameter, only events with the `products.developerTools.data.result` property set to `true` or `false` are returned. Events without a `products.developerTools` Smart Signal result are left out of the response.
+         *      */
+        developer_tools?: boolean
+        /** @description Filter events by Location Spoofing detection result.
+         *     > Note: When using this parameter, only events with the `products.locationSpoofing.data.result` property set to `true` or `false` are returned. Events without a `products.locationSpoofing` Smart Signal result are left out of the response.
+         *      */
+        location_spoofing?: boolean
+        /** @description Filter events by MITM (Man-in-the-Middle) Attack detection result.
+         *     > Note: When using this parameter, only events with the `products.mitmAttack.data.result` property set to `true` or `false` are returned. Events without a `products.mitmAttack` Smart Signal result are left out of the response.
+         *      */
+        mitm_attack?: boolean
+        /** @description Filter events by Proxy detection result.
+         *     > Note: When using this parameter, only events with the `products.proxy.data.result` property set to `true` or `false` are returned. Events without a `products.proxy` Smart Signal result are left out of the response.
+         *      */
+        proxy?: boolean
+        /** @description Filter events by a specific SDK version associated with the identification event. Example: `3.11.14`
+         *      */
+        sdk_version?: string
+        /** @description Filter events by the SDK Platform associated with the identification event.
+         *     `js` - JavaScript agent (Web).
+         *     `ios` - Apple iOS based devices.
+         *     `android` - Android based devices.
+         *      */
+        sdk_platform?: 'js' | 'android' | 'ios'
+        /** @description Filter for events by providing one or more environment IDs.
+         *      */
+        environment?: string[]
       }
       header?: never
       path?: never
