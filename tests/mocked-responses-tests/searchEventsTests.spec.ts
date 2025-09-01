@@ -90,6 +90,13 @@ describe('[Mocked response] Search Events', () => {
       incognito: true,
       ip_blocklist: true,
       datacenter: true,
+      developer_tools: true,
+      location_spoofing: true,
+      mitm_attack: true,
+      proxy: true,
+      sdk_version: 'testSdkVersion',
+      sdk_platform: 'js',
+      environment: ['env1', 'env2'],
     })
 
     expect(response).toEqual(getEventsSearch)
@@ -97,7 +104,7 @@ describe('[Mocked response] Search Events', () => {
     expect(mockFetch).toHaveBeenCalledWith(
       `https://api.fpjs.io/events/search?limit=10&bot=all&visitor_id=visitor_id&ip_address=${encodeURIComponent(
         '192.168.0.1/32'
-      )}&linked_id=linked_id&start=1620000000000&end=1630000000000&reverse=true&suspect=false&anti_detect_browser=true&cloned_app=true&factory_reset=true&frida=true&jailbroken=true&min_suspect_score=0.5&privacy_settings=true&root_apps=true&tampering=true&virtual_machine=true&vpn=true&vpn_confidence=medium&emulator=true&incognito=true&ip_blocklist=true&datacenter=true&ii=${encodeURIComponent(
+      )}&linked_id=linked_id&start=1620000000000&end=1630000000000&reverse=true&suspect=false&anti_detect_browser=true&cloned_app=true&factory_reset=true&frida=true&jailbroken=true&min_suspect_score=0.5&privacy_settings=true&root_apps=true&tampering=true&virtual_machine=true&vpn=true&vpn_confidence=medium&emulator=true&incognito=true&ip_blocklist=true&datacenter=true&developer_tools=true&location_spoofing=true&mitm_attack=true&proxy=true&sdk_version=testSdkVersion&sdk_platform=js&environment%5B%5D=env1&environment%5B%5D=env2&ii=${encodeURIComponent(
         getIntegrationInfo()
       )}`,
       {
