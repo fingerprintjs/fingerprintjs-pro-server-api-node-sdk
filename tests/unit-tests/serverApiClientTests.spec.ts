@@ -10,7 +10,7 @@ describe('ServerApiClient', () => {
       region: Region.Global,
     })
 
-    await client.getVisits('visitorId')
+    await client.getEvent('eventId')
 
     expect(mockFetch).toHaveBeenCalledTimes(1)
   })
@@ -64,10 +64,10 @@ describe('ServerApiClient', () => {
       fetch: mockFetch,
       apiKey: 'test',
       region: Region.Global,
-      authenticationMode: 'AuthHeader',
+      authenticationMode: AuthenticationMode.AuthHeader,
     })
 
-    await client.getVisits('visitorId')
+    await client.getEvent('eventId')
 
     expect(mockFetch).toHaveBeenCalledTimes(1)
     expect(mockFetch).toHaveBeenCalledWith(expect.not.stringContaining('api_key=test'), {
@@ -78,7 +78,7 @@ describe('ServerApiClient', () => {
     })
   })
 
-  it.each([['QueryParameter' as keyof typeof AuthenticationMode], [AuthenticationMode.QueryParameter]])(
+  it.each([[AuthenticationMode.QueryParameter]])(
     'should put the API key in the query parameters for AuthenticationMode.QueryParameter',
     async (authenticationMode) => {
       const mockFetch = jest.fn().mockResolvedValue(new Response(JSON.stringify({})))
@@ -90,7 +90,7 @@ describe('ServerApiClient', () => {
         authenticationMode,
       })
 
-      await client.getVisits('visitorId')
+      await client.getEvent('eventId')
 
       expect(mockFetch).toHaveBeenCalledTimes(1)
       expect(mockFetch).toHaveBeenCalledWith(expect.stringMatching(/.*\?.*api_key=test.*$/), {
