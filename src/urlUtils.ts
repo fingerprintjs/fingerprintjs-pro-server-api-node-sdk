@@ -6,7 +6,9 @@ const euRegionUrl = 'https://eu.api.fpjs.io/'
 const apRegionUrl = 'https://ap.api.fpjs.io/'
 const globalRegionUrl = 'https://api.fpjs.io/'
 
-type QueryStringParameters = Record<string, string | number> & {
+type QueryStringScalar = string | number | boolean | null | undefined
+
+type QueryStringParameters = Record<string, QueryStringScalar | string[]> & {
   api_key?: string
   ii: string
 }
@@ -15,12 +17,37 @@ export function getIntegrationInfo() {
   return `fingerprint-pro-server-node-sdk/${version}`
 }
 
+function isEmptyValue(value: any): boolean {
+  return value === undefined || value === null
+}
+
 function serializeQueryStringParams(params: QueryStringParameters): string {
-  const filteredParams = Object.entries(params).filter(([, value]) => value !== undefined && value !== null)
-  if (!filteredParams.length) {
+  const entries: [string, string][] = []
+
+  for (const [key, value] of Object.entries(params)) {
+    // Use the helper for the main value
+    if (isEmptyValue(value)) {
+      continue
+    }
+
+    if (Array.isArray(value)) {
+      for (const v of value) {
+        // Also use the helper for each item in the array
+        if (isEmptyValue(v)) {
+          continue
+        }
+        entries.push([`${key}[]`, String(v)])
+      }
+    } else {
+      entries.push([key, String(value)])
+    }
+  }
+
+  if (!entries.length) {
     return ''
   }
-  const urlSearchParams = new URLSearchParams(filteredParams as [string, string][])
+
+  const urlSearchParams = new URLSearchParams(entries)
 
   return urlSearchParams.toString()
 }
