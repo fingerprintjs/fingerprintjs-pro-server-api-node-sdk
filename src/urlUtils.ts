@@ -17,8 +17,8 @@ export function getIntegrationInfo() {
   return `fingerprint-pro-server-node-sdk/${version}`
 }
 
-function isNullOrEmptyOrWhitespace(value: any): boolean {
-  return value === undefined || value === null || (typeof value === 'string' && value.trim() === '')
+function isEmptyValue(value: any): boolean {
+  return value === undefined || value === null
 }
 
 function serializeQueryStringParams(params: QueryStringParameters): string {
@@ -26,14 +26,14 @@ function serializeQueryStringParams(params: QueryStringParameters): string {
 
   for (const [key, value] of Object.entries(params)) {
     // Use the helper for the main value
-    if (isNullOrEmptyOrWhitespace(value)) {
+    if (isEmptyValue(value)) {
       continue
     }
 
     if (Array.isArray(value)) {
       for (const v of value) {
         // Also use the helper for each item in the array
-        if (isNullOrEmptyOrWhitespace(v)) {
+        if (isEmptyValue(v)) {
           continue
         }
         entries.push([`${key}[]`, String(v)])
