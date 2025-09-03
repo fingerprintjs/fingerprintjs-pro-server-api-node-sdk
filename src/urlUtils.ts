@@ -17,17 +17,23 @@ export function getIntegrationInfo() {
   return `fingerprint-pro-server-node-sdk/${version}`
 }
 
+function isNullOrEmptyOrWhitespace(value: any): boolean {
+  return value === undefined || value === null || (typeof value === 'string' && value.trim() === '')
+}
+
 function serializeQueryStringParams(params: QueryStringParameters): string {
   const entries: [string, string][] = []
 
   for (const [key, value] of Object.entries(params)) {
-    if (value === undefined || value === null) {
+    // Use the helper for the main value
+    if (isNullOrEmptyOrWhitespace(value)) {
       continue
     }
 
     if (Array.isArray(value)) {
       for (const v of value) {
-        if (v === undefined || v === null) {
+        // Also use the helper for each item in the array
+        if (isNullOrEmptyOrWhitespace(v)) {
           continue
         }
         entries.push([`${key}[]`, String(v)])

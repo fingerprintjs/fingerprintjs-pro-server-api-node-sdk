@@ -96,7 +96,7 @@ describe('[Mocked response] Search Events', () => {
       proxy: true,
       sdk_version: 'testSdkVersion',
       sdk_platform: 'js',
-      environment: ['env1', 'env2'],
+      environment: ['env1', 'env2', ''], // Cannot add null or undefined here because environment expects string or string array
     })
 
     expect(response).toEqual(getEventsSearch)
