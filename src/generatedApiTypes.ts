@@ -839,6 +839,34 @@ export interface components {
       data?: components['schemas']['MitMAttack']
       error?: components['schemas']['Error']
     }
+    /** @description Proximity ID represents a fixed geographical zone in a discrete global grid within which the device is observed.
+     *      */
+    Proximity: {
+      /** @description A stable privacy-preserving identifier for a given proximity zone.
+       *      */
+      id: string
+      /**
+       * Format: int32
+       * @description The radius of the proximity zone’s precision level, in meters.
+       *
+       * @enum {integer}
+       */
+      precisionRadius: 10 | 25 | 65 | 175 | 450 | 1200 | 3300 | 8500 | 22500
+      /**
+       * Format: float
+       * @description A value between `0` and `1` representing the likelihood that the true device location lies within the mapped proximity zone.
+       *       * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
+       *       * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
+       *
+       */
+      confidence: number
+    }
+    ProductProximity: {
+      /** @description Proximity ID represents a fixed geographical zone in a discrete global grid within which the device is observed.
+       *      */
+      data?: components['schemas']['Proximity']
+      error?: components['schemas']['Error']
+    }
     /** @description Contains all information about the request identified by `requestId`, depending on the pricing plan (Pro, Pro Plus, Enterprise) */
     Products: {
       identification?: components['schemas']['ProductIdentification']
@@ -868,6 +896,7 @@ export interface components {
       velocity?: components['schemas']['ProductVelocity']
       developerTools?: components['schemas']['ProductDeveloperTools']
       mitmAttack?: components['schemas']['ProductMitMAttack']
+      proximity?: components['schemas']['ProductProximity']
     }
     /** @description Contains results from all activated products - Fingerprint Pro, Bot Detection, and others. */
     EventsGetResponse: {
@@ -1162,6 +1191,28 @@ export interface components {
       standard: components['schemas']['SupplementaryID']
       highRecall: components['schemas']['SupplementaryID']
     }
+    /** @description Proximity ID represents a fixed geographical zone in a discrete global grid within which the device is observed.
+     *      */
+    WebhookProximity: {
+      /** @description A stable privacy-preserving identifier for a given proximity zone.
+       *      */
+      id: string
+      /**
+       * Format: int32
+       * @description The radius of the proximity zone’s precision level, in meters.
+       *
+       * @enum {integer}
+       */
+      precisionRadius: 10 | 25 | 65 | 175 | 450 | 1200 | 3300 | 8500 | 22500
+      /**
+       * Format: float
+       * @description A value between `0` and `1` representing the likelihood that the true device location lies within the mapped proximity zone.
+       *       * Scores closer to `1` indicate high confidence that the location is inside the mapped proximity zone.
+       *       * Scores closer to `0` indicate lower confidence, suggesting the true location may fall in an adjacent zone.
+       *
+       */
+      confidence: number
+    }
     Webhook: {
       /** @description Unique identifier of the user's request. */
       requestId: string
@@ -1256,6 +1307,9 @@ export interface components {
       sdk: components['schemas']['SDK']
       /** @description Other identities that have been established for a given Visitor. */
       supplementaryIds?: components['schemas']['WebhookSupplementaryIDs']
+      /** @description Proximity ID represents a fixed geographical zone in a discrete global grid within which the device is observed.
+       *      */
+      proximity?: components['schemas']['WebhookProximity']
     }
   }
   responses: never
@@ -1511,6 +1565,14 @@ export interface operations {
         /** @description Filter for events by providing one or more environment IDs.
          *      */
         environment?: string[]
+        /** @description Filter events by the most precise Proximity ID provided by default.
+         *     > Note: When using this parameter, only events with the `products.proximity.id` property matching the provided ID are returned. Events without a `products.proximity` result are left out of the response.
+         *      */
+        proximity_id?: string
+        /** @description Filter events by Proximity Radius.
+         *     > Note: When using this parameter, only events with the `products.proximity.precisionRadius` property set to a valid value are returned. Events without a `products.proximity` result are left out of the response.
+         *      */
+        proximity_precision_radius?: 10 | 25 | 65 | 175 | 450 | 1200 | 3300 | 8500 | 22500
       }
       header?: never
       path?: never
