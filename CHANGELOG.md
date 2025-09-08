@@ -1,5 +1,11 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.10.0-test.1
+
+### Minor Changes
+
+- Add `proximity` signal that represents a fixed geographical zone in a discrete global grid within which the device is observed. ([8e3b09b](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/8e3b09bbf3ed82992b2bacb16be1653e8bbfe9eb))
+
 ## 6.10.0-test.0
 
 ### Minor Changes
