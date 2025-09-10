@@ -1,5 +1,14 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.10.0
+
+### Minor Changes
+
+- **events-search**: Event search now supports a new set of filter parameters: `developer_tools`, `location_spoofing`, `mitm_attack`, `proxy`, `sdk_version`, `sdk_platform`, `environment` ([38690a8](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/38690a80097baef7eafef8bc300077825d4abcb4))
+- **webhook**: Add `supplementaryIds` property to the Webhooks schema. ([38690a8](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/38690a80097baef7eafef8bc300077825d4abcb4))
+- Add `proximity` signal that represents a fixed geographical zone in a discrete global grid within which the device is observed. ([8e3b09b](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/8e3b09bbf3ed82992b2bacb16be1653e8bbfe9eb))
+- Add `environmentId` property to `identification` ([38690a8](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/38690a80097baef7eafef8bc300077825d4abcb4))
+
 ## 6.10.0-test.1
 
 ### Minor Changes
