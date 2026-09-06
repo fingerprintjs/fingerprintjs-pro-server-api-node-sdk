@@ -13,6 +13,7 @@ export {
   SearchEventsFilter,
   SearchEventsResponse,
 } from './types'
+export { hydrateEvent } from './hydrateEvent'
 export * from './sealedResults'
 export * from './errors/unsealError'
 export * from './webhook'
