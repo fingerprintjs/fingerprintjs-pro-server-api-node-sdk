@@ -28,4 +28,18 @@ describe('hydrateEvent', () => {
   it('rejects null JSON', () => {
     expect(() => hydrateEvent(null)).toThrow('event JSON must be an object')
   })
+
+  it('inserts device when source is empty', () => {
+    expect(hydrateEvent({ event_id: 'x', timestamp: 1, source: '' }).source).toBe('device')
+  })
+
+  it('inserts device when source is null', () => {
+    expect(hydrateEvent({ event_id: 'x', timestamp: 1, source: null }).source).toBe('device')
+  })
+
+  it('rejects an unknown non-empty source', () => {
+    expect(() => hydrateEvent({ event_id: 'x', timestamp: 1, source: 'webhook' })).toThrow(
+      'unknown Event source: "webhook"'
+    )
+  })
 })
