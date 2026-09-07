@@ -198,88 +198,56 @@ describe('getRequestPath', () => {
   })
 })
 
+// Encoding does not depend on which parameter is being replaced, so these run against one
+// path. That every operation routes through it is covered by the mocked-response tests.
 describe('path parameter encoding', () => {
-  const pathsWithParams = [
-    { path: '/events/{event_id}', method: 'get', prefix: 'v4/events', placeholder: 'event_id' },
-    { path: '/visitors/{visitor_id}', method: 'delete', prefix: 'v4/visitors', placeholder: 'visitor_id' },
-  ] as const
-
-  describe.each(pathsWithParams)('$path', ({ path, method, prefix, placeholder }) => {
-    it.each([
-      ['../events', '..%2Fevents'],
-      ['/../../events', '%2F..%2F..%2Fevents'],
-      ['evil.com', 'evil.com'],
-      ['//evil.com', '%2F%2Fevil.com'],
-      ['https://evil.com', 'https%3A%2F%2Fevil.com'],
-      ['a b#c?d', 'a%20b%23c%3Fd'],
-      ['%2e%2e', '%252e%252e'],
-      ['..%2fevents', '..%252fevents'],
-      ['..\\..', '..%5C..'],
-      ['$&', '%24%26'],
-      ['...', '...'],
-      // Guards the assumption that a placeholder in a parameter cannot reach the next
-      // replacement, which would matter for a path with two placeholders.
-      ['{event_id}', '%7Bevent_id%7D'],
-      ['1626550679751.cVc5Pm', '1626550679751.cVc5Pm'],
-    ])('keeps %j inside a single path segment', (param, encoded) => {
-      const actual = getRequestPath({ path, method, pathParams: [param], region: Region.Global })
-
-      expect(actual).toEqual(`https://api.fpjs.io/${prefix}/${encoded}?${ii}`)
-      expect(new URL(actual).host).toEqual('api.fpjs.io')
+  const eventPath = (param: unknown) =>
+    getRequestPath({
+      path: '/events/{event_id}',
+      method: 'get',
+      pathParams: [param] as string[],
+      region: Region.Global,
     })
 
-    it.each(['.', '..'])('rejects the dot segment %j', (param) => {
-      expect(() => getRequestPath({ path, method, pathParams: [param], region: Region.Global })).toThrow(
-        /^Invalid path parameter for /
-      )
-    })
+  it.each([
+    ['../events', '..%2Fevents'],
+    ['/../../events', '%2F..%2F..%2Fevents'],
+    ['evil.com', 'evil.com'],
+    ['//evil.com', '%2F%2Fevil.com'],
+    ['https://evil.com', 'https%3A%2F%2Fevil.com'],
+    ['a b#c?d', 'a%20b%23c%3Fd'],
+    ['%2e%2e', '%252e%252e'],
+    ['..%2fevents', '..%252fevents'],
+    ['..\\..', '..%5C..'],
+    ['$&', '%24%26'],
+    ['...', '...'],
+    // A placeholder in a parameter must not reach the next replacement, which would matter
+    // for a path with two placeholders.
+    ['{event_id}', '%7Bevent_id%7D'],
+    ['1626550679751.cVc5Pm', '1626550679751.cVc5Pm'],
+    // An untyped caller can pass something that is not a string but stringifies to one.
+    [new String('../events'), '..%2Fevents'],
+  ])('keeps %j inside a single path segment', (param, encoded) => {
+    expect(eventPath(param)).toEqual(`https://api.fpjs.io/v4/events/${encoded}?${ii}`)
+  })
 
-    it('rejects an empty parameter', () => {
-      expect(() => getRequestPath({ path, method, pathParams: [''], region: Region.Global })).toThrow(
-        /^Missing path parameter for /
-      )
-    })
+  it.each([
+    ['.', '.'],
+    ['..', '..'],
+    ['a String object', new String('..')],
+    ['an object with a toString', { toString: () => '..' }],
+    ['an array', ['..']],
+    // A lone surrogate makes `encodeURIComponent` throw a `URIError`
+    ['a lone surrogate', '\ud800'],
+  ])('rejects %s', (_, param) => {
+    expect(() => eventPath(param)).toThrow(new TypeError('Invalid path parameter for event_id'))
+  })
 
-    it('rejects a value that cannot be encoded', () => {
-      // A lone surrogate makes `encodeURIComponent` throw a `URIError`
-      expect(() => getRequestPath({ path, method, pathParams: ['\ud800'], region: Region.Global })).toThrow(
-        new TypeError(`Invalid path parameter for ${placeholder}`)
-      )
-    })
-
-    // An untyped caller can pass a value that is not a string but stringifies to one.
-    describe('non-string parameters', () => {
-      const asPathParams = (param: unknown) => [param] as unknown as string[]
-
-      it.each([
-        ['a String object', new String('..')],
-        ['an object with a toString', { toString: () => '..' }],
-        ['an array', ['..']],
-      ])('rejects the dot segment from %s', (_, param) => {
-        expect(() => getRequestPath({ path, method, pathParams: asPathParams(param), region: Region.Global })).toThrow(
-          /^Invalid path parameter for /
-        )
-      })
-
-      it.each([
-        ['an empty String object', new String('')],
-        ['null', null],
-      ])('rejects %s as missing', (_, param) => {
-        expect(() => getRequestPath({ path, method, pathParams: asPathParams(param), region: Region.Global })).toThrow(
-          /^Missing path parameter for /
-        )
-      })
-
-      it('encodes a stringified value that is not a dot segment', () => {
-        const actual = getRequestPath({
-          path,
-          method,
-          pathParams: asPathParams(new String('../events')),
-          region: Region.Global,
-        })
-
-        expect(actual).toEqual(`https://api.fpjs.io/${prefix}/..%2Fevents?${ii}`)
-      })
-    })
+  it.each([
+    ['an empty string', ''],
+    ['an empty String object', new String('')],
+    ['null', null],
+  ])('rejects %s as missing', (_, param) => {
+    expect(() => eventPath(param)).toThrow(new TypeError('Missing path parameter for event_id'))
   })
 })

@@ -50,13 +50,22 @@ function serializeQueryStringParams(params: QueryStringParameters): string {
  * A value of `.` or `..` is rejected: `new URL()` drops such a segment even when the dots are
  * encoded, so it cannot be expressed. See https://url.spec.whatwg.org/#double-dot-path-segment
  */
-function encodePathParam(placeholder: string, value: string): string {
-  if (value === '.' || value === '..') {
+function encodePathParam(placeholder: string, value: unknown): string {
+  // Coerce first: an untyped caller can pass something that is not a string but stringifies
+  // to one, which would slip past a strict comparison.
+  // eslint-disable-next-line @typescript-eslint/no-base-to-string -- runtime validation
+  const param = String(value ?? '')
+
+  if (param === '') {
+    throw new TypeError(`Missing path parameter for ${placeholder}`)
+  }
+
+  if (param === '.' || param === '..') {
     throw new TypeError(`Invalid path parameter for ${placeholder}`)
   }
 
   try {
-    return encodeURIComponent(value)
+    return encodeURIComponent(param)
   } catch {
     // `encodeURIComponent` throws `URIError` on a lone surrogate
     throw new TypeError(`Invalid path parameter for ${placeholder}`)
@@ -112,23 +121,12 @@ export function getRequestPath({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   method: _,
 }: GetRequestPathOptions): string {
-  // Step 1: Extract the path parameters (placeholders) from the path
-  const placeholders = Array.from(path.matchAll(/{(.*?)}/g)).map((match) => match[1])
-
-  // Step 2: Replace the placeholders with provided pathParams
-  let formattedPath: string = `${apiVersion}${path}`
-  placeholders.forEach((placeholder, index) => {
-    // Coerce to a primitive before validating. An untyped caller can pass something that is
-    // not a string but stringifies to one, and it would pass a strict comparison.
-    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- runtime validation
-    const param = String(pathParams?.[index] ?? '')
-
-    if (param === '') {
-      throw new TypeError(`Missing path parameter for ${placeholder}`)
-    }
-
-    formattedPath = formattedPath.replace(`{${placeholder}}`, encodePathParam(placeholder, param))
-  })
+  // Replace each `{placeholder}` with its path parameter. The replacement is a function so
+  // that `$&` and friends in a parameter are not read as replacement patterns.
+  let index = 0
+  const formattedPath = `${apiVersion}${path}`.replace(/{(.*?)}/g, (_, placeholder: string) =>
+    encodePathParam(placeholder, pathParams?.[index++])
+  )
 
   const queryStringParameters: QueryStringParameters = {
     ...(queryParams ?? {}),
