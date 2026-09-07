@@ -43,6 +43,23 @@ function serializeQueryStringParams(params: QueryStringParameters): string {
   return urlSearchParams.toString()
 }
 
+/**
+ * Encodes a value so that it is confined to a single URL path segment.
+ *
+ * `encodeURIComponent` escapes `/`, `?`, `#` and `%`, but leaves `.` alone, which matters
+ * because the Server API does not URL-decode path parameters and event IDs contain a dot.
+ * A value of `.` or `..` is rejected, because `new URL()` drops such a segment even when the
+ * dots are encoded: https://url.spec.whatwg.org/#double-dot-path-segment
+ */
+function encodePathParam(placeholder: string, value: string): string {
+  if (value === '.' || value === '..') {
+    // TypeError to match the invalid-argument guards in `FingerprintServerApiClient`
+    throw new TypeError(`Invalid path parameter for ${placeholder}`)
+  }
+
+  return encodeURIComponent(value)
+}
+
 function getServerApiUrl(region: Region): string {
   switch (region) {
     case Region.EU:
@@ -67,7 +84,7 @@ export interface GetRequestPathOptions {
 }
 
 /**
- * Formats a URL for the FingerprintJS server API by replacing placeholders and
+ * Formats a URL for the Fingerprint Server API by replacing placeholders and
  * appending query string parameters.
  *
  * @internal
@@ -100,7 +117,7 @@ export function getRequestPath({
   placeholders.forEach((placeholder, index) => {
     const param = pathParams?.[index]
     if (param !== undefined && param !== '') {
-      formattedPath = formattedPath.replace(`{${placeholder}}`, param)
+      formattedPath = formattedPath.replace(`{${placeholder}}`, encodePathParam(placeholder, param))
     } else {
       throw new Error(`Missing path parameter for ${placeholder}`)
     }

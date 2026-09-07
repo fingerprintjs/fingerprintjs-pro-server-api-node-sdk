@@ -197,3 +197,44 @@ describe('getRequestPath', () => {
     expect(actual).toEqual(expected)
   })
 })
+
+describe('path parameter encoding', () => {
+  const pathsWithParams = [
+    { path: '/events/{event_id}', method: 'get', prefix: 'v4/events' },
+    { path: '/visitors/{visitor_id}', method: 'delete', prefix: 'v4/visitors' },
+  ] as const
+
+  describe.each(pathsWithParams)('$path', ({ path, method, prefix }) => {
+    it.each([
+      ['../events', '..%2Fevents'],
+      ['/../../events', '%2F..%2F..%2Fevents'],
+      ['evil.com', 'evil.com'],
+      ['//evil.com', '%2F%2Fevil.com'],
+      ['https://evil.com', 'https%3A%2F%2Fevil.com'],
+      ['a b#c?d', 'a%20b%23c%3Fd'],
+      ['%2e%2e', '%252e%252e'],
+      ['..%2fevents', '..%252fevents'],
+      ['..\\..', '..%5C..'],
+      ['$&', '%24%26'],
+      ['...', '...'],
+      ['1626550679751.cVc5Pm', '1626550679751.cVc5Pm'],
+    ])('keeps %j inside a single path segment', (param, encoded) => {
+      const actual = getRequestPath({ path, method, pathParams: [param], region: Region.Global })
+
+      expect(actual).toEqual(`https://api.fpjs.io/${prefix}/${encoded}?${ii}`)
+      expect(new URL(actual).host).toEqual('api.fpjs.io')
+    })
+
+    it.each(['.', '..'])('rejects the dot segment %j', (param) => {
+      expect(() => getRequestPath({ path, method, pathParams: [param], region: Region.Global })).toThrow(
+        /^Invalid path parameter for /
+      )
+    })
+
+    it('rejects an empty parameter', () => {
+      expect(() => getRequestPath({ path, method, pathParams: [''], region: Region.Global })).toThrow(
+        /^Missing path parameter for /
+      )
+    })
+  })
+})
