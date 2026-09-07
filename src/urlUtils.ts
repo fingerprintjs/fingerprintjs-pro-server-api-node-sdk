@@ -51,25 +51,31 @@ function serializeQueryStringParams(params: QueryStringParameters): string {
  * encoded, so it cannot be expressed. See https://url.spec.whatwg.org/#double-dot-path-segment
  */
 function encodePathParam(placeholder: string, value: unknown): string {
-  // Coerce first: an untyped caller can pass something that is not a string but stringifies
-  // to one, which would slip past a strict comparison.
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string -- runtime validation
-  const param = String(value ?? '')
+  const invalid = () => new TypeError(`Invalid path parameter for ${placeholder}`)
+
+  // Coerce before comparing, because an untyped caller can pass something that is not a string
+  // but stringifies to one. Both conversions throw on values only such a caller could pass:
+  // `String` when the value has no primitive representation, `encodeURIComponent` on a lone
+  // surrogate. Neither should escape as its own error type.
+  let param: string
+  let encoded: string
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string -- runtime validation
+    param = String(value ?? '')
+    encoded = encodeURIComponent(param)
+  } catch {
+    throw invalid()
+  }
 
   if (param === '') {
     throw new TypeError(`Missing path parameter for ${placeholder}`)
   }
 
   if (param === '.' || param === '..') {
-    throw new TypeError(`Invalid path parameter for ${placeholder}`)
+    throw invalid()
   }
 
-  try {
-    return encodeURIComponent(param)
-  } catch {
-    // `encodeURIComponent` throws `URIError` on a lone surrogate
-    throw new TypeError(`Invalid path parameter for ${placeholder}`)
-  }
+  return encoded
 }
 
 function getServerApiUrl(region: Region): string {

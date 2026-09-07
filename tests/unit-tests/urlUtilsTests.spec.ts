@@ -239,6 +239,16 @@ describe('path parameter encoding', () => {
     ['an array', ['..']],
     // A lone surrogate makes `encodeURIComponent` throw a `URIError`
     ['a lone surrogate', '\ud800'],
+    // These have no primitive representation, so `String` itself throws
+    ['an object without a prototype', Object.create(null)],
+    [
+      'an object whose toString throws',
+      {
+        toString: () => {
+          throw new Error('boom')
+        },
+      },
+    ],
   ])('rejects %s', (_, param) => {
     expect(() => eventPath(param)).toThrow(new TypeError('Invalid path parameter for event_id'))
   })
