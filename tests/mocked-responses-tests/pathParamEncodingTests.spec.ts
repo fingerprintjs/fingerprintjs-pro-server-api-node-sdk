@@ -40,15 +40,16 @@ describe('[Mocked response] Path parameter encoding', () => {
   ] as const
 
   describe.each(operations)('$name', ({ prefix, placeholder, paramName, call }) => {
+    // The full encoding table lives in the unit tests; these are the cases INTER-2499 asks to
+    // be pinned at the wire level for every method.
     it.each([
       ['../events', '..%2Fevents'],
-      ['/../../events', '%2F..%2F..%2Fevents'],
       ['evil.com', 'evil.com'],
       ['//evil.com', '%2F%2Fevil.com'],
-      ['https://evil.com', 'https%3A%2F%2Fevil.com'],
     ])('requests a single path segment for %j', async (param, encoded) => {
       mockFetch.mockReturnValue(Promise.resolve(emptyResponse()))
 
+      // `getEvent` rejects on the empty body; only the requested URL matters here.
       await call(param).catch(() => undefined)
 
       const requestedUrl = mockFetch.mock.calls[0]?.[0] as string

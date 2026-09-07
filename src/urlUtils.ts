@@ -44,20 +44,23 @@ function serializeQueryStringParams(params: QueryStringParameters): string {
 }
 
 /**
- * Encodes a value so that it is confined to a single URL path segment.
+ * Confines a value to a single URL path segment. `.` is deliberately left unencoded, because
+ * the Server API does not decode path parameters and valid event IDs contain a dot.
  *
- * `encodeURIComponent` escapes `/`, `?`, `#` and `%`, but leaves `.` alone, which matters
- * because the Server API does not URL-decode path parameters and event IDs contain a dot.
- * A value of `.` or `..` is rejected, because `new URL()` drops such a segment even when the
- * dots are encoded: https://url.spec.whatwg.org/#double-dot-path-segment
+ * A value of `.` or `..` is rejected: `new URL()` drops such a segment even when the dots are
+ * encoded, so it cannot be expressed. See https://url.spec.whatwg.org/#double-dot-path-segment
  */
 function encodePathParam(placeholder: string, value: string): string {
   if (value === '.' || value === '..') {
-    // TypeError to match the invalid-argument guards in `FingerprintServerApiClient`
     throw new TypeError(`Invalid path parameter for ${placeholder}`)
   }
 
-  return encodeURIComponent(value)
+  try {
+    return encodeURIComponent(value)
+  } catch {
+    // `encodeURIComponent` throws `URIError` on a lone surrogate
+    throw new TypeError(`Invalid path parameter for ${placeholder}`)
+  }
 }
 
 function getServerApiUrl(region: Region): string {
@@ -121,7 +124,7 @@ export function getRequestPath({
     const param = String(pathParams?.[index] ?? '')
 
     if (param === '') {
-      throw new Error(`Missing path parameter for ${placeholder}`)
+      throw new TypeError(`Missing path parameter for ${placeholder}`)
     }
 
     formattedPath = formattedPath.replace(`{${placeholder}}`, encodePathParam(placeholder, param))

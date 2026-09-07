@@ -200,11 +200,11 @@ describe('getRequestPath', () => {
 
 describe('path parameter encoding', () => {
   const pathsWithParams = [
-    { path: '/events/{event_id}', method: 'get', prefix: 'v4/events' },
-    { path: '/visitors/{visitor_id}', method: 'delete', prefix: 'v4/visitors' },
+    { path: '/events/{event_id}', method: 'get', prefix: 'v4/events', placeholder: 'event_id' },
+    { path: '/visitors/{visitor_id}', method: 'delete', prefix: 'v4/visitors', placeholder: 'visitor_id' },
   ] as const
 
-  describe.each(pathsWithParams)('$path', ({ path, method, prefix }) => {
+  describe.each(pathsWithParams)('$path', ({ path, method, prefix, placeholder }) => {
     it.each([
       ['../events', '..%2Fevents'],
       ['/../../events', '%2F..%2F..%2Fevents'],
@@ -217,6 +217,9 @@ describe('path parameter encoding', () => {
       ['..\\..', '..%5C..'],
       ['$&', '%24%26'],
       ['...', '...'],
+      // Guards the assumption that a placeholder in a parameter cannot reach the next
+      // replacement, which would matter for a path with two placeholders.
+      ['{event_id}', '%7Bevent_id%7D'],
       ['1626550679751.cVc5Pm', '1626550679751.cVc5Pm'],
     ])('keeps %j inside a single path segment', (param, encoded) => {
       const actual = getRequestPath({ path, method, pathParams: [param], region: Region.Global })
@@ -234,6 +237,13 @@ describe('path parameter encoding', () => {
     it('rejects an empty parameter', () => {
       expect(() => getRequestPath({ path, method, pathParams: [''], region: Region.Global })).toThrow(
         /^Missing path parameter for /
+      )
+    })
+
+    it('rejects a value that cannot be encoded', () => {
+      // A lone surrogate makes `encodeURIComponent` throw a `URIError`
+      expect(() => getRequestPath({ path, method, pathParams: ['\ud800'], region: Region.Global })).toThrow(
+        new TypeError(`Invalid path parameter for ${placeholder}`)
       )
     })
 
