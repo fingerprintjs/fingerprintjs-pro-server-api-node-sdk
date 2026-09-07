@@ -236,5 +236,40 @@ describe('path parameter encoding', () => {
         /^Missing path parameter for /
       )
     })
+
+    // An untyped caller can pass a value that is not a string but stringifies to one.
+    describe('non-string parameters', () => {
+      const asPathParams = (param: unknown) => [param] as unknown as string[]
+
+      it.each([
+        ['a String object', new String('..')],
+        ['an object with a toString', { toString: () => '..' }],
+        ['an array', ['..']],
+      ])('rejects the dot segment from %s', (_, param) => {
+        expect(() => getRequestPath({ path, method, pathParams: asPathParams(param), region: Region.Global })).toThrow(
+          /^Invalid path parameter for /
+        )
+      })
+
+      it.each([
+        ['an empty String object', new String('')],
+        ['null', null],
+      ])('rejects %s as missing', (_, param) => {
+        expect(() => getRequestPath({ path, method, pathParams: asPathParams(param), region: Region.Global })).toThrow(
+          /^Missing path parameter for /
+        )
+      })
+
+      it('encodes a stringified value that is not a dot segment', () => {
+        const actual = getRequestPath({
+          path,
+          method,
+          pathParams: asPathParams(new String('../events')),
+          region: Region.Global,
+        })
+
+        expect(actual).toEqual(`https://api.fpjs.io/${prefix}/..%2Fevents?${ii}`)
+      })
+    })
   })
 })

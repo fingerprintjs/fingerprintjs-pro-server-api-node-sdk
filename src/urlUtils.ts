@@ -115,12 +115,16 @@ export function getRequestPath({
   // Step 2: Replace the placeholders with provided pathParams
   let formattedPath: string = `${apiVersion}${path}`
   placeholders.forEach((placeholder, index) => {
-    const param = pathParams?.[index]
-    if (param !== undefined && param !== '') {
-      formattedPath = formattedPath.replace(`{${placeholder}}`, encodePathParam(placeholder, param))
-    } else {
+    // Coerce to a primitive before validating. An untyped caller can pass something that is
+    // not a string but stringifies to one, and it would pass a strict comparison.
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- runtime validation
+    const param = String(pathParams?.[index] ?? '')
+
+    if (param === '') {
       throw new Error(`Missing path parameter for ${placeholder}`)
     }
+
+    formattedPath = formattedPath.replace(`{${placeholder}}`, encodePathParam(placeholder, param))
   })
 
   const queryStringParameters: QueryStringParameters = {
