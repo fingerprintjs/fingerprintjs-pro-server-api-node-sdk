@@ -10,7 +10,7 @@ export interface paths {
      * Get event by request ID
      * @description > 🚧 Deprecation Notice
      *     >
-     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully removed on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-events) to migrate from this deprecated version to the new one.
+     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-events) to migrate from this deprecated version to the new one.
      *
      *     Get a detailed analysis of an individual identification event, including Smart Signals.
      *     Please note that the response includes mobile signals (e.g. `rootApps`) even if the request originated from a non-mobile platform.
@@ -24,7 +24,7 @@ export interface paths {
      * Update an event with a given request ID
      * @description > 🚧 Deprecation Notice
      *     >
-     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully removed on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-update-events) to migrate from this deprecated version to the new one.
+     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-update-events) to migrate from this deprecated version to the new one.
      *
      *     Change information in existing events specified by `requestId` or *flag suspicious events*.
      *
@@ -52,7 +52,7 @@ export interface paths {
      * Get events via search
      * @description > 🚧 Deprecation Notice
      *     >
-     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully removed on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-eventssearch) to migrate from this deprecated version to the new one.
+     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-eventssearch) to migrate from this deprecated version to the new one.
      *
      *     Search for identification events, including Smart Signals, using multiple filtering criteria. If you don't provide `start` or `end` parameters, the default search range is the last 7 days.
      *
@@ -79,9 +79,11 @@ export interface paths {
      * Get visits by visitor ID
      * @description > 🚧 Deprecation Notice
      *     >
-     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully removed on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-visitors) to migrate from this deprecated version to the new one.
+     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-visitors) to migrate from this deprecated version to the new one.
      *
-     *     Get a history of visits (identification events) for a specific `visitorId`. Use the `visitorId` as a URL path parameter.
+     *     This endpoint is deprecated. Use `GET /events/search` to query visit history or filter across multiple events.
+     *
+     *     `GET /visitors/{visitor_id}` currently returns at most one visit in `visits`, even when no filters are provided.
      *     Only information from the _Identification_ product is returned.
      *
      *     #### Headers
@@ -96,7 +98,7 @@ export interface paths {
      * Delete data by visitor ID
      * @description > 🚧 Deprecation Notice
      *     >
-     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully removed on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
+     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If you still use this version, please follow our [migration guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4) to migrate from this deprecated version to the new one.
      *
      *     Request deleting all data associated with the specified visitor ID. This API is useful for compliance with privacy regulations.
      *     ### Which data is deleted?
@@ -140,7 +142,7 @@ export interface paths {
      * Get Related Visitors
      * @description > 🚧 Deprecation Notice
      *     >
-     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** and will be fully removed on **Jan 7th 2027** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
+     *     > This version of Server API is marked as deprecated starting on **Jan 7th 2026** according to our [API Deprecation Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
      *
      *     Related visitors API lets you link web visits and in-app browser visits that originated from the same mobile device.
      *     It searches the past 6 months of identification events to find the visitor IDs that belong to the same mobile device as the given visitor ID.
@@ -355,6 +357,7 @@ export interface components {
      * @description Error code:
      *      * `RequestCannotBeParsed` - the query parameters or JSON payload contains some errors
      *               that prevented us from parsing it (wrong type/surpassed limits).
+     *      * `RequestReadTimeout` - the request body could not be read before the connection timed out.
      *      * `TokenRequired` - `Auth-API-Key` header is missing or empty.
      *      * `TokenNotFound` - no Fingerprint application found for specified secret key.
      *      * `SubscriptionNotActive` - Fingerprint application is not active.
@@ -376,6 +379,7 @@ export interface components {
      */
     ErrorCode:
       | 'RequestCannotBeParsed'
+      | 'RequestReadTimeout'
       | 'TokenRequired'
       | 'TokenNotFound'
       | 'SubscriptionNotActive'
@@ -392,6 +396,7 @@ export interface components {
       /** @description Error code:
        *      * `RequestCannotBeParsed` - the query parameters or JSON payload contains some errors
        *               that prevented us from parsing it (wrong type/surpassed limits).
+       *      * `RequestReadTimeout` - the request body could not be read before the connection timed out.
        *      * `TokenRequired` - `Auth-API-Key` header is missing or empty.
        *      * `TokenNotFound` - no Fingerprint application found for specified secret key.
        *      * `SubscriptionNotActive` - Fingerprint application is not active.
@@ -579,7 +584,8 @@ export interface components {
        *     This field allows you to differentiate VPN users and relay service users in your fraud prevention logic.
        *      */
       relay: boolean
-      /** @description `true` if the request came from a device running a VPN, `false` otherwise. */
+      /** @description `true` if the request came from a device running a VPN, `false` otherwise.
+       *      */
       mlPrediction?: boolean
     }
     VPN: {
@@ -590,6 +596,7 @@ export interface components {
       /**
        * Format: double
        * @description Machine learning–based VPN score, represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision. A higher score means a higher confidence in the positive `vpn` detection result. This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
+       *
        */
       mlScore?: number
       /** @description Local timezone which is used in timezoneMismatch method. */
@@ -613,7 +620,10 @@ export interface components {
     /** @description Proxy detection details (present if proxy is detected) */
     ProxyDetails: {
       /**
-       * @description Residential proxies use real user IP addresses to appear as legitimate traffic, while data center proxies are public proxies hosted in data centers. `unknown` is reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type.
+       * @description Proxy type:
+       *      * `residential` - proxies that route through residential and telecom IP addresses to appear as legitimate traffic
+       *      * `data_center` - proxies which route through data centers
+       *      * `unknown` - reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type
        *
        * @enum {string}
        */
@@ -938,7 +948,7 @@ export interface components {
     /** @description Each label returns a prediction (true or false) for a specific use case (label field) based on a machine learning score. The machine learning score is determined by a model trained on customer data for that use case. This field is in the beta phase and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
      *      */
     Labels: {
-      label?: string
+      label: string
       prediction?: boolean
       /** Format: double */
       mlScore?: number
@@ -1071,7 +1081,7 @@ export interface components {
        *      */
       components?: components['schemas']['RawDeviceAttributes']
     }
-    /** @description Pagination-related fields `lastTimestamp` and `paginationKey` are included if you use a pagination parameter like `limit` or `before` and there is more data available on the next page. */
+    /** @description Deprecated response shape for `GET /visitors/{visitor_id}`. The `visits` array currently contains at most one item. Use `GET /events/search` for multi-event history and filtering. */
     VisitorsGetResponse: {
       visitorId: string
       visits: components['schemas']['Visit'][]
@@ -1082,7 +1092,7 @@ export interface components {
        *
        */
       lastTimestamp?: number
-      /** @description Request ID of the last visit in the current page of results. Use this value in the following request as the `paginationKey` parameter to get the next page of results. */
+      /** @description Use this value in the following request as the `paginationKey` parameter to get the next result. */
       paginationKey?: string
     }
     ErrorPlainResponse: {
@@ -1518,6 +1528,26 @@ export interface operations {
           'application/json': components['schemas']['ErrorResponse']
         }
       }
+      /** @description Too Many Requests. The request is throttled.
+       *     To protect service stability during rare periods of extreme load, we may return HTTP 429 responses with message `too many search requests` even if you are within your assigned rate limits.
+       *      */
+      429: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Gateway Timeout. Search execution exceeded the allowed timeout window. */
+      504: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
     }
   }
   updateEvent: {
@@ -1622,7 +1652,7 @@ export interface operations {
         /** @description Filter events with a timestamp smaller than the end time, in Unix time (milliseconds).
          *      */
         end?: number
-        /** @description Sort events in reverse timestamp order.
+        /** @description When `true`, sort events oldest first (ascending timestamp order). Default is newest first (descending timestamp order).
          *      */
         reverse?: boolean
         /** @description Filter events previously tagged as suspicious via the [Update API](https://dev.fingerprint.com/reference/updateevent).
@@ -1773,6 +1803,35 @@ export interface operations {
           'application/json': components['schemas']['ErrorResponse']
         }
       }
+      /** @description Not found. The requested visitor does not exist in this application's data. */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Too Many Requests. The request is throttled.
+       *     To protect service stability during rare periods of extreme load, we may return HTTP 429 responses with message `too many search requests` even if you are within your assigned rate limits.
+       *      */
+      429: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
+      /** @description Gateway Timeout. Search execution exceeded the allowed timeout window. */
+      504: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
+        }
+      }
     }
   }
   getVisits: {
@@ -1790,23 +1849,18 @@ export interface operations {
         linked_id?: string
         /** @description Limit scanned results.
          *
-         *     For performance reasons, the API first scans some number of events before filtering them. Use `limit` to specify how many events are scanned before they are filtered by `requestId` or `linkedId`. Results are always returned sorted by the timestamp (most recent first).
-         *     By default, the most recent 100 visits are scanned, the maximum is 500.
+         *     `GET /visitors/{visitor_id}` currently returns at most one visit. Use `GET /events/search` for paginated multi-event queries.
          *      */
         limit?: number
-        /** @description Use `paginationKey` to get the next page of results.
+        /** @description Deprecated pagination parameter retained for backward compatibility.
          *
-         *     When more results are available (e.g., you requested 200 results using `limit` parameter, but a total of 600 results are available), the `paginationKey` top-level attribute is added to the response. The key corresponds to the `requestId` of the last returned event. In the following request, use that value in the `paginationKey` parameter to get the next page of results:
-         *
-         *     1. First request, returning most recent 200 events: `GET api-base-url/visitors/:visitorId?limit=200`
-         *     2. Use `response.paginationKey` to get the next page of results: `GET api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
-         *
-         *     Pagination happens during scanning and before filtering, so you can get less visits than the `limit` you specified with more available on the next page. When there are no more results available for scanning, the `paginationKey` attribute is not returned.
+         *     `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected. Use `GET /events/search` for paginated results.
          *      */
         paginationKey?: string
         /**
          * @deprecated
          * @description ⚠️ Deprecated pagination method, please use `paginationKey` instead. Timestamp (in milliseconds since epoch) used to paginate results.
+         *     `GET /visitors/{visitor_id}` currently returns at most one visit, so pagination is not expected.
          *
          */
         before?: number
@@ -1847,7 +1901,18 @@ export interface operations {
           'application/json': components['schemas']['ErrorPlainResponse']
         }
       }
-      /** @description Too Many Requests. The request is throttled. */
+      /** @description Not found. The visitor ID cannot be found in this application's data. */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorPlainResponse']
+        }
+      }
+      /** @description Too Many Requests. The request is throttled.
+       *     To protect service stability during rare periods of extreme load, we may return HTTP 429 responses with message `too many search requests` even if you are within your assigned rate limits.
+       *      */
       429: {
         headers: {
           /** @description Indicates how many seconds you should wait before attempting the next request. */
@@ -1856,6 +1921,15 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['ErrorPlainResponse']
+        }
+      }
+      /** @description Gateway Timeout. Search execution exceeded the allowed timeout window. */
+      504: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponse']
         }
       }
     }

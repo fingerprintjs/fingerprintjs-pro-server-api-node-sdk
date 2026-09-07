@@ -7,8 +7,7 @@ info:
     >
 
     > This version of Server API is marked as deprecated starting on **Jan 7th
-    2026** and will be fully defunct on **Jan 7th 2027** according to our [API
-    Deprecation
+    2026** according to our [API Deprecation
     Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If
     you still use this version, please follow our [migration
     guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4)
@@ -60,8 +59,7 @@ paths:
         >
 
         > This version of Server API is marked as deprecated starting on **Jan
-        7th 2026** and will be fully removed on **Jan 7th 2027** according to
-        our [API Deprecation
+        7th 2026** according to our [API Deprecation
         Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
         If you still use this version, please follow our [migration
         guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-events)
@@ -97,12 +95,518 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/EventsGetResponse'
+              examples:
+                200-full:
+                  summary: Example response
+                  value:
+                    products:
+                      identification:
+                        data:
+                          visitorId: Ibk1527CUFmcnjLwIs4A9
+                          requestId: 1708102555327.NLOjmg
+                          incognito: true
+                          linkedId: somelinkedId
+                          tag: {}
+                          time: '2019-05-21T16:40:13Z'
+                          timestamp: 1582299576512
+                          url: https://www.example.com/login?hope{this{works[!
+                          ip: 61.127.217.15
+                          ipLocation:
+                            accuracyRadius: 10
+                            latitude: 49.982
+                            longitude: 36.2566
+                            postalCode: '61202'
+                            timezone: Europe/Dusseldorf
+                            city:
+                              name: Dusseldorf
+                            country:
+                              code: DE
+                              name: Germany
+                            continent:
+                              code: EU
+                              name: Europe
+                            subdivisions:
+                              - isoCode: '63'
+                                name: North Rhine-Westphalia
+                          browserDetails:
+                            browserName: Chrome
+                            browserMajorVersion: '74'
+                            browserFullVersion: 74.0.3729
+                            os: Windows
+                            osVersion: '7'
+                            device: Other
+                            userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+                          confidence:
+                            score: 0.97
+                          visitorFound: false
+                          firstSeenAt:
+                            global: '2022-03-16T11:26:45.362Z'
+                            subscription: '2022-03-16T11:31:01.101Z'
+                          lastSeenAt:
+                            global: null
+                            subscription: null
+                          sdk:
+                            platform: js
+                            version: 3.11.10
+                            integrations:
+                              - name: fingerprint-pro-react
+                                version: 3.11.10
+                                subintegration:
+                                  name: preact
+                                  version: 10.21.0
+                          replayed: false
+                      botd:
+                        data:
+                          bot:
+                            result: notDetected
+                          url: https://www.example.com/login?hope{this{works}[!
+                          ip: 61.127.217.15
+                          time: '2019-05-21T16:40:13.000Z'
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/120.0.0.0 YaBrowser/24.1.0.0 Safari/537.36
+                          requestId: 1708102555327.NLOjmg
+                      rootApps:
+                        data:
+                          result: false
+                      emulator:
+                        data:
+                          result: false
+                      ipInfo:
+                        data:
+                          v4:
+                            address: 94.142.239.124
+                            geolocation:
+                              accuracyRadius: 20
+                              latitude: 50.05
+                              longitude: 14.4
+                              postalCode: 150 00
+                              timezone: Europe/Prague
+                              city:
+                                name: Prague
+                              country:
+                                code: CZ
+                                name: Czechia
+                              continent:
+                                code: EU
+                                name: Europe
+                              subdivisions:
+                                - isoCode: '10'
+                                  name: Hlavni mesto Praha
+                            asn:
+                              asn: '7922'
+                              name: COMCAST-7922
+                              network: 73.136.0.0/13
+                              type: isp
+                            datacenter:
+                              result: true
+                              name: DediPath
+                          v6:
+                            address: 2001:db8:3333:4444:5555:6666:7777:8888
+                            geolocation:
+                              accuracyRadius: 5
+                              latitude: 49.982
+                              longitude: 36.2566
+                              postalCode: '10112'
+                              timezone: Europe/Berlin
+                              city:
+                                name: Berlin
+                              country:
+                                code: DE
+                                name: Germany
+                              continent:
+                                code: EU
+                                name: Europe
+                              subdivisions:
+                                - isoCode: BE
+                                  name: Land Berlin
+                            asn:
+                              asn: '6805'
+                              name: Telefonica Germany
+                              network: 2a02:3100::/24
+                              type: isp
+                            datacenter:
+                              result: false
+                              name: ''
+                      ipBlocklist:
+                        data:
+                          result: false
+                          details:
+                            emailSpam: false
+                            attackSource: false
+                      tor:
+                        data:
+                          result: false
+                      vpn:
+                        data:
+                          result: false
+                          confidence: high
+                          mlScore: 0.002
+                          originTimezone: Europe/Berlin
+                          originCountry: unknown
+                          methods:
+                            timezoneMismatch: false
+                            publicVPN: false
+                            auxiliaryMobile: false
+                            osMismatch: false
+                            relay: false
+                            mlPrediction: false
+                      proxy:
+                        data:
+                          result: true
+                          confidence: high
+                          mlScore: 0.99
+                          details:
+                            proxyType: residential
+                            lastSeenAt: '2025-08-12T13:00:00Z'
+                      incognito:
+                        data:
+                          result: false
+                      tampering:
+                        data:
+                          result: false
+                          anomalyScore: 0.1955
+                          antiDetectBrowser: false
+                      clonedApp:
+                        data:
+                          result: false
+                      factoryReset:
+                        data:
+                          time: '1970-01-01T00:00:00Z'
+                          timestamp: 0
+                      jailbroken:
+                        data:
+                          result: false
+                      frida:
+                        data:
+                          result: false
+                      privacySettings:
+                        data:
+                          result: false
+                      virtualMachine:
+                        data:
+                          result: true
+                          mlScore: 0.2
+                      rawDeviceAttributes:
+                        data:
+                          architecture:
+                            value: 127
+                          audio:
+                            value: 35.73832903057337
+                          canvas:
+                            value:
+                              Winding: true
+                              Geometry: 4dce9d6017c3e0c052a77252f29f2b1c
+                              Text: dd2474a56ff78c1de3e7a07070ba3b7d
+                          colorDepth:
+                            value: 30
+                          colorGamut:
+                            value: p3
+                          contrast:
+                            value: 0
+                          cookiesEnabled:
+                            value: true
+                          cpuClass: {}
+                          fonts:
+                            value:
+                              - Arial Unicode MS
+                              - Gill Sans
+                              - Helvetica Neue
+                              - Menlo
+                      highActivity:
+                        data:
+                          result: false
+                      locationSpoofing:
+                        data:
+                          result: false
+                      velocity:
+                        data:
+                          distinctIp:
+                            intervals:
+                              5m: 1
+                              1h: 1
+                              24h: 1
+                          distinctLinkedId: {}
+                          distinctCountry:
+                            intervals:
+                              5m: 1
+                              1h: 2
+                              24h: 2
+                          events:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
+                          ipEvents:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
+                          distinctIpByLinkedId:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
+                          distinctVisitorIdByLinkedId:
+                            intervals:
+                              5m: 1
+                              1h: 5
+                              24h: 5
+                      developerTools:
+                        data:
+                          result: false
+                      mitmAttack:
+                        data:
+                          result: false
+                      rareDevice:
+                        data:
+                          result: false
+                          percentileBucket: '<p95'
+                      proximity:
+                        data:
+                          id: w1aTfd4MCvl
+                          precisionRadius: 10
+                          confidence: 0.95
+                      labels:
+                        data:
+                          - label: fraud
+                            prediction: false
+                            mlScore: 0.01
+                200-all-errors:
+                  summary: All failed signals
+                  value:
+                    products:
+                      identification:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      botd:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      ipInfo:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      incognito:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      rootApps:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      clonedApp:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      factoryReset:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      jailbroken:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      frida:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      emulator:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      ipBlocklist:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      tor:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      vpn:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      proxy:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      privacySettings:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      virtualMachine:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      tampering:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      rawDeviceAttributes:
+                        data:
+                          audio:
+                            error:
+                              name: Error
+                              message: internal server error
+                          canvas:
+                            error:
+                              name: Error
+                              message: internal server error
+                      locationSpoofing:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      highActivity:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      suspectScore:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      velocity:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      developerTools:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      mitmAttack:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      rareDevice:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      proximity:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      labels:
+                        error:
+                          code: Failed
+                          message: internal server error
+                200-identification-error:
+                  summary: Identification error
+                  value:
+                    products:
+                      identification:
+                        error:
+                          code: Failed
+                          message: internal server error
+                      botd:
+                        data:
+                          bot:
+                            result: bad
+                            type: headlessChrome
+                          url: https://example.com/login
+                          ip: 94.60.143.223
+                          time: '2024-02-23T10:20:25.287Z'
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            HeadlessChrome/121.0.6167.57 Safari/537.36
+                          requestId: 1708683625245.tuJ4nD
+                200-botd-error:
+                  summary: BotD error
+                  value:
+                    products:
+                      identification:
+                        data:
+                          visitorId: Ibk1527CUFmcnjLwIs4A9
+                          requestId: 0KSh65EnVoB85JBmloQK
+                          incognito: true
+                          linkedId: somelinkedId
+                          time: '2019-05-21T16:40:13.000Z'
+                          tag: {}
+                          timestamp: 1582299576512
+                          url: https://www.example.com/login
+                          ip: 61.127.217.15
+                          ipLocation:
+                            accuracyRadius: 10
+                            latitude: 49.982
+                            longitude: 36.2566
+                            postalCode: '61202'
+                            timezone: Europe/Dusseldorf
+                            city:
+                              name: Dusseldorf
+                            continent:
+                              code: EU
+                              name: Europe
+                            country:
+                              code: DE
+                              name: Germany
+                            subdivisions:
+                              - isoCode: '63'
+                                name: North Rhine-Westphalia
+                          browserDetails:
+                            browserName: Chrome
+                            browserMajorVersion: '74'
+                            browserFullVersion: 74.0.3729
+                            os: Windows
+                            osVersion: '7'
+                            device: Other
+                            userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+                          confidence:
+                            score: 0.97
+                          visitorFound: true
+                          firstSeenAt:
+                            global: '2022-03-16T11:26:45.362Z'
+                            subscription: '2022-03-16T11:31:01.101Z'
+                          lastSeenAt:
+                            global: '2022-03-16T11:28:34.023Z'
+                            subscription: null
+                          replayed: false
+                      botd:
+                        error:
+                          code: Failed
+                          message: internal server error
+                200-too-many-requests-error:
+                  summary: Too many requests error
+                  value:
+                    products:
+                      identification:
+                        error:
+                          code: 429 Too Many Requests
+                          message: too many requests
+                      botd:
+                        error:
+                          code: TooManyRequests
+                          message: too many requests
         '403':
           description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                403-token-required:
+                  summary: Error response when the secret API key was not provided.
+                  value:
+                    error:
+                      code: TokenRequired
+                      message: secret key is required
+                403-token-not-found:
+                  summary: >-
+                    Error response when the provided secret API key does not
+                    exist.
+                  value:
+                    error:
+                      code: TokenNotFound
+                      message: secret key is not found
+                403-wrong-region:
+                  summary: >-
+                    Error response when the API region is different from the
+                    region, the calling application is configured with.
+                  value:
+                    error:
+                      code: WrongRegion
+                      message: wrong region
         '404':
           description: >-
             Not found. The request ID cannot be found in this application's
@@ -111,6 +615,54 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                404-request-not-found:
+                  summary: Error response when the provided request ID does not exist.
+                  value:
+                    error:
+                      code: RequestNotFound
+                      message: request id is not found
+        '429':
+          description: |
+            Too Many Requests. The request is throttled.
+            To protect service stability during rare periods of extreme load, we may return HTTP 429 responses with message `too many search requests` even if you are within your assigned rate limits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                429-too-many-requests:
+                  summary: >-
+                    Error response when the limit on the provided secret API key
+                    requests per second has been exceeded.
+                  value:
+                    error:
+                      code: TooManyRequests
+                      message: too many requests
+                429-too-many-search-requests:
+                  summary: >-
+                    Error response when search traffic is throttled to protect
+                    service stability during rare periods of extreme load, even
+                    if you are within your assigned rate limits.
+                  value:
+                    error:
+                      code: TooManyRequests
+                      message: too many search requests
+        '504':
+          description: Gateway Timeout. Search execution exceeded the allowed timeout window.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                504-search-timeout-exceeded:
+                  summary: >-
+                    Error response when search execution exceeds the allowed
+                    timeout window.
+                  value:
+                    error:
+                      code: Failed
+                      message: gateway timeout
     put:
       tags:
         - Fingerprint
@@ -122,8 +674,7 @@ paths:
         >
 
         > This version of Server API is marked as deprecated starting on **Jan
-        7th 2026** and will be fully removed on **Jan 7th 2027** according to
-        our [API Deprecation
+        7th 2026** according to our [API Deprecation
         Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
         If you still use this version, please follow our [migration
         guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-update-events)
@@ -165,12 +716,44 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example:
+                  summary: >-
+                    Error response when the specified request payload is not
+                    valid and cannot be parsed.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: request body is not valid
         '403':
           description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                403-token-required:
+                  summary: Error response when the secret API key was not provided.
+                  value:
+                    error:
+                      code: TokenRequired
+                      message: secret key is required
+                403-token-not-found:
+                  summary: >-
+                    Error response when the provided secret API key does not
+                    exist.
+                  value:
+                    error:
+                      code: TokenNotFound
+                      message: secret key is not found
+                403-wrong-region:
+                  summary: >-
+                    Error response when the API region is different from the
+                    region, the calling application is configured with.
+                  value:
+                    error:
+                      code: WrongRegion
+                      message: wrong region
         '404':
           description: >-
             Not found. The request ID cannot be found in this application's
@@ -179,12 +762,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                404-request-not-found:
+                  summary: Error response when the provided request ID does not exist.
+                  value:
+                    error:
+                      code: RequestNotFound
+                      message: request id is not found
         '409':
           description: Conflict. The event is not mutable yet.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                example:
+                  summary: Error response when the event is not mutable yet.
+                  value:
+                    error:
+                      code: StateNotReady
+                      message: resource is not mutable yet, try again
   /events/search:
     get:
       tags:
@@ -197,8 +794,7 @@ paths:
         >
 
         > This version of Server API is marked as deprecated starting on **Jan
-        7th 2026** and will be fully removed on **Jan 7th 2027** according to
-        our [API Deprecation
+        7th 2026** according to our [API Deprecation
         Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
         If you still use this version, please follow our [migration
         guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-eventssearch)
@@ -320,8 +916,9 @@ paths:
           in: query
           schema:
             type: boolean
+            default: false
           description: |
-            Sort events in reverse timestamp order.
+            When `true`, sort events oldest first (ascending timestamp order). Default is newest first (descending timestamp order).
         - name: suspect
           in: query
           schema:
@@ -572,18 +1169,19 @@ paths:
           schema:
             type: string
             enum:
-              - <p95
-              - p95-p99
-              - p99-p99.5
-              - p99.5-p99.9
-              - p99.9+
-              - not_seen
+              - '<p95'
+              - 'p95-p99'
+              - 'p99-p99.5'
+              - 'p99.5-p99.9'
+              - 'p99.9+'
+              - 'not_seen'
           description: >
-            Filter events by Rare Device percentile bucket. `<p95` - device
-            configuration is in the bottom 95% (most common). `p95-p99` - device
-            is in the 95th to 99th percentile. `p99-p99.5` - device is in the
-            99th to 99.5th percentile. `p99.5-p99.9` - device is in the 99.5th
-            to 99.9th percentile. `p99.9+` - device is in the top 0.1% (rarest).
+            Filter events by Rare Device percentile bucket.
+            `<p95` - device configuration is in the bottom 95% (most common).
+            `p95-p99` - device is in the 95th to 99th percentile.
+            `p99-p99.5` - device is in the 99th to 99.5th percentile.
+            `p99.5-p99.9` - device is in the 99.5th to 99.9th percentile.
+            `p99.9+` - device is in the top 0.1% (rarest).
             `not_seen` - device configuration has never been observed before.
         - name: proxy
           in: query
@@ -671,6 +1269,273 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SearchEventsResponse'
+              examples:
+                200-full:
+                  summary: Example search results
+                  value:
+                    events:
+                      - products:
+                          identification:
+                            data:
+                              visitorId: Ibk1527CUFmcnjLwIs4A9
+                              requestId: 1708102555327.NLOjmg
+                              incognito: true
+                              linkedId: somelinkedId
+                              tag: {}
+                              time: '2019-05-21T16:40:13Z'
+                              timestamp: 1582299576512
+                              url: https://www.example.com/login?hope{this{works[!
+                              ip: 61.127.217.15
+                              ipLocation:
+                                accuracyRadius: 10
+                                latitude: 49.982
+                                longitude: 36.2566
+                                postalCode: '61202'
+                                timezone: Europe/Dusseldorf
+                                city:
+                                  name: Dusseldorf
+                                country:
+                                  code: DE
+                                  name: Germany
+                                continent:
+                                  code: EU
+                                  name: Europe
+                                subdivisions:
+                                  - isoCode: '63'
+                                    name: North Rhine-Westphalia
+                              browserDetails:
+                                browserName: Chrome
+                                browserMajorVersion: '74'
+                                browserFullVersion: 74.0.3729
+                                os: Windows
+                                osVersion: '7'
+                                device: Other
+                                userAgent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) ....
+                              confidence:
+                                score: 0.97
+                              visitorFound: false
+                              firstSeenAt:
+                                global: '2022-03-16T11:26:45.362Z'
+                                subscription: '2022-03-16T11:31:01.101Z'
+                              lastSeenAt:
+                                global: null
+                                subscription: null
+                              replayed: false
+                          botd:
+                            data:
+                              bot:
+                                result: notDetected
+                              url: https://www.example.com/login?hope{this{works}[!
+                              ip: 61.127.217.15
+                              time: '2019-05-21T16:40:13.000Z'
+                              userAgent: >-
+                                Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                                AppleWebKit/537.36 (KHTML, like Gecko)
+                                Chrome/120.0.0.0 YaBrowser/24.1.0.0
+                                Safari/537.36
+                              requestId: 1708102555327.NLOjmg
+                          rootApps:
+                            data:
+                              result: false
+                          emulator:
+                            data:
+                              result: false
+                          ipInfo:
+                            data:
+                              v4:
+                                address: 94.142.239.124
+                                geolocation:
+                                  accuracyRadius: 20
+                                  latitude: 50.05
+                                  longitude: 14.4
+                                  postalCode: 150 00
+                                  timezone: Europe/Prague
+                                  city:
+                                    name: Prague
+                                  country:
+                                    code: CZ
+                                    name: Czechia
+                                  continent:
+                                    code: EU
+                                    name: Europe
+                                  subdivisions:
+                                    - isoCode: '10'
+                                      name: Hlavni mesto Praha
+                                asn:
+                                  asn: '7922'
+                                  name: COMCAST-7922
+                                  network: 73.136.0.0/13
+                                  type: isp
+                                datacenter:
+                                  result: true
+                                  name: DediPath
+                              v6:
+                                address: 2001:db8:3333:4444:5555:6666:7777:8888
+                                geolocation:
+                                  accuracyRadius: 5
+                                  latitude: 49.982
+                                  longitude: 36.2566
+                                  postalCode: '10112'
+                                  timezone: Europe/Berlin
+                                  city:
+                                    name: Berlin
+                                  country:
+                                    code: DE
+                                    name: Germany
+                                  continent:
+                                    code: EU
+                                    name: Europe
+                                  subdivisions:
+                                    - isoCode: BE
+                                      name: Land Berlin
+                                asn:
+                                  asn: '6805'
+                                  name: Telefonica Germany
+                                  network: 2a02:3100::/24
+                                  type: isp
+                                datacenter:
+                                  result: false
+                                  name: ''
+                          ipBlocklist:
+                            data:
+                              result: false
+                              details:
+                                emailSpam: false
+                                attackSource: false
+                          tor:
+                            data:
+                              result: false
+                          vpn:
+                            data:
+                              result: false
+                              confidence: high
+                              mlScore: 0.002
+                              originTimezone: Europe/Berlin
+                              originCountry: unknown
+                              methods:
+                                timezoneMismatch: false
+                                publicVPN: false
+                                auxiliaryMobile: false
+                                osMismatch: false
+                                relay: false
+                                mlPrediction: false
+                          proxy:
+                            data:
+                              result: false
+                              confidence: high
+                              mlScore: 0.7
+                              details:
+                                proxyType: residential
+                                lastSeenAt: '2025-08-12T13:00:00Z'
+                          incognito:
+                            data:
+                              result: false
+                          tampering:
+                            data:
+                              result: false
+                              anomalyScore: 0.1955
+                              antiDetectBrowser: false
+                          clonedApp:
+                            data:
+                              result: false
+                          factoryReset:
+                            data:
+                              time: '1970-01-01T00:00:00Z'
+                              timestamp: 0
+                          jailbroken:
+                            data:
+                              result: false
+                          frida:
+                            data:
+                              result: false
+                          privacySettings:
+                            data:
+                              result: false
+                          virtualMachine:
+                            data:
+                              result: true
+                              mlScore: 0.2
+                          rawDeviceAttributes:
+                            data:
+                              architecture:
+                                value: 127
+                              audio:
+                                value: 35.73832903057337
+                              canvas:
+                                value:
+                                  Winding: true
+                                  Geometry: 4dce9d6017c3e0c052a77252f29f2b1c
+                                  Text: dd2474a56ff78c1de3e7a07070ba3b7d
+                              colorDepth:
+                                value: 30
+                              colorGamut:
+                                value: p3
+                              contrast:
+                                value: 0
+                              cookiesEnabled:
+                                value: true
+                              cpuClass: {}
+                              fonts:
+                                value:
+                                  - Arial Unicode MS
+                                  - Gill Sans
+                                  - Helvetica Neue
+                                  - Menlo
+                          highActivity:
+                            data:
+                              result: false
+                          locationSpoofing:
+                            data:
+                              result: false
+                          velocity:
+                            data:
+                              distinctIp:
+                                intervals:
+                                  5m: 1
+                                  1h: 1
+                                  24h: 1
+                              distinctLinkedId: {}
+                              distinctCountry:
+                                intervals:
+                                  5m: 1
+                                  1h: 2
+                                  24h: 2
+                              events:
+                                intervals:
+                                  5m: 1
+                                  1h: 5
+                                  24h: 5
+                              ipEvents:
+                                intervals:
+                                  5m: 1
+                                  1h: 5
+                                  24h: 5
+                              distinctIpByLinkedId:
+                                intervals:
+                                  5m: 1
+                                  1h: 5
+                                  24h: 5
+                              distinctVisitorIdByLinkedId:
+                                intervals:
+                                  5m: 1
+                                  1h: 5
+                                  24h: 5
+                          developerTools:
+                            data:
+                              result: false
+                          mitmAttack:
+                            data:
+                              result: false
+                          rareDevice:
+                            data:
+                              result: false
+                              percentileBucket: '<p95'
+                          proximity:
+                            data:
+                              id: w1aTfd4MCvl
+                              precisionRadius: 10
+                              confidence: 0.95
+                    paginationKey: '1655373953086'
         '400':
           description: >-
             Bad request. One or more supplied search parameters are invalid, or
@@ -679,12 +1544,152 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400-limit-invalid:
+                  summary: Error response when no limit is supplied, or is invalid.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid limit
+                400-ip-address-invalid:
+                  summary: >-
+                    Error response when an invalid IP address is supplied, or is
+                    not using CIDR notation.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid ip address
+                400-bot-type-invalid:
+                  summary: >-
+                    Error response when an invalid bot type is specified, must
+                    be one of `good`, `bad`, `all`, or `none`.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid bot type
+                400-reverse-invalid:
+                  summary: Error response when the reverse parameter is invalid.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid reverse param
+                400-start-time-invalid:
+                  summary: Error response when an invalid start time is supplied.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid start time
+                400-end-time-invalid:
+                  summary: Error response when an invalid end time is supplied.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid end time
+                400-visitor-id-invalid:
+                  summary: Error response when an invalid visitor ID is supplied.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid visitor id
+                400-linked-id-invalid:
+                  summary: >-
+                    Error response when an invalid (too large) linked ID is
+                    supplied.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: linked_id can't be greater than 256 characters long
+                400-pagination-key-invalid:
+                  summary: Error response when an invalid pagination key is supplied.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid pagination key
         '403':
           description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                403-token-required:
+                  summary: Error response when the secret API key was not provided.
+                  value:
+                    error:
+                      code: TokenRequired
+                      message: secret key is required
+                403-token-not-found:
+                  summary: >-
+                    Error response when the provided secret API key does not
+                    exist.
+                  value:
+                    error:
+                      code: TokenNotFound
+                      message: secret key is not found
+                403-wrong-region:
+                  summary: >-
+                    Error response when the API region does not match the region
+                    of your Fingerprint workspace.
+                  value:
+                    error:
+                      code: WrongRegion
+                      message: wrong region
+        '404':
+          description: >-
+            Not found. The requested visitor does not exist in this application's
+            data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                404-visitor-not-found:
+                  summary: Error response when the provided visitor ID does not exist.
+                  value:
+                    error:
+                      code: VisitorNotFound
+                      message: visitor not found
+        '429':
+          description: |
+            Too Many Requests. The request is throttled.
+            To protect service stability during rare periods of extreme load, we may return HTTP 429 responses with message `too many search requests` even if you are within your assigned rate limits.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                429-too-many-requests:
+                  summary: >-
+                    Error response when the limit on the provided secret API key
+                    requests per second has been exceeded.
+                  value:
+                    error:
+                      code: TooManyRequests
+                      message: too many requests
+                429-too-many-search-requests:
+                  summary: >-
+                    Error response when search traffic is throttled to protect
+                    service stability during rare periods of extreme load, even
+                    if you are within your assigned rate limits.
+                  value:
+                    error:
+                      code: TooManyRequests
+                      message: too many search requests
+        '504':
+          description: Gateway Timeout. Search execution exceeded the allowed timeout window.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                504-search-timeout-exceeded:
+                  summary: >-
+                    Error response when search execution exceeds the allowed
+                    timeout window.
+                  value:
+                    error:
+                      code: Failed
+                      message: gateway timeout
   /visitors/{visitor_id}:
     get:
       tags:
@@ -697,16 +1702,19 @@ paths:
         >
 
         > This version of Server API is marked as deprecated starting on **Jan
-        7th 2026** and will be fully removed on **Jan 7th 2027** according to
-        our [API Deprecation
+        7th 2026** according to our [API Deprecation
         Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
         If you still use this version, please follow our [migration
         guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4#migrating-get-visitors)
         to migrate from this deprecated version to the new one.
 
 
-        Get a history of visits (identification events) for a specific
-        `visitorId`. Use the `visitorId` as a URL path parameter.
+        This endpoint is deprecated. Use `GET /events/search` to query visit
+        history or filter across multiple events.
+
+
+        `GET /visitors/{visitor_id}` currently returns at most one visit in
+        `visits`, even when no filters are provided.
 
         Only information from the _Identification_ product is returned.
 
@@ -769,43 +1777,20 @@ paths:
             Limit scanned results.
 
 
-            For performance reasons, the API first scans some number of events
-            before filtering them. Use `limit` to specify how many events are
-            scanned before they are filtered by `requestId` or `linkedId`.
-            Results are always returned sorted by the timestamp (most recent
-            first).
-
-            By default, the most recent 100 visits are scanned, the maximum is
-            500.
+            `GET /visitors/{visitor_id}` currently returns at most one visit.
+            Use `GET /events/search` for paginated multi-event queries.
           x-go-skip-pointer: true
         - name: paginationKey
           in: query
           schema:
             type: string
           description: >
-            Use `paginationKey` to get the next page of results.
+            Deprecated pagination parameter retained for backward compatibility.
 
 
-            When more results are available (e.g., you requested 200 results
-            using `limit` parameter, but a total of 600 results are available),
-            the `paginationKey` top-level attribute is added to the response.
-            The key corresponds to the `requestId` of the last returned event.
-            In the following request, use that value in the `paginationKey`
-            parameter to get the next page of results:
-
-
-            1. First request, returning most recent 200 events: `GET
-            api-base-url/visitors/:visitorId?limit=200`
-
-            2. Use `response.paginationKey` to get the next page of results:
-            `GET
-            api-base-url/visitors/:visitorId?limit=200&paginationKey=1683900801733.Ogvu1j`
-
-
-            Pagination happens during scanning and before filtering, so you can
-            get less visits than the `limit` you specified with more available
-            on the next page. When there are no more results available for
-            scanning, the `paginationKey` attribute is not returned.
+            `GET /visitors/{visitor_id}` currently returns at most one visit, so
+            pagination is not expected. Use `GET /events/search` for paginated
+            results.
           x-go-skip-pointer: true
         - name: before
           in: query
@@ -817,6 +1802,9 @@ paths:
           description: >
             ⚠️ Deprecated pagination method, please use `paginationKey` instead.
             Timestamp (in milliseconds since epoch) used to paginate results.
+
+            `GET /visitors/{visitor_id}` currently returns at most one visit, so
+            pagination is not expected.
           x-go-skip-pointer: true
       responses:
         '200':
@@ -825,6 +1813,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/VisitorsGetResponse'
+              examples:
+                200-limit-1:
+                  summary: Example response (single visit)
+                  value:
+                    visitorId: AcxioeQKffpXF8iGQK3P
+                    visits:
+                      - requestId: 1655373953086.DDlfmP
+                        browserDetails:
+                          browserName: Chrome
+                          browserMajorVersion: '102'
+                          browserFullVersion: 102.0.5005
+                          os: Mac OS X
+                          osVersion: 10.15.7
+                          device: Other
+                          userAgent: >-
+                            Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)
+                            AppleWebKit/537.36 (KHTML, like Gecko)
+                            Chrome/102.0.5005.61 Safari/537.36
+                        incognito: false
+                        ip: 82.118.30.68
+                        ipLocation:
+                          accuracyRadius: 1000
+                          latitude: 50.0805
+                          longitude: 14.467
+                          postalCode: 130 00
+                          timezone: Europe/Prague
+                          city:
+                            name: Prague
+                          country:
+                            code: CZ
+                            name: Czechia
+                          continent:
+                            code: EU
+                            name: Europe
+                          subdivisions:
+                            - isoCode: '10'
+                              name: Hlavni mesto Praha
+                        timestamp: 1655373953094
+                        time: '2022-06-16T10:05:53Z'
+                        url: https://dashboard.fingerprint.com/
+                        tag: {}
+                        confidence:
+                          score: 1
+                        visitorFound: true
+                        firstSeenAt:
+                          global: '2022-02-04T11:31:20.000Z'
+                          subscription: '2022-02-04T11:31:20.000Z'
+                        lastSeenAt:
+                          global: '2022-06-16T10:03:00.912Z'
+                          subscription: '2022-06-16T10:03:00.912Z'
+                    lastTimestamp: 1655373953086
+                    paginationKey: 1655373953086.DDlfmP
         '400':
           description: >-
             Bad request. The visitor ID or query parameters are missing or in
@@ -833,14 +1873,43 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorPlainResponse'
+              examples:
+                400-bad-request:
+                  summary: >-
+                    Error response when the visitor ID or query parameters are
+                    missing or in the wrong format.
+                  value:
+                    error: bad request
         '403':
           description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorPlainResponse'
+              examples:
+                403-forbidden:
+                  summary: >-
+                    Error response when the secret API Key is missing or
+                    incorrect.
+                  value:
+                    error: Forbidden (HTTP 403)
+        '404':
+          description: >-
+            Not found. The visitor ID cannot be found in this application's
+            data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorPlainResponse'
+              examples:
+                404-not-found:
+                  summary: Error response when the provided visitor ID does not exist.
+                  value:
+                    error: visitor not found
         '429':
-          description: Too Many Requests. The request is throttled.
+          description: |
+            Too Many Requests. The request is throttled.
+            To protect service stability during rare periods of extreme load, we may return HTTP 429 responses with message `too many search requests` even if you are within your assigned rate limits.
           headers:
             Retry-After:
               description: >-
@@ -854,6 +1923,35 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorPlainResponse'
+              examples:
+                429-too-many-requests:
+                  summary: >-
+                    Error response when the limit on the provided secret API key
+                    requests per second has been exceeded.
+                  value:
+                    error: too many requests
+                429-too-many-search-requests:
+                  summary: >-
+                    Error response when visitor search traffic is throttled to
+                    protect service stability during rare periods of extreme
+                    load, even if you are within your assigned rate limits.
+                  value:
+                    error: too many search requests
+        '504':
+          description: Gateway Timeout. Search execution exceeded the allowed timeout window.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                504-search-timeout-exceeded:
+                  summary: >-
+                    Error response when search execution exceeds the allowed
+                    timeout window.
+                  value:
+                    error:
+                      code: Failed
+                      message: gateway timeout
     delete:
       tags:
         - Fingerprint
@@ -865,8 +1963,7 @@ paths:
         >
 
         > This version of Server API is marked as deprecated starting on **Jan
-        7th 2026** and will be fully removed on **Jan 7th 2027** according to
-        our [API Deprecation
+        7th 2026** according to our [API Deprecation
         Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
         If you still use this version, please follow our [migration
         guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4)
@@ -949,12 +2046,72 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400-visitor-id-required:
+                  summary: >-
+                    Error response when the request does not include a visitor
+                    ID.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: visitor id is required
+                400-visitor-id-invalid:
+                  summary: Error response when the visitor ID is incorrectly formatted.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid visitor id
         '403':
           description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                403-token-required:
+                  summary: Error response when the secret API key was not provided.
+                  value:
+                    error:
+                      code: TokenRequired
+                      message: secret key is required
+                403-token-not-found:
+                  summary: >-
+                    Error response when the provided secret API key does not
+                    exist.
+                  value:
+                    error:
+                      code: TokenNotFound
+                      message: secret key is not found
+                403-wrong-region:
+                  summary: >-
+                    Error response when the API region is different from the
+                    region, the calling application is configured with.
+                  value:
+                    error:
+                      code: WrongRegion
+                      message: wrong region
+                403-subscription-not-active:
+                  summary: Error response when the subscription is not active.
+                  value:
+                    error:
+                      code: SubscriptionNotActive
+                      message: forbidden
+                403-feature-not-enabled:
+                  summary: >-
+                    Error response when this feature is not enabled for a
+                    subscription.
+                  value:
+                    error:
+                      code: FeatureNotEnabled
+                      message: feature not enabled
+                403-workspace-scoped-secret-key-required:
+                  summary: >-
+                    Error response when you use an environment-scoped secret key
+                    to delete visitors from the workspace.
+                  value:
+                    error:
+                      code: WorkspaceScopedSecretKeyRequired
+                      message: workspace-scoped secret key is required
         '404':
           description: >-
             Not found. The visitor ID cannot be found in this application's
@@ -963,12 +2120,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                404-visitor-not-found:
+                  summary: >-
+                    Error response when the visitor ID cannot be found in this
+                    application's data.
+                  value:
+                    error:
+                      code: VisitorNotFound
+                      message: visitor not found
         '429':
           description: Too Many Requests. The request is throttled.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                429-too-many-requests:
+                  summary: >-
+                    Error response when the limit on the provided secret API key
+                    requests per second has been exceeded.
+                  value:
+                    error:
+                      code: TooManyRequests
+                      message: too many requests
   /related-visitors:
     get:
       tags:
@@ -981,8 +2156,7 @@ paths:
         >
 
         > This version of Server API is marked as deprecated starting on **Jan
-        7th 2026** and will be fully removed on **Jan 7th 2027** according to
-        our [API Deprecation
+        7th 2026** according to our [API Deprecation
         Policy](https://dev.fingerprint.com/reference/api-deprecation-policy).
 
 
@@ -1021,6 +2195,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RelatedVisitorsResponse'
+              examples:
+                200-success-empty-response:
+                  summary: Success, empty response
+                  value:
+                    relatedVisitors: []
+                200-success-response:
+                  summary: Success response
+                  value:
+                    relatedVisitors:
+                      - visitorId: NtCUJGceWX9RpvSbhvOm
+                      - visitorId: 25ee02iZwGxeyT0jMNkZ
         '400':
           description: >-
             Bad request. The visitor ID parameter is missing or in the wrong
@@ -1029,12 +2214,64 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                400-visitor-id-required:
+                  summary: >-
+                    Error response when the request does not include a visitor
+                    ID.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: visitor id is required
+                400-visitor-id-invalid:
+                  summary: Error response when the visitor ID is incorrectly formatted.
+                  value:
+                    error:
+                      code: RequestCannotBeParsed
+                      message: invalid visitor id
         '403':
           description: Forbidden. Access to this API is denied.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                403-token-required:
+                  summary: Error response when the secret API key was not provided.
+                  value:
+                    error:
+                      code: TokenRequired
+                      message: secret key is required
+                403-token-not-found:
+                  summary: >-
+                    Error response when the provided secret API key does not
+                    exist.
+                  value:
+                    error:
+                      code: TokenNotFound
+                      message: secret key is not found
+                403-wrong-region:
+                  summary: >-
+                    Error response when the API region is different from the
+                    region, the calling application is configured with.
+                  value:
+                    error:
+                      code: WrongRegion
+                      message: wrong region
+                403-subscription-not-active:
+                  summary: Error response when the subscription is not active.
+                  value:
+                    error:
+                      code: SubscriptionNotActive
+                      message: forbidden
+                403-feature-not-enabled:
+                  summary: >-
+                    Error response when this feature is not enabled for a
+                    subscription.
+                  value:
+                    error:
+                      code: FeatureNotEnabled
+                      message: feature not enabled
         '404':
           description: >-
             Not found. The visitor ID cannot be found in this application's
@@ -1043,12 +2280,30 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                404-visitor-not-found:
+                  summary: >-
+                    Error response when the visitor ID cannot be found in this
+                    application's data.
+                  value:
+                    error:
+                      code: VisitorNotFound
+                      message: visitor not found
         '429':
           description: Too Many Requests. The request is throttled.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                429-too-many-requests:
+                  summary: >-
+                    Error response when the limit on the provided secret API key
+                    requests per second has been exceeded.
+                  value:
+                    error:
+                      code: TooManyRequests
+                      message: too many requests
   /webhook:
     trace:
       summary: Dummy path to describe webhook format.
@@ -1081,6 +2336,240 @@ paths:
                   application/json:
                     schema:
                       $ref: '#/components/schemas/Webhook'
+                    examples:
+                      webhook-example:
+                        summary: Webhook example
+                        value:
+                          requestId: Px6VxbRC6WBkA39yeNH3
+                          url: https://banking.example.com/signup
+                          ip: 216.3.128.12
+                          tag:
+                            requestType: signup
+                            yourCustomId: 45321
+                          time: '2019-10-12T07:20:50.520Z'
+                          timestamp: 1554910997788
+                          ipLocation:
+                            accuracyRadius: 1
+                            city:
+                              name: Bolingbrook
+                            continent:
+                              code: NA
+                              name: North America
+                            country:
+                              code: US
+                              name: United States
+                            latitude: 41.12933
+                            longitude: -88.9954
+                            postalCode: '60547'
+                            subdivisions:
+                              - isoCode: IL
+                                name: Illinois
+                            timezone: America/Chicago
+                          linkedId: any-string
+                          visitorId: 3HNey93AkBW6CRbxV6xP
+                          visitorFound: true
+                          confidence:
+                            score: 0.97
+                          firstSeenAt:
+                            global: '2022-03-16T11:26:45.362Z'
+                            subscription: '2022-03-16T11:31:01.101Z'
+                          lastSeenAt:
+                            global: '2022-03-16T11:28:34.023Z'
+                            subscription: null
+                          browserDetails:
+                            browserName: Chrome
+                            browserFullVersion: 73.0.3683.86
+                            browserMajorVersion: '73'
+                            os: Mac OS X
+                            osVersion: 10.14.3
+                            device: Other
+                            userAgent: >-
+                              (Macintosh; Intel Mac OS X 10_14_3)
+                              Chrome/73.0.3683.86
+                          incognito: false
+                          clientReferrer: https://google.com?search=banking+services
+                          bot:
+                            result: bad
+                            type: selenium
+                          userAgent: >-
+                            (Macintosh; Intel Mac OS X 10_14_3)
+                            Chrome/73.0.3683.86
+                          rootApps:
+                            result: false
+                          emulator:
+                            result: false
+                          ipInfo:
+                            v4:
+                              address: 94.142.239.124
+                              geolocation:
+                                accuracyRadius: 20
+                                latitude: 50.05
+                                longitude: 14.4
+                                postalCode: 150 00
+                                timezone: Europe/Prague
+                                city:
+                                  name: Prague
+                                country:
+                                  code: CZ
+                                  name: Czechia
+                                continent:
+                                  code: EU
+                                  name: Europe
+                                subdivisions:
+                                  - isoCode: '10'
+                                    name: Hlavni mesto Praha
+                              asn:
+                                asn: '7922'
+                                name: COMCAST-7922
+                                network: 73.136.0.0/13
+                                type: isp
+                              datacenter:
+                                result: true
+                                name: DediPath
+                          ipBlocklist:
+                            result: false
+                            details:
+                              emailSpam: false
+                              attackSource: false
+                          tor:
+                            result: false
+                          vpn:
+                            result: false
+                            confidence: high
+                            mlScore: 0.002
+                            originTimezone: Europe/Berlin
+                            originCountry: unknown
+                            methods:
+                              timezoneMismatch: false
+                              publicVPN: false
+                              auxiliaryMobile: false
+                              osMismatch: false
+                              relay: false
+                              mlPrediction: false
+                          proxy:
+                            result: true
+                            confidence: high
+                            mlScore: 0.99
+                            details:
+                              proxyType: residential
+                              lastSeenAt: '2025-08-12T13:00:00Z'
+                          tampering:
+                            result: false
+                            anomalyScore: 0
+                            antiDetectBrowser: false
+                          clonedApp:
+                            result: false
+                          factoryReset:
+                            time: '1970-01-01T00:00:00.000Z'
+                            timestamp: 0
+                          jailbroken:
+                            result: false
+                          frida:
+                            result: false
+                          privacySettings:
+                            result: false
+                          virtualMachine:
+                            result: false
+                          rawDeviceAttributes:
+                            architecture:
+                              value: 127
+                            audio:
+                              value: 35.73832903057337
+                            canvas:
+                              value:
+                                Winding: true
+                                Geometry: 4dce9d6017c3e0c052a77252f29f2b1c
+                                Text: dd2474a56ff78c1de3e7a07070ba3b7d
+                            colorDepth:
+                              value: 30
+                            colorGamut:
+                              value: srgb
+                            contrast:
+                              value: 0
+                            cookiesEnabled:
+                              value: true
+                          highActivity:
+                            result: false
+                          locationSpoofing:
+                            result: true
+                          suspectScore:
+                            result: 0
+                          velocity:
+                            distinctIp:
+                              intervals:
+                                5m: 1
+                                1h: 1
+                                24h: 1
+                            distinctLinkedId: {}
+                            distinctCountry:
+                              intervals:
+                                5m: 1
+                                1h: 2
+                                24h: 2
+                            events:
+                              intervals:
+                                5m: 1
+                                1h: 5
+                                24h: 5
+                            ipEvents:
+                              intervals:
+                                5m: 1
+                                1h: 5
+                                24h: 5
+                            distinctIpByLinkedId:
+                              intervals:
+                                5m: 1
+                                1h: 5
+                                24h: 5
+                            distinctVisitorIdByLinkedId:
+                              intervals:
+                                5m: 1
+                                1h: 5
+                                24h: 5
+                          developerTools:
+                            result: false
+                          mitmAttack:
+                            result: false
+                          rareDevice:
+                            result: false
+                            percentileBucket: '<p95'
+                          sdk:
+                            platform: js
+                            version: 3.11.10
+                            integrations:
+                              - name: fingerprint-pro-react
+                                version: 3.11.10
+                                subintegration:
+                                  name: preact
+                                  version: 10.21.0
+                          replayed: false
+                          supplementaryIds:
+                            standard:
+                              visitorId: 3HNey93AkBW6CRbxV6xP
+                              visitorFound: true
+                              confidence:
+                                score: 0.97
+                              firstSeenAt:
+                                global: '2022-03-16T11:26:45.362Z'
+                                subscription: '2022-03-16T11:31:01.101Z'
+                              lastSeenAt:
+                                global: '2022-03-16T11:28:34.023Z'
+                                subscription: '2022-03-16T11:28:34.023Z'
+                            highRecall:
+                              visitorId: 3HNey93AkBW6CRbxV6xP
+                              visitorFound: true
+                              confidence:
+                                score: 0.97
+                              firstSeenAt:
+                                global: '2022-03-16T11:26:45.362Z'
+                                subscription: '2022-03-16T11:31:01.101Z'
+                              lastSeenAt:
+                                global: '2022-03-16T11:28:34.023Z'
+                                subscription: '2022-03-16T11:28:34.023Z'
+                          proximity:
+                            id: w1aTfd4MCvl
+                            precisionRadius: 10
+                            confidence: 0.95
               responses:
                 default:
                   description: The server doesn't validate the answer.
@@ -1249,12 +2738,12 @@ components:
           type: string
           nullable: true
           format: date-time
-          x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
+          x-ogen-time-format: 2006-01-02T15:04:05.000Z07:00
         subscription:
           type: string
           nullable: true
           format: date-time
-          x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
+          x-ogen-time-format: 2006-01-02T15:04:05.000Z07:00
     RawDeviceAttributeError:
       type: object
       additionalProperties: false
@@ -1413,6 +2902,7 @@ components:
       type: string
       enum:
         - RequestCannotBeParsed
+        - RequestReadTimeout
         - TokenRequired
         - TokenNotFound
         - SubscriptionNotActive
@@ -1429,6 +2919,7 @@ components:
         Error code:
          * `RequestCannotBeParsed` - the query parameters or JSON payload contains some errors 
                   that prevented us from parsing it (wrong type/surpassed limits).
+         * `RequestReadTimeout` - the request body could not be read before the connection timed out.
          * `TokenRequired` - `Auth-API-Key` header is missing or empty.
          * `TokenNotFound` - no Fingerprint application found for specified secret key.
          * `SubscriptionNotActive` - Fingerprint application is not active.
@@ -1514,7 +3005,7 @@ components:
         time:
           type: string
           format: date-time
-          x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
+          x-ogen-time-format: 2006-01-02T15:04:05.000Z07:00
           description: >-
             Time in UTC when the request from the JS agent was made. We
             recommend to treat requests that are older than 2 minutes as
@@ -1797,9 +3288,8 @@ components:
             users in your fraud prevention logic.
         mlPrediction:
           type: boolean
-          description: >-
-            `true` if the request came from a device running a VPN, `false`
-            otherwise.
+          description: >
+            `true` if the request came from a device running a VPN, `false` otherwise.
     VPN:
       type: object
       additionalProperties: false
@@ -1822,13 +3312,10 @@ components:
           format: double
           minimum: 0
           maximum: 1
-          description: >-
-            Machine learning–based VPN score, represented as a floating-point
-            value between 0 and 1 (inclusive), with up to three decimal places
-            of precision. A higher score means a higher confidence in the
-            positive `vpn` detection result. This Smart Signal is currently in
-            beta and only available to select customers. If you are interested,
-            please [contact our support team](https://fingerprint.com/support/).
+          description: >
+            Machine learning–based VPN score, represented as a floating-point value between 0 and 1 (inclusive),
+            with up to three decimal places of precision. A higher score means a higher confidence in the positive `vpn` detection result.
+            This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
         originTimezone:
           type: string
           description: Local timezone which is used in timezoneMismatch method.
@@ -1871,16 +3358,15 @@ components:
             - residential
             - data_center
             - unknown
-          description: >
-            Residential proxies use real user IP addresses to appear as
-            legitimate traffic, while data center proxies are public proxies
-            hosted in data centers. `unknown` is reported when a proxy is
-            detected solely by the ML model and the IP sources did not determine
-            a specific type.
+          description: |
+            Proxy type:
+             * `residential` - proxies that route through residential and telecom IP addresses to appear as legitimate traffic
+             * `data_center` - proxies which route through data centers
+             * `unknown` - reported when a proxy is detected solely by the ML model and the IP sources did not determine a specific type
         lastSeenAt:
           type: string
           format: date-time
-          x-ogen-time-format: 2006-01-02T15:00:00.000Z
+          x-ogen-time-format: 2006-01-02T15:00:00Z
           description: |
             ISO 8601 formatted timestamp in UTC with hourly resolution
             of when this IP was last seen as a proxy when available.
@@ -1911,7 +3397,8 @@ components:
             of precision. A higher score means a higher confidence in the
             positive `proxy` detection result. This Smart Signal is currently in
             beta and only available to select customers. If you are interested,
-            please [contact our support team](https://fingerprint.com/support/).
+            please [contact our support
+            team](https://fingerprint.com/support/).
     ProductProxy:
       type: object
       additionalProperties: false
@@ -1985,9 +3472,8 @@ components:
           format: double
           minimum: 0
           maximum: 1
-          description: >
-            A score that indicates the models calculated probability that an
-            event is coming from an anti detect browser.
+          description: |
+            A score that indicates the models calculated probability that an event is coming from an anti detect browser.
               * Values above `0.8` indicate that the request is an anti detect browser based on the ml model
               * Values below `0.8` indicate that the request is not an anti detect browser based on the ml model
         antiDetectBrowser:
@@ -2143,10 +3629,9 @@ components:
           minimum: 0
           maximum: 1
           description: >
-            Machine learning-based virtual machine score,  represented as a
-            floating-point value between 0 and 1 (inclusive), with up to three
-            decimal places of precision. A higher score means a higher
-            confidence in the positive `virtual_machine` detection result    
+            Machine learning-based virtual machine score, 
+            represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision.
+            A higher score means a higher confidence in the positive `virtual_machine` detection result
     ProductVirtualMachine:
       type: object
       additionalProperties: false
@@ -2191,30 +3676,26 @@ components:
       description: >
         Rare device details (present if the device is considered rare)
 
-        > This Smart Signal is currently in beta and only available to select
-        customers. If you are interested, please [contact our support
-        team](https://fingerprint.com/support/).
+        > This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
       properties:
         result:
           type: boolean
           description: >
-            `true` if the device is considered rare based on its combination of
-            hardware and software attributes. A device is classified as rare if
-            it falls within the top 99.9 percentile (lowest-frequency segment)
-            of observed traffic, or if its configuration has not been previously
-            seen (`not_seen`).
+            `true` if the device is considered rare based on its combination of hardware and software attributes.
+            A device is classified as rare if it falls within the top 99.9 percentile (lowest-frequency segment) of observed traffic,
+            or if its configuration has not been previously seen (`not_seen`).
         percentileBucket:
           type: string
           description: >
-            The rarity percentile bucket of the device, indicating how uncommon
-            the device configuration is compared to all observed devices.
+            The rarity percentile bucket of the device, indicating how uncommon the device configuration is
+            compared to all observed devices.
           enum:
-            - <p95
-            - p95-p99
-            - p99-p99.5
-            - p99.5-p99.9
-            - p99.9+
-            - not_seen
+            - '<p95'
+            - 'p95-p99'
+            - 'p99-p99.5'
+            - 'p99.5-p99.9'
+            - 'p99.9+'
+            - 'not_seen'
     ProductRareDevice:
       type: object
       additionalProperties: false
@@ -2434,6 +3915,8 @@ components:
       items:
         type: object
         additionalProperties: false
+        required:
+          - label
         properties:
           label:
             type: string
@@ -2445,12 +3928,9 @@ components:
             minimum: 0
             maximum: 1
       description: >
-        Each label returns a prediction (true or false) for a specific use case
-        (label field) based on a machine learning score. The machine learning
-        score is determined by a model trained on customer data for that use
-        case. This field is in the beta phase and only available to select
-        customers. If you are interested, please [contact our support
-        team](https://fingerprint.com/support/).
+        Each label returns a prediction (true or false) for a specific use case (label field) based on a machine learning score.
+        The machine learning score is determined by a model trained on customer data for that use case. This field is in the beta phase
+        and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
     ProductLabels:
       type: object
       additionalProperties: false
@@ -2687,9 +4167,9 @@ components:
     VisitorsGetResponse:
       type: object
       description: >-
-        Pagination-related fields `lastTimestamp` and `paginationKey` are
-        included if you use a pagination parameter like `limit` or `before` and
-        there is more data available on the next page.
+        Deprecated response shape for `GET /visitors/{visitor_id}`. The `visits`
+        array currently contains at most one item. Use `GET /events/search` for
+        multi-event history and filtering.
       additionalProperties: false
       required:
         - visitorId
@@ -2699,6 +4179,7 @@ components:
           type: string
         visits:
           type: array
+          maxItems: 1
           items:
             $ref: '#/components/schemas/Visit'
         lastTimestamp:
@@ -2711,9 +4192,8 @@ components:
         paginationKey:
           type: string
           description: >-
-            Request ID of the last visit in the current page of results. Use
-            this value in the following request as the `paginationKey` parameter
-            to get the next page of results.
+            Use this value in the following request as the `paginationKey`
+            parameter to get the next result.
     ErrorPlainResponse:
       type: object
       additionalProperties: false
@@ -2812,12 +4292,9 @@ components:
           minimum: 0
           maximum: 1
           description: >
-            Machine learning–based VPN score, represented as a floating-point
-            value between 0 and 1 (inclusive), with up to three decimal places
-            of precision. A higher score means a higher confidence in the
-            positive `vpn` detection result. This Smart Signal is currently in
-            beta and only available to select customers. If you are interested,
-            please [contact our support team](https://fingerprint.com/support/).
+            Machine learning–based VPN score, represented as a floating-point value between 0 and 1 (inclusive),
+            with up to three decimal places of precision. A higher score means a higher confidence in the positive `vpn` detection result.
+            This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
         originTimezone:
           type: string
           description: Local timezone which is used in timezoneMismatch method.
@@ -2852,7 +4329,8 @@ components:
             of precision. A higher score means a higher confidence in the
             positive `proxy` detection result. This Smart Signal is currently in
             beta and only available to select customers. If you are interested,
-            please [contact our support team](https://fingerprint.com/support/).
+            please [contact our support
+            team](https://fingerprint.com/support/).
     WebhookTampering:
       type: object
       additionalProperties: false
@@ -2893,9 +4371,8 @@ components:
           format: double
           minimum: 0
           maximum: 1
-          description: >
-            A score that indicates the models calculated probability that an
-            event is coming from an anti detect browser.
+          description: |
+            A score that indicates the models calculated probability that an event is coming from an anti detect browser.
               * Values above `0.8` indicate that the request is an anti detect browser based on the ml model
               * Values below `0.8` indicate that the request is not an anti detect browser based on the ml model
         antiDetectBrowser:
@@ -2990,10 +4467,9 @@ components:
           minimum: 0
           maximum: 1
           description: >
-            Machine learning–based virtual machine score,  represented as a
-            floating-point value between 0 and 1 (inclusive), with up to three
-            decimal places of precision. A higher score means a higher
-            confidence in the positive `virtual_machine` detection result
+            Machine learning–based virtual machine score, 
+            represented as a floating-point value between 0 and 1 (inclusive), with up to three decimal places of precision.
+            A higher score means a higher confidence in the positive `virtual_machine` detection result
     WebhookRawDeviceAttributes:
       type: object
       description: >
@@ -3140,27 +4616,23 @@ components:
         result:
           type: boolean
           description: >
-            `true` if the device is considered rare based on its combination of
-            hardware and software attributes.  A device is classified as rare if
-            it falls within the top 99.9 percentile (lowest-frequency segment)
-            of observed traffic,  or if its configuration has not been
-            previously seen (`not_seen`).
+            `true` if the device is considered rare based on its combination of hardware and software attributes. 
+            A device is classified as rare if it falls within the top 99.9 percentile (lowest-frequency segment) of observed traffic, 
+            or if its configuration has not been previously seen (`not_seen`).
 
-            > This Smart Signal is currently in beta and only available to
-            select customers. If you are interested, please [contact our support
-            team](https://fingerprint.com/support/).
+            > This Smart Signal is currently in beta and only available to select customers. If you are interested, please [contact our support team](https://fingerprint.com/support/).
         percentileBucket:
           type: string
           description: >
-            The rarity percentile bucket of the device, indicating how uncommon
-            the device configuration is compared to all observed devices.
+            The rarity percentile bucket of the device, indicating how uncommon the device configuration is
+            compared to all observed devices.
           enum:
-            - <p95
-            - p95-p99
-            - p99-p99.5
-            - p99.5-p99.9
-            - p99.9+
-            - not_seen
+            - '<p95'
+            - 'p95-p99'
+            - 'p99-p99.5'
+            - 'p99.5-p99.9'
+            - 'p99.9+'
+            - 'not_seen'
     SupplementaryID:
       type: object
       additionalProperties: false
@@ -3257,7 +4729,7 @@ components:
         time:
           type: string
           format: date-time
-          x-ogen-time-format: 2006-01-02T15:04:05.999Z07:00
+          x-ogen-time-format: 2006-01-02T15:04:05.000Z07:00
           description: >-
             Time expressed according to ISO 8601 in UTC format, when the request
             from the JS agent was made. We recommend to treat requests that are
