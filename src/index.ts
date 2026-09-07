@@ -1,8 +1,10 @@
 export * from './serverApiClient'
 export {
+  EdgeRequest,
   ErrorCode,
   ErrorResponse,
   Event,
+  EventEdge,
   EventRuleAction,
   EventUpdate,
   GetEventOptions,
@@ -11,6 +13,7 @@ export {
   SearchEventsFilter,
   SearchEventsResponse,
 } from './types'
+export { hydrateEvent } from './hydrateEvent'
 export * from './sealedResults'
 export * from './errors/unsealError'
 export * from './webhook'

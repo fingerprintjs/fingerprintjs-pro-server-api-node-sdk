@@ -2,6 +2,7 @@ import { createDecipheriv } from 'crypto'
 import { inflateRaw } from 'zlib'
 import { promisify } from 'util'
 import { Event } from './types'
+import { hydrateEvent, isEventPayload } from './hydrateEvent'
 import { UnsealAggregateError, UnsealError } from './errors/unsealError'
 import { toError } from './errors/toError'
 import { Buffer } from 'buffer'
@@ -19,21 +20,17 @@ export interface DecryptionKey {
 
 const SEALED_HEADER = Buffer.from([0x9e, 0x85, 0xdc, 0xed])
 
-function isEventResponse(data: unknown): data is Event {
-  return typeof data === 'object' && data !== null && 'event_id' in data && 'timestamp' in data
-}
-
 /**
  * @private
  * */
 export function parseEventsResponse(unsealed: string): Event {
   const json: unknown = JSON.parse(unsealed)
 
-  if (!isEventResponse(json)) {
+  if (!isEventPayload(json)) {
     throw new Error('Sealed data is not valid events response')
   }
 
-  return json
+  return hydrateEvent(json)
 }
 
 /**
