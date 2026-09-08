@@ -122,8 +122,7 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
         '504':
           description: >-
-            Gateway Timeout. Search execution exceeded the allowed timeout
-            window.
+            Gateway Timeout. Request processing exceeded the allowed timeout window.
           content:
             application/json:
               schema:
