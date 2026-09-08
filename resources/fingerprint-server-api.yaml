@@ -7,7 +7,8 @@ info:
     >
 
     > This version of Server API is marked as deprecated starting on **Jan 7th
-    2026** according to our [API Deprecation
+    2026** and will be fully defunct on **Jan 7th 2027** according to our [API
+    Deprecation
     Policy](https://dev.fingerprint.com/reference/api-deprecation-policy). If
     you still use this version, please follow our [migration
     guide](https://dev.fingerprint.com/reference/migrating-from-server-api-v3-to-v4)
