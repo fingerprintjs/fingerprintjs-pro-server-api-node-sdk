@@ -1,5 +1,17 @@
 # Fingerprint Server API Node.js SDK
 
+## 6.13.0
+
+### Minor Changes
+
+- Update Server API schema to v3.7.1:
+
+  - Require `label` on `Labels`
+  - Add `RequestReadTimeout` to `ErrorCode`
+  - Add `404`, `429`, and `504` responses to `GET /events/search` and `GET /visitors/{visitor_id}`
+  - Clarify that `reverse` on `GET /events/search` defaults to `false` (sorts newest first)
+  - Clarify that `GET /visitors/{visitor_id}` currently returns at most one item in `visits`, and deprecate its `limit`/`paginationKey`/`before` pagination parameters in favor of `GET /events/search` ([d2d900f](https://github.com/fingerprintjs/fingerprintjs-pro-server-api-node-sdk/commit/d2d900fd53749252f227868d42c4378e9b08e322))
+
 ## 6.12.0
 
 ### Minor Changes
