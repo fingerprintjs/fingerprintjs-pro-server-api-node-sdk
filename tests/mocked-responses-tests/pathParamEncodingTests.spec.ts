@@ -58,7 +58,7 @@ describe('[Mocked response] Path parameter encoding', () => {
     })
 
     it.each(['.', '..'])('does not send a request for %j', async (param) => {
-      await expect(call(param)).rejects.toThrow(new TypeError(`Invalid path parameter for ${placeholder}`))
+      await expect(call(param)).rejects.toThrow(new TypeError(`Invalid path parameter for ${placeholder}: ${param}`))
 
       expect(mockFetch).not.toHaveBeenCalled()
     })

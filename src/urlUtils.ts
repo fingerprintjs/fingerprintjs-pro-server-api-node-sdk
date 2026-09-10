@@ -44,15 +44,13 @@ function serializeQueryStringParams(params: QueryStringParameters): string {
 }
 
 /**
- * Confines a value to a single URL path segment. `.` is deliberately left unencoded, because
- * the Server API does not decode path parameters and valid event IDs contain a dot.
+ * Confines a value to a single URL path segment. `.` is deliberately left unencoded because
+ * the Server API does not decode path parameters, and valid parameter values can contain dots.
  *
  * A value of `.` or `..` is rejected: `new URL()` drops such a segment even when the dots are
  * encoded, so it cannot be expressed. See https://url.spec.whatwg.org/#double-dot-path-segment
  */
 function encodePathParam(placeholder: string, value: unknown): string {
-  const invalid = () => new TypeError(`Invalid path parameter for ${placeholder}`)
-
   // Coerce before comparing, because an untyped caller can pass something that is not a string
   // but stringifies to one. Both conversions throw on values only such a caller could pass:
   // `String` when the value has no primitive representation, `encodeURIComponent` on a lone
@@ -63,8 +61,8 @@ function encodePathParam(placeholder: string, value: unknown): string {
     // eslint-disable-next-line @typescript-eslint/no-base-to-string -- runtime validation
     param = String(value ?? '')
     encoded = encodeURIComponent(param)
-  } catch {
-    throw invalid()
+  } catch (cause) {
+    throw new TypeError(`Invalid path parameter for ${placeholder}`, { cause })
   }
 
   if (param === '') {
@@ -72,7 +70,7 @@ function encodePathParam(placeholder: string, value: unknown): string {
   }
 
   if (param === '.' || param === '..') {
-    throw invalid()
+    throw new TypeError(`Invalid path parameter for ${placeholder}: ${param}`)
   }
 
   return encoded
@@ -142,6 +140,10 @@ export function getRequestPath({
   const url = new URL(getServerApiUrl(region ?? Region.Global))
   url.pathname = formattedPath
   url.search = serializeQueryStringParams(queryStringParameters)
+
+  if (url.pathname !== `/${formattedPath}`) {
+    throw new TypeError('Invalid path: path changed during normalization')
+  }
 
   return url.toString()
 }
