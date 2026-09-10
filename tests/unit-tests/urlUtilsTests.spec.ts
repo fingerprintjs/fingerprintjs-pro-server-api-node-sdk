@@ -258,6 +258,7 @@ describe('path parameter encoding', () => {
     ['an empty string', ''],
     ['an empty String object', new String('')],
     ['null', null],
+    ['undefined', undefined]
   ])('rejects %s as missing', (_, param) => {
     expect(() => eventPath(param)).toThrow(new TypeError('Missing path parameter for event_id'))
   })
