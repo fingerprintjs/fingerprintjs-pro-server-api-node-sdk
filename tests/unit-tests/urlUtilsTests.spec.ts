@@ -211,6 +211,7 @@ describe('path parameter encoding', () => {
 
   it.each([
     ['../events', '..%2Fevents'],
+    ['../', '..%2F'],
     ['/../../events', '%2F..%2F..%2Fevents'],
     ['evil.com', 'evil.com'],
     ['//evil.com', '%2F%2Fevil.com'],
