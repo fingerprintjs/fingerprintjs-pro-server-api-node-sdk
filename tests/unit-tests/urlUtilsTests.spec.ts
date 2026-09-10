@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { Region, SearchEventsFilter } from '../../src'
 import { version } from '../../package.json'
+import type { paths } from '../../src/generatedApiTypes'
 import { getRequestPath } from '../../src/urlUtils'
 
 const visitorId = 'TaDnMBz9XCpZNuSzFUqP'
@@ -184,6 +185,16 @@ describe('getRequestPath', () => {
     }).toThrow('Missing path parameter for event_id')
   })
 
+  it('disallows normalized path segments', () => {
+    expect(() => {
+      getRequestPath({
+        path: '/visitors/../events' as keyof paths,
+        method: 'get',
+        pathParams: [],
+      })
+    }).toThrow('Invalid path: path changed during normalization')
+  })
+
   it('encodes special characters', () => {
     const actual = getRequestPath({
       path: '/events',
@@ -195,5 +206,88 @@ describe('getRequestPath', () => {
 
     const expected = `https://api.fpjs.io/v4/events?linked_id=a+b%2Bc%25d&${ii}`
     expect(actual).toEqual(expected)
+  })
+})
+
+// Encoding does not depend on which parameter is being replaced, so these run against one
+// path. That every operation routes through it is covered by the mocked-response tests.
+describe('path parameter encoding', () => {
+  const eventPath = (param: unknown) =>
+    getRequestPath({
+      path: '/events/{event_id}',
+      method: 'get',
+      pathParams: [param] as string[],
+      region: Region.Global,
+    })
+
+  it.each([
+    ['../events', '..%2Fevents'],
+    ['../', '..%2F'],
+    ['/../../events', '%2F..%2F..%2Fevents'],
+    ['evil.com', 'evil.com'],
+    ['//evil.com', '%2F%2Fevil.com'],
+    ['https://evil.com', 'https%3A%2F%2Fevil.com'],
+    ['a b#c?d', 'a%20b%23c%3Fd'],
+    ['%2e%2e', '%252e%252e'],
+    ['..%2fevents', '..%252fevents'],
+    ['..\\..', '..%5C..'],
+    ['$&', '%24%26'],
+    ['...', '...'],
+    // A placeholder in a parameter must not reach the next replacement, which would matter
+    // for a path with two placeholders.
+    ['{event_id}', '%7Bevent_id%7D'],
+    ['1626550679751.cVc5Pm', '1626550679751.cVc5Pm'],
+    // An untyped caller can pass something that is not a string but stringifies to one.
+    [new String('../events'), '..%2Fevents'],
+  ])('keeps %j inside a single path segment', (param, encoded) => {
+    expect(eventPath(param)).toEqual(`https://api.fpjs.io/v4/events/${encoded}?${ii}`)
+  })
+
+  it.each([
+    ['.', '.', 'Invalid path parameter for event_id: .'],
+    ['..', '..', 'Invalid path parameter for event_id: ..'],
+    ['a String object', new String('..'), 'Invalid path parameter for event_id: ..'],
+    ['an object with a toString', { toString: () => '..' }, 'Invalid path parameter for event_id: ..'],
+    ['an array', ['..'], 'Invalid path parameter for event_id: ..'],
+    // A lone surrogate makes `encodeURIComponent` throw a `URIError`
+    ['a lone surrogate', '\ud800', 'Invalid path parameter for event_id'],
+    // These have no primitive representation, so `String` itself throws
+    ['an object without a prototype', Object.create(null), 'Invalid path parameter for event_id'],
+    [
+      'an object whose toString throws',
+      {
+        toString: () => {
+          throw new Error('boom')
+        },
+      },
+      'Invalid path parameter for event_id',
+    ],
+  ])('rejects %s', (_, param, message) => {
+    expect(() => eventPath(param)).toThrow(new TypeError(message))
+  })
+
+  it('preserves the cause when string coercion fails', () => {
+    const cause = new Error('boom')
+    const param = {
+      toString: () => {
+        throw cause
+      },
+    }
+
+    expect(() => eventPath(param)).toThrow(
+      expect.objectContaining({
+        message: 'Invalid path parameter for event_id',
+        cause,
+      })
+    )
+  })
+
+  it.each([
+    ['an empty string', ''],
+    ['an empty String object', new String('')],
+    ['null', null],
+    ['undefined', undefined],
+  ])('rejects %s as missing', (_, param) => {
+    expect(() => eventPath(param)).toThrow(new TypeError('Missing path parameter for event_id'))
   })
 })
