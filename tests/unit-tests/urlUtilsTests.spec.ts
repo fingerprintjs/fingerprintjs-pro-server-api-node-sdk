@@ -305,10 +305,10 @@ describe('path parameter encoding', () => {
       'Invalid path parameter for request_id',
     ],
   ])('rejects %s', (_, param, message) => {
-    // Asserted separately from the message because some of these carry a `cause`, which
-    // `toThrow(new TypeError(...))` would compare too.
+    // The message is matched through `objectContaining` because some of these carry a
+    // `cause`, which `toThrow(new TypeError(...))` would compare too.
     expect(() => eventPath(param)).toThrow(TypeError)
-    expect(() => eventPath(param)).toThrow(message)
+    expect(() => eventPath(param)).toThrow(expect.objectContaining({ message }))
   })
 
   it('preserves the cause when string coercion fails', () => {
