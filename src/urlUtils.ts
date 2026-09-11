@@ -156,6 +156,12 @@ export function getRequestPath<Path extends keyof paths, Method extends keyof pa
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   method: _,
 }: GetRequestPathOptions<Path, Method>): string {
+  // `url.pathname` below is always slash-prefixed, so the normalization check needs a path
+  // that is too. Every generated path key is; this guards a caller that casts past the type.
+  if (!path.startsWith('/')) {
+    throw new TypeError(`Invalid path: ${path} does not start with a slash`)
+  }
+
   // Replace each `{placeholder}` with its path parameter. The replacement is a function so
   // that `$&` and friends in a parameter are not read as replacement patterns.
   let index = 0

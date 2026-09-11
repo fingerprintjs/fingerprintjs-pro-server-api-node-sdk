@@ -249,6 +249,17 @@ describe('getRequestPath', () => {
       })
     }).toThrow('Invalid path: path changed during normalization')
   })
+
+  it('disallows a path without a leading slash', () => {
+    expect(() => {
+      getRequestPath({
+        path: 'events/{request_id}' as '/events/{request_id}',
+        method: 'get',
+        pathParams: [requestId],
+        region: Region.Global,
+      })
+    }).toThrow('Invalid path: events/{request_id} does not start with a slash')
+  })
 })
 
 // Encoding does not depend on which parameter is being replaced, so these run against one
